@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/damas.iml" filepath="$PROJECT_DIR$/damas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" filepath="$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solutions.digamma.damas.core/solutions.digamma.damas.core.iml" filepath="$PROJECT_DIR$/solutions.digamma.damas.core/solutions.digamma.damas.core.iml" />
+    </modules>
+  </component>
+</project>
