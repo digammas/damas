@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/damas.iml" filepath="$PROJECT_DIR$/damas.iml" />
       <module fileurl="file://$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" filepath="$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/solutions.digamma.damas.core/solutions.digamma.damas.core.iml" filepath="$PROJECT_DIR$/solutions.digamma.damas.core/solutions.digamma.damas.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/solutions.digamma.damas.jcr.iml" filepath="$PROJECT_DIR$/solutions.digamma.damas.jcr/solutions.digamma.damas.jcr.iml" />
     </modules>
   </component>
 </project>

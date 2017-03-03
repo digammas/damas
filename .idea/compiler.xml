@@ -8,13 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="solutions.digamma.damas.api" />
         <module name="solutions.digamma.damas.core" />
+        <module name="solutions.digamma.damas.jcr" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="damas" target="1.5" />
       <module name="damasapi" target="1.5" />
       <module name="damasproject" target="1.5" />
       <module name="solutions.digamma.damas.api" target="1.8" />
       <module name="solutions.digamma.damas.core" target="1.5" />
+      <module name="solutions.digamma.damas.jcr" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
