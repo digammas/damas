@@ -5,7 +5,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
 import solutions.digamma.damas.jcr.model.JcrEntity;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.Namespace;
 
 import javax.jcr.NodeIterator;
@@ -41,7 +41,7 @@ public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
             }
             return comments.toArray(new Comment[0]);
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 }

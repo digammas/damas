@@ -2,81 +2,99 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca523516-3fdb-45ba-9e43-2db9e846d217" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthenticationException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthorizationException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ConflictException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CrudManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/FullManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/NotFoundException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ReadManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ResourceBusyException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/SearchManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/auth/LoginManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/auth/Token.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FileManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/JcrLoginManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SecureToken.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SessionBookkeeper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/UserSession.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrCommentReceiver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/IncompatibleNodeTypeException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCreated.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCrudManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrFullManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrModifiable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrReadManager.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Manager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/CommentManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/DocumentManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/FolderManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/IncompatibleNodeType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/JcrEntity.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Created.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Created.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/DocumentException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/DocumentException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Entity.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Entity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Modifiable.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Modifiable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Page.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Page.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/UnsupportedOperationException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/UnsupportedOperationException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/Comment.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Comment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/CommentReceiver.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentReceiver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/Document.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/File.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/Folder.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/content/Metadata.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Metadata.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/inspection/Nonnull.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nonnull.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/inspection/Nullable.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/pom.xml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/solutions.digamma.damas.core.iml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/solutions.digamma.damas.jcr.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/CompatibilityException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CompatibilityException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/IncompatiblePathException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/IncompatiblePathException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/JcrException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/JcrPath.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Path.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/content/JcrDocument.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/content/JcrFile.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/content/JcrFolder.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/InternalStateException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedDocument.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedFile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedFolder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentPayload.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Version.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/ContentPage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedDocument.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedFile.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedFolder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrExceptionMapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/BuiltInJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/JcrRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/JcrRepositoryInitializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/RepositoryInitializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/RepositoryJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/RepositoryReadyEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/UserJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/resources/META-INF/beans.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/java/solutions/digamma/damas/jcr/test/ContentTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/META-INF/beans.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/cdn/damas.cdn" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/repository.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/solutions.digamma.damas.modeshape.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/java/solutions/digamma/damas/jcr/providers/ModeShapeRepositoryProvider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/META-INF/beans.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/cdn/damas.cdn" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/repository.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/solutions.digamma.damas.utils.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/Configuration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/ConfigurationManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/ConfigurationProvider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/Configurations.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/DefaultConfigurationManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/Fallback.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/Optional.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/Logbook.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/Logged.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggedInterceptor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggerFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/text/LazyString.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/resources/META-INF/beans.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Path.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SecureToken.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/session/SecureToken.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SessionBookkeeper.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/session/SessionBookkeeper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/UserSession.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/session/UserSession.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/damas.iml" afterPath="$PROJECT_DIR$/damas.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/pom.xml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/solutions.digamma.damas.api.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentReceiver.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nonnull.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nonnull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/pom.xml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/solutions.digamma.damas.jcr.iml" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/solutions.digamma.damas.jcr.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/JcrLoginManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/JcrLoginManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrCommentReceiver.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrCommentReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrException.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCrudManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCrudManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrEntity.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrFullManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrFullManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrReadManager.java" afterPath="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrReadManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/solutions.digamma.damas.api/target/" />
     <ignored path="$PROJECT_DIR$/solutions.digamma.damas.core/target/" />
     <ignored path="$PROJECT_DIR$/solutions.digamma.damas.jcr/target/" />
+    <ignored path="$PROJECT_DIR$/solutions.digamma.damas.commons/target/" />
+    <ignored path="$PROJECT_DIR$/solutions.digamma.damas.jackrabbit/target/" />
+    <ignored path="$PROJECT_DIR$/solutions.digamma.damas.oak/target/" />
+    <ignored path="$PROJECT_DIR$/solutions.digamma.damas.modeshape/target/" />
+    <ignored path="$PROJECT_DIR$/solutions.digamma.damas.utils/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,88 +106,66 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="damas" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="File.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java">
+      <file leaf-file-name="JcrFile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+            <state relative-caret-position="610">
+              <caret line="161" column="38" lean-forward="false" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Path.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Path.java">
+      <file leaf-file-name="BuiltInJob.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/BuiltInJob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="60" column="19" lean-forward="false" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+            <state relative-caret-position="306">
+              <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Comment.java">
+      <file leaf-file-name="Namespace.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="47" column="51" lean-forward="false" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+            <state relative-caret-position="502">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthenticationException.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthenticationException.java">
+      <file leaf-file-name="JcrDocumentManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="3" column="43" lean-forward="false" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-              <folding>
-                <element signature="e#304#305#0" expanded="true" />
-                <element signature="e#334#335#0" expanded="true" />
-                <element signature="e#385#386#0" expanded="true" />
-                <element signature="e#409#410#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FileManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="5" column="60" lean-forward="false" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+            <state relative-caret-position="162">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FullManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/FullManager.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            <state relative-caret-position="360">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JcrEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrEntity.java">
+      <file leaf-file-name="ContentTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/java/solutions/digamma/damas/jcr/test/ContentTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Nullable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            <state relative-caret-position="541">
+              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -177,27 +173,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SessionBookkeeper.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SessionBookkeeper.java">
+      <file leaf-file-name="JcrExceptionMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrExceptionMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-              <folding>
-                <element signature="e#448#449#0" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="540">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSession.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/UserSession.java">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="51" column="45" lean-forward="false" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="337">
+              <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModeShapeRepositoryProvider.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/java/solutions/digamma/damas/jcr/providers/ModeShapeRepositoryProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -213,6 +224,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>severe</find>
+      <find>JCR repository home URL is set to</find>
+      <find>Error acquiring JCR repository from factory.</find>
+      <find>dms:File</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -224,57 +243,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/fail/JcrException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/JcrSession.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/UserSession.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/JcrLoginManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/Bookkeeper.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/SesssionBookkeeper.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/inspection/ReadManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/ReadManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/CrudManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/SearchManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/Manager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/FullManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/SecureToken.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/auth/SessionBookkeeper.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/fail/ConflictException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/fail/NotFoundException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/fail/ResourceBusyException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/api/UnsupportedOperationException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.core/src/main/java/solutions/digamma/damas/core/fail/IncompatiblePathException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/IncompatiblePathException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/JcrLoginManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrModifiable.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CrudManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ReadManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthorizationException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/JcrManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/SearchManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrFullManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCrudManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Metadata.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.commons/src/main/java/solutions/digamma/damas/config/Configurations.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.commons/src/main/java/solutions/digamma/damas/config/DefaultConfigurationManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.commons/src/main/java/solutions/digamma/damas/config/ConfigurationManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/damas/config/DefaultConfigurationManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.commons/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/DefaultConfigurationManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/Optional.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.oak/pom.xml" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedFile.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedFile.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Version.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentReceiver.java" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nonnull.java" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedDocument.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedFolder.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedFolder.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedDocument.java" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrReadManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/ContentPage.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/repository.json" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/cdn/damas.cdn" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggerFactory.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/resources/META-INF/beans.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/META-INF/beans.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/ConfigurationProvider.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/Logbook.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/java/solutions/digamma/damas/jcr/providers/ModeShapeRepositoryProvider.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.modeshape/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/RepositoryInitializer.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggedInterceptor.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/repository.json" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/cdn/damas.cdn" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/BuiltInJob.java" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/UserSession.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Path.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthenticationException.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FileManager.java" />
-        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SessionBookkeeper.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/java/solutions/digamma/damas/jcr/test/ContentTest.java" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrExceptionMapper.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -286,9 +305,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="48" />
-    <option name="width" value="3200" />
-    <option name="height" value="1752" />
+    <option name="y" value="24" />
+    <option name="width" value="2560" />
+    <option name="height" value="1416" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -594,27 +613,204 @@
         </expanded-state>
         <selected-state>
           <State>
-            <id>Since15</id>
+            <id>NullableProblems</id>
           </State>
         </selected-state>
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
-      <showMembers PackagesPane="false" />
+      <showMembers PackagesPane="false" ProjectPane="false" />
       <showModules />
       <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
       <autoscrollToSource />
       <autoscrollFromSource />
-      <sortByType />
+      <sortByType ProjectPane="true" />
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.modeshape" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.modeshape" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.modeshape" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.modeshape" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="META-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.modeshape" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="providers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.jcr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.jcr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.jcr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="damas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solutions.digamma.damas.jcr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -661,349 +857,37 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jcr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="inspection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solutions.digamma.damas.api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="damas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.33333334" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.side.proportion" value="0.21149425" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/solutions.digamma.damas.oak" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="solutions.digamma.damas.jcr" />
       <recent name="solutions.digamma.damas.api" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="solutions.digamma.damas.jcr.content" />
-      <recent name="solutions.digamma.damas.core" />
+      <recent name="solutions.digamma.damas.config" />
+      <recent name="solutions.digamma.damas.jcr.init" />
+      <recent name="solutions.digamma.damas.jcr" />
+      <recent name="solutions.digamma.damas.jackrabbit.test" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java" />
+      <recent name="$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources" />
+      <recent name="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/resources" />
+      <recent name="$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources" />
+      <recent name="$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java" />
+      <recent name="$PROJECT_DIR$/solutions.digamma.damas.commons/src/test" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Maven.Rebuild all">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -1089,6 +973,9 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType" factoryName="Compound Run Configuration">
+      <method />
+    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -1172,6 +1059,28 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -1208,6 +1117,75 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="false" name="Common module test" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="solutions.digamma.damas.jcr.test.ContentTest" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="solutions.digamma.damas.jcr" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Rebuild all" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
+    <configuration default="false" name="Run tests" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="test" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Application.Common module test" />
+      <item index="1" class="java.lang.String" itemvalue="Maven.Rebuild all" />
+      <item index="2" class="java.lang.String" itemvalue="Maven.Run tests" />
+    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -1225,39 +1203,48 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="48" width="3200" height="1752" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="24" width="2560" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.49871466" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41969696" sideWeight="0.48369133" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.59028834" sideWeight="0.50676215" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4370258" sideWeight="0.5584726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31073266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37259924" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27079934" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980111" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.59028834" sideWeight="0.49323785" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36197296" sideWeight="0.6820941" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36212122" sideWeight="0.49681783" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31638846" sideWeight="0.491249" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21479714" sideWeight="0.31790593" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980111" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39924243" sideWeight="0.65433574" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980111" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1266,455 +1253,456 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/solutions.digamma.damas.commons/src/main/java/solutions/digamma/damas/config/ConfigurationProvider.java</url>
+          <line>24</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="22" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="MavenRunConfiguration">
+        <watch expression="new File(&quot;.&quot;).getAbsolutePath()" language="JAVA" custom="java.io.File" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Page.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="20" column="34" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/auth/LoginManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/auth/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CompatibilityException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/NotFoundException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" column="56" lean-forward="false" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/UnsupportedOperationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="16" column="53" lean-forward="false" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
-          <folding>
-            <element signature="e#287#288#0" expanded="false" />
-            <element signature="e#317#318#0" expanded="false" />
-            <element signature="e#374#375#0" expanded="false" />
-            <element signature="e#398#399#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/IncompatibleNodeTypeException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ResourceBusyException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" column="60" lean-forward="false" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrModifiable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CrudManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="910">
-          <caret line="47" column="37" lean-forward="false" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ReadManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SecureToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCreated.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/SearchManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Metadata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrCrudManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrFullManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="9" column="50" lean-forward="false" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" column="33" lean-forward="false" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="29" column="62" lean-forward="false" selection-start-line="29" selection-start-column="62" selection-end-line="29" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="33" column="5" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nonnull.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="40" lean-forward="false" selection-start-line="0" selection-start-column="40" selection-end-line="0" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrCommentReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="23" column="17" lean-forward="false" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="59" column="52" lean-forward="true" selection-start-line="59" selection-start-column="52" selection-end-line="59" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrReadManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="40" column="46" lean-forward="false" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/jcr/jcr/2.0/jcr-2.0.jar!/javax/jcr/Item.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="28" column="9" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="81" column="36" lean-forward="false" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/ConflictException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#259#260#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/IncompatiblePathException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-          <folding>
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#371#372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthorizationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/JcrLoginManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/UserSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="51" column="45" lean-forward="false" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="47" column="51" lean-forward="false" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Path.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="60" column="19" lean-forward="false" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/AuthenticationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="3" column="43" lean-forward="false" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
-          <folding>
-            <element signature="e#304#305#0" expanded="true" />
-            <element signature="e#334#335#0" expanded="true" />
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#409#410#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FileManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="5" column="60" lean-forward="false" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/FullManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+        <state relative-caret-position="180">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/inspection/Nullable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        <state relative-caret-position="36">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/CommentReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Version.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/FolderManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DetailedFolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedFolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDetailedDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#659#660#0" expanded="false" />
+            <element signature="e#696#697#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Document.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="63" lean-forward="false" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/auth/SessionBookkeeper.java">
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+        <state relative-caret-position="315">
+          <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
           <folding>
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/Folder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="24" column="27" lean-forward="false" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1156#1157#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/Logged.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/CrudManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" column="37" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="24" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.api/src/main/java/solutions/digamma/damas/content/DocumentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/content/ContentPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/PathProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrPathProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/ContentPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrComment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/cdn/damas.cdn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/repository/repository.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/nio/file/Files.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="831">
+          <caret line="2979" column="23" lean-forward="false" selection-start-line="2979" selection-start-column="23" selection-end-line="2979" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/config/ConfigurationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="53" column="36" lean-forward="true" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/resources/META-INF/beans.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="49" lean-forward="false" selection-start-line="0" selection-start-column="49" selection-end-line="0" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/resources/META-INF/beans.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="47" lean-forward="false" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggerFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/Logbook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/RepositoryInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/JcrRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/JcrRepositoryInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/modeshape/modeshape-jcr/5.1.0.Final/modeshape-jcr-5.1.0.Final.jar!/org/modeshape/jcr/value/basic/NameValueFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/src/main/java/solutions/digamma/damas/logging/LoggedInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1009">
+          <caret line="89" column="14" lean-forward="true" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/repository.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="43" lean-forward="false" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="45" column="56" lean-forward="true" selection-start-line="45" selection-start-column="56" selection-end-line="45" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/resources/repository/cdn/damas.cdn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="46" lean-forward="false" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/model/JcrBaseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFolderManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/repo/BuiltInJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="161" column="38" lean-forward="false" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/Namespace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/content/JcrDocumentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.utils/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.modeshape/src/main/java/solutions/digamma/damas/jcr/providers/ModeShapeRepositoryProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/test/java/solutions/digamma/damas/jcr/test/ContentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solutions.digamma.damas.jcr/src/main/java/solutions/digamma/damas/jcr/fail/JcrExceptionMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1770,11 +1758,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>damas</last-edited>
+          <last-edited>solutions.digamma.damas.modeshape</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.33333334" />
+                <option value="0.21149425" />
                 <option value="0.6" />
               </list>
             </option>

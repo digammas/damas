@@ -10,7 +10,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.fail.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
 
 /**
  * Generic entity, implemented as a JCR node.
@@ -29,11 +29,11 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         checkCompatibility();
     }
 
-    public @Nonnull Session getSession() throws JcrException {
+    public @Nonnull Session getSession() throws DocumentException {
         try {
             return this.node.getSession();
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -49,7 +49,7 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
     protected void checkTypeCompatibility(String typeName)
         throws CompatibilityException {
         try {
-            if (!this.node.isNodeType(NodeType.NT_FOLDER)) {
+            if (!this.node.isNodeType(typeName)) {
                 String message = String.format(
                         "Node is not of %s type.", typeName);
                 throw new IncompatibleNodeTypeException(message);

@@ -1,9 +1,20 @@
 package solutions.digamma.damas.content;
 
+import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.inspection.Nonnull;
+
 /**
  * Document object.
  *
  * @author Ahmad Shahwan
  */
 public interface Document extends File {
+
+    /**
+     * Expand document to a detailed document.
+     *
+     * @return
+     */
+    @Override
+    @Nonnull DetailedDocument expand() throws DocumentException;
 }

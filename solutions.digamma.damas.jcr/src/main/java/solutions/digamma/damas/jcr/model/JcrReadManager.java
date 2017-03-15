@@ -5,10 +5,12 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.ReadManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
-import solutions.digamma.damas.jcr.auth.UserSession;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.logging.Logged;
 
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 
 /**
  * Abstract read manager.
@@ -18,30 +20,15 @@ import javax.jcr.RepositoryException;
 abstract public class JcrReadManager<T extends Entity>
         extends JcrManager implements ReadManager<T> {
 
+    @Logged
     @Override
     public T retrieve(@Nonnull Token token, @Nonnull String id)
             throws DocumentException {
-        this.logger.info(String.format(
-                "%s: retrieve object with ID %s.",
-                this.getClass().getName(),
-                id)
-        );
+        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
-            return this.retrieve(session, id);
+            return this.retrieve(session.toJcrSession(), id);
         } catch (RepositoryException e) {
-            this.logger.severe(String.format(
-                    "%s: %s",
-                    this.getClass().getName(),
-                    e.getMessage())
-            );
-            throw JcrException.wrap(e);
-        } catch (DocumentException e) {
-            this.logger.severe(String.format(
-                    "%s: %s",
-                    this.getClass().getName(),
-                    e.getMessage())
-            );
-            throw e;
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -54,6 +41,6 @@ abstract public class JcrReadManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract protected T retrieve(@Nonnull UserSession session, @Nonnull String id)
+    abstract protected T retrieve(@Nonnull Session session, @Nonnull String id)
             throws RepositoryException, DocumentException;
 }

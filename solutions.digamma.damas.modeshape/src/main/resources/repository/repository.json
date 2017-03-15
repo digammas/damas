@@ -1,0 +1,30 @@
+{
+  "storage": {
+    "persistence": {
+      "type": "file",
+      "path": "repository/storage"
+    },
+    "binaryStorage": {
+      "minimumBinarySizeInBytes": 4096,
+      "minimumStringSize": 4096,
+      "type": "file"
+    }
+  },
+  "indexProviders": {
+    "lucene": {
+      "classname": "lucene",
+      "directory": "repository/index"
+    }
+  },
+  "indexes": {
+  },
+  "textExtraction": {
+    "extractors": {
+      "tikaExtractor": {
+        "name": "Tika content-based extractor",
+        "classname": "tika"
+      }
+    }
+  },
+  "node-types" : ["repository/cnd/damas.cnd"]
+}

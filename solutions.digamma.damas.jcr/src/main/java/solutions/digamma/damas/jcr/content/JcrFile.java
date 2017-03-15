@@ -9,8 +9,7 @@ import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.fail.IncompatiblePathException;
-import solutions.digamma.damas.jcr.fail.JcrException;
-import solutions.digamma.damas.jcr.Path;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 import solutions.digamma.damas.jcr.model.JcrCreated;
@@ -18,6 +17,7 @@ import solutions.digamma.damas.jcr.model.JcrModifiable;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+import java.net.URI;
 
 /**
  * JCR-based implementation of file abstract type.
@@ -25,7 +25,7 @@ import javax.jcr.RepositoryException;
  * @author Ahmad Shahwan
  */
 public abstract class JcrFile extends JcrBaseEntity
-        implements File, JcrCreated, JcrModifiable, JcrCommentReceiver {
+        implements File {
 
     /**
      * Content folder JCR path.
@@ -55,23 +55,24 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public @Nonnull String getName() throws JcrException {
+    public @Nonnull String getName() throws DocumentException {
         try {
             return this.node.getName();
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
     @Override
     public void setName(@Nonnull String value) throws DocumentException {
         try {
-            String destination = new Path(this.node.getParent().getPath())
-                    .append(value)
-                    .toString();
+            String destination = URI
+                    .create(this.node.getParent().getPath())
+                    .resolve(value)
+                    .getPath();
             this.move(destination);
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -81,7 +82,7 @@ public abstract class JcrFile extends JcrBaseEntity
         try {
             parent = this.node.getParent();
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
         if (parent == null) {
             return NO_PARENT;
@@ -90,26 +91,29 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setParentId(@Nonnull Folder value) throws DocumentException {
+    public void setParent(@Nonnull Folder value) throws DocumentException {
         try {
-            if (value.getPath() == null) {
-                throw new UnsupportedOperationException("Parent path is null.");
+            String id = value.getId();
+            if (id == null) {
+                throw new UnsupportedOperationException("Parent ID is null.");
             }
-            String destination = new Path(value.getPath())
-                    .append(this.node.getName())
-                    .toString();
+            String path = this.getSession().getNodeByIdentifier(id).getPath();
+            String destination = URI
+                    .create(path)
+                    .resolve(this.node.getName())
+                    .getPath();
             this.move(destination);
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
     @Override
-    public String getParentId() throws JcrException {
+    public String getParentId() throws DocumentException {
         try {
             return this.node.getParent().getIdentifier();
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -118,39 +122,21 @@ public abstract class JcrFile extends JcrBaseEntity
         try {
             String path = this.getSession().getNodeByIdentifier(value)
                     .getPath();
-            String destination = new Path(path)
-                    .append(this.node.getName())
-                    .toString();
+            String destination = URI
+                .create(path)
+                .resolve(this.node.getName())
+                .getPath();
             this.move(destination);
         } catch (RepositoryException e) {
-            throw new JcrException(e);
+            throw JcrExceptionMapper.map(e);
         }
-    }
-
-    @Override
-    public @Nonnull String getPath() throws DocumentException {
-        try {
-            return new Path(this.node.getPath()).trim(CONTENT_ROOT).toString();
-        } catch (RepositoryException e) {
-            throw new JcrException(e);
-        }
-    }
-
-    @Override
-    public @Nullable Metadata getMetadata() throws DocumentException {
-        return null;
-    }
-
-    @Override
-    public void setMetadata(@Nullable Metadata metadata) throws DocumentException {
-
     }
 
     public void remove() throws DocumentException {
         try {
             this.getNode().remove();
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -176,7 +162,7 @@ public abstract class JcrFile extends JcrBaseEntity
             node.addMixin(Namespace.FILE);
             return node;
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 }

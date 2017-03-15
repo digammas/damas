@@ -1,0 +1,32 @@
+{
+  "storage": {
+    "persistence": {
+      "type": "file",
+      "path": "repository/storage"
+    }
+  },
+  "indexProviders": {
+    "lucene": {
+      "classname": "lucene",
+      "directory": "repository/index"
+    }
+  },
+  "indexes": {
+  },
+  "textExtraction": {
+    "extractors": {
+      "tikaExtractor": {
+        "name": "Tika content-based extractor",
+        "classname": "tika"
+      }
+    }
+  },
+  "security" : {
+    "anonymous" : {
+      "roles" : ["readonly","readwrite","admin"],
+      "username" : "<anonymous>",
+      "useOnFailedLogin" : true
+    }
+  },
+  "node-types" : ["repository/cdn/damas.cdn"]
+}

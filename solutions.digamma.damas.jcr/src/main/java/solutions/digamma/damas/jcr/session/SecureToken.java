@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.auth;
+package solutions.digamma.damas.jcr.session;
 
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
@@ -34,4 +34,10 @@ public class SecureToken implements Token {
         return new BigInteger(132, random).toString(64);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return
+            other instanceof SecureToken &&
+            ((SecureToken) other).token.equals(this.token);
+    }
 }

@@ -7,10 +7,12 @@ import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.auth.UserSession;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.logging.Logged;
 
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 
 /**
  * JCR full manager.
@@ -20,61 +22,46 @@ import javax.jcr.RepositoryException;
 abstract public class JcrFullManager<T extends Entity>
     extends JcrCrudManager<T> implements FullManager<T> {
 
+
+    /**
+     * Default result page size.
+     */
+    public static final int DEFAULT_PAGE_SIZE = 30;
+
+    /**
+     * The size of returned result page when no size is specified.
+     *
+     * @return
+     */
+    protected int getDefaultPageSize() {
+        return DEFAULT_PAGE_SIZE;
+    }
+
     @Override
     public Page<T> find(@Nonnull Token token) throws DocumentException {
-        try (UserSession session = getSession(token).open()) {
-            return this.find(session);
-        } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
-        }
+        return this.find(token, 0, this.getDefaultPageSize(), null);
     }
 
     @Override
     public Page<T> find(
             @Nonnull Token token, int offset, int size)
             throws DocumentException {
-        try (UserSession session = getSession(token).open()) {
-            return this.find(session, offset, size);
-        } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
-        }
+        return this.find(token, offset, size, null);
     }
 
+    @Logged
     @Override
     public Page<T> find(
             @Nonnull Token token, int offset, int size, @Nullable Object query)
             throws DocumentException {
+        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
-            return this.find(session, offset, size, query);
+            return this.find(
+                session.toJcrSession(), offset, size, query);
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
-
-    /**
-     * Perform all-record retrieval.
-     *
-     * @param session
-     * @return
-     * @throws RepositoryException
-     * @throws DocumentException
-     */
-    abstract public Page<T> find(@Nonnull UserSession session)
-        throws RepositoryException, DocumentException;
-
-    /**
-     * Perform search.
-     *
-     * @param session
-     * @param offset
-     * @param size
-     * @return
-     * @throws RepositoryException
-     * @throws DocumentException
-     */
-    abstract public Page<T> find(
-            @Nonnull UserSession session, int offset, int size)
-            throws RepositoryException, DocumentException;
 
     /**
      * Perform search.
@@ -87,8 +74,8 @@ abstract public class JcrFullManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract public Page<T> find(
-            @Nonnull UserSession session,
+    abstract protected Page<T> find(
+            @Nonnull Session session,
             int offset,
             int size,
             @Nullable Object query)

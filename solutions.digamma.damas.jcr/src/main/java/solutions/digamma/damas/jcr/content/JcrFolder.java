@@ -1,9 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.content.DetailedFolder;
+import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.CompatibilityException;
+import solutions.digamma.damas.jcr.Namespace;
 
 import javax.jcr.Node;
 import javax.jcr.nodetype.NodeType;
@@ -14,6 +17,8 @@ import javax.jcr.nodetype.NodeType;
  * @author Ahmad Shahwan
  */
 public class JcrFolder extends JcrFile implements Folder {
+
+    private long contentDepth = 0;
 
     /**
      * Constructor.
@@ -40,6 +45,26 @@ public class JcrFolder extends JcrFile implements Folder {
     @Override
     protected void checkCompatibility() throws CompatibilityException {
         super.checkCompatibility();
-        this.checkTypeCompatibility(NodeType.NT_FOLDER);
+        this.checkTypeCompatibility(Namespace.FOLDER);
+    }
+
+    @Override
+    public @Nonnull DetailedFolder expand() throws DocumentException {
+        return new JcrDetailedFolder(this.node);
+    }
+
+    @Override
+    public void showContent(long depth) {
+        this.contentDepth = depth;
+    }
+
+    @Override
+    public Document @Nonnull [] getDocuments() {
+        return null;
+    }
+
+    @Override
+    public Folder @Nonnull [] getFolders() {
+        return null;
     }
 }

@@ -28,13 +28,23 @@ public class JcrException extends DocumentException {
     }
 
     @Nonnull public static DocumentException wrap(
-            @Nonnull RepositoryException e) {
+            @Nonnull Exception e) {
+        if (e instanceof DocumentException) {
+            return wrap((DocumentException) e);
+        }
+        if (e instanceof RepositoryException) {
+            return wrap((RepositoryException) e);
+        }
         return new JcrException(e);
     }
 
     @Nonnull public static DocumentException wrap(
-            @Nonnull String message,
+            @Nonnull DocumentException e) {
+        return e;
+    }
+
+    @Nonnull public static DocumentException wrap(
             @Nonnull RepositoryException e) {
-        return new JcrException(message, e);
+        return new JcrException(e);
     }
 }

@@ -1,9 +1,7 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.Created;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.Modifiable;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
 
@@ -12,7 +10,7 @@ import solutions.digamma.damas.inspection.Nullable;
  *
  * @author Ahmad Shahwan
  */
-public interface File extends Entity, CommentReceiver, Created, Modifiable {
+public interface File extends Entity {
 
     /**
      * A value returned by {@code getParent()} when the file is root.
@@ -29,8 +27,7 @@ public interface File extends Entity, CommentReceiver, Created, Modifiable {
      *
      * @return
      */
-    @Nullable
-    String getName() throws DocumentException;
+    @Nullable String getName() throws DocumentException;
 
     /**
      * Set file's name.
@@ -44,15 +41,14 @@ public interface File extends Entity, CommentReceiver, Created, Modifiable {
      *
      * @return
      */
-    @Nullable
-    Folder getParent() throws DocumentException;
+    @Nullable Folder getParent() throws DocumentException;
 
     /**
      * Set file's parent folder.
      *
      * @param value
      */
-    void setParentId(@Nonnull Folder value) throws DocumentException;
+    void setParent(@Nonnull Folder value) throws DocumentException;
 
     /**
      * Parent ID.
@@ -69,34 +65,12 @@ public interface File extends Entity, CommentReceiver, Created, Modifiable {
     void setParentId(String value) throws DocumentException;
 
     /**
-     * Parent path.
-     * A path is composed of node names, starting from the root node represented
-     * as an empty string, down to the current node. Names are separated by
-     * forward slashes.
-     *
-     * @return
-     */
-    @Nullable
-    String getPath() throws DocumentException;
-
-    /**
-     * File's metadata.
+     * Expand file into its detailed counterpart.
      *
      * @return
      * @throws DocumentException
      */
-    @Nullable
-    Metadata getMetadata() throws DocumentException;
-
-    /**
-     * Update file's metadata. If value is null, delete metadata. Only present
-     * properties of metadata will be updated. Absent properties remain
-     * unchanged.
-     *
-     * @param metadata
-     * @throws DocumentException
-     */
-    void setMetadata(@Nullable Metadata metadata) throws DocumentException;
+    @Nonnull DetailedFile expand() throws DocumentException;
 
     /**
      * Update file with file information.
@@ -110,9 +84,6 @@ public interface File extends Entity, CommentReceiver, Created, Modifiable {
         }
         if (other.getParentId() != null) {
             this.setParentId(other.getParentId());
-        }
-        if (other.getMetadata() != null) {
-            this.setMetadata(other.getMetadata());
         }
     }
 

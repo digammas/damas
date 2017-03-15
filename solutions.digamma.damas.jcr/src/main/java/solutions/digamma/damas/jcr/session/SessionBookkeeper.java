@@ -1,17 +1,24 @@
-package solutions.digamma.damas.jcr.auth;
+package solutions.digamma.damas.jcr.session;
 
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.ConflictException;
 import solutions.digamma.damas.NotFoundException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * @author Ahmad Shahwan
  */
+@Singleton
 public class SessionBookkeeper {
+
+    @Inject
+    private Logger logger;
 
     private final Map<SecureToken, UserSession> sessions;
 
@@ -28,16 +35,21 @@ public class SessionBookkeeper {
      * @param session
      * @throws ConflictException
      */
-    void register(Token token, UserSession session)
+    public void register(Token token, UserSession session)
             throws ConflictException, CompatibilityException {
         if (!(token instanceof SecureToken)) {
+            this.logger.warning("Unrecognizable token.");
             throw new CompatibilityException("Incompatible token.");
         }
         synchronized (this.sessions) {
             if (this.sessions.containsKey(token)) {
+                this.logger.warning(() -> String.format(
+                    "Token %s already exists.", token));
                 throw new ConflictException("Token already exists.");
             }
             this.sessions.put((SecureToken) token, session);
+            this.logger.info(() -> String.format(
+                "Token %s successfully stored.", token));
         }
     }
 
@@ -48,16 +60,21 @@ public class SessionBookkeeper {
      * @param token
      * @throws NotFoundException
      */
-    void unregister(Token token)
+    public void unregister(Token token)
             throws NotFoundException, CompatibilityException {
         if (!(token instanceof SecureToken)) {
+            this.logger.warning("Unrecognizable token.");
             throw new CompatibilityException("Unrecognized token.");
         }
         synchronized (this.sessions) {
             if (!this.sessions.containsKey(token)) {
+                this.logger.warning(() -> String.format(
+                        "Token %s did not exist.", token));
                 throw new NotFoundException("No session for the given token.");
             }
             this.sessions.remove(token);
+            this.logger.info(() -> String.format(
+                "Token %s successfully forgotten.", token));
         }
     }
 
@@ -73,6 +90,8 @@ public class SessionBookkeeper {
     public UserSession lookup(Token token) throws NotFoundException {
         UserSession session = this.sessions.get(token);
         if (session == null) {
+            this.logger.info(() -> String.format(
+                "Token not found %s.", token));
             throw new NotFoundException("No session for the given token.");
         }
         return session;

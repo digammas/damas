@@ -25,6 +25,10 @@ public interface Namespace {
 
     String RANK = prefix("Rank");
 
+    String DOCUMENT = prefix("Document");
+
+    String FOLDER = prefix("Folder");
+
     /**
      * Prefix name with namespace.
      *

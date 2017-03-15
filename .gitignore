@@ -22,3 +22,6 @@ hs_err_pid*
 
 # output files
 target/
+
+# Dependancies are expressed in POMs
+.idea/libraries/*

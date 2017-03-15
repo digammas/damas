@@ -7,10 +7,58 @@
     <groupId>solutions.digamma</groupId>
     <artifactId>damas-project</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${damas.verson}</version>
+
+    <properties>
+        <damas.verson>1.0.0.Alpha</damas.verson>
+    </properties>
+
     <modules>
         <module>solutions.digamma.damas.api</module>
         <module>solutions.digamma.damas.jcr</module>
+        <module>solutions.digamma.damas.utils</module>
+        <module>solutions.digamma.damas.modeshape</module>
     </modules>
+
+    <!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>2.0-PFD</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.api</artifactId>
+                <version>${damas.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.commons</artifactId>
+                <version>${damas.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.utils</artifactId>
+                <version>${damas.verson}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

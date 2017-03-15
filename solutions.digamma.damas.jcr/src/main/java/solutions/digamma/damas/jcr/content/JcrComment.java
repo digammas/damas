@@ -9,7 +9,7 @@ import solutions.digamma.damas.jcr.model.JcrCreated;
 import solutions.digamma.damas.jcr.model.JcrModifiable;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.Namespace;
 
 import javax.jcr.Node;
@@ -47,7 +47,7 @@ public class JcrComment extends JcrBaseEntity
         try {
             return this.getNode().getParent().getIdentifier();
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 

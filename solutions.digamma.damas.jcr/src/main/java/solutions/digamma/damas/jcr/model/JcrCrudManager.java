@@ -5,10 +5,12 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
-import solutions.digamma.damas.jcr.auth.UserSession;
-import solutions.digamma.damas.jcr.fail.JcrException;
+import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.logging.Logged;
 
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 
 /**
  * JCR CRUD manager.
@@ -18,33 +20,39 @@ import javax.jcr.RepositoryException;
 abstract public class JcrCrudManager<T extends Entity>
         extends JcrReadManager<T> implements CrudManager<T> {
 
+    @Logged
     @Override
     public T create(@Nonnull Token token, @Nonnull T entity)
             throws DocumentException {
+        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
-            return this.create(session, entity);
+            return this.create(session.toJcrSession(), entity);
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
+    @Logged
     @Override
     public T update(@Nonnull Token token, @Nonnull String id, @Nonnull T entity)
             throws DocumentException {
+        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
-            return this.update(session, id, entity);
+            return this.update(session.toJcrSession(), id, entity);
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
+    @Logged
     @Override
     public void delete(@Nonnull Token token, @Nonnull String id)
             throws DocumentException {
+        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
-            this.delete(session, id);
+            this.delete(session.toJcrSession(), id);
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrExceptionMapper.map(e);
         }
     }
 
@@ -57,8 +65,8 @@ abstract public class JcrCrudManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract public T create(
-            @Nonnull UserSession session, @Nonnull T entity)
+    abstract protected T create(
+            @Nonnull Session session, @Nonnull T entity)
             throws RepositoryException, DocumentException;
 
     /**
@@ -71,8 +79,8 @@ abstract public class JcrCrudManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract public T update(
-            @Nonnull UserSession session,
+    abstract protected T update(
+            @Nonnull Session session,
             @Nonnull String id,
             @Nonnull T entity)
             throws RepositoryException, DocumentException;
@@ -85,8 +93,8 @@ abstract public class JcrCrudManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract public void delete(
-            @Nonnull UserSession session, @Nonnull String id)
+    abstract protected void delete(
+            @Nonnull Session session, @Nonnull String id)
             throws RepositoryException, DocumentException;
 
 }

@@ -18,6 +18,5 @@ public interface CommentReceiver extends Entity {
      * @return
      * @throws DocumentException
      */
-    @Nonnull
-    Comment[] getComments() throws DocumentException;
+    @Nonnull Comment[] getComments() throws DocumentException;
 }
