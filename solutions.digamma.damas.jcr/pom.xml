@@ -34,6 +34,8 @@
             <artifactId>cdi-api</artifactId>
         </dependency>
 
+
+        <!-- Test dependencies -->
         <!-- https://mvnrepository.com/artifact/org.jboss.weld.se/weld-se-shaded -->
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
