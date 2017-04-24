@@ -9,7 +9,7 @@ import solutions.digamma.damas.inspection.Nonnull;
  *
  * @author Ahmad Shahwan
  */
-public interface CrudManager<T extends Entity> extends ReadManager<T> {
+public interface CrudManager<T extends Entity> extends EntityManager<T> {
 
     /**
      * Create a new entity.

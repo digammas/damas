@@ -4,13 +4,13 @@ import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
 
 /**
- * Read entity manager.
- * Basic manager that provides, if not coupled with other interfaces, a readonly
+ * Entity manager.
+ * Basic manager that, unless coupled with other interfaces, provides a readonly
  * access.
  *
  * @author Ahmad Shahwan
  */
-public interface ReadManager<T extends Entity> {
+public interface EntityManager<T extends Entity> {
 
     /**
      * Retrieve an existing entity.

@@ -20,7 +20,7 @@ public class SessionBookkeeper {
     @Inject
     private Logger logger;
 
-    private final Map<SecureToken, UserSession> sessions;
+    private final Map<String, UserSession> sessions;
 
     public SessionBookkeeper() {
         this.sessions = new HashMap<>();
@@ -47,7 +47,7 @@ public class SessionBookkeeper {
                     "Token %s already exists.", token));
                 throw new ConflictException("Token already exists.");
             }
-            this.sessions.put((SecureToken) token, session);
+            this.sessions.put(token.toString(), session);
             this.logger.info(() -> String.format(
                 "Token %s successfully stored.", token));
         }
@@ -62,17 +62,13 @@ public class SessionBookkeeper {
      */
     public void unregister(Token token)
             throws NotFoundException, CompatibilityException {
-        if (!(token instanceof SecureToken)) {
-            this.logger.warning("Unrecognizable token.");
-            throw new CompatibilityException("Unrecognized token.");
-        }
         synchronized (this.sessions) {
-            if (!this.sessions.containsKey(token)) {
+            if (!this.sessions.containsKey(token.toString())) {
                 this.logger.warning(() -> String.format(
                         "Token %s did not exist.", token));
                 throw new NotFoundException("No session for the given token.");
             }
-            this.sessions.remove(token);
+            this.sessions.remove(token.toString());
             this.logger.info(() -> String.format(
                 "Token %s successfully forgotten.", token));
         }
@@ -88,7 +84,7 @@ public class SessionBookkeeper {
      * @throws NotFoundException
      */
     public UserSession lookup(Token token) throws NotFoundException {
-        UserSession session = this.sessions.get(token);
+        UserSession session = this.sessions.get(token.toString());
         if (session == null) {
             this.logger.info(() -> String.format(
                 "Token not found %s.", token));

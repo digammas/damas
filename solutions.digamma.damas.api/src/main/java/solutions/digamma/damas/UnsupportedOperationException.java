@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class UnsupportedOperationException extends DocumentException {
+public class UnsupportedOperationException extends SevereDocumentException {
 
     public UnsupportedOperationException() {
     }

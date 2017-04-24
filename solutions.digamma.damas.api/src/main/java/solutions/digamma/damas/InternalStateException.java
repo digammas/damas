@@ -6,7 +6,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class InternalStateException extends DocumentException {
+public class InternalStateException extends SevereDocumentException {
 
     public InternalStateException() {
     }

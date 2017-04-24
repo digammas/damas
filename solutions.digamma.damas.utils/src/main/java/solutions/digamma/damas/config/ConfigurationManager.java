@@ -18,6 +18,14 @@ public interface ConfigurationManager {
      */
     String getString(String key);
 
+    /**
+     * Get integer configuration.
+     *
+     * @param key Configuration key.
+     * @return Configuration value, or {@code null} if non is found for the
+     * provided key.
+     */
+    Integer getInteger(String key);
 
     /**
      * Return all configurations that start with the provider postfix.

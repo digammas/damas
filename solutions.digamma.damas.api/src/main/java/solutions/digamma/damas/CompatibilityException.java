@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class CompatibilityException extends DocumentException {
+public class CompatibilityException extends SevereDocumentException {
 
     public CompatibilityException() {
     }

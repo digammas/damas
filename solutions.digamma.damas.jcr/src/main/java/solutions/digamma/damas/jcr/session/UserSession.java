@@ -47,7 +47,7 @@ public class UserSession implements AutoCloseable {
             }
             else {
                 throw new ResourceBusyException(
-                        "Session in toJcrSession by another thread.");
+                        "Session in use by another thread.");
             }
         } catch (InterruptedException e) {
             throw new DocumentException("Thread interrupted.", e);
@@ -60,7 +60,7 @@ public class UserSession implements AutoCloseable {
         }
         if (!this.lock.tryLock()) {
             throw new ResourceBusyException(
-                    "Session open and in toJcrSession by another thread.");
+                    "Session open and in use by another thread.");
         }
     }
 

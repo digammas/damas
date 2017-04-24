@@ -37,7 +37,8 @@ public class SecureToken implements Token {
     @Override
     public boolean equals(Object other) {
         return
-            other instanceof SecureToken &&
-            ((SecureToken) other).token.equals(this.token);
+            other instanceof Token &&
+            other.toString() != null &&
+            other.toString().equals(this.toString());
     }
 }
