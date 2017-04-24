@@ -17,12 +17,13 @@
         <module>solutions.digamma.damas.api</module>
         <module>solutions.digamma.damas.jcr</module>
         <module>solutions.digamma.damas.utils</module>
-        <module>solutions.digamma.damas.modeshape</module>
+        <module>solutions.digamma.damas.main</module>
+        <module>solutions.digamma.damas.rs</module>
     </modules>
 
-    <!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
             <dependency>
                 <groupId>javax.enterprise</groupId>
                 <artifactId>cdi-api</artifactId>
@@ -44,6 +45,7 @@
                 <artifactId>damas.utils</artifactId>
                 <version>${damas.verson}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

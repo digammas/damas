@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.model;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.ReadManager;
+import solutions.digamma.damas.EntityManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.jcr.session.UserSession;
@@ -18,7 +18,7 @@ import javax.jcr.Session;
  * @author Ahmad Shahwan
  */
 abstract public class JcrReadManager<T extends Entity>
-        extends JcrManager implements ReadManager<T> {
+        extends JcrManager implements EntityManager<T> {
 
     @Logged
     @Override

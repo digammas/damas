@@ -76,6 +76,15 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     }
 
     @Override
+    public Integer getInteger(String key) {
+        try {
+            return Integer.parseInt(this.properties.getProperty(key));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    @Override
     public Map<String, Object> getConfigurations(String postfix) {
         return this.properties
                 .entrySet()

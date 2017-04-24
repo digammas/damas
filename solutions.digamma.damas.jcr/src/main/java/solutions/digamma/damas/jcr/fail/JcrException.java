@@ -1,16 +1,17 @@
 package solutions.digamma.damas.jcr.fail;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.*;
 import solutions.digamma.damas.inspection.Nonnull;
 
-import javax.jcr.RepositoryException;
+import javax.jcr.*;
+import javax.jcr.security.AccessControlException;
 
 /**
  * JCR internal exception.
  *
  * @author Ahmad Shahwan
  */
-public class JcrException extends DocumentException {
+public class JcrException extends SevereDocumentException {
 
     public JcrException() {
     }
@@ -45,6 +46,21 @@ public class JcrException extends DocumentException {
 
     @Nonnull public static DocumentException wrap(
             @Nonnull RepositoryException e) {
+        if (e instanceof AccessControlException) {
+            return new AuthorizationException(e);
+        }
+        if (e instanceof ItemNotFoundException) {
+            return new NotFoundException(e);
+        }
+        if (e instanceof ItemExistsException) {
+            return new ConflictException(e);
+        }
+        if (e instanceof PathNotFoundException) {
+            return new NotFoundException(e);
+        }
+        if (e instanceof LoginException) {
+            return new AuthenticationException(e);
+        }
         return new JcrException(e);
     }
 }

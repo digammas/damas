@@ -50,6 +50,42 @@ public class ConfigurationProvider {
 
     @Produces
     @Configuration("")
+    public Integer getInteger(InjectionPoint ip) {
+        String key = getKey(ip);
+        Integer value = this.manager.getInteger(key);
+        if (value == null) {
+            throw new RuntimeException(String.format(
+                    "Missing required configuration %s.", key));
+        }
+        return value;
+    }
+
+    @Produces
+    @Configuration("")
+    @Optional
+    public Integer getOptionalInteger(InjectionPoint ip) {
+        return this.manager.getInteger(getKey(ip));
+    }
+
+    @Produces
+    @Configuration("")
+    @Fallback("")
+    public Integer getIntegerOrFallback(InjectionPoint ip) {
+        String key = getKey(ip);
+        Integer value = this.manager.getInteger(key);
+        if (value != null) {
+            return value;
+        }
+        try {
+            return Integer.parseInt(getFallback(ip));
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(String.format(
+                    "Illegal default for configuration %s.", key));
+        }
+    }
+
+    @Produces
+    @Configuration("")
     public Map<String, Object> getConfigurations(InjectionPoint ip) {
         String postfix = getKey(ip);
         return this.manager.getConfigurations(postfix);

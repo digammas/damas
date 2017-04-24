@@ -4,7 +4,6 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
-import solutions.digamma.damas.content.Metadata;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.CompatibilityException;
@@ -12,8 +11,6 @@ import solutions.digamma.damas.jcr.fail.IncompatiblePathException;
 import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
-import solutions.digamma.damas.jcr.model.JcrCreated;
-import solutions.digamma.damas.jcr.model.JcrModifiable;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;

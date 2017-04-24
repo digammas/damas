@@ -46,7 +46,13 @@
 
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.modeshape</artifactId>
+            <artifactId>damas.main</artifactId>
+            <version>${damas.verson}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.rs</artifactId>
             <version>${damas.verson}</version>
             <scope>test</scope>
         </dependency>
