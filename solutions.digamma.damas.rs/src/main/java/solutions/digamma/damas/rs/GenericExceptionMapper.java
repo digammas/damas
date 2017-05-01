@@ -1,13 +1,17 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.*;
+import solutions.digamma.damas.AuthenticationException;
+import solutions.digamma.damas.AuthorizationException;
+import solutions.digamma.damas.ConflictException;
+import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.NotFoundException;
+import solutions.digamma.damas.ResourceBusyException;
 import solutions.digamma.damas.UnsupportedOperationException;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,14 +29,22 @@ public class GenericExceptionMapper
 
     @Override
     public Response toResponse(Throwable e) {
-        this.log.log(Level.SEVERE, "Unchecked exception.", e);
+        if (isSever(e)) {
+            this.log.log(Level.SEVERE, "Unchecked exception.", e);
+        }
         return Response
             .status(toStatusCode(e))
-            .entity(new MutedException(e))
+            .entity(new ExceptionReport(e))
             .build();
     }
 
-    public static int toStatusCode(Throwable e) {
+    private static boolean isSever(Throwable e) {
+        return !(e instanceof DocumentException) ||
+            ((DocumentException) e)
+                    .getSeverity() == DocumentException.Severity.HIGH;
+    }
+
+    private static int toStatusCode(Throwable e) {
         if (e instanceof NotFoundException) {
             return 404;
         }
@@ -45,7 +57,7 @@ public class GenericExceptionMapper
         if (e instanceof ConflictException) {
             return 409;
         }
-        if (e instanceof ConflictException) {
+        if (e instanceof ResourceBusyException) {
             return 429;
         }
         if (e instanceof UnsupportedOperationException) {
@@ -55,36 +67,33 @@ public class GenericExceptionMapper
     }
 
     /**
-     * Exception wrapper that mutes the stack trace.
+     * Exception report.
      */
-    public static class MutedException extends Exception {
+    public static class ExceptionReport {
 
-        private Throwable shadow;
+        private Throwable exception;
 
-        private MutedException(Throwable e) {
-            this.shadow = e;
+        private ExceptionReport(Throwable e) {
+            this.exception = e;
         }
 
-        @XmlTransient
-        @Override
-        public StackTraceElement[] getStackTrace() {
-            return this.shadow.getStackTrace();
-        }
-
-        @Override
+        /**
+         * Error message.
+         *
+         * @return
+         */
         public String getMessage() {
-            return this.shadow.getMessage();
+            return this.exception.getMessage();
         }
 
-        @Override
-        public String getLocalizedMessage() {
-            return this.shadow.getLocalizedMessage();
-        }
-
-        @Override
-        public Throwable getCause() {
-            Throwable cause = this.shadow.getCause();
-            return cause == null ? null : new MutedException(cause);
+        /**
+         * Error cause.
+         *
+         * @return
+         */
+        public ExceptionReport getCause() {
+            Throwable cause = this.exception.getCause();
+            return cause == null ? null : new ExceptionReport(cause);
         }
     }
 }
