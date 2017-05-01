@@ -3,11 +3,6 @@
     "persistence": {
       "type": "file",
       "path": "repository/storage"
-    },
-    "binaryStorage": {
-      "minimumBinarySizeInBytes": 4096,
-      "minimumStringSize": 4096,
-      "type": "file"
     }
   },
   "indexProviders": {
@@ -26,5 +21,12 @@
       }
     }
   },
-  "node-types" : ["repository/cnd/damas.cnd"]
+  "security" : {
+    "anonymous" : {
+      "roles" : ["readonly","readwrite","admin"],
+      "username" : "<anonymous>",
+      "useOnFailedLogin" : true
+    }
+  },
+  "node-types" : ["repository/cdn/damas.cdn"]
 }

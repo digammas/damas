@@ -1,14 +1,14 @@
 <dms='http://digamma.solutions/damas/1.0'>
 
 [dms:Comment] > mix:created, mix:lastModified
-    - jcr:content (string) mandatory = ""
-    - dms:Rank (long) mandatory = 0
+    - jcr:content (string) = "" mandatory
+    - dms:Rank (long)  = 0 mandatory
 
 [dms:CommentReceiver] mixin orderable
     + * (dms:Comment)
 
-[dms:File] mixin > dms:CommentReceiver
+[dms:File] mixin
 
-[dms:Document] > nt:file, dms:File
+[dms:Document] > nt:file, dms:CommentReceiver, dms:File
 
 [dms:Folder] > nt:folder, dms:File

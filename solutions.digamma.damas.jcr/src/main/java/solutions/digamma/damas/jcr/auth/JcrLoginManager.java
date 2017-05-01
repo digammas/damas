@@ -11,6 +11,7 @@ import solutions.digamma.damas.jcr.session.UserSession;
 
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.jcr.*;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
  *
  * @author Ahmad Shahwan
  */
+@Singleton
 public class JcrLoginManager implements LoginManager {
 
     @Inject

@@ -43,18 +43,5 @@
             <version>3.0.0.CR2</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.main</artifactId>
-            <version>${damas.verson}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.rs</artifactId>
-            <version>${damas.verson}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
