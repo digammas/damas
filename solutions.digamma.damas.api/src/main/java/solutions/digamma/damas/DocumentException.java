@@ -14,14 +14,14 @@ public class DocumentException extends Exception {
         /**
          * Exception may occur with normal usage.
          */
-        OK,
+        NORMAL,
         /**
          * Exception denotes a misuse or an error.
          */
-        SEVERE
+        HIGH
     }
 
-    protected Severity severity = Severity.OK;
+    protected Severity severity = Severity.NORMAL;
 
     public DocumentException() {
         super();
@@ -39,11 +39,32 @@ public class DocumentException extends Exception {
         super(message, e);
     }
 
-    public void ok() {
-        this.severity = Severity.OK;
+    /**
+     * Exception severity.
+     *
+     * @return
+     */
+    public Severity getSeverity() {
+        return this.severity;
     }
 
-    public void sever() {
-        this.severity = Severity.SEVERE;
+    /**
+     * Set severity to normal.
+     *
+     * @return
+     */
+    public DocumentException alleviate() {
+        this.severity = Severity.NORMAL;
+        return this;
+    }
+
+    /**
+     * Set exception severity to high.
+     *
+     * @return
+     */
+    public DocumentException aggravate() {
+        this.severity = Severity.HIGH;
+        return this;
     }
 }
