@@ -25,3 +25,6 @@ target/
 
 # Dependancies are expressed in POMs
 .idea/libraries/*
+
+# Dictionaries
+.idea/dictionaries/*
