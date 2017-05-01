@@ -43,6 +43,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/solutions.digamma.damas.jackrabbit/pom.xml" />
+        <option value="$PROJECT_DIR$/solutions.digamma.damas.rs.doc/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

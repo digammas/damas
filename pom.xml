@@ -19,6 +19,7 @@
         <module>solutions.digamma.damas.utils</module>
         <module>solutions.digamma.damas.main</module>
         <module>solutions.digamma.damas.rs</module>
+        <module>solutions.digamma.damas.rs.doc</module>
     </modules>
 
     <dependencyManagement>
