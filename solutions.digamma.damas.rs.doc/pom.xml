@@ -10,6 +10,10 @@
     </parent>
 
     <artifactId>damas.rs.doc</artifactId>
+    <name>Digamma Damas REST API Documentation</name>
+    <description>
+        Digamma Damas is a DMS that exposes a RESTful API.
+    </description>
 
     <properties>
         <enunciate.version>2.9.1</enunciate.version>
