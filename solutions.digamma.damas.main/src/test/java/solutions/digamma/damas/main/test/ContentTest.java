@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.test;
+package solutions.digamma.damas.main.test;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;

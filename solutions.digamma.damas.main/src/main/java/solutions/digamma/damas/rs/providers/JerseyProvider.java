@@ -27,7 +27,7 @@ public class JerseyProvider {
     private Integer port;
 
     @Inject @Configuration("http.path") @Fallback("dms")
-    private Integer path;
+    private String path;
 
     @Inject
     private Application application;
@@ -40,7 +40,7 @@ public class JerseyProvider {
     @PostConstruct
     void init() {
         URI url = URI.create(String.format(
-                "http://localhost:%d/%s/", this.path, this.port));
+                "http://localhost:%d/%s/", this.port, this.path));
         this.server = GrizzlyHttpServerFactory.createHttpServer(
                 url, ResourceConfig.forApplication(this.application), false);
         logger.info("Starting HTTP server.");

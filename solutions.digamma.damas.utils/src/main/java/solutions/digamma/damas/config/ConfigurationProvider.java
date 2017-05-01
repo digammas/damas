@@ -73,14 +73,16 @@ public class ConfigurationProvider {
     public Integer getIntegerOrFallback(InjectionPoint ip) {
         String key = getKey(ip);
         Integer value = this.manager.getInteger(key);
+        String def = null;
         if (value != null) {
             return value;
         }
         try {
-            return Integer.parseInt(getFallback(ip));
+            def = getFallback(ip);
+            return Integer.parseInt(def);
         } catch (NumberFormatException e) {
             throw new RuntimeException(String.format(
-                    "Illegal default for configuration %s.", key));
+                    "Illegal default %s for configuration %s.", def, key), e);
         }
     }
 

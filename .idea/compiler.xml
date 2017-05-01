@@ -8,11 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="damas.jackrabbit" />
         <module name="damas.oak" />
+        <module name="damasrs" />
         <module name="solutions.digamma.damas.api" />
         <module name="solutions.digamma.damas.core" />
         <module name="solutions.digamma.damas.jackrabbit" />
         <module name="solutions.digamma.damas.jcr" />
+        <module name="solutions.digamma.damas.main" />
         <module name="solutions.digamma.damas.modeshape" />
+        <module name="solutions.digamma.damas.rs" />
         <module name="solutions.digamma.damas.utils" />
       </profile>
     </annotationProcessing>
@@ -22,13 +25,16 @@
       <module name="damas.oak" target="1.8" />
       <module name="damasapi" target="1.5" />
       <module name="damasproject" target="1.5" />
+      <module name="damasrs" target="1.8" />
       <module name="solutions.digamma.damas.api" target="1.8" />
       <module name="solutions.digamma.damas.commons" target="1.8" />
       <module name="solutions.digamma.damas.core" target="1.5" />
       <module name="solutions.digamma.damas.jackrabbit" target="1.8" />
       <module name="solutions.digamma.damas.jcr" target="1.8" />
+      <module name="solutions.digamma.damas.main" target="1.8" />
       <module name="solutions.digamma.damas.modeshape" target="1.8" />
       <module name="solutions.digamma.damas.oak" target="1.8" />
+      <module name="solutions.digamma.damas.rs" target="1.8" />
       <module name="solutions.digamma.damas.utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -1,16 +1,13 @@
 package solutions.digamma.damas.rs.auth;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.rs.Authentication;
 import solutions.digamma.damas.rs.BaseResource;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -29,6 +26,11 @@ public class AuthResource extends BaseResource {
      */
     public AuthResource() {
         super();
+    }
+
+    @GET
+    public String info() throws DocumentException {
+        throw new DocumentException("Hand-made error.");
     }
 
     /**
