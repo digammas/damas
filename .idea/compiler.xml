@@ -16,6 +16,7 @@
         <module name="solutions.digamma.damas.main" />
         <module name="solutions.digamma.damas.modeshape" />
         <module name="solutions.digamma.damas.rs" />
+        <module name="solutions.digamma.damas.rs.doc" />
         <module name="solutions.digamma.damas.utils" />
       </profile>
     </annotationProcessing>
@@ -35,6 +36,7 @@
       <module name="solutions.digamma.damas.modeshape" target="1.8" />
       <module name="solutions.digamma.damas.oak" target="1.8" />
       <module name="solutions.digamma.damas.rs" target="1.8" />
+      <module name="solutions.digamma.damas.rs.doc" target="1.8" />
       <module name="solutions.digamma.damas.utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
