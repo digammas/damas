@@ -13,8 +13,7 @@ import java.util.List;
  */
 public final class BuiltInJob implements RepositoryJob {
 
-    public static final BuiltInJob INSTANCE =
-            new BuiltInJob();
+    public static final BuiltInJob INSTANCE = new BuiltInJob();
 
     private Node[] creations = {
             new Node(
