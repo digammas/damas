@@ -2,21 +2,29 @@ package solutions.digamma.damas.jcr.repo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.jcr.*;
+import javax.jcr.Credentials;
+import javax.jcr.Repository;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.SimpleCredentials;
 
 /**
- * JCR-specific repository-wide functionality.
+ * System user sessions.
  *
  * @author Ahmad Shahwan
  */
 @Singleton
-public class JcrRepository {
+public class SystemSessions {
 
-    @Inject
     private Repository repository;
 
     private Session superuser;
     private Session readonly;
+
+    @Inject
+    public SystemSessions(Repository repository) {
+        this.repository = repository;
+    }
 
     private Credentials SUPERUSER = new SimpleCredentials(
             "admin",

@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.repo;
 
-import javax.inject.Singleton;
+import javax.jcr.Repository;
 
 /**
  * Repository initializer.
@@ -8,6 +8,14 @@ import javax.inject.Singleton;
  * @author Ahmad Shahwan
  */
 public interface RepositoryInitializer {
+
+    /**
+     * Initialize repository. This means running all initialization jobs against
+     * the given repository.
+     *
+     * @param repository The repository to initialize.
+     */
+    void initialize(Repository repository);
 
     /**
      * Wait until initialization is done. If initialization is already done,

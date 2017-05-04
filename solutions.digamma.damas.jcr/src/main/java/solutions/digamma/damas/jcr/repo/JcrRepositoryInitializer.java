@@ -1,10 +1,10 @@
 package solutions.digamma.damas.jcr.repo;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.Node;
+import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.net.URI;
@@ -38,32 +38,23 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
     private List<RepositoryJob> jobs;
 
     @Inject
-    private JcrRepository repository;
-
-    @Inject
     private Logger logger;
-
-    @Inject
-    private Event<RepositoryReadyEvent> repositoryReadyEventEvent;
-
-    /**
-     * No-args constructor.
-     */
-    public JcrRepositoryInitializer() {
-    }
 
     /**
      * Prepare repository for use.
+     *
+     * @param repository The repository to initialize.
      */
-    @PostConstruct
-    public void initialize() {
+    @Override
+    public void initialize(Repository repository) {
         this.logger.info("Initializing JCR repository.");
+        SystemSessions systemSessions = new SystemSessions(repository);
         this.collectJobs();
         this.logger.info(() -> String.format(
                 "%d jobs collected", this.jobs.size()));
         Session superuser = null;
         try {
-            superuser = this.repository.getSuperuserSession();
+            superuser = systemSessions.getSuperuserSession();
             for (RepositoryJob job : this.jobs) {
                 for (RepositoryJob.Node node : job.getCreations()) {
                     try {
@@ -119,8 +110,6 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
         }  finally {
             this.lock.unlock();
         }
-
-        this.repositoryReadyEventEvent.fire(new RepositoryReadyEvent());
     }
 
     private List<RepositoryJob> collectJobs() {

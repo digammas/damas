@@ -24,7 +24,6 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public T create(@Nonnull Token token, @Nonnull T entity)
             throws DocumentException {
-        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
             return this.create(session.toJcrSession(), entity);
         } catch (RepositoryException e) {
@@ -36,7 +35,6 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public T update(@Nonnull Token token, @Nonnull String id, @Nonnull T entity)
             throws DocumentException {
-        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
             return this.update(session.toJcrSession(), id, entity);
         } catch (RepositoryException e) {
@@ -48,7 +46,6 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public void delete(@Nonnull Token token, @Nonnull String id)
             throws DocumentException {
-        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
             this.delete(session.toJcrSession(), id);
         } catch (RepositoryException e) {

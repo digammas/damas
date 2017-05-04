@@ -24,7 +24,6 @@ abstract public class JcrReadManager<T extends Entity>
     @Override
     public T retrieve(@Nonnull Token token, @Nonnull String id)
             throws DocumentException {
-        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
             return this.retrieve(session.toJcrSession(), id);
         } catch (RepositoryException e) {

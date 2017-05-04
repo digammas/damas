@@ -1,20 +1,14 @@
 package solutions.digamma.damas.jcr.providers;
 
 import solutions.digamma.damas.config.Configuration;
-import solutions.digamma.damas.config.Configurations;
 import solutions.digamma.damas.logging.Logbook;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
 import java.io.File;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.logging.Level;
@@ -24,8 +18,8 @@ import java.util.logging.Level;
  *
  * @author Ahmad Shahwan
  */
-
-public class ModeShapeRepositoryProvider {
+@Singleton
+public class ModeShapeRepositoryFactory implements RepositoryFactory {
 
     private static final String POSTFIX = "org.modeshape.";
     private static final String JCR_URL = "org.modeshape.jcr.URL";
@@ -41,28 +35,21 @@ public class ModeShapeRepositoryProvider {
      *
      * @return
      */
-    @Singleton @Produces
-    public Repository getRepository() {
-        this.logger.info("Acquiring JCR repository.");
-        Repository repository = null;
+    @Override
+    public Repository getRepository(Map params) throws RepositoryException {
+        this.logger.info("Acquiring JCR repository from service loader.");
         for (RepositoryFactory factory :
                 ServiceLoader.load(RepositoryFactory.class)) {
-            this.logger.info("JCR repository factory found.");
-            try {
-                repository = factory.getRepository(this.getParameters());
-            } catch (RepositoryException e) {
-                this.logger.log(
-                        Level.WARNING,
-                        "Error acquiring JCR repository from factory.",
-                        e);
-            }
+            this.logger.info("JCR repository factory service found.");
+            Repository repository = factory
+                    .getRepository(this.getParameters(params));
             if (repository != null) {
-                this.logger.info("JCR repository implementation found.");
+                this.logger.info("JCR repository implementation retrieved.");
                 return repository;
             }
         }
         this.logger.severe("No JCR implementation found.");
-        throw new RuntimeException("No repository provider could be found.");
+        throw new RepositoryException("No repository factory service found.");
     }
 
     /**
@@ -70,8 +57,7 @@ public class ModeShapeRepositoryProvider {
      *
      * @return
      */
-    private Map<String, Object> getParameters() {
-        Map<String, Object> params = new HashMap<>(this.parameters);
+    private Map<String, Object> getParameters(Map params) {
         /* One mandatory parameter */
         if (!params.containsKey(JCR_URL)) {
             String url = new File(
