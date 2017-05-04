@@ -54,7 +54,6 @@ abstract public class JcrFullManager<T extends Entity>
     public Page<T> find(
             @Nonnull Token token, int offset, int size, @Nullable Object query)
             throws DocumentException {
-        this.waitForInitialization();
         try (UserSession session = getSession(token).open()) {
             return this.find(
                 session.toJcrSession(), offset, size, query);
