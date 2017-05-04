@@ -4,21 +4,7 @@
       "type": "mem"
     }
   },
-  "indexProviders": {
-    "lucene": {
-      "classname": "lucene",
-      "directory": "repository/index"
-    }
-  },
   "indexes": {
-  },
-  "textExtraction": {
-    "extractors": {
-      "tikaExtractor": {
-        "name": "Tika content-based extractor",
-        "classname": "tika"
-      }
-    }
   },
   "security" : {
     "anonymous" : {

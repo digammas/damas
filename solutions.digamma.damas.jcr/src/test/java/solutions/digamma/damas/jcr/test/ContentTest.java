@@ -1,4 +1,4 @@
-package solutions.digamma.damas.main.test;
+package solutions.digamma.damas.jcr.test;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -7,7 +7,11 @@ import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.content.*;
+import solutions.digamma.damas.content.DetailedDocument;
+import solutions.digamma.damas.content.Document;
+import solutions.digamma.damas.content.DocumentManager;
+import solutions.digamma.damas.content.Folder;
+import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.Nonnull;
 
 import java.io.File;
@@ -31,28 +35,9 @@ public class ContentTest {
     private FolderManager folderMgr;
 
     public void setUp() throws IOException {
-        Files.createDirectories(Paths.get("repository/cdn/"));
-        this.extractResource("/repository/repository.json", "repository/repository.json");
-        this.extractResource("/repository/cdn/damas.cdn", "repository/cdn/damas.cdn");
     }
 
     public void tearDown() throws IOException {
-        Files.walk(Paths.get("repository"))
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
-    }
-
-    private void extractResource(String resourcePath, String distPath)
-            throws IOException {
-        try (InputStream stream = this
-                .getClass()
-                .getResourceAsStream(resourcePath)) {
-            Files.copy(
-                    stream,
-                    Paths.get(distPath),
-                    StandardCopyOption.REPLACE_EXISTING);
-        }
     }
 
     private void init(WeldContainer container) {

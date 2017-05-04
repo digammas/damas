@@ -30,7 +30,7 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
 
     /**
      * Lock used for thread safety.
-     * @see "http://stackoverflow.com/questions/1040818/python-event-equivalent-in-java"
+     * @see "http://stackoverflow.com/a/1040821/3402449"
      */
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
@@ -105,6 +105,7 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
             try {
                 if (superuser != null) {
                     superuser.save();
+                    this.logger.info("Init session saved.");
                 }
             } catch (RepositoryException e) {
                 this.logger.log(

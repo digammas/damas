@@ -6,6 +6,7 @@ import solutions.digamma.damas.logging.Logbook;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
@@ -40,7 +41,7 @@ public class ModeShapeRepositoryProvider {
      *
      * @return
      */
-    @Produces
+    @Singleton @Produces
     public Repository getRepository() {
         this.logger.info("Acquiring JCR repository.");
         Repository repository = null;
