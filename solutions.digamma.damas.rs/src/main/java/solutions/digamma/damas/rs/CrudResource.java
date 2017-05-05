@@ -4,12 +4,11 @@ import solutions.digamma.damas.CrudManager;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -51,7 +50,7 @@ public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public T update(
-            @QueryParam("id") String id,
+            @PathParam("id") String id,
             T entity)
             throws DocumentException {
         return this.getManager().update(this.getToken(), id, entity);
@@ -67,7 +66,7 @@ public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void delete(
-            @QueryParam("id") String id)
+            @PathParam("id") String id)
             throws DocumentException {
         this.getManager().delete(this.getToken(), id);
     }
