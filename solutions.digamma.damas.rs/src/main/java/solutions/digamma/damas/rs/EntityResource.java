@@ -4,11 +4,10 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.EntityManager;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -36,7 +35,7 @@ public abstract class EntityResource<T extends Entity> extends BaseResource {
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public T retrieve(@QueryParam("id") String id) throws DocumentException {
+    public T retrieve(@PathParam("id") String id) throws DocumentException {
         return this.getManager().retrieve(this.getToken(), id);
     }
 
