@@ -36,7 +36,8 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <!-- disable doclint: http://stackoverflow.com/a/16743137/3402449 -->
+                        <!-- Disable doclint to avoid compile errors with Java 8
+                            http://stackoverflow.com/a/16743137/3402449 -->
                         <configuration>
                             <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
@@ -71,6 +72,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
 </project>

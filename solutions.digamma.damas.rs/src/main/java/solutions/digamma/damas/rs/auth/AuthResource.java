@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Authentication REST endpoint.
  *
+ * @label Authentication
  * @author Ahmad Shahwan
  */
 @Path("auth")
