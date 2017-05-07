@@ -12,11 +12,6 @@ import solutions.digamma.damas.inspection.Nullable;
 public interface Folder extends File {
 
     /**
-     * When passed to {@code showContent()} content is expanded to full depth.
-     */
-    long FULL_DEPTH = Long.MAX_VALUE;
-
-    /**
      * Expand folder to a detailed document.
      *
      * @return
@@ -24,25 +19,46 @@ public interface Folder extends File {
     @Override
     @Nonnull DetailedFolder expand() throws DocumentException;
 
-    void showContent(long depth);
+    /**
+     * Expand content to the given depth.
+     *
+     * @param depth
+     */
+    void expandContent(long depth);
 
     /**
-     * Retrieve all documents in folder.
+     * Expand content to the leaves.
+     */
+    void expandContent();
+
+    /**
+     * Retrieve all files in a folder, recursively to a the depth defined by
+     * {@code expandContent()}. By default the depth is zero.
+     *
      * This method returns {@code null} if content is hidden or collapsed.
      *
      * @return
      */
-    default @Nullable Document @Nonnull[] getDocuments() {
+    default @Nullable Content getContent() {
         return null;
     }
 
     /**
-     * Retrieve all sub-folders, recursively to a certain depth.
-     * This method returns {@code null} if content is hidden or collapsed.
-     *
-     * @return
+     * Folder's content object.
      */
-    default Folder @Nonnull [] getFolders() {
-        return null;
+    interface Content {
+
+        /**
+         * Array of all sub-folders in a folder.
+         *
+         * @return
+         */
+        @Nonnull  Folder @Nonnull [] getFolders();
+
+        /**
+         * Array of all documents in a folder.
+         * @return
+         */
+        @Nonnull  Folder @Nonnull [] getDocuments();
     }
 }

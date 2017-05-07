@@ -1,7 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.inspection.Nonnull;
-
 /**
  * Detailed folder.
  *

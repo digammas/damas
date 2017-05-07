@@ -54,17 +54,17 @@ public class JcrFolder extends JcrFile implements Folder {
     }
 
     @Override
-    public void showContent(long depth) {
+    public void expandContent(long depth) {
         this.contentDepth = depth;
     }
 
     @Override
-    public Document @Nonnull [] getDocuments() {
-        return null;
+    public void expandContent() {
+        this.contentDepth = -1;
     }
 
     @Override
-    public Folder @Nonnull [] getFolders() {
+    public Content getContent() {
         return null;
     }
 }
