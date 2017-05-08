@@ -4,16 +4,11 @@ package solutions.digamma.damas.rs;
 import org.glassfish.jersey.test.JerseyTest;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.rs.auth.Credentials;
 
-import javax.inject.Inject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
