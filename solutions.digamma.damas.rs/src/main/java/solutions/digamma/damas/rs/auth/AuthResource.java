@@ -1,7 +1,6 @@
 package solutions.digamma.damas.rs.auth;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.rs.Authentication;
 import solutions.digamma.damas.rs.BaseResource;

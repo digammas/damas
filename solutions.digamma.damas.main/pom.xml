@@ -77,14 +77,6 @@
         </dependency>
 
         <!-- Runtime dependencies -->
-        <!-- Allow injection into Jersey's resources -->
-        <dependency>
-            <groupId>org.glassfish.jersey.ext.cdi</groupId>
-            <artifactId>jersey-weld2-se</artifactId>
-            <version>${jersey.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs</artifactId>
@@ -95,6 +87,15 @@
             <artifactId>damas.jcr</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Allow injection into Jersey's resources -->
+        <dependency>
+            <groupId>org.glassfish.jersey.ext.cdi</groupId>
+            <artifactId>jersey-weld2-se</artifactId>
+            <version>${jersey.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Allow JSON serialization with Jackson -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>

@@ -1,7 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.SearchEnabledCrudResource;
