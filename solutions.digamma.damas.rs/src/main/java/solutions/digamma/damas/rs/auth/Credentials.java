@@ -1,5 +1,6 @@
 package solutions.digamma.damas.rs.auth;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
@@ -7,6 +8,7 @@ import java.io.Serializable;
  *
  * @author Ahmad Shahwan
  */
+@XmlRootElement
 public class Credentials implements Serializable {
 
     private String username;
