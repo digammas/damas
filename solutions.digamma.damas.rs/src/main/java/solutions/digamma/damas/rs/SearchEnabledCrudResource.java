@@ -5,7 +5,6 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.FullManager;
 import solutions.digamma.damas.Page;
 
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 

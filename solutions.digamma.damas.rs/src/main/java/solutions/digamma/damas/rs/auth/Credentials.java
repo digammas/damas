@@ -13,6 +13,23 @@ public class Credentials implements Serializable {
     private String password;
 
     /**
+     * No-args constructor.
+     */
+    public Credentials() {
+    }
+
+    /**
+     * Short-hand constructor.
+     *
+     * @param username Username.
+     * @param password Password.
+     */
+    public Credentials(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    /**
      * Username.
      *
      * @return
