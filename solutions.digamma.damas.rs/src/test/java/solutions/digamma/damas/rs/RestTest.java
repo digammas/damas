@@ -14,6 +14,8 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 /**
+ * Unit test for REST API.
+ *
  * @author Ahmad Shahwan
  */
 public class RestTest extends JerseyTest {
@@ -35,14 +37,23 @@ public class RestTest extends JerseyTest {
         return container.select(Application.class).get();
     }
 
-    @Test
-    public void testAuth() {
+    private void auth(MediaType contentType) {
         Credentials cred = new Credentials("admin", "admin");
         Authentication auth = target("auth").request().post(
-                Entity.entity(cred, MediaType.APPLICATION_JSON),
+                Entity.entity(cred, contentType),
                 Authentication.class);
         String token = auth.getToken();
         assert StubProviders.TOKEN.equals(token) :
                 "Different token from what expected.";
+    }
+
+    @Test
+    public void testAuthJson() {
+        auth(MediaType.APPLICATION_JSON_TYPE);
+    }
+
+    @Test
+    public void testAuthXml() {
+        auth(MediaType.APPLICATION_XML_TYPE);
     }
 }
