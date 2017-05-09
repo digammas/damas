@@ -32,32 +32,19 @@ public class StubProviders extends Mockito {
     static final String FOLDER_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
-    static class MockDocument extends DocumentUpdater {
-
-        @Override
-        public @Nullable String getId() {
-            return DOCUMENT_ID;
-        }
-    }
-
-    static class MockFolder extends FolderUpdater {
-
-        @Override
-        public @Nullable String getId() {
-            return FOLDER_ID;
-        }
-    }
-
     private Token token = () -> TOKEN;
 
-    private Document document = new MockDocument();
-    private Folder folder = new MockFolder();
+    private DocumentUpdater document = new DocumentUpdater();
+    private FolderUpdater folder = new FolderUpdater();
 
 
     @Inject
     private Logger log;
 
     public StubProviders() throws DocumentException {
+        document.setId(DOCUMENT_ID);
+        folder.setId(FOLDER_ID);
+
     }
 
     @Produces @Singleton
