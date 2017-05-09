@@ -14,6 +14,8 @@ import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
+import solutions.digamma.damas.rs.content.DocumentUpdater;
+import solutions.digamma.damas.rs.content.FolderUpdater;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -30,76 +32,19 @@ public class StubProviders extends Mockito {
     static final String FOLDER_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
-    abstract static class MockFile implements File {
+    static class MockDocument extends DocumentUpdater {
 
         @Override
-        public @Nullable String getName() throws DocumentException {
-            return null;
-        }
-
-        @Override
-        public void setName(@Nonnull String value) throws DocumentException {
-        }
-
-        @Override
-        public @Nullable Folder getParent() throws DocumentException {
-            return null;
-        }
-
-        @Override
-        public void setParent(@Nonnull Folder value) throws DocumentException {
-
-        }
-
-        @Override
-        public String getParentId() throws DocumentException {
-            return null;
-        }
-
-        @Override
-        public void setParentId(String value) throws DocumentException {
-
-        }
-
-        @Override
-        public @Nonnull DetailedFile expand() throws DocumentException {
-            return null;
-        }
-    }
-
-    static class MockDocument extends MockFile implements Document {
-
-        @Override
-        public @Nullable String getId() throws DocumentException {
+        public @Nullable String getId() {
             return DOCUMENT_ID;
         }
-
-        @Override
-        public @Nonnull DetailedDocument expand() throws DocumentException {
-            return null;
-        }
     }
 
-    static class MockFolder extends MockFile implements Folder {
+    static class MockFolder extends FolderUpdater {
 
         @Override
-        public @Nullable String getId() throws DocumentException {
+        public @Nullable String getId() {
             return FOLDER_ID;
-        }
-
-        @Override
-        public void expandContent(long depth) {
-
-        }
-
-        @Override
-        public void expandContent() {
-
-        }
-
-        @Override
-        public @Nonnull DetailedFolder expand() throws DocumentException {
-            return null;
         }
     }
 
