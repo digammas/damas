@@ -16,7 +16,8 @@ import javax.ws.rs.QueryParam;
  * @author Ahmad Shahwan
  */
 @Path("folders")
-public class FolderResource extends SearchEnabledCrudResource<Folder> {
+public class FolderResource
+        extends SearchEnabledCrudResource<Folder, FolderUpdater> {
 
     @Inject
     protected FolderManager manager;

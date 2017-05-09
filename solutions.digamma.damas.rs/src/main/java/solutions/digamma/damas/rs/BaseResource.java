@@ -31,11 +31,13 @@ public abstract class BaseResource {
      */
     @Nullable
     protected Token getToken() {
-        authHeader = this.authHeader.trim();
-        if (authHeader != null && authHeader.toLowerCase().startsWith(SCHEME)) {
-            String token = authHeader.substring(SCHEME.length()).trim();
-            if (token.length() != 0) {
-                return new Authentication(token);
+        if (authHeader != null) {
+            authHeader = this.authHeader.trim();
+            if (authHeader.toLowerCase().startsWith(SCHEME)){
+                String token = authHeader.substring(SCHEME.length()).trim();
+                if (token.length() != 0) {
+                    return new Authentication(token);
+                }
             }
         }
         return null;

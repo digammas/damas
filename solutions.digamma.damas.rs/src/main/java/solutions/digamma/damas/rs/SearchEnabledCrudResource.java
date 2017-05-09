@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author Ahmad Shahwan
  */
-abstract public class SearchEnabledCrudResource<T extends Entity>
-        extends CrudResource<T> {
+abstract public class SearchEnabledCrudResource<T extends Entity, F extends T>
+        extends CrudResource<T, F> {
 
     @Override
     abstract protected FullManager<T> getManager();

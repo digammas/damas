@@ -16,7 +16,7 @@ import javax.ws.rs.QueryParam;
  * @author Ahmad Shahwan
  */
 @Path("documents")
-public class DocumentResource extends CrudResource<Document> {
+public class DocumentResource extends CrudResource<Document, DocumentUpdater> {
 
     @Inject
     protected DocumentManager manager;

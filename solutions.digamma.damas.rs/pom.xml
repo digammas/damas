@@ -29,10 +29,6 @@
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -46,6 +42,11 @@
         </dependency>
 
         <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -95,6 +96,7 @@
             <version>2.25.1</version>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
 </project>
