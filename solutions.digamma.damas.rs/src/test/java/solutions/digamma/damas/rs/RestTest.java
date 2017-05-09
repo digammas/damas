@@ -9,13 +9,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import solutions.digamma.damas.content.Document;
-import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.rs.auth.Credentials;
 import solutions.digamma.damas.rs.content.DocumentUpdater;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MediaType;
 import java.util.Set;
 
@@ -51,7 +49,7 @@ public class RestTest extends JerseyTest {
         Authentication auth = target("auth").request().post(
                 Entity.entity(cred, contentType),
                 Authentication.class);
-        String token = auth.getToken();
+        String token = auth.getSecret();
         assert StubProviders.TOKEN.equals(token) :
                 "Different token from what expected.";
     }

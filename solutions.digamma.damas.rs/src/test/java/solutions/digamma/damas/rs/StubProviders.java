@@ -103,11 +103,7 @@ public class StubProviders extends Mockito {
         }
     }
 
-    private Token token = new Token() {
-        @Override public String toString() {
-            return TOKEN;
-        }
-    };
+    private Token token = () -> TOKEN;
 
     private Document document = new MockDocument();
     private Folder folder = new MockFolder();

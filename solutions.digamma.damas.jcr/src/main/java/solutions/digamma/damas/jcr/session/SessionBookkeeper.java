@@ -47,7 +47,7 @@ public class SessionBookkeeper {
                     "Token %s already exists.", token));
                 throw new ConflictException("Token already exists.");
             }
-            this.sessions.put(token.toString(), session);
+            this.sessions.put(token.getSecret(), session);
             this.logger.info(() -> String.format(
                 "Token %s successfully stored.", token));
         }
@@ -63,12 +63,12 @@ public class SessionBookkeeper {
     public void unregister(Token token)
             throws NotFoundException, CompatibilityException {
         synchronized (this.sessions) {
-            if (!this.sessions.containsKey(token.toString())) {
+            if (!this.sessions.containsKey(token.getSecret())) {
                 this.logger.warning(() -> String.format(
                         "Token %s did not exist.", token));
                 throw new NotFoundException("No session for the given token.");
             }
-            this.sessions.remove(token.toString());
+            this.sessions.remove(token.getSecret());
             this.logger.info(() -> String.format(
                 "Token %s successfully forgotten.", token));
         }
@@ -84,7 +84,7 @@ public class SessionBookkeeper {
      * @throws NotFoundException
      */
     public UserSession lookup(Token token) throws NotFoundException {
-        UserSession session = this.sessions.get(token.toString());
+        UserSession session = this.sessions.get(token.getSecret());
         if (session == null) {
             this.logger.info(() -> String.format(
                 "Token not found %s.", token));

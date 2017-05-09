@@ -2,6 +2,7 @@ package solutions.digamma.damas.rs.auth;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.LoginManager;
+import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.rs.Authentication;
 import solutions.digamma.damas.rs.BaseResource;
 
@@ -43,12 +44,8 @@ public class AuthResource extends BaseResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Authentication login(Credentials cred) throws DocumentException {
-        return new Authentication(
-            this.manager.login(
-                cred.getUsername(), cred.getPassword()
-            ).toString()
-        );
+    public Token login(Credentials cred) throws DocumentException {
+        return this.manager.login(cred.getUsername(), cred.getPassword());
     }
 
     /**
