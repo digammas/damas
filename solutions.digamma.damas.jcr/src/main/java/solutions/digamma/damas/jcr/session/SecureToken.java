@@ -26,7 +26,7 @@ public class SecureToken implements Token {
     }
 
     @Nonnull
-    public String toString() {
+    public String getSecret() {
         return this.token;
     }
 
@@ -36,9 +36,10 @@ public class SecureToken implements Token {
 
     @Override
     public boolean equals(Object other) {
+        /** To token with no secret do not equal each other **/
         return
             other instanceof Token &&
-            other.toString() != null &&
-            other.toString().equals(this.toString());
+            this.getSecret() != null &&
+            this.getSecret().equals(((Token) other).getSecret());
     }
 }

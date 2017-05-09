@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class Authentication implements Serializable, Token {
 
-    private String token;
+    private String secret;
 
     /**
      * Default constructor.
@@ -22,27 +22,28 @@ public class Authentication implements Serializable, Token {
     /**
      * Constructor.
      *
-     * @param token Authentication token.
+     * @param token Authentication secret.
      */
     public Authentication(String token) {
-        this.token = token;
+        this.secret = token;
     }
 
     /**
-     * Authentication token.
+     * Authentication secret.
      *
      * @return
      */
-    public String getToken() {
-        return token;
+    @Override
+    public String getSecret() {
+        return secret;
     }
 
     /**
-     * Set authentication token.
+     * Set authentication secret.
      *
-     * @param token
+     * @param secret
      */
-    public void setToken(String token) {
-        this.token = token;
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }
