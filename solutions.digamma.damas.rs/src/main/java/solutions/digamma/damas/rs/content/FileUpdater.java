@@ -41,7 +41,7 @@ public class FileUpdater implements File {
     }
 
     @Override
-    public @Nullable Folder getParent() throws DocumentException {
+    public @Nullable FolderUpdater getParent() throws DocumentException {
         return null;
     }
 

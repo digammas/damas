@@ -9,6 +9,12 @@ import solutions.digamma.damas.content.Folder;
  */
 public class FolderUpdater extends FileUpdater implements Folder {
 
+    /**
+     * Default constructor.
+     */
+    public FolderUpdater() {
+    }
+
     @Override
     public DetailedFolder expand() throws DocumentException {
         return null;
