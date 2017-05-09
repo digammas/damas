@@ -5,6 +5,8 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,7 +18,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Ahmad Shahwan
  */
-public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
+public abstract class CrudResource<T extends Entity, F extends T>
+        extends EntityResource<T> {
 
     @Override
     abstract protected CrudManager<T> getManager();
@@ -28,11 +31,11 @@ public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
      * @return Newly created entity.
      * @throws DocumentException
      */
-    @PUT
+    @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public T create(
-            T entity)
+            F entity)
             throws DocumentException {
         return this.getManager().create(this.getToken(), entity);
     }
@@ -51,7 +54,7 @@ public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public T update(
             @PathParam("id") String id,
-            T entity)
+            F entity)
             throws DocumentException {
         return this.getManager().update(this.getToken(), id, entity);
     }
@@ -62,7 +65,7 @@ public abstract class CrudResource<T extends Entity> extends EntityResource<T> {
      * @param id Entity identifier.
      * @throws DocumentException
      */
-    @PUT
+    @DELETE
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void delete(

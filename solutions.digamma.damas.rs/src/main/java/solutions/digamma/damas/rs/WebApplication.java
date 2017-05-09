@@ -21,6 +21,7 @@ public class WebApplication extends Application {
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> classes = new HashSet<>();
         classes.add(GenericExceptionMapper.class);
+        classes.add(LogFilter.class);
         classes.add(AuthResource.class);
         classes.add(DocumentResource.class);
         classes.add(FolderResource.class);

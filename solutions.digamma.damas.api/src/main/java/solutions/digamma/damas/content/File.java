@@ -5,6 +5,8 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * File object. A generalization of a documents and folders.
  *
@@ -93,6 +95,7 @@ public interface File extends Entity {
      * @return
      * @throws DocumentException
      */
+    @XmlTransient
     default boolean isRoot() throws DocumentException {
         return getParentId() == NO_PARENT_ID;
     }
