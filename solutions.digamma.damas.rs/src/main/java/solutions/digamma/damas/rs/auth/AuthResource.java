@@ -3,18 +3,22 @@ package solutions.digamma.damas.rs.auth;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.rs.Authentication;
 import solutions.digamma.damas.rs.BaseResource;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
  * Authentication REST endpoint.
  *
- * @label Authentication
  * @author Ahmad Shahwan
+ * @label Authentication
  */
 @Path("auth")
 public class AuthResource extends BaseResource {
@@ -50,7 +54,7 @@ public class AuthResource extends BaseResource {
 
     /**
      * Disconnect user, invalidating their session.
-     * 
+     *
      * @throws DocumentException
      */
     @DELETE
