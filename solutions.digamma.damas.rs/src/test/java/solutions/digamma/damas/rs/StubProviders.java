@@ -76,7 +76,7 @@ public class StubProviders extends Mockito {
                 .thenReturn(this.folder);
         Mockito.when(manager.create(any(), any()))
                 .thenReturn(this.folder);
-        Mockito.when(manager.update(any(), eq(DOCUMENT_ID), any()))
+        Mockito.when(manager.update(any(), eq(FOLDER_ID), any()))
                 .thenReturn(this.folder);
         return manager;
     }

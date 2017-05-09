@@ -11,8 +11,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
+import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.rs.auth.Credentials;
 import solutions.digamma.damas.rs.content.DocumentUpdater;
+import solutions.digamma.damas.rs.content.FolderUpdater;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -86,6 +88,27 @@ public class RestTest extends JerseyTest {
                 .put(Entity.entity(file, this.ct), DocumentUpdater.class);
         assert file != null : "Error PUTing document.";
         target("documents/" + StubProviders.DOCUMENT_ID)
+                .request()
+                .delete();
+    }
+
+    @Test
+    public void testFolder() {
+        Folder file;
+        file = target("folders/" + StubProviders.FOLDER_ID)
+                .request()
+                .accept(this.ct)
+                .get(FolderUpdater.class);
+        assert file != null : "Error GETting folder.";
+        file = target("folders")
+                .request()
+                .post(Entity.entity(file, this.ct), FolderUpdater.class);
+        assert file != null : "Error POSTing folder.";
+        file = target("folders/" + StubProviders.FOLDER_ID)
+                .request()
+                .put(Entity.entity(file, this.ct), FolderUpdater.class);
+        assert file != null : "Error PUTing folder.";
+        target("folders/" + StubProviders.FOLDER_ID)
                 .request()
                 .delete();
     }
