@@ -5,6 +5,7 @@ import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Ahmad Shahwan
@@ -18,12 +19,6 @@ public class FolderUpdater extends FileUpdater implements Folder {
     public FolderUpdater() {
     }
 
-    /**
-     * Do nothing.
-     */
-    public void setContent(Object ignore) {
-    }
-
     @Override
     public DetailedFolder expand() throws DocumentException {
         return null;
@@ -35,5 +30,11 @@ public class FolderUpdater extends FileUpdater implements Folder {
 
     @Override
     public void expandContent() {
+    }
+
+    @XmlTransient
+    @Override
+    public Content getContent() {
+        return null;
     }
 }

@@ -39,9 +39,7 @@ public interface Folder extends File {
      *
      * @return
      */
-    default @Nullable Content getContent() {
-        return null;
-    }
+    @Nullable Content getContent();
 
     /**
      * Folder's content object.
