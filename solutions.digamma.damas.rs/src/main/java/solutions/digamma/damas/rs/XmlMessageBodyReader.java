@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Provider
 @Consumes(MediaType.APPLICATION_XML)
-public class XmlBMessageBodyReader
+public class XmlMessageBodyReader
         implements MessageBodyReader<Object> {
 
     @Override

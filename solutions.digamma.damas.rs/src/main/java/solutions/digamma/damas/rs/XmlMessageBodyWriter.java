@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
  */
 @Provider
 @Produces(MediaType.APPLICATION_XML)
-public class XmlBMessageBodyWriter
+public class XmlMessageBodyWriter
         implements MessageBodyWriter<Object> {
 
     @Override
