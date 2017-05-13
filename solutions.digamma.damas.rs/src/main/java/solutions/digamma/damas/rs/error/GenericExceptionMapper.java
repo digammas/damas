@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs;
+package solutions.digamma.damas.rs.error;
 
 import solutions.digamma.damas.AuthenticationException;
 import solutions.digamma.damas.AuthorizationException;
@@ -64,36 +64,5 @@ public class GenericExceptionMapper
             return 501;
         }
         return 500;
-    }
-
-    /**
-     * Exception report.
-     */
-    public static class ExceptionReport {
-
-        private Throwable exception;
-
-        private ExceptionReport(Throwable e) {
-            this.exception = e;
-        }
-
-        /**
-         * Error message.
-         *
-         * @return
-         */
-        public String getMessage() {
-            return this.exception.getMessage();
-        }
-
-        /**
-         * Error cause.
-         *
-         * @return
-         */
-        public ExceptionReport getCause() {
-            Throwable cause = this.exception.getCause();
-            return cause == null ? null : new ExceptionReport(cause);
-        }
     }
 }
