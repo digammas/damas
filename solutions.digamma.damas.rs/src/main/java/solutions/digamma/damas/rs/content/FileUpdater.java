@@ -8,6 +8,8 @@ import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
+ * Base file object updater.
+ *
  * @author Ahmad Shahwan
  */
 public class FileUpdater implements File {

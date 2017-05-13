@@ -8,7 +8,6 @@ import java.io.Serializable;
  *
  * @author Ahmad Shahwan
  */
-@XmlRootElement
 public class Credentials implements Serializable {
 
     private String username;

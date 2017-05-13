@@ -1,6 +1,7 @@
 package solutions.digamma.damas.rs;
 
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -58,6 +59,12 @@ public class RestTest extends JerseyTest {
     @Override
     protected Application configure() {
         return container.select(Application.class).get();
+    }
+
+    @Override
+    protected void configureClient(ClientConfig clientConfig) {
+        clientConfig.register(XmlBMessageBodyReader.class);
+        clientConfig.register(XmlBMessageBodyWriter.class);
     }
 
     @Test
