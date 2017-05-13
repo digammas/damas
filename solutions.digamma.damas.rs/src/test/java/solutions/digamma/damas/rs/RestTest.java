@@ -63,8 +63,8 @@ public class RestTest extends JerseyTest {
 
     @Override
     protected void configureClient(ClientConfig clientConfig) {
-        clientConfig.register(XmlBMessageBodyReader.class);
-        clientConfig.register(XmlBMessageBodyWriter.class);
+        clientConfig.register(XmlMessageBodyReader.class);
+        clientConfig.register(XmlMessageBodyWriter.class);
     }
 
     @Test

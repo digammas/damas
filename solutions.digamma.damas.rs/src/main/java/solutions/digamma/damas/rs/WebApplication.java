@@ -25,8 +25,8 @@ public class WebApplication extends Application {
         classes.add(AuthResource.class);
         classes.add(DocumentResource.class);
         classes.add(FolderResource.class);
-        classes.add(XmlBMessageBodyWriter.class);
-        classes.add(XmlBMessageBodyReader.class);
+        classes.add(XmlMessageBodyWriter.class);
+        classes.add(XmlMessageBodyReader.class);
         return classes;
     }
 }
