@@ -35,7 +35,6 @@ public class XmlMessageBodyReader
             Type type,
             Annotation[] annotations,
             MediaType mediaType) {
-        System.out.println("ASKED IF isReadable for " + klass);
         return !klass.isAnnotationPresent(XmlRootElement.class);
     }
 
