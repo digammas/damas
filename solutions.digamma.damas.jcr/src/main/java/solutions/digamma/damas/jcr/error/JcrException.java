@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.fail;
+package solutions.digamma.damas.jcr.error;
 
 import solutions.digamma.damas.*;
 import solutions.digamma.damas.inspection.Nonnull;

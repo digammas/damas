@@ -4,7 +4,7 @@ import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.session.SecureToken;
 import solutions.digamma.damas.jcr.session.SessionBookkeeper;
 import solutions.digamma.damas.jcr.session.UserSession;

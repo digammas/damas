@@ -6,7 +6,7 @@ import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.Nonnull;
-import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.session.UserSession;
 import solutions.digamma.damas.logging.Logged;

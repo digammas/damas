@@ -7,8 +7,8 @@ import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.fail.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
 import javax.jcr.Binary;
 import javax.jcr.Node;

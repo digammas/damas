@@ -6,7 +6,7 @@ import solutions.digamma.damas.EntityManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.jcr.session.UserSession;
-import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.logging.Logged;
 
 import javax.jcr.RepositoryException;
