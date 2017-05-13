@@ -33,7 +33,6 @@ public class XmlMessageBodyWriter
             Type type,
             Annotation[] annotations,
             MediaType mediaType) {
-        System.out.println("ASKED IF isWriteable for " + klass);
         return !klass.isAnnotationPresent(XmlRootElement.class);
     }
 
