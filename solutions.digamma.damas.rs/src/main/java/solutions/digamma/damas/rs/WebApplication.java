@@ -3,6 +3,7 @@ package solutions.digamma.damas.rs;
 import solutions.digamma.damas.rs.auth.AuthResource;
 import solutions.digamma.damas.rs.content.DocumentResource;
 import solutions.digamma.damas.rs.content.FolderResource;
+import solutions.digamma.damas.rs.serialization.XmlMessageBodyFeature;
 
 import javax.inject.Singleton;
 import javax.ws.rs.core.Application;
@@ -25,8 +26,7 @@ public class WebApplication extends Application {
         classes.add(AuthResource.class);
         classes.add(DocumentResource.class);
         classes.add(FolderResource.class);
-        classes.add(XmlMessageBodyWriter.class);
-        classes.add(XmlMessageBodyReader.class);
+        classes.add(XmlMessageBodyFeature.class);
         return classes;
     }
 }

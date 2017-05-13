@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs;
+package solutions.digamma.damas.rs.serialization;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.WebApplicationException;
