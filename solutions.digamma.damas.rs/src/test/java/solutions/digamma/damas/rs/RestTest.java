@@ -16,6 +16,7 @@ import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.rs.auth.Credentials;
 import solutions.digamma.damas.rs.content.DocumentUpdater;
 import solutions.digamma.damas.rs.content.FolderUpdater;
+import solutions.digamma.damas.rs.serialization.XmlMessageBodyFeature;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -63,8 +64,7 @@ public class RestTest extends JerseyTest {
 
     @Override
     protected void configureClient(ClientConfig clientConfig) {
-        clientConfig.register(XmlMessageBodyReader.class);
-        clientConfig.register(XmlMessageBodyWriter.class);
+        clientConfig.register(XmlMessageBodyFeature.class);
     }
 
     @Test
