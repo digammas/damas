@@ -7,9 +7,11 @@ import solutions.digamma.damas.content.Document;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Document object updater. This class is used to capture document's
+ * modifications.
+ *
  * @author Ahmad Shahwan
  */
-@XmlRootElement
 public class DocumentUpdater extends FileUpdater implements Document {
 
     /**
