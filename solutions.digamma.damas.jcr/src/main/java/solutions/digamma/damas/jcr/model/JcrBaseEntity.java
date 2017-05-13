@@ -3,14 +3,13 @@ package solutions.digamma.damas.jcr.model;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.nodetype.NodeType;
 
 import solutions.digamma.damas.inspection.Nonnull;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.jcr.fail.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.fail.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
 /**
  * Generic entity, implemented as a JCR node.

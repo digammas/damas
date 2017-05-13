@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.fail;
+package solutions.digamma.damas.jcr.error;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.NotFoundException;
