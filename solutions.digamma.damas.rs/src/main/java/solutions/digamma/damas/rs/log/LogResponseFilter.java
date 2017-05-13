@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs;
+package solutions.digamma.damas.rs.log;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -11,27 +11,16 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
+ * Container filter that logs outgoing responses.
+ *
  * @author Ahmad Shahwan
  */
 @Provider
 @PreMatching
-public class LogFilter
-        implements ContainerRequestFilter, ContainerResponseFilter {
+public class LogResponseFilter implements ContainerResponseFilter {
 
     @Inject
     private Logger log;
-
-    @Override
-    public void filter(ContainerRequestContext containerRequestContext)
-            throws IOException {
-        String url = containerRequestContext
-                .getUriInfo()
-                .getAbsolutePath()
-                .toString();
-        String method = containerRequestContext.getMethod();
-        this.log.info(() -> String.format(
-                "Incoming request: %s %s.", method, url));
-    }
 
     @Override
     public void filter(
