@@ -15,6 +15,7 @@ import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
@@ -59,12 +60,30 @@ public class XmlMessageBodyWriter
         try {
             JAXBContext context = JAXBContext.newInstance(klass);
             Marshaller marshaller = context.createMarshaller();
-            String name = klass.getSimpleName();
-            JAXBElement<?> root = new JAXBElement(new QName(name), klass, o);
-
+            String name = getRootElementName(type);
+            JAXBElement<?> root = wrapElement(new QName(name), klass, o);
             marshaller.marshal(root, outputStream);
         } catch (JAXBException e) {
             throw new IOException("Error writing XML entity.", e);
         }
+    }
+
+    private static String getRootElementName(Type type) {
+        while (type instanceof ParameterizedType) {
+            type = ((ParameterizedType) type).getRawType();
+        }
+        if (type instanceof Class) {
+            return ((Class) type).getSimpleName();
+        } else {
+            return type.getTypeName();
+        }
+    }
+
+    private static <T> JAXBElement<T> wrapElement(
+            QName name,
+            Class<T> klass,
+            Object o) {
+        T entity = klass.cast(o);
+        return new JAXBElement<>(name, klass, entity);
     }
 }
