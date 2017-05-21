@@ -1,6 +1,6 @@
 package solutions.digamma.damas;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ public interface Page<T> {
 
     int getOffset();
 
-    @Nonnull
+    @NotNull
     List<T> getObjects();
 }

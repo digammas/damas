@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.model.JcrFullManager;
@@ -28,16 +28,16 @@ public class JcrFolderManager
 
     @Override
     protected JcrFolder retrieve(
-            @Nonnull Session session,
-            @Nonnull String id)
+            @NotNull Session session,
+            @NotNull String id)
             throws RepositoryException, DocumentException {
         return new JcrFolder(session.getNodeByIdentifier(id));
     }
 
     @Override
     protected JcrFolder create(
-            @Nonnull Session session,
-            @Nonnull Folder entity)
+            @NotNull Session session,
+            @NotNull Folder entity)
             throws RepositoryException, DocumentException {
         String parentId = entity.getParentId();
         String name = entity.getName();
@@ -49,9 +49,9 @@ public class JcrFolderManager
 
     @Override
     protected JcrFolder update(
-            @Nonnull Session session,
-            @Nonnull String id,
-            @Nonnull Folder entity)
+            @NotNull Session session,
+            @NotNull String id,
+            @NotNull Folder entity)
             throws RepositoryException, DocumentException {
         JcrFolder folder = this.retrieve(session, id);
         folder.update(entity);
@@ -59,7 +59,7 @@ public class JcrFolderManager
     }
 
     @Override
-    protected void delete(@Nonnull Session session, @Nonnull String id)
+    protected void delete(@NotNull Session session, @NotNull String id)
             throws RepositoryException, DocumentException {
         JcrFolder folder = this.retrieve(session, id);
         folder.remove();
@@ -67,7 +67,7 @@ public class JcrFolderManager
 
     @Override
     protected Page<Folder> find(
-            @Nonnull Session session,
+            @NotNull Session session,
             int offset,
             int size,
             @Nullable Object query)

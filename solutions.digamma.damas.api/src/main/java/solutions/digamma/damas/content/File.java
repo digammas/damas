@@ -2,7 +2,7 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
@@ -34,7 +34,7 @@ public interface File extends Entity {
      *
      * @param value
      */
-    void setName(@Nonnull String value) throws DocumentException;
+    void setName(@NotNull String value) throws DocumentException;
 
     /**
      * Parent folder.
@@ -48,7 +48,7 @@ public interface File extends Entity {
      *
      * @param value
      */
-    void setParent(@Nonnull Folder value) throws DocumentException;
+    void setParent(@NotNull Folder value) throws DocumentException;
 
     /**
      * Parent ID.
@@ -70,7 +70,7 @@ public interface File extends Entity {
      * @return
      * @throws DocumentException
      */
-    @Nonnull DetailedFile expand() throws DocumentException;
+    @NotNull DetailedFile expand() throws DocumentException;
 
     /**
      * Update file with file information.
@@ -78,7 +78,7 @@ public interface File extends Entity {
      * @param other
      * @throws DocumentException
      */
-    default void update(@Nonnull File other) throws DocumentException {
+    default void update(@NotNull File other) throws DocumentException {
         if (other.getName() != null) {
             this.setName(other.getName());
         }

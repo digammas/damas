@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.model;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
@@ -30,10 +30,10 @@ public interface JcrEntity extends Entity {
      *
      * @return
      */
-    @Nonnull
+    @NotNull
     Node getNode();
 
-    @Nonnull
+    @NotNull
     default String getId() throws DocumentException {
         try {
             return this.getNode().getIdentifier();
@@ -49,7 +49,7 @@ public interface JcrEntity extends Entity {
      * @return Property value.
      * @throws DocumentException
      */
-    default @Nonnull String getString(@Nonnull String name)
+    default @NotNull String getString(@NotNull String name)
             throws DocumentException {
         try {
             return this.getNode().getProperty(name).getString();
@@ -65,7 +65,7 @@ public interface JcrEntity extends Entity {
      * @param value Property new value.
      * @throws DocumentException
      */
-    default void setString(@Nonnull String name, @Nullable String value)
+    default void setString(@NotNull String name, @Nullable String value)
             throws DocumentException{
         try {
             Property property = this.getNode().setProperty(name, value);
@@ -82,7 +82,7 @@ public interface JcrEntity extends Entity {
      * @return Property value.
      * @throws DocumentException
      */
-    default @Nonnull Calendar getDate(@Nonnull String name)
+    default @NotNull Calendar getDate(@NotNull String name)
             throws DocumentException {
         try {
             return this.getNode().getProperty(name).getDate();
@@ -98,7 +98,7 @@ public interface JcrEntity extends Entity {
      * @param value Property new value.
      * @throws DocumentException
      */
-    default void setDate(@Nonnull String name, @Nullable Calendar value)
+    default void setDate(@NotNull String name, @Nullable Calendar value)
             throws DocumentException{
         try {
             Property property = this.getNode().setProperty(name, value);
@@ -114,7 +114,7 @@ public interface JcrEntity extends Entity {
      * @return Property value.
      * @throws DocumentException
      */
-    default @Nonnull Long getLong(@Nonnull String name)
+    default @NotNull Long getLong(@NotNull String name)
             throws DocumentException {
         try {
             return this.getNode().getProperty(name).getLong();
@@ -130,7 +130,7 @@ public interface JcrEntity extends Entity {
      * @param value Property new value.
      * @throws DocumentException
      */
-    default void setLong(@Nonnull String name, @Nullable Long value)
+    default void setLong(@NotNull String name, @Nullable Long value)
             throws DocumentException{
         try {
             Property property = this.getNode().setProperty(name, value);

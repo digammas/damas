@@ -3,7 +3,7 @@ package solutions.digamma.damas.content;
 import solutions.digamma.damas.CrudManager;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.io.InputStream;
 
@@ -23,10 +23,10 @@ public interface DocumentManager extends CrudManager<Document> {
      * @return
      * @throws DocumentException
      */
-    @Nonnull Document create(
-            @Nonnull Token token,
-            @Nonnull Document entity,
-            @Nonnull InputStream stream)
+    @NotNull Document create(
+            @NotNull Token token,
+            @NotNull Document entity,
+            @NotNull InputStream stream)
             throws DocumentException;
 
     /**
@@ -36,7 +36,7 @@ public interface DocumentManager extends CrudManager<Document> {
      * @param id
      * @return
      */
-    DocumentPayload download(@Nonnull Token token, @Nonnull String id)
+    DocumentPayload download(@NotNull Token token, @NotNull String id)
             throws DocumentException;
 
     /**
@@ -47,8 +47,8 @@ public interface DocumentManager extends CrudManager<Document> {
      * @param stream
      */
     void upload(
-            @Nonnull Token token,
-            @Nonnull String id,
-            @Nonnull InputStream stream)
+            @NotNull Token token,
+            @NotNull String id,
+            @NotNull InputStream stream)
             throws DocumentException;
 }

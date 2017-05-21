@@ -5,7 +5,7 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.FullManager;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.session.UserSession;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
@@ -38,13 +38,13 @@ abstract public class JcrFullManager<T extends Entity>
     }
 
     @Override
-    public Page<T> find(@Nonnull Token token) throws DocumentException {
+    public Page<T> find(@NotNull Token token) throws DocumentException {
         return this.find(token, 0, this.getDefaultPageSize(), null);
     }
 
     @Override
     public Page<T> find(
-            @Nonnull Token token, int offset, int size)
+            @NotNull Token token, int offset, int size)
             throws DocumentException {
         return this.find(token, offset, size, null);
     }
@@ -52,7 +52,7 @@ abstract public class JcrFullManager<T extends Entity>
     @Logged
     @Override
     public Page<T> find(
-            @Nonnull Token token, int offset, int size, @Nullable Object query)
+            @NotNull Token token, int offset, int size, @Nullable Object query)
             throws DocumentException {
         try (UserSession session = getSession(token).open()) {
             return this.find(
@@ -74,7 +74,7 @@ abstract public class JcrFullManager<T extends Entity>
      * @throws DocumentException
      */
     abstract protected Page<T> find(
-            @Nonnull Session session,
+            @NotNull Session session,
             int offset,
             int size,
             @Nullable Object query)

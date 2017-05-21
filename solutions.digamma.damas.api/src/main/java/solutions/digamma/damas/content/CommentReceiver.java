@@ -2,7 +2,7 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Object of this type can receive comments.
@@ -18,5 +18,5 @@ public interface CommentReceiver extends Entity {
      * @return
      * @throws DocumentException
      */
-    @Nonnull Comment[] getComments() throws DocumentException;
+    @NotNull Comment[] getComments() throws DocumentException;
 }

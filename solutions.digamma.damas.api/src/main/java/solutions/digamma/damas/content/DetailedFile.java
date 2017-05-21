@@ -3,7 +3,7 @@ package solutions.digamma.damas.content;
 import solutions.digamma.damas.Created;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Modifiable;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
@@ -46,7 +46,7 @@ public interface DetailedFile
      * @param other
      * @throws DocumentException
      */
-    default void update(@Nonnull DetailedFile other) throws DocumentException {
+    default void update(@NotNull DetailedFile other) throws DocumentException {
         File.super.update(other);
         if (other.getMetadata() != null) {
             this.setMetadata(other.getMetadata());

@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentPayload;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
@@ -29,7 +29,7 @@ public class JcrDocument extends JcrFile implements Document {
      *
      * @param node
      */
-    public JcrDocument(@Nonnull Node node) throws DocumentException {
+    public JcrDocument(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
@@ -41,7 +41,7 @@ public class JcrDocument extends JcrFile implements Document {
      * @return
      * @throws DocumentException
      */
-    static JcrDocument create(@Nonnull String name, @Nonnull Node parent)
+    static JcrDocument create(@NotNull String name, @NotNull Node parent)
             throws DocumentException {
         return new JcrDocument(create(name, Namespace.DOCUMENT, parent));
     }
@@ -70,7 +70,7 @@ public class JcrDocument extends JcrFile implements Document {
         }
     }
 
-    public void updateContent(@Nonnull InputStream stream) throws DocumentException {
+    public void updateContent(@NotNull InputStream stream) throws DocumentException {
         try {
             Binary binary = this
                     .getSession()
@@ -98,7 +98,7 @@ public class JcrDocument extends JcrFile implements Document {
     }
 
     @Override
-    public @Nonnull DetailedDocument expand() throws DocumentException {
+    public @NotNull DetailedDocument expand() throws DocumentException {
         return new JcrDetailedDocument(this.node);
     }
 }

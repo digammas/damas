@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Document object.
@@ -16,5 +16,5 @@ public interface Document extends File {
      * @return
      */
     @Override
-    @Nonnull DetailedDocument expand() throws DocumentException;
+    @NotNull DetailedDocument expand() throws DocumentException;
 }

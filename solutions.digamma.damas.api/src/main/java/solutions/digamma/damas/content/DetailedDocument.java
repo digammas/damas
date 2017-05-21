@@ -1,6 +1,6 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Detailed document.
@@ -13,5 +13,5 @@ public interface DetailedDocument extends Document, DetailedFile {
      * All versions of the document.
      * @return
      */
-    @Nonnull Version @Nonnull[] getVersions();
+    @NotNull Version @NotNull [] getVersions();
 }

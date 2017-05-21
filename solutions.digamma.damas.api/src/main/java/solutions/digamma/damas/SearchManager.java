@@ -1,7 +1,7 @@
 package solutions.digamma.damas;
 
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
@@ -17,8 +17,8 @@ public interface SearchManager<T extends Entity> {
      * @param token
      * @return A page of all known entities.
      */
-    @Nonnull
-    Page<T> find(@Nonnull Token token) throws DocumentException;
+    @NotNull
+    Page<T> find(@NotNull Token token) throws DocumentException;
 
     /**
      * Find entities from an offset, up to certain size.
@@ -28,8 +28,8 @@ public interface SearchManager<T extends Entity> {
      * @param size   Maximum result size.
      * @return A page of entities.
      */
-    @Nonnull
-    Page<T> find(@Nonnull Token token, int offset, int size)
+    @NotNull
+    Page<T> find(@NotNull Token token, int offset, int size)
             throws DocumentException;
 
     /**
@@ -42,8 +42,8 @@ public interface SearchManager<T extends Entity> {
      * @param query  Search query. If null, no filtering is done.
      * @return A page of entities.
      */
-    @Nonnull
+    @NotNull
     Page<T> find(
-            @Nonnull Token token, int offset, int size, @Nullable Object query)
+            @NotNull Token token, int offset, int size, @Nullable Object query)
             throws DocumentException;
 }

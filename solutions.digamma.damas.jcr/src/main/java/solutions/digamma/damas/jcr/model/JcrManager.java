@@ -5,7 +5,7 @@ import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.jcr.session.SessionBookkeeper;
 import solutions.digamma.damas.jcr.session.UserSession;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;
@@ -23,8 +23,8 @@ public class JcrManager {
     @Inject
     private SessionBookkeeper bookkeeper;
 
-    @Nonnull
-    protected UserSession getSession(@Nonnull Token token)
+    @NotNull
+    protected UserSession getSession(@NotNull Token token)
             throws AuthenticationException {
         try {
             return this.bookkeeper.lookup(token);

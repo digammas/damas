@@ -1,6 +1,6 @@
 package solutions.digamma.damas;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.Calendar;
 
@@ -15,7 +15,7 @@ public interface Created {
      * @return
      * @throws DocumentException
      */
-    @Nonnull
+    @NotNull
     String getCreatedBy() throws DocumentException;
 
     /**
@@ -24,7 +24,7 @@ public interface Created {
      * @return
      * @throws DocumentException
      */
-    @Nonnull
+    @NotNull
     Calendar getCreationDate() throws DocumentException;
 }
 

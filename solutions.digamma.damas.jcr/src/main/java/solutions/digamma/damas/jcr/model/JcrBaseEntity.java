@@ -4,7 +4,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.CompatibilityException;
@@ -21,14 +21,15 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
     /**
      * Underling JCR node.
      */
-    @Nonnull protected final Node node;
+    @NotNull
+    protected final Node node;
 
-    public JcrBaseEntity(@Nonnull final Node node) throws DocumentException {
+    public JcrBaseEntity(@NotNull final Node node) throws DocumentException {
         this.node = node;
         checkCompatibility();
     }
 
-    public @Nonnull Session getSession() throws DocumentException {
+    public @NotNull Session getSession() throws DocumentException {
         try {
             return this.node.getSession();
         } catch (RepositoryException e) {
@@ -41,7 +42,7 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
      *
      * @return
      */
-    public  @Nonnull Node getNode() {
+    public  @NotNull Node getNode() {
         return this.node;
     }
 

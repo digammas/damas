@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
@@ -38,7 +38,7 @@ public class FileUpdater implements File {
     }
 
     @Override
-    public void setName(@Nonnull String value) throws DocumentException {
+    public void setName(@NotNull String value) throws DocumentException {
         this.name = value;
     }
 
@@ -48,7 +48,7 @@ public class FileUpdater implements File {
     }
 
     @Override
-    public void setParent(@Nonnull Folder value) throws DocumentException {
+    public void setParent(@NotNull Folder value) throws DocumentException {
 
     }
 
@@ -63,7 +63,7 @@ public class FileUpdater implements File {
     }
 
     @Override
-    public @Nonnull DetailedFile expand() throws DocumentException {
+    public @NotNull DetailedFile expand() throws DocumentException {
         return null;
     }
 }

@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.EntityManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.session.UserSession;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.logging.Logged;
@@ -22,7 +22,7 @@ abstract public class JcrReadManager<T extends Entity>
 
     @Logged
     @Override
-    public T retrieve(@Nonnull Token token, @Nonnull String id)
+    public T retrieve(@NotNull Token token, @NotNull String id)
             throws DocumentException {
         try (UserSession session = getSession(token).open()) {
             return this.retrieve(session.toJcrSession(), id);
@@ -40,6 +40,6 @@ abstract public class JcrReadManager<T extends Entity>
      * @throws RepositoryException
      * @throws DocumentException
      */
-    abstract protected T retrieve(@Nonnull Session session, @Nonnull String id)
+    abstract protected T retrieve(@NotNull Session session, @NotNull String id)
             throws RepositoryException, DocumentException;
 }

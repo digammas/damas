@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.model;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Modifiable;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.Property;
 import java.util.Calendar;
@@ -20,7 +20,7 @@ public interface JcrModifiable extends Modifiable, JcrEntity {
      * @return
      */
     @Override
-    @Nonnull
+    @NotNull
     default String getModifiedBy() throws DocumentException {
         return this.getString(Property.JCR_LAST_MODIFIED_BY);
     }
@@ -31,7 +31,7 @@ public interface JcrModifiable extends Modifiable, JcrEntity {
      * @return
      */
     @Override
-    @Nonnull
+    @NotNull
     default Calendar getModificationDate() throws DocumentException {
         return this.getDate(Property.JCR_LAST_MODIFIED);
     }

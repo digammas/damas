@@ -1,6 +1,6 @@
 package solutions.digamma.damas;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.Calendar;
 
@@ -15,7 +15,7 @@ public interface Modifiable {
      * @return
      * @throws DocumentException
      */
-    @Nonnull
+    @NotNull
     String getModifiedBy() throws DocumentException;
 
     /**
@@ -24,6 +24,6 @@ public interface Modifiable {
      * @return
      * @throws DocumentException
      */
-    @Nonnull
+    @NotNull
     Calendar getModificationDate() throws DocumentException;
 }
