@@ -8,7 +8,7 @@ import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.*;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class ContentTest {
             }
 
             @Override
-            public void setName(@Nonnull String value) throws DocumentException {
+            public void setName(@NotNull String value) throws DocumentException {
 
             }
 
@@ -80,7 +80,7 @@ public class ContentTest {
             }
 
             @Override
-            public void setParent(@Nonnull Folder value) throws DocumentException {
+            public void setParent(@NotNull Folder value) throws DocumentException {
 
             }
 
@@ -95,7 +95,7 @@ public class ContentTest {
             }
 
             @Override
-            public @Nonnull DetailedDocument expand() {
+            public @NotNull DetailedDocument expand() {
                 return null;
             }
 

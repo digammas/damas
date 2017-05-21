@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.error;
 
 import solutions.digamma.damas.*;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.*;
 import javax.jcr.security.AccessControlException;
@@ -28,8 +28,9 @@ public class JcrException extends SevereDocumentException {
         super(message, e);
     }
 
-    @Nonnull public static DocumentException wrap(
-            @Nonnull Exception e) {
+    @NotNull
+    public static DocumentException wrap(
+            @NotNull Exception e) {
         if (e instanceof DocumentException) {
             return wrap((DocumentException) e);
         }
@@ -39,13 +40,15 @@ public class JcrException extends SevereDocumentException {
         return new JcrException(e);
     }
 
-    @Nonnull public static DocumentException wrap(
-            @Nonnull DocumentException e) {
+    @NotNull
+    public static DocumentException wrap(
+            @NotNull DocumentException e) {
         return e;
     }
 
-    @Nonnull public static DocumentException wrap(
-            @Nonnull RepositoryException e) {
+    @NotNull
+    public static DocumentException wrap(
+            @NotNull RepositoryException e) {
         if (e instanceof AccessControlException) {
             return new AuthorizationException(e);
         }

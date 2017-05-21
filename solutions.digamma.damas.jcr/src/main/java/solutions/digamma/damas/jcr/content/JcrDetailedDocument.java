@@ -3,7 +3,7 @@ package solutions.digamma.damas.jcr.content;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Version;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.Node;
 
@@ -18,12 +18,12 @@ public class JcrDetailedDocument extends JcrDocument
      *
      * @param node
      */
-    public JcrDetailedDocument(@Nonnull Node node) throws DocumentException {
+    public JcrDetailedDocument(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
     @Override
-    public Version @Nonnull [] getVersions() {
+    public Version @NotNull [] getVersions() {
         return new Version[0];
     }
 }

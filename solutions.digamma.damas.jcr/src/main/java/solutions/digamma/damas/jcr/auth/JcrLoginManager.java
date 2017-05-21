@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.auth;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
@@ -35,7 +35,7 @@ public class JcrLoginManager implements LoginManager {
     private SessionBookkeeper bookkeeper;
 
     @Override
-    public Token login(@Nonnull String username, @Nonnull String password)
+    public Token login(@NotNull String username, @NotNull String password)
             throws DocumentException {
         try {
             Credentials credentials = new SimpleCredentials(

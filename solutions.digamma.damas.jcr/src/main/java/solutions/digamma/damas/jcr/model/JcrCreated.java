@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.model;
 
 import solutions.digamma.damas.Created;
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.Property;
 import java.util.Calendar;
@@ -14,13 +14,13 @@ import java.util.Calendar;
  */
 public interface JcrCreated extends Created, JcrEntity {
 
-    @Nonnull
+    @NotNull
     @Override
     default Calendar getCreationDate() throws DocumentException {
         return this.getDate(Property.JCR_CREATED);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default String getCreatedBy() throws DocumentException {
         return this.getString(Property.JCR_CREATED_BY);

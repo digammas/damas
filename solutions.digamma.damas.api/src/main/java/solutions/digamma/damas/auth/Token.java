@@ -1,6 +1,6 @@
 package solutions.digamma.damas.auth;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * User session token.
@@ -9,5 +9,5 @@ import solutions.digamma.damas.inspection.Nonnull;
  */
 public interface Token {
 
-    @Nonnull String getSecret();
+    @NotNull String getSecret();
 }

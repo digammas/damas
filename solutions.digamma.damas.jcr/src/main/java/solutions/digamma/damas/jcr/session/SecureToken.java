@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.session;
 
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -13,7 +13,7 @@ import java.security.SecureRandom;
  */
 public class SecureToken implements Token {
 
-    @Nonnull
+    @NotNull
     private String token;
 
     private static SecureRandom random = new SecureRandom();
@@ -25,7 +25,7 @@ public class SecureToken implements Token {
         this.token = SecureToken.nextToken();
     }
 
-    @Nonnull
+    @NotNull
     public String getSecret() {
         return this.token;
     }

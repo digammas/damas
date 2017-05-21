@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
@@ -17,7 +17,7 @@ public interface Folder extends File {
      * @return
      */
     @Override
-    @Nonnull DetailedFolder expand() throws DocumentException;
+    @NotNull DetailedFolder expand() throws DocumentException;
 
     /**
      * Expand content to the given depth.
@@ -51,12 +51,12 @@ public interface Folder extends File {
          *
          * @return
          */
-        @Nonnull  Folder @Nonnull [] getFolders();
+        @NotNull Folder @NotNull [] getFolders();
 
         /**
          * Array of all documents in a folder.
          * @return
          */
-        @Nonnull  Folder @Nonnull [] getDocuments();
+        @NotNull Folder @NotNull [] getDocuments();
     }
 }

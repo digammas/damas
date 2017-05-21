@@ -4,16 +4,8 @@ import org.mockito.Mockito;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.content.DetailedDocument;
-import solutions.digamma.damas.content.DetailedFile;
-import solutions.digamma.damas.content.DetailedFolder;
-import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
-import solutions.digamma.damas.content.File;
-import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
-import solutions.digamma.damas.inspection.Nonnull;
-import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.rs.content.DocumentUpdater;
 import solutions.digamma.damas.rs.content.FolderUpdater;
 

@@ -1,7 +1,7 @@
 package solutions.digamma.damas.auth;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Username/password login manager.
@@ -19,7 +19,7 @@ public interface LoginManager {
      * @return
      * @throws DocumentException
      */
-    Token login(@Nonnull String username, @Nonnull String password)
+    Token login(@NotNull String username, @NotNull String password)
             throws DocumentException;
 
     void logout(Token token) throws DocumentException;

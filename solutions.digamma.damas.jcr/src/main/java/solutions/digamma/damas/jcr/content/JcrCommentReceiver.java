@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
 
-    @Nonnull
+    @NotNull
     default Comment[] getComments() throws DocumentException {
         try {
             String sql2 = String.format(

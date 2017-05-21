@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.error.IncompatiblePathException;
@@ -34,7 +34,7 @@ public abstract class JcrFile extends JcrBaseEntity
      *
      * @param node
      */
-    public JcrFile(@Nonnull Node node) throws DocumentException {
+    public JcrFile(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
@@ -52,7 +52,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public @Nonnull String getName() throws DocumentException {
+    public @NotNull String getName() throws DocumentException {
         try {
             return this.node.getName();
         } catch (RepositoryException e) {
@@ -61,7 +61,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setName(@Nonnull String value) throws DocumentException {
+    public void setName(@NotNull String value) throws DocumentException {
         try {
             String destination = URI
                     .create(this.node.getParent().getPath())
@@ -88,7 +88,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setParent(@Nonnull Folder value) throws DocumentException {
+    public void setParent(@NotNull Folder value) throws DocumentException {
         try {
             String id = value.getId();
             if (id == null) {
@@ -115,7 +115,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setParentId(@Nonnull String value) throws DocumentException {
+    public void setParentId(@NotNull String value) throws DocumentException {
         try {
             String path = this.getSession().getNodeByIdentifier(value)
                     .getPath();
@@ -137,7 +137,7 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
-    protected void move(@Nonnull String path) throws RepositoryException {
+    protected void move(@NotNull String path) throws RepositoryException {
         this.node.getSession().move(this.node.getPath(), path);
     }
     
@@ -150,9 +150,9 @@ public abstract class JcrFile extends JcrBaseEntity
      * @throws DocumentException
      */
     static protected Node create(
-            @Nonnull String name,
-            @Nonnull String nodeType,
-            @Nonnull Node parent)
+            @NotNull String name,
+            @NotNull String nodeType,
+            @NotNull Node parent)
         throws DocumentException {
         try {
             Node node = parent.addNode(name, nodeType);

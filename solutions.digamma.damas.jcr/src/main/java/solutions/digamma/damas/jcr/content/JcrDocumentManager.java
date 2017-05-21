@@ -5,7 +5,7 @@ import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.DocumentPayload;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.session.UserSession;
@@ -27,10 +27,10 @@ public class JcrDocumentManager
 
     @Logged
     @Override
-    public @Nonnull Document create(
-            @Nonnull Token token,
-            @Nonnull Document entity,
-            @Nonnull InputStream stream)
+    public @NotNull Document create(
+            @NotNull Token token,
+            @NotNull Document entity,
+            @NotNull InputStream stream)
             throws DocumentException {
         try (UserSession session = this.getSession(token).open()) {
             JcrDocument document = this.create(session.toJcrSession(), entity);
@@ -44,7 +44,7 @@ public class JcrDocumentManager
 
     @Logged
     @Override
-    public DocumentPayload download(Token token, @Nonnull String id) throws DocumentException {
+    public DocumentPayload download(Token token, @NotNull String id) throws DocumentException {
         try (UserSession session = this.getSession(token).open()) {
             JcrDocument document = this.retrieve(session.toJcrSession(), id);
             return document.getContent();
@@ -57,9 +57,9 @@ public class JcrDocumentManager
     @Logged
     @Override
     public void upload(
-            @Nonnull Token token,
-            @Nonnull String id,
-            @Nonnull InputStream stream)
+            @NotNull Token token,
+            @NotNull String id,
+            @NotNull InputStream stream)
             throws DocumentException {
         try (UserSession session = this.getSession(token).open()) {
             this.retrieve(session.toJcrSession(), id).updateContent(stream);
@@ -71,16 +71,16 @@ public class JcrDocumentManager
 
     @Override
     protected JcrDocument retrieve(
-            @Nonnull Session session,
-            @Nonnull String id)
+            @NotNull Session session,
+            @NotNull String id)
             throws RepositoryException, DocumentException {
         return new JcrDocument(session.getNodeByIdentifier(id));
     }
 
     @Override
     protected JcrDocument create(
-            @Nonnull Session session,
-            @Nonnull Document entity)
+            @NotNull Session session,
+            @NotNull Document entity)
             throws RepositoryException, DocumentException {
         JcrDocument document = JcrDocument.create(
                 entity.getName(),
@@ -91,9 +91,9 @@ public class JcrDocumentManager
 
     @Override
     protected JcrDocument update(
-            @Nonnull Session session,
-            @Nonnull String id,
-            @Nonnull Document entity)
+            @NotNull Session session,
+            @NotNull String id,
+            @NotNull Document entity)
             throws RepositoryException, DocumentException {
         JcrDocument document = this.retrieve(session, id);
         document.update(entity);
@@ -101,7 +101,7 @@ public class JcrDocumentManager
     }
 
     @Override
-    protected void delete(@Nonnull Session session, @Nonnull String id)
+    protected void delete(@NotNull Session session, @NotNull String id)
             throws RepositoryException, DocumentException {
         JcrDocument document = this.retrieve(session, id);
         document.remove();

@@ -1,7 +1,7 @@
 package solutions.digamma.damas;
 
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Entity manager.
@@ -20,8 +20,8 @@ public interface EntityManager<T extends Entity> {
      * @return                      Retrieved entity.
      * @throws DocumentException
      */
-    @Nonnull
-    T retrieve(@Nonnull Token token, @Nonnull String id)
+    @NotNull
+    T retrieve(@NotNull Token token, @NotNull String id)
             throws DocumentException;
 
 }

@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.inspection.Nonnull;
+import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.Comment;
@@ -28,7 +28,7 @@ public class JcrComment extends JcrBaseEntity
      * @param node
      * @throws DocumentException
      */
-    public JcrComment(@Nonnull Node node) throws DocumentException {
+    public JcrComment(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
