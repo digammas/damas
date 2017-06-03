@@ -2,6 +2,7 @@ package solutions.digamma.damas.jcr.providers;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
 import javax.decorator.Decorator;
 import javax.decorator.Delegate;
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import java.util.Comparator;
 /**
  * @author Ahmad Shahwan
  */
-@Decorator
+@Decorator @Priority(1)
 abstract public class OneTimeRepositoryFactory implements RepositoryFactory {
 
     @Delegate @Inject
