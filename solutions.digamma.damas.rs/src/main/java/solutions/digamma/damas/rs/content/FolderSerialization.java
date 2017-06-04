@@ -48,4 +48,12 @@ public class FolderSerialization extends FileSerialization implements Folder {
     public Content getContent() {
         return null;
     }
+
+    /**
+     * For deserialization purposes.
+     *
+     * @param value
+     */
+    public void setContent(Object value) {
+    }
 }

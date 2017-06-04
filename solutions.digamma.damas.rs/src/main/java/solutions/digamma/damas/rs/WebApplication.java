@@ -30,7 +30,6 @@ public class WebApplication extends Application {
         classes.add(FolderResource.class);
         classes.add(LogFeature.class);
         classes.add(ExceptionReportFeature.class);
-        classes.add(XmlMessageBodyFeature.class);
         return classes;
     }
 }
