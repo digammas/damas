@@ -6,8 +6,8 @@ import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
-import solutions.digamma.damas.rs.content.DocumentUpdater;
-import solutions.digamma.damas.rs.content.FolderUpdater;
+import solutions.digamma.damas.rs.content.DocumentSerialization;
+import solutions.digamma.damas.rs.content.FolderSerialization;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -26,8 +26,8 @@ public class StubProviders extends Mockito {
 
     private Token token = () -> TOKEN;
 
-    private DocumentUpdater document = new DocumentUpdater();
-    private FolderUpdater folder = new FolderUpdater();
+    private DocumentSerialization document = new DocumentSerialization();
+    private FolderSerialization folder = new FolderSerialization();
 
 
     @Inject

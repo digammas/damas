@@ -4,23 +4,35 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Folder object updater. This class is used to capture folder's modifications.
+ * Folder object serialization.
  *
  * @author Ahmad Shahwan
  */
-public class FolderUpdater extends FileUpdater implements Folder {
+@XmlRootElement(name = "Folder")
+public class FolderSerialization extends FileSerialization implements Folder {
 
     /**
      * Default constructor.
      */
-    public FolderUpdater() {
+    public FolderSerialization() {
+        super();
+    }
+
+    /**
+     * A constructor that mimics another folder object.
+     *
+     * @param copy
+     * @throws DocumentException
+     */
+    public FolderSerialization(Folder copy) throws DocumentException {
+        super(copy);
     }
 
     @Override
-    public DetailedFolder expand() throws DocumentException {
+    public DetailedFolder expand() {
         return null;
     }
 
@@ -32,7 +44,6 @@ public class FolderUpdater extends FileUpdater implements Folder {
     public void expandContent() {
     }
 
-    @XmlTransient
     @Override
     public Content getContent() {
         return null;

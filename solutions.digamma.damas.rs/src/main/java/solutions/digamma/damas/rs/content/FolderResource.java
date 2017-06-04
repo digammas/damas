@@ -17,7 +17,7 @@ import javax.ws.rs.QueryParam;
  */
 @Path("folders")
 public class FolderResource
-        extends SearchEnabledCrudResource<Folder, FolderUpdater> {
+        extends SearchEnabledCrudResource<Folder, FolderSerialization> {
 
     @Inject
     protected FolderManager manager;
@@ -39,7 +39,7 @@ public class FolderResource
     }
 
     @Override
-    public Folder retrieve(String id)
+    public FolderSerialization retrieve(String id)
             throws DocumentException {
         Folder folder = super.retrieve(id);
         if (this.full != null && this.full) {
@@ -52,6 +52,11 @@ public class FolderResource
                 folder.expandContent(this.depth);
             }
         }
-        return folder;
+        return wrap(folder);
+    }
+
+    @Override
+    protected FolderSerialization wrap(Folder entity) throws DocumentException {
+        return new FolderSerialization(entity);
     }
 }

@@ -14,8 +14,8 @@ import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.rs.auth.Credentials;
-import solutions.digamma.damas.rs.content.DocumentUpdater;
-import solutions.digamma.damas.rs.content.FolderUpdater;
+import solutions.digamma.damas.rs.content.DocumentSerialization;
+import solutions.digamma.damas.rs.content.FolderSerialization;
 import solutions.digamma.damas.rs.serialization.XmlMessageBodyFeature;
 
 import javax.ws.rs.client.Entity;
@@ -84,15 +84,15 @@ public class RestTest extends JerseyTest {
         file = target("documents/" + StubProviders.DOCUMENT_ID)
                 .request()
                 .accept(this.ct)
-                .get(DocumentUpdater.class);
+                .get(DocumentSerialization.class);
         assert file != null : "Error GETting document.";
         file = target("documents")
                 .request()
-                .post(Entity.entity(file, this.ct), DocumentUpdater.class);
+                .post(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error POSTing document.";
         file = target("documents/" + StubProviders.DOCUMENT_ID)
                 .request()
-                .put(Entity.entity(file, this.ct), DocumentUpdater.class);
+                .put(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error PUTing document.";
         target("documents/" + StubProviders.DOCUMENT_ID)
                 .request()
@@ -105,15 +105,15 @@ public class RestTest extends JerseyTest {
         file = target("folders/" + StubProviders.FOLDER_ID)
                 .request()
                 .accept(this.ct)
-                .get(FolderUpdater.class);
+                .get(FolderSerialization.class);
         assert file != null : "Error GETting folder.";
         file = target("folders")
                 .request()
-                .post(Entity.entity(file, this.ct), FolderUpdater.class);
+                .post(Entity.entity(file, this.ct), FolderSerialization.class);
         assert file != null : "Error POSTing folder.";
         file = target("folders/" + StubProviders.FOLDER_ID)
                 .request()
-                .put(Entity.entity(file, this.ct), FolderUpdater.class);
+                .put(Entity.entity(file, this.ct), FolderSerialization.class);
         assert file != null : "Error PUTing folder.";
         target("folders/" + StubProviders.FOLDER_ID)
                 .request()

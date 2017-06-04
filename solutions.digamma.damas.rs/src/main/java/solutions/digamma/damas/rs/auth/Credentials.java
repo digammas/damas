@@ -1,5 +1,6 @@
 package solutions.digamma.damas.rs.auth;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
  *
  * @author Ahmad Shahwan
  */
+@XmlRootElement(name = "Login")
 public class Credentials implements Serializable {
 
     private String username;
@@ -35,6 +37,7 @@ public class Credentials implements Serializable {
      *
      * @return
      */
+    @XmlElement
     public String getUsername() {
         return username;
     }
@@ -53,6 +56,7 @@ public class Credentials implements Serializable {
      *
      * @return
      */
+    @XmlElement
     public String getPassword() {
         return password;
     }

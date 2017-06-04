@@ -18,11 +18,11 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Ahmad Shahwan
  */
-public abstract class CrudResource<T extends Entity, F extends T>
-        extends EntityResource<T> {
+public abstract class CrudResource<E extends Entity, S extends E>
+        extends EntityResource<E, S> {
 
     @Override
-    abstract protected CrudManager<T> getManager();
+    abstract protected CrudManager<E> getManager();
 
     /**
      * Create new entity.
@@ -34,10 +34,10 @@ public abstract class CrudResource<T extends Entity, F extends T>
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public T create(
-            F entity)
+    public S create(
+            S entity)
             throws DocumentException {
-        return this.getManager().create(this.getToken(), entity);
+        return wrap(this.getManager().create(this.getToken(), entity));
     }
 
     /**
@@ -52,11 +52,11 @@ public abstract class CrudResource<T extends Entity, F extends T>
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public T update(
+    public S update(
             @PathParam("id") String id,
-            F entity)
+            S entity)
             throws DocumentException {
-        return this.getManager().update(this.getToken(), id, entity);
+        return wrap(this.getManager().update(this.getToken(), id, entity));
     }
 
     /**

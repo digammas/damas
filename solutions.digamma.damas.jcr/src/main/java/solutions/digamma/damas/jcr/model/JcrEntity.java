@@ -9,7 +9,6 @@ import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.Calendar;
 
 /**
@@ -31,7 +30,6 @@ public interface JcrEntity extends Entity {
      *
      * @return
      */
-    @XmlTransient
     @NotNull Node getNode();
 
     @NotNull
