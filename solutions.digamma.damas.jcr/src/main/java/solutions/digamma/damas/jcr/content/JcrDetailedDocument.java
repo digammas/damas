@@ -6,6 +6,8 @@ import solutions.digamma.damas.content.Version;
 import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.Node;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ahmad Shahwan
@@ -23,7 +25,7 @@ public class JcrDetailedDocument extends JcrDocument
     }
 
     @Override
-    public Version @NotNull [] getVersions() {
-        return new Version[0];
+    public @NotNull List<@NotNull Version> getVersions() {
+        return new ArrayList<>(0);
     }
 }

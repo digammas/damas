@@ -4,6 +4,8 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
+import java.util.List;
+
 /**
  * Folder object. A folder can contain files and other folders.
  *
@@ -51,12 +53,12 @@ public interface Folder extends File {
          *
          * @return
          */
-        @NotNull Folder @NotNull [] getFolders();
+        @NotNull List<@NotNull Folder> getFolders();
 
         /**
          * Array of all documents in a folder.
          * @return
          */
-        @NotNull Folder @NotNull [] getDocuments();
+        @NotNull List<@NotNull Folder> getDocuments();
     }
 }
