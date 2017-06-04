@@ -16,7 +16,8 @@ import javax.ws.rs.QueryParam;
  * @author Ahmad Shahwan
  */
 @Path("documents")
-public class DocumentResource extends CrudResource<Document, DocumentSerialization> {
+public class DocumentResource
+        extends CrudResource<Document, DocumentSerialization> {
 
     @Inject
     protected DocumentManager manager;

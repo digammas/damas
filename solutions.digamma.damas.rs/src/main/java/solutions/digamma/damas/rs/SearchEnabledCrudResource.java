@@ -7,15 +7,17 @@ import solutions.digamma.damas.Page;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author Ahmad Shahwan
  */
-abstract public class SearchEnabledCrudResource<T extends Entity, F extends T>
-        extends CrudResource<T, F> {
+abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
+        extends CrudResource<E, S> {
 
     @Override
-    abstract protected FullManager<T> getManager();
+    abstract protected FullManager<E> getManager();
 
     /**
      * Search query. Subclasses are expected to override this method.
@@ -28,11 +30,20 @@ abstract public class SearchEnabledCrudResource<T extends Entity, F extends T>
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Page<T> retrieve(
+    public Page<E> retrieve(
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("size") @DefaultValue("30") int size)
             throws DocumentException {
-        return this.getManager()
-                .find(this.getToken(), offset, size, this.getQuery());
+        return wrap(this.getManager()
+                .find(this.getToken(), offset, size, this.getQuery()));
+    }
+
+    protected Page<E> wrap(Page<E> page) throws DocumentException {
+        List<E> objects = page.getObjects();
+        for (final ListIterator<E> i = objects.listIterator(); i.hasNext();) {
+            final E entity = i.next();
+            i.set(wrap(entity));
+        }
+        return page;
     }
 }
