@@ -1,20 +1,19 @@
 package solutions.digamma.damas.jcr.content;
 
+import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.CompatibilityException;
+import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.error.IncompatiblePathException;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
-import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-import javax.xml.bind.annotation.XmlTransient;
 import java.net.URI;
 
 /**
@@ -74,7 +73,6 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
-    @XmlTransient
     @Override
     public @Nullable Folder getParent() throws DocumentException {
         Node parent;

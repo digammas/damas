@@ -1,16 +1,15 @@
 package solutions.digamma.damas.jcr.model;
 
+import solutions.digamma.damas.CompatibilityException;
+import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.inspection.NotNull;
+import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
+import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.xml.bind.annotation.XmlTransient;
-
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
 /**
  * Generic entity, implemented as a JCR node.
@@ -30,7 +29,6 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         checkCompatibility();
     }
 
-    @XmlTransient
     public @NotNull Session getSession() throws DocumentException {
         try {
             return this.node.getSession();

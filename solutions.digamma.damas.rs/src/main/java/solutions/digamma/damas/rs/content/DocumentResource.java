@@ -16,7 +16,7 @@ import javax.ws.rs.QueryParam;
  * @author Ahmad Shahwan
  */
 @Path("documents")
-public class DocumentResource extends CrudResource<Document, DocumentUpdater> {
+public class DocumentResource extends CrudResource<Document, DocumentSerialization> {
 
     @Inject
     protected DocumentManager manager;
@@ -32,12 +32,17 @@ public class DocumentResource extends CrudResource<Document, DocumentUpdater> {
     }
 
     @Override
-    public Document retrieve(String id)
+    public DocumentSerialization retrieve(String id)
             throws DocumentException {
         Document document = super.retrieve(id);
         if (this.full != null && this.full) {
             document = document.expand();
         }
-        return document;
+        return wrap(document);
+    }
+
+    @Override
+    protected DocumentSerialization wrap(Document entity) throws DocumentException {
+        return new DocumentSerialization(entity);
     }
 }

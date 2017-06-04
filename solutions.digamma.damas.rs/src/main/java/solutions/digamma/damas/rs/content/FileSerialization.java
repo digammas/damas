@@ -8,15 +8,24 @@ import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**
- * Base file object updater.
+ * File object serialization.
  *
  * @author Ahmad Shahwan
  */
-public class FileUpdater implements File {
+abstract public class FileSerialization implements File {
 
     private String id;
     private String name;
     private String parentId;
+
+    protected FileSerialization() {
+    }
+
+    protected FileSerialization(File copy) throws DocumentException {
+        this.id = copy.getId();
+        this.name = copy.getName();
+        this.parentId = copy.getParentId();
+    }
 
     @Override
     public @Nullable String getId() {
@@ -43,7 +52,7 @@ public class FileUpdater implements File {
     }
 
     @Override
-    public @Nullable FolderUpdater getParent() throws DocumentException {
+    public @Nullable FolderSerialization getParent() throws DocumentException {
         return null;
     }
 

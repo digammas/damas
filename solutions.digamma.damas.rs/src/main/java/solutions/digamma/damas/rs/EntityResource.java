@@ -11,11 +11,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Read REST endpoint.
+ * Basic entity REST resource.
+ * This endpoint provide retrieval only endpoint. It also provide the base of
+ * other entity resources.
+ *
+ * @param <E> Entity type.
+ * @param <S> Entity serialization type.
  *
  * @author Ahmad Shahwan
  */
-public abstract class EntityResource<T extends Entity> extends BaseResource {
+public abstract class EntityResource<E extends Entity, S extends E>
+        extends BaseResource {
 
     /**
      * Resource entity manager.
@@ -23,7 +29,7 @@ public abstract class EntityResource<T extends Entity> extends BaseResource {
      *
      * @return
      */
-    abstract protected EntityManager<T> getManager();
+    abstract protected EntityManager<E> getManager();
 
     /**
      * Retrieve entity.
@@ -35,8 +41,9 @@ public abstract class EntityResource<T extends Entity> extends BaseResource {
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public T retrieve(@PathParam("id") String id) throws DocumentException {
-        return this.getManager().retrieve(this.getToken(), id);
+    public S retrieve(@PathParam("id") String id) throws DocumentException {
+        return wrap(this.getManager().retrieve(this.getToken(), id));
     }
 
+    abstract protected S wrap(E entity) throws DocumentException;
 }
