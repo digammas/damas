@@ -38,7 +38,7 @@ public class JcrFolder extends JcrFile implements Folder {
      */
     static JcrFolder create(@NotNull String name, @NotNull Node parent)
         throws DocumentException {
-        return new JcrFolder(create(name, NodeType.NT_FOLDER, parent));
+        return new JcrFolder(create(name, Namespace.FOLDER, parent));
     }
 
     @Override

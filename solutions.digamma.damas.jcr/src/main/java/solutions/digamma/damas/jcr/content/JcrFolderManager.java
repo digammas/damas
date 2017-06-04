@@ -39,12 +39,10 @@ public class JcrFolderManager
             @NotNull Session session,
             @NotNull Folder entity)
             throws RepositoryException, DocumentException {
-        String parentId = entity.getParentId();
-        String name = entity.getName();
-        Node parent = session.getNodeByIdentifier(parentId);
-        Node node = parent.addNode(NodeType.NT_FOLDER, name);
-        node.addMixin(Namespace.FILE);
-        return new JcrFolder(node);
+        return JcrFolder.create(
+                entity.getName(),
+                session.getNodeByIdentifier(entity.getParentId())
+        );
     }
 
     @Override
@@ -76,5 +74,15 @@ public class JcrFolderManager
         List<Folder> folders = new ArrayList<>(1);
         folders.add(folder);
         return new ContentPage<>(folders, 0, 1);
+    }
+
+    @Override
+    public Folder find(Session session, String path)
+            throws RepositoryException, DocumentException {
+        /**
+         * TODO: Solve for path-hacks. Ex: path = "../secret/place".
+         */
+        return new JcrFolder(
+                session.getNode(JcrFile.CONTENT_ROOT).getNode(path));
     }
 }

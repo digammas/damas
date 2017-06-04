@@ -9,7 +9,7 @@ import solutions.digamma.damas.inspection.Nullable;
  *
  * @author Ahmad Shahwan
  */
-public interface SearchManager<T extends Entity> {
+public interface SearchEngine<T extends Entity> {
 
     /**
      * Find all entities.

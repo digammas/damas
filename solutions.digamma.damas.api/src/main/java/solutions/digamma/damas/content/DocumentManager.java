@@ -2,6 +2,7 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.CrudManager;
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.PathFinder;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 
@@ -12,7 +13,8 @@ import java.io.InputStream;
  *
  * @author Ahmad Shahwan
  */
-public interface DocumentManager extends CrudManager<Document> {
+public interface DocumentManager
+        extends CrudManager<Document>, PathFinder<Document> {
 
     /**
      * Create document with initial content.

@@ -121,13 +121,42 @@ public class ContentTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testCreateFolder() {
-        String answer = target
-                .path("folders")
+        Map<String, Object> answer = target
+                .path("folders/path/")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .get()
-                .readEntity(String.class);
-        this.logger.info(answer);
+                .readEntity(Map.class);
+        String rootId = (String) answer.get("id");
+        assert rootId != null;
+        Map<String, Object> body = new HashMap<>();
+        body.put("parentId", rootId);
+        final String NAME = "test_folder";
+        body.put("name", NAME);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(Entity.json(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        assert id != null;
+        answer = target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert NAME.equals(answer.get("name"));
+        assert target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
     }
 }
