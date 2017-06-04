@@ -111,6 +111,23 @@ public class ContentTest {
     }
 
     @Test
+    public void testUnauthorizedAccess() {
+        int status = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .get()
+                .getStatus();
+        assert status == 401;
+    }
+
+    @Test
     public void testCreateFolder() {
+        String answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(String.class);
+        this.logger.info(answer);
     }
 }

@@ -84,6 +84,9 @@ public class SessionBookkeeper {
      * @throws NotFoundException
      */
     public UserSession lookup(Token token) throws NotFoundException {
+        if (token == null) {
+            throw new NotFoundException("Token is null.");
+        }
         UserSession session = this.sessions.get(token.getSecret());
         if (session == null) {
             this.logger.info(() -> String.format(

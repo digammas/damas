@@ -14,6 +14,7 @@ import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+import javax.xml.bind.annotation.XmlTransient;
 import java.net.URI;
 
 /**
@@ -73,6 +74,7 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
+    @XmlTransient
     @Override
     public @Nullable Folder getParent() throws DocumentException {
         Node parent;
