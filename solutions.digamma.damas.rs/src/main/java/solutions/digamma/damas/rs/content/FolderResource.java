@@ -1,12 +1,15 @@
 package solutions.digamma.damas.rs.content;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.SearchEngine;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 /**
@@ -35,6 +38,16 @@ public class FolderResource
 
     @Override
     protected FolderManager getManager() {
+        return this.manager;
+    }
+
+    @Override
+    protected FolderManager getSearchEngine() {
+        return this.manager;
+    }
+
+    @Override
+    protected FolderManager getPathFinder() {
         return this.manager;
     }
 

@@ -1,6 +1,7 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
@@ -8,6 +9,7 @@ import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
+import solutions.digamma.damas.jcr.model.JcrFullManager;
 import solutions.digamma.damas.jcr.session.UserSession;
 import solutions.digamma.damas.logging.Logged;
 
@@ -23,7 +25,7 @@ import java.io.InputStream;
  */
 @Singleton
 public class JcrDocumentManager
-        extends JcrCrudManager<Document> implements DocumentManager {
+        extends JcrFullManager<Document> implements DocumentManager {
 
     @Logged
     @Override
@@ -44,7 +46,8 @@ public class JcrDocumentManager
 
     @Logged
     @Override
-    public DocumentPayload download(Token token, @NotNull String id) throws DocumentException {
+    public DocumentPayload download(Token token, @NotNull String id)
+            throws DocumentException {
         try (UserSession session = this.getSession(token).open()) {
             JcrDocument document = this.retrieve(session.toJcrSession(), id);
             return document.getContent();
@@ -82,11 +85,10 @@ public class JcrDocumentManager
             @NotNull Session session,
             @NotNull Document entity)
             throws RepositoryException, DocumentException {
-        JcrDocument document = JcrDocument.create(
+        return JcrDocument.create(
                 entity.getName(),
                 session.getNodeByIdentifier(entity.getParentId())
         );
-        return document;
     }
 
     @Override
@@ -105,5 +107,25 @@ public class JcrDocumentManager
             throws RepositoryException, DocumentException {
         JcrDocument document = this.retrieve(session, id);
         document.remove();
+    }
+
+    @Override
+    protected Page<Document> find(
+            Session session,
+            int offset,
+            int size,
+            Object query)
+            throws RepositoryException, DocumentException {
+        /**
+         * TODO: Implement.
+         */
+        return null;
+    }
+
+    @Override
+    public Document find(Session session, String path)
+            throws RepositoryException, DocumentException {
+        return new JcrDocument(
+                session.getNode(JcrFile.CONTENT_ROOT).getNode(path));
     }
 }

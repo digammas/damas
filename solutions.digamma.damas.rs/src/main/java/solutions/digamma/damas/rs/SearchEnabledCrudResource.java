@@ -2,16 +2,21 @@ package solutions.digamma.damas.rs;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.FullManager;
 import solutions.digamma.damas.Page;
+import solutions.digamma.damas.PathFinder;
+import solutions.digamma.damas.SearchEngine;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
+
+;
 
 /**
  * Search-enable CRUD REST resource. The same as CRUD REST resource with search
@@ -22,8 +27,9 @@ import java.util.List;
 abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
         extends CrudResource<E, S> {
 
-    @Override
-    abstract protected FullManager<E> getManager();
+    abstract protected SearchEngine<E> getSearchEngine();
+
+    abstract protected PathFinder<E> getPathFinder();
 
     /**
      * Search query. Subclasses are expected to override this method.
@@ -40,8 +46,23 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("size") @DefaultValue("30") int size)
             throws DocumentException {
-        return wrap(this.getManager()
+        return wrap(this.getSearchEngine()
                 .find(this.getToken(), offset, size, this.getQuery()));
+    }
+
+    @GET
+    @Path("path/{path}")
+    public S find(
+            @PathParam("path") String path)
+            throws DocumentException {
+        return wrap(this.getPathFinder().find(this.getToken(), path));
+    }
+
+    @GET
+    @Path("path")
+    public S find()
+            throws DocumentException {
+        return wrap(this.getPathFinder().find(this.getToken(), "."));
     }
 
     protected Page<S> wrap(Page<E> page) throws DocumentException {
