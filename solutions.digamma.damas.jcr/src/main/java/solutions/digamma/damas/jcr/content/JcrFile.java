@@ -63,8 +63,10 @@ public abstract class JcrFile extends JcrBaseEntity
     @Override
     public void setName(@NotNull String value) throws DocumentException {
         try {
+            /* Use node's path since paths don't end with a slash.
+             */
             String destination = URI
-                    .create(this.node.getParent().getPath())
+                    .create(this.node.getPath())
                     .resolve(value)
                     .getPath();
             this.move(destination);
@@ -89,20 +91,11 @@ public abstract class JcrFile extends JcrBaseEntity
 
     @Override
     public void setParent(@NotNull Folder value) throws DocumentException {
-        try {
-            String id = value.getId();
-            if (id == null) {
-                throw new UnsupportedOperationException("Parent ID is null.");
-            }
-            String path = this.getSession().getNodeByIdentifier(id).getPath();
-            String destination = URI
-                    .create(path)
-                    .resolve(this.node.getName())
-                    .getPath();
-            this.move(destination);
-        } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+        String id = value.getId();
+        if (id == null) {
+            throw new UnsupportedOperationException("Parent ID is null.");
         }
+        this.setParentId(id);
     }
 
     @Override
@@ -117,8 +110,10 @@ public abstract class JcrFile extends JcrBaseEntity
     @Override
     public void setParentId(@NotNull String value) throws DocumentException {
         try {
-            String path = this.getSession().getNodeByIdentifier(value)
-                    .getPath();
+            String path = this.getSession()
+                    .getNodeByIdentifier(value)
+                    .getPath()
+                    .concat("/");
             String destination = URI
                 .create(path)
                 .resolve(this.node.getName())

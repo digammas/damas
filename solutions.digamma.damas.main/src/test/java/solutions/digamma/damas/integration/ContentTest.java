@@ -38,6 +38,7 @@ public class ContentTest {
     private final static MediaType MEDIA_TYPE =MediaType.APPLICATION_JSON_TYPE;
 
     private String token;
+    private String rootId;
     private WebTarget target;
 
     @Inject @Configuration("http.port") @Fallback("8080")
@@ -58,6 +59,7 @@ public class ContentTest {
                 "http://localhost:%d/%s/", this.port, this.path));
         this.target = ClientBuilder.newClient().target(url);
         this.authenticate();
+        this.getRootId();
     }
 
     @PreDestroy
@@ -65,6 +67,7 @@ public class ContentTest {
         this.disconnect();
     }
 
+    @SuppressWarnings("unchecked")
     private String authenticate() {
         if (this. token == null) {
             Map<String, Object> login = new HashMap<>(2);
@@ -79,6 +82,18 @@ public class ContentTest {
         }
         assert this.token != null;
         return this.token;
+    }
+
+    @SuppressWarnings("unchecked")
+    private String getRootId() {
+        Map<String, Object> answer = target
+                .path("folders/path/")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        this.rootId = (String) answer.get("id");
+        return this.rootId;
     }
 
     private void disconnect() {
@@ -122,19 +137,12 @@ public class ContentTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testCreateFolder() {
-        Map<String, Object> answer = target
-                .path("folders/path/")
-                .request(MEDIA_TYPE)
-                .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .get()
-                .readEntity(Map.class);
-        String rootId = (String) answer.get("id");
-        assert rootId != null;
+    public void testRenameFolder() {
+        Map<String, Object> answer;
         Map<String, Object> body = new HashMap<>();
-        body.put("parentId", rootId);
-        final String NAME = "test_folder";
-        body.put("name", NAME);
+        String name = "test_folder";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
         answer = target
                 .path("folders")
                 .request(MEDIA_TYPE)
@@ -150,10 +158,87 @@ public class ContentTest {
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .get()
                 .readEntity(Map.class);
-        assert NAME.equals(answer.get("name"));
+        assert name.equals(answer.get("name"));
+        name = "folder_test";
+        body.clear();
+        body.put("name", name);
         assert target
                 .path("folders")
                 .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .put(Entity.json(body))
+                .getStatus() / 100 == 2;
+        answer = target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert name.equals(answer.get("name"));
+        assert target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testMoveFolder() {
+        Map<String, Object> answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "test_folder";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(Entity.json(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        assert id != null;
+        answer = target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert name.equals(answer.get("name"));
+        body.clear();
+        body.put("name", "temp");
+        body.put("parentId", this.rootId);
+        String tempId = (String) target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(Entity.json(body))
+                .readEntity(Map.class).get("id");
+        body.clear();
+        body.put("parentId", tempId);
+        assert target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .put(Entity.json(body))
+                .getStatus() / 100 == 2;
+        answer = target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert tempId.equals(answer.get("parentId"));
+        assert target
+                .path("folders")
+                .path(tempId)
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .delete()
