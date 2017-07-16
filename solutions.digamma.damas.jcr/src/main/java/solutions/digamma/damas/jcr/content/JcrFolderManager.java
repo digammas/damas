@@ -6,14 +6,14 @@ import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.model.JcrFullManager;
+import solutions.digamma.damas.jcr.model.JcrPathFinder;
+import solutions.digamma.damas.jcr.model.JcrSearchEngine;
 
 import javax.inject.Singleton;
-import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.nodetype.NodeType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,10 @@ import java.util.List;
  */
 @Singleton
 public class JcrFolderManager
-        extends JcrFullManager<Folder> implements FolderManager {
+        extends JcrCrudManager<Folder>
+        implements JcrPathFinder<Folder>,
+            JcrSearchEngine<Folder>,
+            FolderManager {
 
     @Override
     protected JcrFolder retrieve(
@@ -64,7 +67,7 @@ public class JcrFolderManager
     }
 
     @Override
-    protected Page<Folder> find(
+    public Page<Folder> find(
             @NotNull Session session,
             int offset,
             int size,

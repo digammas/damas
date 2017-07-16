@@ -1,7 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
@@ -9,8 +8,8 @@ import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
-import solutions.digamma.damas.jcr.model.JcrFullManager;
-import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.jcr.model.JcrPathFinder;
+import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
 import javax.inject.Singleton;
@@ -25,7 +24,8 @@ import java.io.InputStream;
  */
 @Singleton
 public class JcrDocumentManager
-        extends JcrFullManager<Document> implements DocumentManager {
+        extends JcrCrudManager<Document>
+        implements JcrPathFinder<Document>, DocumentManager {
 
     @Logged
     @Override
@@ -34,8 +34,8 @@ public class JcrDocumentManager
             @NotNull Document entity,
             @NotNull InputStream stream)
             throws DocumentException {
-        try (UserSession session = this.getSession(token).open()) {
-            JcrDocument document = this.create(session.toJcrSession(), entity);
+        try (SessionWrapper session = this.openSession(token)) {
+            JcrDocument document = this.create(session.getSession(), entity);
             document.updateContent(stream);
             return document;
         } catch (RepositoryException e) {
@@ -48,8 +48,8 @@ public class JcrDocumentManager
     @Override
     public DocumentPayload download(Token token, @NotNull String id)
             throws DocumentException {
-        try (UserSession session = this.getSession(token).open()) {
-            JcrDocument document = this.retrieve(session.toJcrSession(), id);
+        try (SessionWrapper session = this.openSession(token)) {
+            JcrDocument document = this.retrieve(session.getSession(), id);
             return document.getContent();
 
         } catch (RepositoryException e) {
@@ -64,8 +64,8 @@ public class JcrDocumentManager
             @NotNull String id,
             @NotNull InputStream stream)
             throws DocumentException {
-        try (UserSession session = this.getSession(token).open()) {
-            this.retrieve(session.toJcrSession(), id).updateContent(stream);
+        try (SessionWrapper session = this.openSession(token)) {
+            this.retrieve(session.getSession(), id).updateContent(stream);
 
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
@@ -107,19 +107,6 @@ public class JcrDocumentManager
             throws RepositoryException, DocumentException {
         JcrDocument document = this.retrieve(session, id);
         document.remove();
-    }
-
-    @Override
-    protected Page<Document> find(
-            Session session,
-            int offset,
-            int size,
-            Object query)
-            throws RepositoryException, DocumentException {
-        /**
-         * TODO: Implement.
-         */
-        return null;
     }
 
     @Override

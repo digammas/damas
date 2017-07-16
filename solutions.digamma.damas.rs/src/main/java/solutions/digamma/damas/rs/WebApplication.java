@@ -4,10 +4,7 @@ import solutions.digamma.damas.rs.auth.AuthResource;
 import solutions.digamma.damas.rs.content.DocumentResource;
 import solutions.digamma.damas.rs.content.FolderResource;
 import solutions.digamma.damas.rs.error.ExceptionReportFeature;
-import solutions.digamma.damas.rs.error.GenericExceptionMapper;
 import solutions.digamma.damas.rs.log.LogFeature;
-import solutions.digamma.damas.rs.log.LogResponseFilter;
-import solutions.digamma.damas.rs.serialization.XmlMessageBodyFeature;
 
 import javax.inject.Singleton;
 import javax.ws.rs.core.Application;

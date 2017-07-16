@@ -7,7 +7,7 @@ import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.session.SecureToken;
 import solutions.digamma.damas.jcr.session.SessionBookkeeper;
-import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.jcr.session.SessionWrapper;
 
 
 import javax.inject.Inject;
@@ -43,8 +43,8 @@ public class JcrLoginManager implements LoginManager {
             Session jcrSession = this.repository.login(credentials);
             this.logger.info("Login successful.");
             SecureToken token = new SecureToken();
-            UserSession userSession = new UserSession(jcrSession);
-            this.bookkeeper.register(token, userSession);
+            SessionWrapper session = new SessionWrapper(jcrSession);
+            this.bookkeeper.register(token, session);
             this.logger.info("Session registered.");
             return token;
         } catch (RepositoryException e) {
