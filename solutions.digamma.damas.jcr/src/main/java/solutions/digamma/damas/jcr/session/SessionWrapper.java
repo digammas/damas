@@ -13,7 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author Ahmad Shahwan
  */
-public class UserSession implements AutoCloseable {
+public class SessionWrapper implements AutoCloseable {
 
     private final static long TIMEOUT = 60;
 
@@ -26,7 +26,7 @@ public class UserSession implements AutoCloseable {
      *
      * @param session JCR session.
      */
-    public UserSession(Session session) {
+    public SessionWrapper(Session session) {
         this.session = session;
     }
 
@@ -40,7 +40,7 @@ public class UserSession implements AutoCloseable {
      * is still locked.
      * @throws DocumentException When thread is interrupted.
      */
-    public UserSession open() throws DocumentException {
+    public SessionWrapper open() throws DocumentException {
         try {
             if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
                 return this;
@@ -75,7 +75,7 @@ public class UserSession implements AutoCloseable {
      * @throws ResourceBusyException When session is open and used by another
      * thread.
      */
-    public Session toJcrSession() throws DocumentException {
+    public Session getSession() throws DocumentException {
         this.checkUsability();
         return this.session;
     }

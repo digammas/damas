@@ -14,10 +14,6 @@ import java.util.Calendar;
 /**
  * Entity implementation, with underling JCR node.
  *
- * If the value (the second argument) passed to a setter is not null property
- * will be updated or created with this value. Otherwise, property will be
- * removed if it exists.
- *
  * @author Ahmad Shahwan
  */
 public interface JcrEntity extends Entity {
@@ -60,6 +56,10 @@ public interface JcrEntity extends Entity {
     /**
      * Set or remove a string property.
      *
+     * If {@code value} is not null property will be updated or created with
+     * this value. Otherwise ({@code value} is null), property will be removed
+     * if it exists.
+     *
      * @param name Property name.
      * @param value Property new value.
      * @throws DocumentException
@@ -67,7 +67,7 @@ public interface JcrEntity extends Entity {
     default void setString(@NotNull String name, @Nullable String value)
             throws DocumentException{
         try {
-            Property property = this.getNode().setProperty(name, value);
+            this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
@@ -93,6 +93,10 @@ public interface JcrEntity extends Entity {
     /**
      * Set or remove a date property.
      *
+     * If {@code value} is not null property will be updated or created with
+     * this value. Otherwise ({@code value} is null), property will be removed
+     * if it exists.
+     *
      * @param name Property name.
      * @param value Property new value.
      * @throws DocumentException
@@ -100,7 +104,7 @@ public interface JcrEntity extends Entity {
     default void setDate(@NotNull String name, @Nullable Calendar value)
             throws DocumentException{
         try {
-            Property property = this.getNode().setProperty(name, value);
+            this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
@@ -125,6 +129,10 @@ public interface JcrEntity extends Entity {
     /**
      * Set or remove integer property.
      *
+     * If {@code value} is not null property will be updated or created with
+     * this value. Otherwise ({@code value} is null), property will be removed
+     * if it exists.
+     *
      * @param name Property name.
      * @param value Property new value.
      * @throws DocumentException
@@ -132,7 +140,7 @@ public interface JcrEntity extends Entity {
     default void setLong(@NotNull String name, @Nullable Long value)
             throws DocumentException{
         try {
-            Property property = this.getNode().setProperty(name, value);
+            this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
