@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.repo;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.Node;

@@ -20,7 +20,7 @@ public class SessionBookkeeper {
     @Inject
     private Logger logger;
 
-    private final Map<String, UserSession> sessions;
+    private final Map<String, SessionWrapper> sessions;
 
     public SessionBookkeeper() {
         this.sessions = new HashMap<>();
@@ -35,7 +35,7 @@ public class SessionBookkeeper {
      * @param session
      * @throws ConflictException
      */
-    public void register(Token token, UserSession session)
+    public void register(Token token, SessionWrapper session)
             throws ConflictException, CompatibilityException {
         if (!(token instanceof SecureToken)) {
             this.logger.warning("Unrecognizable token.");
@@ -83,11 +83,11 @@ public class SessionBookkeeper {
      * @return
      * @throws NotFoundException
      */
-    public UserSession lookup(Token token) throws NotFoundException {
+    public SessionWrapper lookup(Token token) throws NotFoundException {
         if (token == null) {
             throw new NotFoundException("Token is null.");
         }
-        UserSession session = this.sessions.get(token.getSecret());
+        SessionWrapper session = this.sessions.get(token.getSecret());
         if (session == null) {
             this.logger.info(() -> String.format(
                 "Token not found %s.", token));

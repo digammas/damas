@@ -6,7 +6,7 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
-import solutions.digamma.damas.jcr.session.UserSession;
+import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
 import javax.jcr.RepositoryException;
@@ -24,8 +24,8 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public T create(@NotNull Token token, @NotNull T entity)
             throws DocumentException {
-        try (UserSession session = getSession(token).open()) {
-            return this.create(session.toJcrSession(), entity);
+        try (SessionWrapper session = openSession(token)) {
+            return this.create(session.getSession(), entity);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
@@ -35,8 +35,8 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public T update(@NotNull Token token, @NotNull String id, @NotNull T entity)
             throws DocumentException {
-        try (UserSession session = getSession(token).open()) {
-            return this.update(session.toJcrSession(), id, entity);
+        try (SessionWrapper session = openSession(token)) {
+            return this.update(session.getSession(), id, entity);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
@@ -46,8 +46,8 @@ abstract public class JcrCrudManager<T extends Entity>
     @Override
     public void delete(@NotNull Token token, @NotNull String id)
             throws DocumentException {
-        try (UserSession session = getSession(token).open()) {
-            this.delete(session.toJcrSession(), id);
+        try (SessionWrapper session = openSession(token)) {
+            this.delete(session.getSession(), id);
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
@@ -93,5 +93,4 @@ abstract public class JcrCrudManager<T extends Entity>
     abstract protected void delete(
             @NotNull Session session, @NotNull String id)
             throws RepositoryException, DocumentException;
-
 }

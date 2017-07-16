@@ -1,5 +1,6 @@
 package solutions.digamma.damas.content;
 
+import solutions.digamma.damas.CrudManager;
 import solutions.digamma.damas.SearchEngine;
 
 /**
@@ -7,5 +8,6 @@ import solutions.digamma.damas.SearchEngine;
  *
  * @author Ahmad Shahwan
  */
-public interface CommentManager extends solutions.digamma.damas.CrudManager<Comment>, SearchEngine<Comment> {
+public interface CommentManager
+        extends CrudManager<Comment>, SearchEngine<Comment> {
 }
