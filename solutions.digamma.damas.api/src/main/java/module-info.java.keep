@@ -1,0 +1,11 @@
+/**
+ * Damas DMS API.
+ *
+ * @author Ahmad Shahwan
+ */
+module solutions.digamma.damas.api {
+    exports solutions.digamma.damas;
+    exports solutions.digamma.damas.auth;
+    exports solutions.digamma.damas.content;
+    exports solutions.digamma.damas.inspection;
+}
