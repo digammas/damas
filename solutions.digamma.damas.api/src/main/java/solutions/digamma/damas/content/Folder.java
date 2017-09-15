@@ -26,7 +26,7 @@ public interface Folder extends File {
      *
      * @param depth
      */
-    void expandContent(long depth);
+    void expandContent(int depth);
 
     /**
      * Expand content to the leaves.
@@ -40,8 +40,9 @@ public interface Folder extends File {
      * This method returns {@code null} if content is hidden or collapsed.
      *
      * @return
+     * @throws DocumentException
      */
-    @Nullable Content getContent();
+    @Nullable Content getContent() throws DocumentException;
 
     /**
      * Folder's content object.
@@ -53,12 +54,12 @@ public interface Folder extends File {
          *
          * @return
          */
-        @NotNull List<@NotNull Folder> getFolders();
+        @NotNull List<@NotNull ? extends Folder> getFolders();
 
         /**
-         * Array of all documents in a folder.
+         * Array of all documents in a documents.
          * @return
          */
-        @NotNull List<@NotNull Folder> getDocuments();
+        @NotNull List<@NotNull ? extends Document> getDocuments();
     }
 }

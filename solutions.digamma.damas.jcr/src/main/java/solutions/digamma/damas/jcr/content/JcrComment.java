@@ -25,10 +25,10 @@ public class JcrComment extends JcrBaseEntity
     /**
      * No argument constructor.
      *
-     * @param node
+     * @param node  comment's JCR node
      * @throws DocumentException
      */
-    public JcrComment(@NotNull Node node) throws DocumentException {
+    JcrComment(@NotNull Node node) throws DocumentException {
         super(node);
     }
 

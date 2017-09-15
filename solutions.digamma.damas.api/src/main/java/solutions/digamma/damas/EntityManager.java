@@ -18,6 +18,7 @@ public interface EntityManager<T extends Entity> {
      * @param token
      * @param id                    ID of the entity to be retrieved.
      * @return                      Retrieved entity.
+     * @throws NotFoundException    When no such an entity exists.
      * @throws DocumentException
      */
     @NotNull

@@ -85,7 +85,7 @@ public class JcrDocumentManager
             @NotNull Session session,
             @NotNull Document entity)
             throws RepositoryException, DocumentException {
-        return JcrDocument.create(
+        return new JcrDocument(
                 entity.getName(),
                 session.getNodeByIdentifier(entity.getParentId())
         );
