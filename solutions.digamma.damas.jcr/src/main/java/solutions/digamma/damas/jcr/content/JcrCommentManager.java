@@ -22,7 +22,7 @@ public class JcrCommentManager
 
     @Override
     protected Comment retrieve(Session session, String id) throws RepositoryException, DocumentException {
-        return null;
+        return new JcrComment(session.getNodeByIdentifier(id));
     }
 
     @Override

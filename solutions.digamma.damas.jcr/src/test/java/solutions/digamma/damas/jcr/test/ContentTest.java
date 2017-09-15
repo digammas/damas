@@ -2,6 +2,11 @@ package solutions.digamma.damas.jcr.test;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.mockito.Mockito;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.NotFoundException;
@@ -22,20 +27,31 @@ import java.io.IOException;
  */
 public class ContentTest {
 
+    private static WeldContainer container;
+
     private LoginManager loginMgr;
     private DocumentManager documentMgr;
     private FolderManager folderMgr;
 
+    @BeforeClass
+    public static void setUpClass() {
+        container = new Weld().initialize();
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        container.close();
+    }
+
+    @Before
     public void setUp() throws IOException {
-    }
-
-    public void tearDown() throws IOException {
-    }
-
-    private void init(WeldContainer container) {
         this.loginMgr = container.select(LoginManager.class).get();
         this.documentMgr = container.select(DocumentManager.class).get();
         this.folderMgr = container.select(FolderManager.class).get();
+    }
+
+    @After
+    public void tearDown() throws IOException {
     }
 
     private Document createDocument(Token token, String parentId, String name)
@@ -46,45 +62,29 @@ public class ContentTest {
         return this.documentMgr.create(token, document);
     }
 
-    private void doTestContent() throws DocumentException {
-        try (WeldContainer container = new Weld()
-                .initialize()) {
-            this.init(container);
-            Token adminToken = loginMgr.login("admin", "admin");
-            assert adminToken != null;
-            Page<Folder> folderResult = this.folderMgr.find(adminToken);
-            Folder rootFolder = folderResult.getObjects().get(0);
-            final String testFileName = "test.txt";
-            Document doc;
-            doc = this.createDocument(
-                    adminToken,
-                    rootFolder.getId(),
-                    testFileName
-            );
-            assert doc != null;
-            String docId = doc.getId();
-            doc = this.documentMgr.retrieve(adminToken, docId);
-            assert testFileName.equals(doc.getName());
-            this.documentMgr.delete(adminToken, docId);
-            try {
-                this.documentMgr.retrieve(adminToken, docId);
-                assert false;
-            } catch (NotFoundException e) {
-                assert true;
-            }
-        }
-    }
-
-    public void testContent() throws Exception {
+    @Test
+    public void testContent() throws DocumentException {
+        Token adminToken = loginMgr.login("admin", "admin");
+        assert adminToken != null;
+        Page<Folder> folderResult = this.folderMgr.find(adminToken);
+        Folder rootFolder = folderResult.getObjects().get(0);
+        final String testFileName = "test.txt";
+        Document doc;
+        doc = this.createDocument(
+                adminToken,
+                rootFolder.getId(),
+                testFileName
+        );
+        assert doc != null;
+        String docId = doc.getId();
+        doc = this.documentMgr.retrieve(adminToken, docId);
+        assert testFileName.equals(doc.getName());
+        this.documentMgr.delete(adminToken, docId);
         try {
-            this.setUp();
-            this.doTestContent();
-        } finally {
-            this.tearDown();
+            this.documentMgr.retrieve(adminToken, docId);
+            assert false;
+        } catch (NotFoundException e) {
+            assert true;
         }
-    }
-
-    public static void main(String[] argv) throws Exception {
-        new ContentTest().testContent();
     }
 }

@@ -37,7 +37,7 @@ public class FolderSerialization extends FileSerialization implements Folder {
     }
 
     @Override
-    public void expandContent(long depth) {
+    public void expandContent(int depth) {
     }
 
     @Override

@@ -42,7 +42,7 @@ public class JcrFolderManager
             @NotNull Session session,
             @NotNull Folder entity)
             throws RepositoryException, DocumentException {
-        return JcrFolder.create(
+        return new JcrFolder(
                 entity.getName(),
                 session.getNodeByIdentifier(entity.getParentId())
         );
