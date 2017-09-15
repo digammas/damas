@@ -2,13 +2,23 @@ package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedFolder;
+import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.error.JcrException;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Property;
+import javax.jcr.RepositoryException;
 import javax.jcr.nodetype.NodeType;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * JCR-based folder implementation.
@@ -17,28 +27,39 @@ import javax.jcr.nodetype.NodeType;
  */
 public class JcrFolder extends JcrFile implements Folder {
 
-    private long contentDepth = 0;
+    /**
+     * Content depth used to indicate to which depth is content returned with
+     * method {@code getContent()}. If negative, content will be returned down
+     * to leaves. If zero, no content is returned at all. Zero is the default
+     * value.
+     */
+    private int contentDepth = 0;
 
     /**
-     * Constructor.
+     * Folder content. If null, the content is not visited yet.
+     */
+    private Content content;
+
+    /**
+     * Construct folder with a JCR node.
      *
      * @param node
      */
-    public JcrFolder(@NotNull Node node) throws DocumentException {
+    JcrFolder(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
     /**
-     * Create new folder, given parent node and name.
+     * Construct new folder, given parent node and name.
      *
      * @param name
      * @param parent
      * @return
      * @throws DocumentException
      */
-    static JcrFolder create(@NotNull String name, @NotNull Node parent)
+    JcrFolder(@NotNull String name, @NotNull Node parent)
         throws DocumentException {
-        return new JcrFolder(create(name, Namespace.FOLDER, parent));
+        this(create(name, parent));
     }
 
     @Override
@@ -53,17 +74,76 @@ public class JcrFolder extends JcrFile implements Folder {
     }
 
     @Override
-    public void expandContent(long depth) {
-        this.contentDepth = depth;
+    public void expandContent(int depth) {
+        if (depth != this.contentDepth) {
+            this.content = null;
+            this.contentDepth = depth;
+        }
     }
 
     @Override
     public void expandContent() {
-        this.contentDepth = -1;
+        if (this.contentDepth >= 0) {
+            this.content = null;
+            this.contentDepth = -1;
+        }
     }
 
     @Override
-    public Content getContent() {
-        return null;
+    public Content getContent() throws DocumentException {
+        if (content != null) {
+            return content;
+        }
+        long depth = this.contentDepth;
+        List<JcrDocument> documents = new ArrayList<>();
+        List<JcrFolder> folders = new ArrayList<>();
+        if (depth != 0) {
+            try {
+                NodeIterator iterator = this.node.getNodes();
+                while (iterator.hasNext()) {
+                    Node node = iterator.nextNode();
+                    if (node.isNodeType(Namespace.DOCUMENT)) {
+                        documents.add(new JcrDocument(node));
+                    } else if (node.isNodeType(Namespace.FOLDER)) {
+                        JcrFolder folder = new JcrFolder(node);
+                        folder.expandContent(this.contentDepth - 1);
+                        folders.add(folder);
+                    }
+                }
+            } catch (RepositoryException e) {
+                throw JcrException.wrap(e);
+            }
+        }
+        return this.content = new Content() {
+            @Override
+            public @NotNull List<JcrFolder> getFolders() {
+                return folders;
+            }
+
+            @Override
+            public @NotNull List<JcrDocument> getDocuments() {
+                return documents;
+            }
+        };
     }
+
+    /**
+     * Help method to create folder's JCR node.
+     *
+     * @param name      node name
+     * @param parent    parent node
+     * @return          JCR node
+     * @throws DocumentException
+     */
+    static protected Node create(
+            @NotNull String name,
+            @NotNull Node parent)
+            throws DocumentException {
+        try {
+            return JcrFile.create(name, Namespace.FOLDER, parent);
+        } catch (RepositoryException e) {
+            throw JcrException.wrap(e);
+        }
+    }
+
 }

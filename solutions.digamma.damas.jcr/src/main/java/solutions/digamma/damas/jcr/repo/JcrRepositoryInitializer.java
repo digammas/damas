@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * Repository initializer.
  * A best effort is applied when initializing repository. That means that errors
  * are ignored, and unless the error is fatal, the rest of the current job, as
- * well as the rest of the jobs, are still attempted.
+ * well as remaining jobs, are still attempted.
  *
  * @author Ahmad Shahwan
  */
@@ -47,13 +47,17 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
     @Override
     public void initialize(Repository repository) {
         this.logger.info("Initializing JCR repository.");
-        SystemSessions systemSessions = new SystemSessions(repository);
+        /**
+         * Use constructor, since SystemRepository is not available for
+         * injection at this point.
+         */
+        SystemRepository system = new SystemRepository(repository);
         this.collectJobs();
         this.logger.info(() -> String.format(
                 "%d jobs collected", this.jobs.size()));
         Session superuser = null;
         try {
-            superuser = systemSessions.getSuperuserSession();
+            superuser = system.getSuperuserSession();
             for (RepositoryJob job : this.jobs) {
                 for (RepositoryJob.Node node : job.getCreations()) {
                     try {

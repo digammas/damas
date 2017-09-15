@@ -13,7 +13,9 @@ import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
+import javax.jcr.nodetype.NodeType;
 import java.net.URI;
 
 /**
@@ -137,24 +139,21 @@ public abstract class JcrFile extends JcrBaseEntity
     }
     
     /**
-     * Help method to create objects.
+     * Help method to create file's JCR node.
      *
-     * @param name
-     * @param parent
-     * @return
-     * @throws DocumentException
+     * @param name      file's name
+     * @param nodeType  file's node type
+     * @param parent    file's parent node
+     * @return          file's node
+     * @throws RepositoryException
      */
     static protected Node create(
             @NotNull String name,
             @NotNull String nodeType,
             @NotNull Node parent)
-        throws DocumentException {
-        try {
-            Node node = parent.addNode(name, nodeType);
-            node.addMixin(Namespace.FILE);
-            return node;
-        } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
-        }
+        throws RepositoryException {
+        Node node = parent.addNode(name, nodeType);
+        node.addMixin(Namespace.FILE);
+        return node;
     }
 }

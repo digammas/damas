@@ -9,12 +9,12 @@ import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
 /**
- * System user sessions.
+ * System-wide repository functionality.
  *
  * @author Ahmad Shahwan
  */
 @Singleton
-public class SystemSessions {
+public class SystemRepository {
 
     private Repository repository;
 
@@ -22,7 +22,7 @@ public class SystemSessions {
     private Session readonly;
 
     @Inject
-    public SystemSessions(Repository repository) {
+    public SystemRepository(Repository repository) {
         this.repository = repository;
     }
 
@@ -36,6 +36,13 @@ public class SystemSessions {
             "admin".toCharArray()
     );
 
+
+    /**
+     * Retrieve a valid superuser session.
+     *
+     * @return JCR superuser session
+     * @throws RepositoryException
+     */
     public Session getSuperuserSession() throws RepositoryException {
         if (this.superuser == null || !this.superuser.isLive()) {
             this.superuser = this.repository.login(SUPERUSER);
@@ -43,6 +50,11 @@ public class SystemSessions {
         return this.superuser;
     }
 
+    /**
+     * Retrieve a valid readonly session.
+     * @return JCR readonly session
+     * @throws RepositoryException
+     */
     public Session getReadonlySession() throws RepositoryException {
         if (this.readonly == null || !this.readonly.isLive()) {
             this.readonly = this.repository.login(READONLY);
