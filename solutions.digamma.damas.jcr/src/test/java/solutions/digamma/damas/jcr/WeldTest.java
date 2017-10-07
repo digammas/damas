@@ -1,11 +1,8 @@
 package solutions.digamma.damas.jcr;
 
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import solutions.digamma.damas.auth.LoginManager;
 
 /**
@@ -13,7 +10,8 @@ import solutions.digamma.damas.auth.LoginManager;
  */
 public class WeldTest {
 
-    protected static WeldContainer container;
+    @ClassRule
+    public static WeldRule weld = new WeldRule();
 
     protected LoginManager login;
 
@@ -26,18 +24,8 @@ public class WeldTest {
     public void tearDownWeld() throws Exception {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-        container = new Weld().initialize();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        container.close();
-    }
-
-    protected static <T> T inject(Class<T> kass) {
-        return container.select(kass).get();
+    protected static <T> T inject(Class<T> klass) {
+        return weld.inject(klass);
     }
 
 }
