@@ -91,8 +91,8 @@ public class JcrDocumentManagerTest extends WeldTest {
         final String name = "test.txt";
         String rootId = this.folderManager
                 .find(this.token).getObjects().iterator().next().getId();
-        String id =
-                manager.create(this.token, Mocks.document(rootId, name)).getId();
+        String id = manager
+                .create(this.token, Mocks.document(rootId, name)).getId();
         Document document = manager.retrieve(token, id);
         assert id.equals(document.getId()) : "Retrieved document ID mismatch.";
         assert name.equals(document.getName()) :
@@ -106,8 +106,8 @@ public class JcrDocumentManagerTest extends WeldTest {
         String name = "test.txt";
         String rootId = this.folderManager
                 .find(this.token).getObjects().iterator().next().getId();
-        String id =
-                manager.create(this.token, Mocks.document(rootId, name)).getId();
+        String id = manager
+                .create(this.token, Mocks.document(rootId, name)).getId();
         name = "new.txt";
         manager.update(this.token, id, Mocks.document(null, name));
         Document document = manager.retrieve(this.token, id);
@@ -123,8 +123,8 @@ public class JcrDocumentManagerTest extends WeldTest {
         String name = "test.txt";
         String rootId = this.folderManager
                 .find(this.token).getObjects().iterator().next().getId();
-        String id =
-                manager.create(this.token, Mocks.document(rootId, name)).getId();
+        String id = manager
+                .create(this.token, Mocks.document(rootId, name)).getId();
         String folderId = folderManager
                 .create(this.token, Mocks.folder(rootId, "test"))
                 .getId();
@@ -142,8 +142,8 @@ public class JcrDocumentManagerTest extends WeldTest {
         String name = "test.txt";
         String rootId = this.folderManager
                 .find(this.token).getObjects().iterator().next().getId();
-        String id =
-                manager.create(this.token, Mocks.document(rootId, name)).getId();
+        String id = manager
+                .create(this.token, Mocks.document(rootId, name)).getId();
         String folderId = folderManager
                 .create(this.token, Mocks.folder(rootId, "test"))
                 .getId();
@@ -162,8 +162,8 @@ public class JcrDocumentManagerTest extends WeldTest {
         String name = "test.txt";
         String rootId = this.folderManager
                 .find(this.token).getObjects().iterator().next().getId();
-        String id =
-                manager.create(this.token, Mocks.document(rootId, name)).getId();
+        String id = manager
+                .create(this.token, Mocks.document(rootId, name)).getId();
         manager.delete(this.token, id);
         try {
             manager.retrieve(this.token, id);

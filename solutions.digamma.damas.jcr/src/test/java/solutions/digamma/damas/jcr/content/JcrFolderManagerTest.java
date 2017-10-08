@@ -11,7 +11,9 @@ import solutions.digamma.damas.jcr.Mocks;
 import solutions.digamma.damas.jcr.WeldTest;
 
 /**
- * Created by ahmad on 9/3/17.
+ * Test folder manager.
+ *
+ * Created by Ahmad on 9/3/17.
  */
 public class JcrFolderManagerTest extends WeldTest {
 

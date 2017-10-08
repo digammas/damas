@@ -4,15 +4,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
-import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.Mocks;
 import solutions.digamma.damas.jcr.WeldTest;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * Test folder object.
