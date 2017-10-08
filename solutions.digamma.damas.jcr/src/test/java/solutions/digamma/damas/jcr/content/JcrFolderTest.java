@@ -35,7 +35,6 @@ public class JcrFolderTest extends WeldTest {
             parent = manager.create(this.token,
                     Mocks.folder(parentId, name));
         }
-
     }
 
     @After

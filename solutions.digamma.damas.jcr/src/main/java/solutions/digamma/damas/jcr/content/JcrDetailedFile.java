@@ -16,10 +16,10 @@ import java.net.URI;
  * @author Ahmad Shahwan
  */
 public interface JcrDetailedFile
-        extends DetailedFile, JcrCreated, JcrModifiable, JcrCommentReceiver {
+        extends DetailedFile, JcrCreated, JcrModifiable {
 
     @Override
-    default public @NotNull String getPath() throws DocumentException {
+    default @NotNull String getPath() throws DocumentException {
         try {
             return URI
                     .create(JcrFile.CONTENT_ROOT)
@@ -31,12 +31,12 @@ public interface JcrDetailedFile
     }
 
     @Override
-    default public @Nullable Metadata getMetadata() throws DocumentException {
+    default @Nullable Metadata getMetadata() throws DocumentException {
         return null;
     }
 
     @Override
-    default public void setMetadata(@Nullable Metadata metadata)
+    default void setMetadata(@Nullable Metadata metadata)
             throws DocumentException {
 
     }

@@ -10,7 +10,7 @@ import solutions.digamma.damas.inspection.Nullable;
  * @author Ahmad Shahwan
  */
 public interface DetailedFile
-        extends File, CommentReceiver, Created, Modifiable {
+        extends File, Created, Modifiable {
 
     /**
      * File's metadata.

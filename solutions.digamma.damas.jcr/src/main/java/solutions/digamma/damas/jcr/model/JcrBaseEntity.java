@@ -46,6 +46,19 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         return this.node;
     }
 
+    /**
+     * Delete entity, and its back node.
+     *
+     * @throws DocumentException
+     */
+    public void remove() throws DocumentException {
+        try {
+            this.getNode().remove();
+        } catch (RepositoryException e) {
+            throw JcrExceptionMapper.map(e);
+        }
+    }
+
     protected void checkTypeCompatibility(String typeName)
         throws CompatibilityException {
         try {
@@ -66,5 +79,4 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
      */
     protected abstract void checkCompatibility()
             throws CompatibilityException;
-
 }
