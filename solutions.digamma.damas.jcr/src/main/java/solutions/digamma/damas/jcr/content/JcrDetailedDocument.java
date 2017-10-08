@@ -13,7 +13,7 @@ import java.util.List;
  * @author Ahmad Shahwan
  */
 public class JcrDetailedDocument extends JcrDocument
-        implements DetailedDocument, JcrDetailedFile{
+        implements DetailedDocument, JcrDetailedFile, JcrCommentReceiver{
 
     /**
      * Constructor with JCR node.
