@@ -84,8 +84,7 @@ public class JcrFolderManager
     @Override
     public Folder find(Session session, String path)
             throws RepositoryException, DocumentException {
-        /**
-         * TODO: Solve for path-hacks. Ex: path = "../secret/place".
+        /* TODO: Solve for path-hacks. Ex: path = "../secret/place".
          */
         return new JcrFolder(
                 session.getNode(JcrFile.CONTENT_ROOT).getNode(path));

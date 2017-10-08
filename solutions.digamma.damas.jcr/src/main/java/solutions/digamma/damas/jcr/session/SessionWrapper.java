@@ -32,8 +32,8 @@ public class SessionWrapper implements AutoCloseable {
 
     /**
      * Open the session for toJcrSession, acquiring an exclusive lock.
-     * If session is already in toJcrSession, a maximum of {@code TIMEOUT} seconds is
-     * waited, after which a {@code ResourceBusyException} is thrown.
+     * If session is already in toJcrSession, a maximum of {@code TIMEOUT}
+     * seconds is waited, after which a {@code ResourceBusyException} is thrown.
      *
      * @return The underling JCR session.
      * @throws ResourceBusyException When timeout is reached while the session

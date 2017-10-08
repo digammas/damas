@@ -13,9 +13,7 @@ import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
-import javax.jcr.Property;
 import javax.jcr.RepositoryException;
-import javax.jcr.nodetype.NodeType;
 import java.net.URI;
 
 /**

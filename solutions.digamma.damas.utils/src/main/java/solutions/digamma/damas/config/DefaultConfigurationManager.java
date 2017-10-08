@@ -91,7 +91,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
                 .filter(e -> e.getKey().toString().startsWith(postfix))
                 .collect(Collectors.toMap(
                         p -> p.getKey().toString(),
-                        p -> p.getValue()));
+                        Map.Entry::getValue));
     }
 
     /**

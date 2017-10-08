@@ -7,7 +7,6 @@ import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
 import javax.jcr.Node;
-import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import java.util.Calendar;
 

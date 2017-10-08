@@ -20,7 +20,7 @@ public interface File extends Entity {
     /**
      * A value returned by {@code getParentId()} when the file is root.
      */
-    String NO_PARENT_ID = new String();
+    String NO_PARENT_ID = "";
 
     /**
      * File name.
