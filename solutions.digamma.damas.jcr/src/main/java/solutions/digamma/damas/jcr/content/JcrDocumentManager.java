@@ -1,6 +1,7 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
@@ -45,7 +46,6 @@ public class JcrDocumentManager
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }
-
     }
 
     @Logged
@@ -70,7 +70,6 @@ public class JcrDocumentManager
             throws DocumentException {
         try (SessionWrapper session = this.openSession(token)) {
             this.retrieve(session.getSession(), id).updateContent(stream);
-
         } catch (RepositoryException e) {
             throw JcrExceptionMapper.map(e);
         }

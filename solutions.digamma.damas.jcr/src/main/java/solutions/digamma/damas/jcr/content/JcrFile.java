@@ -124,14 +124,6 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
-    void remove() throws DocumentException {
-        try {
-            this.getNode().remove();
-        } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
-        }
-    }
-
     private void move(@NotNull String path) throws RepositoryException {
         this.node.getSession().move(this.node.getPath(), path);
     }

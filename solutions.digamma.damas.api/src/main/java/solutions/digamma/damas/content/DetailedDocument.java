@@ -9,7 +9,8 @@ import java.util.List;
  *
  * @author Ahmad Shahwan
  */
-public interface DetailedDocument extends Document, DetailedFile {
+public interface DetailedDocument
+        extends Document, CommentReceiver, DetailedFile {
 
     /**
      * All versions of the document.

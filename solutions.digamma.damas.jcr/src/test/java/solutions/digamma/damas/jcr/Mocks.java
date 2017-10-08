@@ -2,6 +2,7 @@ package solutions.digamma.damas.jcr;
 
 import org.mockito.Mockito;
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 
@@ -24,5 +25,14 @@ public class Mocks {
         Mockito.when(folder.getParentId()).thenReturn(parentId);
         Mockito.when(folder.getName()).thenReturn(name);
         return folder;
+    }
+
+    public static Comment comment(String receiverId, String text, Long rank)
+            throws DocumentException {
+        Comment comment = Mockito.mock(Comment.class);
+        Mockito.when(comment.getReceiverId()).thenReturn(receiverId);
+        Mockito.when(comment.getText()).thenReturn(text);
+        Mockito.when(comment.getRank()).thenReturn(rank);
+        return comment;
     }
 }

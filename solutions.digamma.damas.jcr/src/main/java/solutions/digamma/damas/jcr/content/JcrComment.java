@@ -70,4 +70,13 @@ public class JcrComment extends JcrBaseEntity
     protected void checkCompatibility() throws CompatibilityException {
         this.checkTypeCompatibility(Namespace.COMMENT);
     }
+
+    public void update(@NotNull Comment other) throws DocumentException {
+        if (other.getRank() != null) {
+            this.setRank(other.getRank());
+        }
+        if (other.getText() != null) {
+            this.setText(other.getText());
+        }
+    }
 }
