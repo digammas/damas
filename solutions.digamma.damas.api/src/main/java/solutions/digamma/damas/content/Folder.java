@@ -29,7 +29,7 @@ public interface Folder extends File {
     void expandContent(int depth);
 
     /**
-     * Expand content to the leaves.
+     * Expand content down to the leaves.
      */
     void expandContent();
 
