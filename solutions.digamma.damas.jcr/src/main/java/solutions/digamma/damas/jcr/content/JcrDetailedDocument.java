@@ -20,7 +20,7 @@ public class JcrDetailedDocument extends JcrDocument
      *
      * @param node
      */
-    public JcrDetailedDocument(@NotNull Node node) throws DocumentException {
+    JcrDetailedDocument(@NotNull Node node) throws DocumentException {
         super(node);
     }
 

@@ -49,19 +49,6 @@ public class JcrFolder extends JcrFile implements Folder {
         super(node);
     }
 
-    /**
-     * Construct new folder, given parent node and name.
-     *
-     * @param name
-     * @param parent
-     * @return
-     * @throws DocumentException
-     */
-    JcrFolder(@NotNull String name, @NotNull Node parent)
-        throws DocumentException {
-        this(create(name, parent));
-    }
-
     @Override
     protected void checkCompatibility() throws CompatibilityException {
         super.checkCompatibility();
@@ -126,24 +113,4 @@ public class JcrFolder extends JcrFile implements Folder {
             }
         };
     }
-
-    /**
-     * Help method to create folder's JCR node.
-     *
-     * @param name      node name
-     * @param parent    parent node
-     * @return          JCR node
-     * @throws DocumentException
-     */
-    static protected Node create(
-            @NotNull String name,
-            @NotNull Node parent)
-            throws DocumentException {
-        try {
-            return JcrFile.create(name, Namespace.FOLDER, parent);
-        } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
-        }
-    }
-
 }

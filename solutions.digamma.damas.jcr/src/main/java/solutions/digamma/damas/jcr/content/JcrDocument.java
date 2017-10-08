@@ -1,14 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
+import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 
 import javax.jcr.Binary;
@@ -32,19 +30,6 @@ public class JcrDocument extends JcrFile implements Document {
      */
     JcrDocument(@NotNull Node node) throws DocumentException {
         super(node);
-    }
-
-    /**
-     * Construct a new folder given its name and the parent node.
-     *
-     * @param name
-     * @param parent
-     * @return
-     * @throws DocumentException
-     */
-    JcrDocument(@NotNull String name, @NotNull Node parent)
-            throws DocumentException {
-        this(create(name, parent));
     }
 
     public DocumentPayload getContent() throws DocumentException {
@@ -71,7 +56,7 @@ public class JcrDocument extends JcrFile implements Document {
         }
     }
 
-    public void updateContent(@NotNull InputStream stream)
+    void updateContent(@NotNull InputStream stream)
             throws DocumentException {
         try {
             Binary binary = this
@@ -101,26 +86,5 @@ public class JcrDocument extends JcrFile implements Document {
     @Override
     public @NotNull DetailedDocument expand() throws DocumentException {
         return new JcrDetailedDocument(this.node);
-    }
-
-    /**
-     * Help method to create document's JCR node.
-     *
-     * @param name      node name
-     * @param parent    parent node
-     * @return          JCR node
-     * @throws DocumentException
-     */
-    static protected Node create(
-            @NotNull String name,
-            @NotNull Node parent)
-            throws DocumentException {
-        try {
-            Node node = JcrFile.create(name, Namespace.DOCUMENT, parent);
-            node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE);
-            return node;
-        } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
-        }
     }
 }
