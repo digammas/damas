@@ -36,7 +36,7 @@ public abstract class JcrFile extends JcrBaseEntity
      *
      * @param node
      */
-    public JcrFile(@NotNull Node node) throws DocumentException {
+    JcrFile(@NotNull Node node) throws DocumentException {
         super(node);
     }
 
@@ -126,7 +126,7 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
-    public void remove() throws DocumentException {
+    void remove() throws DocumentException {
         try {
             this.getNode().remove();
         } catch (RepositoryException e) {
@@ -134,26 +134,7 @@ public abstract class JcrFile extends JcrBaseEntity
         }
     }
 
-    protected void move(@NotNull String path) throws RepositoryException {
+    private void move(@NotNull String path) throws RepositoryException {
         this.node.getSession().move(this.node.getPath(), path);
-    }
-    
-    /**
-     * Help method to create file's JCR node.
-     *
-     * @param name      file's name
-     * @param nodeType  file's node type
-     * @param parent    file's parent node
-     * @return          file's node
-     * @throws RepositoryException
-     */
-    static protected Node create(
-            @NotNull String name,
-            @NotNull String nodeType,
-            @NotNull Node parent)
-        throws RepositoryException {
-        Node node = parent.addNode(name, nodeType);
-        node.addMixin(Namespace.FILE);
-        return node;
     }
 }

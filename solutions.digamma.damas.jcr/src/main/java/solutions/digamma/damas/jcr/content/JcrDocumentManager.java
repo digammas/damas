@@ -6,6 +6,7 @@ import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
+import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.model.JcrPathFinder;
@@ -13,8 +14,11 @@ import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
 import javax.inject.Singleton;
+import javax.jcr.Node;
+import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.nodetype.NodeType;
 import java.io.InputStream;
 
 /**
@@ -85,10 +89,12 @@ public class JcrDocumentManager
             @NotNull Session session,
             @NotNull Document entity)
             throws RepositoryException, DocumentException {
-        return new JcrDocument(
-                entity.getName(),
-                session.getNodeByIdentifier(entity.getParentId())
-        );
+        String name = entity.getName();
+        Node parent = session.getNodeByIdentifier(entity.getParentId());
+        Node node = parent.addNode(name, Namespace.DOCUMENT);
+        node.addMixin(Namespace.FILE);
+        node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE);
+        return new JcrDocument(node);
     }
 
     @Override

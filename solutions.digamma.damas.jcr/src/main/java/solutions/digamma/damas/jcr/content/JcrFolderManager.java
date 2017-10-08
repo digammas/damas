@@ -6,12 +6,13 @@ import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
+import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
-import solutions.digamma.damas.jcr.model.JcrFullManager;
 import solutions.digamma.damas.jcr.model.JcrPathFinder;
 import solutions.digamma.damas.jcr.model.JcrSearchEngine;
 
 import javax.inject.Singleton;
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.ArrayList;
@@ -42,10 +43,11 @@ public class JcrFolderManager
             @NotNull Session session,
             @NotNull Folder entity)
             throws RepositoryException, DocumentException {
-        return new JcrFolder(
-                entity.getName(),
-                session.getNodeByIdentifier(entity.getParentId())
-        );
+        String name = entity.getName();
+        Node parent = session.getNodeByIdentifier(entity.getParentId());
+        Node node = parent.addNode(name, Namespace.FOLDER);
+        node.addMixin(Namespace.FILE);
+        return new JcrFolder(node);
     }
 
     @Override
