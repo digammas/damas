@@ -78,28 +78,28 @@ public class JcrFolder extends JcrFile implements Folder {
 
     @Override
     public Content getContent() throws DocumentException {
-        if (content != null) {
-            return content;
+        if (this.contentDepth == 0) {
+            return this.content = null;
         }
-        long depth = this.contentDepth;
+        if (this.content != null) {
+            return this.content;
+        }
         List<JcrDocument> documents = new ArrayList<>();
         List<JcrFolder> folders = new ArrayList<>();
-        if (depth != 0) {
-            try {
-                NodeIterator iterator = this.node.getNodes();
-                while (iterator.hasNext()) {
-                    Node node = iterator.nextNode();
-                    if (node.isNodeType(Namespace.DOCUMENT)) {
-                        documents.add(new JcrDocument(node));
-                    } else if (node.isNodeType(Namespace.FOLDER)) {
-                        JcrFolder folder = new JcrFolder(node);
-                        folder.expandContent(this.contentDepth - 1);
-                        folders.add(folder);
-                    }
+        try {
+            NodeIterator iterator = this.node.getNodes();
+            while (iterator.hasNext()) {
+                Node node = iterator.nextNode();
+                if (node.isNodeType(Namespace.DOCUMENT)) {
+                    documents.add(new JcrDocument(node));
+                } else if (node.isNodeType(Namespace.FOLDER)) {
+                    JcrFolder folder = new JcrFolder(node);
+                    folder.expandContent(this.contentDepth - 1);
+                    folders.add(folder);
                 }
-            } catch (RepositoryException e) {
-                throw JcrException.wrap(e);
             }
+        } catch (RepositoryException e) {
+            throw JcrException.wrap(e);
         }
         return this.content = new Content() {
             @Override
