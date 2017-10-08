@@ -11,7 +11,6 @@ import javax.jcr.RepositoryFactory;
 import java.io.File;
 import java.util.Map;
 import java.util.ServiceLoader;
-import java.util.logging.Level;
 
 /**
  * ModeShape JCR repository provider.

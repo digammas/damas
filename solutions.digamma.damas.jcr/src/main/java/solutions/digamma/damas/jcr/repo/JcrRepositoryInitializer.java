@@ -47,8 +47,7 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
     @Override
     public void initialize(Repository repository) {
         this.logger.info("Initializing JCR repository.");
-        /**
-         * Use constructor, since SystemRepository is not available for
+        /* Use constructor, since SystemRepository is not available for
          * injection at this point.
          */
         SystemRepository system = new SystemRepository(repository);

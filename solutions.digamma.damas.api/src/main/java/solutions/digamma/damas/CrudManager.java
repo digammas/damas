@@ -29,11 +29,15 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      *
      * @param id                    ID of entity to be updated.
      * @param token
-     *@param entity                Pattern object, containing only values to be
-     *                              updated.  @return                      Updated entity.
+     * @param entity                Pattern object, containing only values to be
+     *                              updated.
+     * @return                      Updated entity.
      * @throws DocumentException
      */
-    @NotNull T update(@NotNull Token token, @NotNull String id, @NotNull T entity)
+    @NotNull T update(
+            @NotNull Token token,
+            @NotNull String id,
+            @NotNull T entity)
             throws DocumentException;
 
     /**

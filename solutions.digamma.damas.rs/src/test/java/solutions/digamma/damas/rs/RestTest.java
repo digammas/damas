@@ -85,12 +85,12 @@ public class RestTest extends JerseyTest {
                 .get(DocumentSerialization.class);
         assert file != null : "Error GETting document.";
         file = target("documents")
-                .request()
-                .post(Entity.entity(file, this.ct), DocumentSerialization.class);
+            .request()
+            .post(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error POSTing document.";
         file = target("documents/" + StubProviders.DOCUMENT_ID)
-                .request()
-                .put(Entity.entity(file, this.ct), DocumentSerialization.class);
+            .request()
+            .put(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error PUTing document.";
         target("documents/" + StubProviders.DOCUMENT_ID)
                 .request()

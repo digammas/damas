@@ -36,7 +36,7 @@ public class SecureToken implements Token {
 
     @Override
     public boolean equals(Object other) {
-        /** To token with no secret do not equal each other **/
+        /* Two token with no secret do not equal each other. */
         return
             other instanceof Token &&
             this.getSecret() != null &&

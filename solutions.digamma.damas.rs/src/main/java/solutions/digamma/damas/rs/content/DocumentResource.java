@@ -43,7 +43,8 @@ public class DocumentResource
     }
 
     @Override
-    protected DocumentSerialization wrap(Document entity) throws DocumentException {
+    protected DocumentSerialization wrap(Document entity)
+            throws DocumentException {
         return new DocumentSerialization(entity);
     }
 }

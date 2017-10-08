@@ -2,7 +2,6 @@ package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.content.DetailedFolder;
-import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.CompatibilityException;
@@ -11,14 +10,9 @@ import solutions.digamma.damas.jcr.error.JcrException;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
-import javax.jcr.Property;
 import javax.jcr.RepositoryException;
-import javax.jcr.nodetype.NodeType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * JCR-based folder implementation.
