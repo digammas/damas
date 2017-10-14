@@ -2,6 +2,7 @@ package solutions.digamma.damas.jcr.model;
 
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.MisuseException;
 import solutions.digamma.damas.PathFinder;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
@@ -11,6 +12,7 @@ import solutions.digamma.damas.jcr.session.SessionWrapper;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.nio.file.Paths;
 
 /**
  * @author Ahmad Shahwan
@@ -22,14 +24,12 @@ public interface JcrPathFinder<T extends Entity>
     default T find(@NotNull Token token, @NotNull  String path)
             throws DocumentException {
         try (SessionWrapper session = openSession(token)) {
-            if (path.startsWith("/")) {
-                path = path.substring(1);
+            path = Paths.get(path).normalize().toString();
+            if (path.startsWith("../")) {
+                throw new MisuseException("Invalid relative path.");
             }
-            if (path.equals("")) {
-                path = ".";
-            }
-            return this.find(
-                    session.getSession(), path);
+            path = path.equals("") ? "." : path;
+            return this.find(session.getSession(), path);
         } catch (RepositoryException e) {
             throw JcrException.of(e);
         }
