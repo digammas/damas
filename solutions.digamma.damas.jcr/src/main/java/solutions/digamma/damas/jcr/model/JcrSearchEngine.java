@@ -7,8 +7,8 @@ import solutions.digamma.damas.SearchEngine;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.session.SessionUser;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
@@ -56,7 +56,7 @@ public interface JcrSearchEngine<T extends Entity>
             return this.find(
                     session.getSession(), offset, size, query);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

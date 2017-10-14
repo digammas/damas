@@ -5,7 +5,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
@@ -27,7 +27,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             return this.create(session.getSession(), entity);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -38,7 +38,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             return this.update(session.getSession(), id, entity);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -49,7 +49,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             this.delete(session.getSession(), id);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

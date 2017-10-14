@@ -1,13 +1,18 @@
 package solutions.digamma.damas;
 
+import java.util.logging.Level;
+
 /**
- * Compatibility exception.
+ * Exception occurs in case of incompatibility between DMS items. For example
+ * this exception should be thrown when an identifier of existing but not
+ * compatible item is passed to a method.
  *
  * @author Ahmad Shahwan
  */
-public class CompatibilityException extends SevereDocumentException {
+public class CompatibilityException extends MisuseException {
 
     public CompatibilityException() {
+        super();
     }
 
     public CompatibilityException(String message) {

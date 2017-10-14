@@ -1,9 +1,20 @@
 package solutions.digamma.damas.jcr.error;
 
-import solutions.digamma.damas.*;
+import solutions.digamma.damas.AuthenticationException;
+import solutions.digamma.damas.AuthorizationException;
+import solutions.digamma.damas.ConflictException;
+import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.InternalStateException;
+import solutions.digamma.damas.NotFoundException;
+import solutions.digamma.damas.MisuseException;
 import solutions.digamma.damas.inspection.NotNull;
 
-import javax.jcr.*;
+import javax.jcr.ItemExistsException;
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.LoginException;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.RepositoryException;
+import javax.jcr.nodetype.ConstraintViolationException;
 import javax.jcr.security.AccessControlException;
 
 /**
@@ -11,7 +22,7 @@ import javax.jcr.security.AccessControlException;
  *
  * @author Ahmad Shahwan
  */
-public class JcrException extends SevereDocumentException {
+public class JcrException extends MisuseException {
 
     public JcrException() {
     }
@@ -29,25 +40,19 @@ public class JcrException extends SevereDocumentException {
     }
 
     @NotNull
-    public static DocumentException wrap(
+    public static DocumentException of(
             @NotNull Exception e) {
         if (e instanceof DocumentException) {
-            return wrap((DocumentException) e);
+            return (DocumentException) e;
         }
         if (e instanceof RepositoryException) {
-            return wrap((RepositoryException) e);
+            return JcrException.of((RepositoryException) e);
         }
         return new JcrException(e);
     }
 
     @NotNull
-    public static DocumentException wrap(
-            @NotNull DocumentException e) {
-        return e;
-    }
-
-    @NotNull
-    public static DocumentException wrap(
+    public static DocumentException of(
             @NotNull RepositoryException e) {
         if (e instanceof AccessControlException) {
             return new AuthorizationException(e);
@@ -63,6 +68,9 @@ public class JcrException extends SevereDocumentException {
         }
         if (e instanceof LoginException) {
             return new AuthenticationException(e);
+        }
+        if (e instanceof ConstraintViolationException) {
+            return new InternalStateException(e);
         }
         return new JcrException(e);
     }

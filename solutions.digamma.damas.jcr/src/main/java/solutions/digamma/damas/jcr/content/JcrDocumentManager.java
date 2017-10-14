@@ -1,14 +1,14 @@
 package solutions.digamma.damas.jcr.content;
 
+import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
-import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.model.JcrPathFinder;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
@@ -44,7 +44,7 @@ public class JcrDocumentManager
             document.updateContent(stream);
             return document;
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -55,9 +55,8 @@ public class JcrDocumentManager
         try (SessionWrapper session = this.openSession(token)) {
             JcrDocument document = this.retrieve(session.getSession(), id);
             return document.getContent();
-
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -71,7 +70,7 @@ public class JcrDocumentManager
         try (SessionWrapper session = this.openSession(token)) {
             this.retrieve(session.getSession(), id).updateContent(stream);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -90,6 +89,9 @@ public class JcrDocumentManager
             throws RepositoryException, DocumentException {
         String name = entity.getName();
         Node parent = session.getNodeByIdentifier(entity.getParentId());
+        if (!parent.isNodeType(Namespace.FOLDER)) {
+            throw new CompatibilityException("Parent is not a folder");
+        }
         Node node = parent.addNode(name, Namespace.DOCUMENT);
         node.addMixin(Namespace.FILE);
         node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE);
