@@ -1,5 +1,7 @@
 package solutions.digamma.damas;
 
+import java.util.logging.Level;
+
 /**
  * Generic exception. All API method may throw an instance of this exception.
  *
@@ -7,21 +9,7 @@ package solutions.digamma.damas;
  */
 public class DocumentException extends Exception {
 
-    /**
-     * Exception severity.
-     */
-    public enum Severity {
-        /**
-         * Exception may occur with normal usage.
-         */
-        NORMAL,
-        /**
-         * Exception denotes a misuse or an error.
-         */
-        HIGH
-    }
-
-    protected Severity severity = Severity.NORMAL;
+    private Level logLevel = Level.INFO;
 
     public DocumentException() {
         super();
@@ -40,31 +28,15 @@ public class DocumentException extends Exception {
     }
 
     /**
-     * Exception severity.
+     * Exception logLevel.
      *
      * @return
      */
-    public Severity getSeverity() {
-        return this.severity;
+    public Level getLogLevel() {
+        return this.logLevel;
     }
 
-    /**
-     * Set severity to normal.
-     *
-     * @return
-     */
-    public DocumentException alleviate() {
-        this.severity = Severity.NORMAL;
-        return this;
-    }
-
-    /**
-     * Set exception severity to high.
-     *
-     * @return
-     */
-    public DocumentException aggravate() {
-        this.severity = Severity.HIGH;
-        return this;
+    protected void setLogLevel(Level value) {
+        this.logLevel = value;
     }
 }

@@ -4,7 +4,7 @@ import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -32,7 +32,7 @@ public interface JcrEntity extends Entity {
         try {
             return this.getNode().getIdentifier();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -48,7 +48,7 @@ public interface JcrEntity extends Entity {
         try {
             return this.getNode().getProperty(name).getString();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -68,7 +68,7 @@ public interface JcrEntity extends Entity {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -85,7 +85,7 @@ public interface JcrEntity extends Entity {
         try {
             return this.getNode().getProperty(name).getDate();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -105,7 +105,7 @@ public interface JcrEntity extends Entity {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -121,7 +121,7 @@ public interface JcrEntity extends Entity {
         try {
             return this.getNode().getProperty(name).getLong();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -141,7 +141,7 @@ public interface JcrEntity extends Entity {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

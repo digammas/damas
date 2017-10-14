@@ -1,16 +1,16 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
+import solutions.digamma.damas.inspection.NotNull;
+import solutions.digamma.damas.inspection.Nullable;
+import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 import solutions.digamma.damas.jcr.model.JcrCreated;
 import solutions.digamma.damas.jcr.model.JcrModifiable;
-import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.jcr.model.JcrBaseEntity;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
-import solutions.digamma.damas.jcr.Namespace;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -47,7 +47,7 @@ public class JcrComment extends JcrBaseEntity
         try {
             return this.getNode().getParent().getIdentifier();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -67,7 +67,7 @@ public class JcrComment extends JcrBaseEntity
     }
 
     @Override
-    protected void checkCompatibility() throws CompatibilityException {
+    protected void checkCompatibility() throws InternalStateException {
         this.checkTypeCompatibility(Namespace.COMMENT);
     }
 
