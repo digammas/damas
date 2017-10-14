@@ -61,7 +61,7 @@ public class SessionBookkeeper {
      * @throws NotFoundException
      */
     public void unregister(Token token)
-            throws NotFoundException, CompatibilityException {
+            throws NotFoundException {
         synchronized (this.sessions) {
             if (!this.sessions.containsKey(token.getSecret())) {
                 this.logger.warning(() -> String.format(

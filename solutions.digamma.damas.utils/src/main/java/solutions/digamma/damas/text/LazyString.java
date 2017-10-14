@@ -10,8 +10,8 @@ import java.util.function.Supplier;
  */
 public class LazyString implements Supplier<String> {
 
-    private String format;
-    private Object[] args;
+    private final String format;
+    private final Object[] args;
 
     public LazyString(String format, Object... args) {
         this.format = format;

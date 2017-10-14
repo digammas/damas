@@ -16,7 +16,7 @@ import javax.jcr.SimpleCredentials;
 @Singleton
 public class SystemRepository {
 
-    private Repository repository;
+    private final Repository repository;
 
     private Session superuser;
     private Session readonly;
@@ -26,12 +26,12 @@ public class SystemRepository {
         this.repository = repository;
     }
 
-    private Credentials SUPERUSER = new SimpleCredentials(
+    private static final Credentials SUPERUSER = new SimpleCredentials(
             "admin",
             "admin".toCharArray()
     );
 
-    private Credentials READONLY = new SimpleCredentials(
+    private static final Credentials READONLY = new SimpleCredentials(
             "admin",
             "admin".toCharArray()
     );

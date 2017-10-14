@@ -22,10 +22,10 @@ public class WeldProvider {
 
     public void setUp() throws IOException {
         Files.createDirectories(Paths.get("repository/cdn/"));
-        this.extractResource(
+        extractResource(
                 "/repository/repository.json",
                 "repository/repository.json");
-        this.extractResource(
+        extractResource(
                 "/repository/cdn/damas.cdn",
                 "repository/cdn/damas.cdn");
     }
