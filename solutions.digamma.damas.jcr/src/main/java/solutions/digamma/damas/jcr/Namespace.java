@@ -29,6 +29,12 @@ public interface Namespace {
 
     String FOLDER = prefix("Folder");
 
+    String SUBJECT = prefix("Subject");
+
+    String USER = prefix("User");
+
+    String GROUP = prefix("Group");
+
     /**
      * Prefix name with namespace.
      *

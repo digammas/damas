@@ -1,6 +1,6 @@
 <dms='http://digamma.solutions/damas/1.0'>
 
-[dms:Comment] > mix:created, mix:lastModified
+[dms:Comment] > mix:created, mix:lastModified, mix:referenceable
     - jcr:content (string) = "" mandatory
     - dms:Rank (long)  = 0 mandatory
 
@@ -12,3 +12,13 @@
 [dms:Document] > nt:file, dms:CommentReceiver, dms:File
 
 [dms:Folder] > nt:folder, dms:File
+
+[dms:Subject] > mix:created, mix:lastModified, mix:referenceable
+    - dms:groups (reference) * < 'dms:Group'
+
+[dms:User] > dms:Subject
+    - dms:login (string) mandatory
+    - dms:password (string) mandatory
+
+[dms:Group] > dms:Subject
+    - dms:name (string) mandatory
