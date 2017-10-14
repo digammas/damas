@@ -1,7 +1,7 @@
 package solutions.digamma.damas.rs;
 
 import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 
 import javax.ws.rs.Consumes;
@@ -29,14 +29,14 @@ public abstract class CrudResource<E extends Entity, S extends E>
      *
      * @param entity Entity object.
      * @return Newly created entity.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public S create(
             S entity)
-            throws DocumentException {
+            throws WorkspaceException {
         return wrap(this.getManager().create(this.getToken(), entity));
     }
 
@@ -46,7 +46,7 @@ public abstract class CrudResource<E extends Entity, S extends E>
      * @param id Entity identifier.
      * @param entity Entity object, containing only fields to be modified.
      * @return Newly modifier entity object.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @PUT
     @Path("/{id}")
@@ -55,7 +55,7 @@ public abstract class CrudResource<E extends Entity, S extends E>
     public S update(
             @PathParam("id") String id,
             S entity)
-            throws DocumentException {
+            throws WorkspaceException {
         return wrap(this.getManager().update(this.getToken(), id, entity));
     }
 
@@ -63,14 +63,14 @@ public abstract class CrudResource<E extends Entity, S extends E>
      * Delete existing entity.
      *
      * @param id Entity identifier.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @DELETE
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void delete(
             @PathParam("id") String id)
-            throws DocumentException {
+            throws WorkspaceException {
         this.getManager().delete(this.getToken(), id);
     }
 }

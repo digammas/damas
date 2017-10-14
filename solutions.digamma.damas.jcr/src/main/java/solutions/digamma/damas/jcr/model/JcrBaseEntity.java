@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.inspection.NotNull;
@@ -23,12 +23,12 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
     @NotNull
     protected final transient Node node;
 
-    public JcrBaseEntity(@NotNull final Node node) throws DocumentException {
+    public JcrBaseEntity(@NotNull final Node node) throws WorkspaceException {
         this.node = node;
         checkCompatibility();
     }
 
-    public @NotNull Session getSession() throws DocumentException {
+    public @NotNull Session getSession() throws WorkspaceException {
         try {
             return this.node.getSession();
         } catch (RepositoryException e) {
@@ -48,9 +48,9 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
     /**
      * Delete entity, and its back node.
      *
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    public void remove() throws DocumentException {
+    public void remove() throws WorkspaceException {
         try {
             this.getNode().remove();
         } catch (RepositoryException e) {

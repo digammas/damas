@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
 
@@ -25,14 +25,14 @@ public class DocumentSerialization
      * Constructor that mimics another document object.
      *
      * @param copy a copy to mimic.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    public DocumentSerialization(Document copy) throws DocumentException {
+    public DocumentSerialization(Document copy) throws WorkspaceException {
         super(copy);
     }
 
     @Override
-    public DetailedDocument expand() throws DocumentException {
+    public DetailedDocument expand() throws WorkspaceException {
         return null;
     }
 }

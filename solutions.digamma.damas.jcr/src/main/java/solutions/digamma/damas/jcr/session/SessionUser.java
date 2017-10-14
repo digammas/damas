@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.session;
 
 import solutions.digamma.damas.AuthenticationException;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 
@@ -32,12 +32,12 @@ public interface SessionUser {
      * @return          A valid, non-null open session wrapper.
      * @throws AuthenticationException  When no session is found for the given
      * token.
-     * @throws DocumentException        When things go wrong while opening
+     * @throws WorkspaceException        When things go wrong while opening
      * session.
      */
     @NotNull
     default SessionWrapper openSession(@NotNull Token token)
-            throws DocumentException {
+            throws WorkspaceException {
         return this.getSession(token).open();
     }
 

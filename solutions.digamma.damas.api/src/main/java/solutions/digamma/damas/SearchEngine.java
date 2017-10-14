@@ -18,7 +18,7 @@ public interface SearchEngine<T extends Entity> {
      * @return A page of all known entities.
      */
     @NotNull
-    Page<T> find(@NotNull Token token) throws DocumentException;
+    Page<T> find(@NotNull Token token) throws WorkspaceException;
 
     /**
      * Find entities from an offset, up to certain size.
@@ -30,7 +30,7 @@ public interface SearchEngine<T extends Entity> {
      */
     @NotNull
     Page<T> find(@NotNull Token token, int offset, int size)
-            throws DocumentException;
+            throws WorkspaceException;
 
     /**
      * Find entities from an offset, up to certain size, satisfying a give
@@ -45,5 +45,5 @@ public interface SearchEngine<T extends Entity> {
     @NotNull
     Page<T> find(
             @NotNull Token token, int offset, int size, @Nullable Object query)
-            throws DocumentException;
+            throws WorkspaceException;
 }

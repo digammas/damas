@@ -3,7 +3,7 @@ package solutions.digamma.damas.rs.error;
 import solutions.digamma.damas.AuthenticationException;
 import solutions.digamma.damas.AuthorizationException;
 import solutions.digamma.damas.ConflictException;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.ResourceBusyException;
 import solutions.digamma.damas.UnsupportedOperationException;
@@ -36,7 +36,7 @@ public class GenericExceptionMapper
             .build();
     }
 
-    private void log(DocumentException e) {
+    private void log(WorkspaceException e) {
         if (e.getLogLevel() == Level.SEVERE) {
             this.logger.log(Level.SEVERE, "Checked exception.", e);
         } else {
@@ -45,8 +45,8 @@ public class GenericExceptionMapper
     }
 
     private void log(Throwable e) {
-        if (e instanceof DocumentException) {
-            log((DocumentException) e);
+        if (e instanceof WorkspaceException) {
+            log((WorkspaceException) e);
         } else {
             this.logger.log(Level.SEVERE, "Unchecked exception.", e);
         }

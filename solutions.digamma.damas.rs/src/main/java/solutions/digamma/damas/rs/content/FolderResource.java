@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.SearchEnabledCrudResource;
@@ -50,7 +50,7 @@ public class FolderResource
 
     @Override
     public FolderSerialization retrieve(String id)
-            throws DocumentException {
+            throws WorkspaceException {
         Folder folder = super.retrieve(id);
         if (this.full != null && this.full) {
             folder = folder.expand();
@@ -66,7 +66,7 @@ public class FolderResource
     }
 
     @Override
-    protected FolderSerialization wrap(Folder entity) throws DocumentException {
+    protected FolderSerialization wrap(Folder entity) throws WorkspaceException {
         return new FolderSerialization(entity);
     }
 }

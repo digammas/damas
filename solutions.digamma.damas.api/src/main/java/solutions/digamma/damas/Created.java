@@ -13,18 +13,18 @@ public interface Created {
      * Creator ID.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
-    String getCreatedBy() throws DocumentException;
+    String getCreatedBy() throws WorkspaceException;
 
     /**
      * Creation timestamp.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
-    Calendar getCreationDate() throws DocumentException;
+    Calendar getCreationDate() throws WorkspaceException;
 }
 

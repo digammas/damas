@@ -1,12 +1,13 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.common.ResultPage;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.model.JcrPathFinder;
 import solutions.digamma.damas.jcr.model.JcrSearchEngine;
@@ -34,7 +35,7 @@ public class JcrFolderManager
     protected JcrFolder retrieve(
             @NotNull Session session,
             @NotNull String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return new JcrFolder(session.getNodeByIdentifier(id));
     }
 
@@ -42,7 +43,7 @@ public class JcrFolderManager
     protected JcrFolder create(
             @NotNull Session session,
             @NotNull Folder entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         String name = entity.getName();
         Node parent = session.getNodeByIdentifier(entity.getParentId());
         Node node = parent.addNode(name, Namespace.FOLDER);
@@ -55,7 +56,7 @@ public class JcrFolderManager
             @NotNull Session session,
             @NotNull String id,
             @NotNull Folder entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrFolder folder = this.retrieve(session, id);
         folder.update(entity);
         return folder;
@@ -63,7 +64,7 @@ public class JcrFolderManager
 
     @Override
     protected void delete(@NotNull Session session, @NotNull String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrFolder folder = this.retrieve(session, id);
         folder.remove();
     }
@@ -74,16 +75,16 @@ public class JcrFolderManager
             int offset,
             int size,
             @Nullable Object query)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         Folder folder = new JcrFolder(session.getNode(JcrFile.CONTENT_ROOT));
         List<Folder> folders = new ArrayList<>(1);
         folders.add(folder);
-        return new ContentPage<>(folders, 0, 1);
+        return new ResultPage<>(folders, 0, 1);
     }
 
     @Override
     public Folder find(Session session, String path)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return new JcrFolder(
                 session.getNode(JcrFile.CONTENT_ROOT).getNode(path));
     }

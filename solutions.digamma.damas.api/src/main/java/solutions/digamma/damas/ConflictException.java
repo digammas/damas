@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class ConflictException extends DocumentException {
+public class ConflictException extends WorkspaceException {
 
     public ConflictException() {
     }

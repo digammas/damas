@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.content;
+package solutions.digamma.damas.jcr.common;
 
 import solutions.digamma.damas.Page;
 
@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Ahmad Shahwan
  */
-public class ContentPage<T> implements Page<T> {
+public class ResultPage<T> implements Page<T> {
 
     private final List<T> content;
     private final int offset;
@@ -21,7 +21,7 @@ public class ContentPage<T> implements Page<T> {
      * @param content
      * @param total
      */
-    public ContentPage(List<T> content, int offset, int total) {
+    public ResultPage(List<T> content, int offset, int total) {
         this.content = content;
         this.offset = offset;
         this.total = total;

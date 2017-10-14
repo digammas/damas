@@ -7,23 +7,23 @@ import java.util.logging.Level;
  *
  * @author Ahmad Shahwan
  */
-public class DocumentException extends Exception {
+public class WorkspaceException extends Exception {
 
     private Level logLevel = Level.INFO;
 
-    public DocumentException() {
+    public WorkspaceException() {
         super();
     }
 
-    public DocumentException(String message) {
+    public WorkspaceException(String message) {
         super(message);
     }
 
-    public DocumentException(Exception e) {
+    public WorkspaceException(Exception e) {
         super(e);
     }
 
-    public  DocumentException(String message, Exception e) {
+    public WorkspaceException(String message, Exception e) {
         super(message, e);
     }
 

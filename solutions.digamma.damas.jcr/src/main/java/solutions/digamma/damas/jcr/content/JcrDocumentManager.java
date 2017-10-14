@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
@@ -38,7 +38,7 @@ public class JcrDocumentManager
             @NotNull Token token,
             @NotNull Document entity,
             @NotNull InputStream stream)
-            throws DocumentException {
+            throws WorkspaceException {
         try (SessionWrapper session = this.openSession(token)) {
             JcrDocument document = this.create(session.getSession(), entity);
             document.updateContent(stream);
@@ -51,7 +51,7 @@ public class JcrDocumentManager
     @Logged
     @Override
     public DocumentPayload download(Token token, @NotNull String id)
-            throws DocumentException {
+            throws WorkspaceException {
         try (SessionWrapper session = this.openSession(token)) {
             JcrDocument document = this.retrieve(session.getSession(), id);
             return document.getContent();
@@ -66,7 +66,7 @@ public class JcrDocumentManager
             @NotNull Token token,
             @NotNull String id,
             @NotNull InputStream stream)
-            throws DocumentException {
+            throws WorkspaceException {
         try (SessionWrapper session = this.openSession(token)) {
             this.retrieve(session.getSession(), id).updateContent(stream);
         } catch (RepositoryException e) {
@@ -78,7 +78,7 @@ public class JcrDocumentManager
     protected JcrDocument retrieve(
             @NotNull Session session,
             @NotNull String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return new JcrDocument(session.getNodeByIdentifier(id));
     }
 
@@ -86,7 +86,7 @@ public class JcrDocumentManager
     protected JcrDocument create(
             @NotNull Session session,
             @NotNull Document entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         String name = entity.getName();
         Node parent = session.getNodeByIdentifier(entity.getParentId());
         if (!parent.isNodeType(Namespace.FOLDER)) {
@@ -103,7 +103,7 @@ public class JcrDocumentManager
             @NotNull Session session,
             @NotNull String id,
             @NotNull Document entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrDocument document = this.retrieve(session, id);
         document.update(entity);
         return document;
@@ -111,14 +111,14 @@ public class JcrDocumentManager
 
     @Override
     protected void delete(@NotNull Session session, @NotNull String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrDocument document = this.retrieve(session, id);
         document.remove();
     }
 
     @Override
     public Document find(Session session, String path)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return new JcrDocument(
                 session.getNode(JcrFile.CONTENT_ROOT).getNode(path));
     }

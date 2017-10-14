@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
@@ -39,7 +39,7 @@ public class JcrFolder extends JcrFile implements Folder {
      *
      * @param node
      */
-    JcrFolder(@NotNull Node node) throws DocumentException {
+    JcrFolder(@NotNull Node node) throws WorkspaceException {
         super(node);
     }
 
@@ -50,7 +50,7 @@ public class JcrFolder extends JcrFile implements Folder {
     }
 
     @Override
-    public @NotNull DetailedFolder expand() throws DocumentException {
+    public @NotNull DetailedFolder expand() throws WorkspaceException {
         return new JcrDetailedFolder(this.node);
     }
 
@@ -71,7 +71,7 @@ public class JcrFolder extends JcrFile implements Folder {
     }
 
     @Override
-    public Content getContent() throws DocumentException {
+    public Content getContent() throws WorkspaceException {
         if (this.contentDepth == 0) {
             return this.content = null;
         }

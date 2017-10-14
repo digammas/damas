@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.inspection.NotNull;
 
@@ -19,7 +19,7 @@ public class JcrDetailedFolder extends JcrFolder
      *
      * @param node      back-bone JCR node
      */
-    public JcrDetailedFolder(@NotNull Node node) throws DocumentException {
+    public JcrDetailedFolder(@NotNull Node node) throws WorkspaceException {
         super(node);
     }
 }

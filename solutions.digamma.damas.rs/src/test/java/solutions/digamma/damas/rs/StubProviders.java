@@ -1,7 +1,7 @@
 package solutions.digamma.damas.rs;
 
 import org.mockito.Mockito;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.DocumentManager;
@@ -40,7 +40,7 @@ public class StubProviders extends Mockito {
     }
 
     @Produces @Singleton
-    public LoginManager getLoginManager() throws DocumentException {
+    public LoginManager getLoginManager() throws WorkspaceException {
         this.log.info("Acquiring mock login manager.");
         LoginManager manager = mock(LoginManager.class);
         when(manager.login(any(), any())).thenReturn(token);
@@ -48,7 +48,7 @@ public class StubProviders extends Mockito {
     }
 
     @Produces @Singleton
-    public DocumentManager getDocumentManager() throws DocumentException {
+    public DocumentManager getDocumentManager() throws WorkspaceException {
         this.log.info("Acquiring mock document manager.");
         DocumentManager manager = mock(DocumentManager.class);
         Mockito.when(manager.retrieve(any(), eq(DOCUMENT_ID)))
@@ -61,7 +61,7 @@ public class StubProviders extends Mockito {
     }
 
     @Produces @Singleton
-    public FolderManager getFolderManager() throws DocumentException {
+    public FolderManager getFolderManager() throws WorkspaceException {
         this.log.info("Acquiring mock folder manager.");
         FolderManager manager = mock(FolderManager.class);
         Mockito.when(manager.retrieve(any(), eq(FOLDER_ID)))
