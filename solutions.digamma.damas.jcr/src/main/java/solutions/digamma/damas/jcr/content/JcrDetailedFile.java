@@ -5,7 +5,7 @@ import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.Metadata;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.model.JcrCreated;
 import solutions.digamma.damas.jcr.model.JcrModifiable;
 
@@ -26,7 +26,7 @@ public interface JcrDetailedFile
                     .relativize(URI.create(this.getNode().getPath()))
                     .getPath();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

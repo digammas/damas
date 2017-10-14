@@ -25,23 +25,31 @@ public class GenericExceptionMapper
         implements ExceptionMapper<Throwable> {
 
     @Inject
-    private Logger log;
+    private Logger logger;
 
     @Override
     public Response toResponse(Throwable e) {
-        if (isSever(e)) {
-            this.log.log(Level.SEVERE, "Unchecked exception.", e);
-        }
+        log(e);
         return Response
             .status(toStatusCode(e))
             .entity(new ExceptionReport(e))
             .build();
     }
 
-    private static boolean isSever(Throwable e) {
-        return !(e instanceof DocumentException) ||
-            ((DocumentException) e)
-                    .getSeverity() == DocumentException.Severity.HIGH;
+    private void log(DocumentException e) {
+        if (e.getLogLevel() == Level.SEVERE) {
+            this.logger.log(Level.SEVERE, "Checked exception.", e);
+        } else {
+            this.logger.log(e.getLogLevel(), e.getMessage());
+        }
+    }
+
+    private void log(Throwable e) {
+        if (e instanceof DocumentException) {
+            log((DocumentException) e);
+        } else {
+            this.logger.log(Level.SEVERE, "Unchecked exception.", e);
+        }
     }
 
     private static int toStatusCode(Throwable e) {

@@ -3,9 +3,9 @@ package solutions.digamma.damas.jcr.model;
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -33,7 +33,7 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         try {
             return this.node.getSession();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -55,28 +55,35 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         try {
             this.getNode().remove();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
+    /**
+     * Check if JCR node of a particular node type. Throws
+     * {@link InternalStateException} if not.
+     *
+     * @param typeName                  type name
+     * @throws InternalStateException   thrown when node is not of type
+     */
     protected void checkTypeCompatibility(String typeName)
-        throws CompatibilityException {
+        throws InternalStateException {
         try {
             if (!this.node.isNodeType(typeName)) {
                 String message = String.format(
                         "Node is not of %s type.", typeName);
-                throw new IncompatibleNodeTypeException(message);
+                throw new InternalStateException(message);
             }
         } catch (RepositoryException e) {
-            throw new CompatibilityException(e);
+            throw new InternalStateException(e);
         }
     }
 
     /**
      * Check JCR node compatibility with underling type.
      *
-     * @throws CompatibilityException   Exception thrown when check fails.
+     * @throws InternalStateException   Exception thrown when check fails.
      */
     protected abstract void checkCompatibility()
-            throws CompatibilityException;
+            throws InternalStateException;
 }

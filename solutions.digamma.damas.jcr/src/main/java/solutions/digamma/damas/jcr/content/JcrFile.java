@@ -2,14 +2,14 @@ package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.error.IncompatiblePathException;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
@@ -39,15 +39,15 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    protected void checkCompatibility() throws CompatibilityException {
+    protected void checkCompatibility() throws InternalStateException {
         this.checkTypeCompatibility(Namespace.FILE);
         try {
             if (!this.node.getPath().startsWith(CONTENT_ROOT)) {
-                throw new IncompatiblePathException(
+                throw new InternalStateException(
                         "Node not in content root.");
             }
         } catch (RepositoryException e) {
-            throw new CompatibilityException(e);
+            throw new InternalStateException(e);
         }
     }
 
@@ -56,7 +56,7 @@ public abstract class JcrFile extends JcrBaseEntity
         try {
             return this.node.getName();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class JcrFile extends JcrBaseEntity
                     .getPath();
             this.move(destination);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -81,7 +81,7 @@ public abstract class JcrFile extends JcrBaseEntity
         try {
             parent = this.node.getParent();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
         if (parent == null) {
             return NO_PARENT;
@@ -103,7 +103,7 @@ public abstract class JcrFile extends JcrBaseEntity
         try {
             return this.node.getParent().getIdentifier();
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -120,7 +120,7 @@ public abstract class JcrFile extends JcrBaseEntity
                 .getPath();
             this.move(destination);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

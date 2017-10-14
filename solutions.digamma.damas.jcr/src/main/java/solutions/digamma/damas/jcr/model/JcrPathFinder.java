@@ -5,8 +5,8 @@ import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.PathFinder;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
+import solutions.digamma.damas.jcr.error.JcrException;
 import solutions.digamma.damas.jcr.session.SessionUser;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 
 import javax.jcr.RepositoryException;
@@ -31,7 +31,7 @@ public interface JcrPathFinder<T extends Entity>
             return this.find(
                     session.getSession(), path);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 

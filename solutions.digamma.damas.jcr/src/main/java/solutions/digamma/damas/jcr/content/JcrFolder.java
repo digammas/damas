@@ -1,10 +1,10 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.jcr.Namespace;
 import solutions.digamma.damas.jcr.error.JcrException;
 
@@ -44,7 +44,7 @@ public class JcrFolder extends JcrFile implements Folder {
     }
 
     @Override
-    protected void checkCompatibility() throws CompatibilityException {
+    protected void checkCompatibility() throws InternalStateException {
         super.checkCompatibility();
         this.checkTypeCompatibility(Namespace.FOLDER);
     }
@@ -93,7 +93,7 @@ public class JcrFolder extends JcrFile implements Folder {
                 }
             }
         } catch (RepositoryException e) {
-            throw JcrException.wrap(e);
+            throw JcrException.of(e);
         }
         return this.content = new Content() {
             @Override

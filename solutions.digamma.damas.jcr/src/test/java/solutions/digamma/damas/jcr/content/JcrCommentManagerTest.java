@@ -3,6 +3,7 @@ package solutions.digamma.damas.jcr.content;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Comment;
@@ -12,7 +13,6 @@ import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.jcr.Mocks;
 import solutions.digamma.damas.jcr.WeldTest;
-import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
 
 /**
  * Comment manager test suite.
@@ -66,7 +66,7 @@ public class JcrCommentManagerTest extends WeldTest {
         assert comment.getRank() == 1L;
     }
 
-    @Test(expected = IncompatibleNodeTypeException.class)
+    @Test(expected = CompatibilityException.class)
     public void createWithError() throws Exception {
         manager.create(
                 this.token,

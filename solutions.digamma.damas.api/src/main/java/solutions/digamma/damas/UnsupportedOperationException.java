@@ -5,9 +5,10 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class UnsupportedOperationException extends SevereDocumentException {
+public class UnsupportedOperationException extends MisuseException {
 
     public UnsupportedOperationException() {
+        super();
     }
 
     public UnsupportedOperationException(String message) {

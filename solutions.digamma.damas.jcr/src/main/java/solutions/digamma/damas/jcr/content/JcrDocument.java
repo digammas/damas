@@ -1,13 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.IncompatibleNodeTypeException;
-import solutions.digamma.damas.jcr.error.JcrExceptionMapper;
+import solutions.digamma.damas.jcr.error.JcrException;
 
 import javax.jcr.Binary;
 import javax.jcr.Node;
@@ -52,7 +51,7 @@ public class JcrDocument extends JcrFile implements Document {
                 }
             };
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
@@ -66,20 +65,20 @@ public class JcrDocument extends JcrFile implements Document {
             this.node.getNode(Property.JCR_CONTENT)
                     .setProperty(Property.JCR_DATA, binary);
         } catch (RepositoryException e) {
-            throw JcrExceptionMapper.map(e);
+            throw JcrException.of(e);
         }
     }
 
     @Override
-    protected void checkCompatibility() throws CompatibilityException {
+    protected void checkCompatibility() throws InternalStateException {
         super.checkCompatibility();
         try {
             if (!this.node.isNodeType(NodeType.NT_FILE)) {
-                throw new IncompatibleNodeTypeException(
+                throw new InternalStateException(
                         "Node is not of nt:file type.");
             }
         } catch (RepositoryException e) {
-            throw new CompatibilityException(e);
+            throw new InternalStateException(e);
         }
     }
 
