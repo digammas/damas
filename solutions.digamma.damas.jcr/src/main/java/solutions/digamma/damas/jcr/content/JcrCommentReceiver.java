@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
 import solutions.digamma.damas.jcr.error.JcrException;
@@ -24,7 +24,7 @@ import java.util.List;
 public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
 
     @NotNull
-    default Comment[] getComments() throws DocumentException {
+    default Comment[] getComments() throws WorkspaceException {
         try {
             String sql2 = String.format(
                     SQL2_SELECT_CHILDREN,

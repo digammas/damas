@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.Metadata;
 import solutions.digamma.damas.inspection.NotNull;
@@ -19,7 +19,7 @@ public interface JcrDetailedFile
         extends DetailedFile, JcrCreated, JcrModifiable {
 
     @Override
-    default @NotNull String getPath() throws DocumentException {
+    default @NotNull String getPath() throws WorkspaceException {
         try {
             return URI
                     .create(JcrFile.CONTENT_ROOT)
@@ -31,13 +31,13 @@ public interface JcrDetailedFile
     }
 
     @Override
-    default @Nullable Metadata getMetadata() throws DocumentException {
+    default @Nullable Metadata getMetadata() throws WorkspaceException {
         return null;
     }
 
     @Override
     default void setMetadata(@Nullable Metadata metadata)
-            throws DocumentException {
+            throws WorkspaceException {
 
     }
 }

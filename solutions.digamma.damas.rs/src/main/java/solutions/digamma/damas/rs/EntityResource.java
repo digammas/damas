@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.EntityManager;
 
@@ -36,14 +36,14 @@ public abstract class EntityResource<E extends Entity, S extends E>
      *
      * @param id Entity's identifier.
      * @return Entity object.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public S retrieve(@PathParam("id") String id) throws DocumentException {
+    public S retrieve(@PathParam("id") String id) throws WorkspaceException {
         return wrap(this.getManager().retrieve(this.getToken(), id));
     }
 
-    abstract protected S wrap(E entity) throws DocumentException;
+    abstract protected S wrap(E entity) throws WorkspaceException;
 }

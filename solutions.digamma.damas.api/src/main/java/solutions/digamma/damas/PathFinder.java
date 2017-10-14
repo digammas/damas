@@ -16,8 +16,8 @@ public interface PathFinder<T extends Entity> {
      * @param token     Access token.
      * @param path      Path of the looked up entity.
      * @return          The entity whose path is {@code path}.
-     * @throws DocumentException    If not such path exists, or other errors.
+     * @throws WorkspaceException    If not such path exists, or other errors.
      */
     @NotNull T find(@NotNull Token token, @NotNull String path)
-            throws DocumentException;
+            throws WorkspaceException;
 }

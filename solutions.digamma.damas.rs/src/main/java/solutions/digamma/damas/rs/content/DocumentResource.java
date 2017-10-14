@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.rs.CrudResource;
@@ -34,7 +34,7 @@ public class DocumentResource
 
     @Override
     public DocumentSerialization retrieve(String id)
-            throws DocumentException {
+            throws WorkspaceException {
         Document document = super.retrieve(id);
         if (this.full != null && this.full) {
             document = document.expand();
@@ -44,7 +44,7 @@ public class DocumentResource
 
     @Override
     protected DocumentSerialization wrap(Document entity)
-            throws DocumentException {
+            throws WorkspaceException {
         return new DocumentSerialization(entity);
     }
 }

@@ -1,6 +1,6 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
@@ -27,58 +27,58 @@ public interface File extends Entity {
      *
      * @return
      */
-    @Nullable String getName() throws DocumentException;
+    @Nullable String getName() throws WorkspaceException;
 
     /**
      * Set file's name.
      *
      * @param value
      */
-    void setName(@NotNull String value) throws DocumentException;
+    void setName(@NotNull String value) throws WorkspaceException;
 
     /**
      * Parent folder.
      *
      * @return
      */
-    @Nullable Folder getParent() throws DocumentException;
+    @Nullable Folder getParent() throws WorkspaceException;
 
     /**
      * Set file's parent folder.
      *
      * @param value
      */
-    void setParent(@NotNull Folder value) throws DocumentException;
+    void setParent(@NotNull Folder value) throws WorkspaceException;
 
     /**
      * Parent ID.
      *
      * @return
      */
-    String getParentId() throws DocumentException;
+    String getParentId() throws WorkspaceException;
 
     /**
      * Set parent ID.
      *
      * @param value
      */
-    void setParentId(String value) throws DocumentException;
+    void setParentId(String value) throws WorkspaceException;
 
     /**
      * Expand file into its detailed counterpart.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @NotNull DetailedFile expand() throws DocumentException;
+    @NotNull DetailedFile expand() throws WorkspaceException;
 
     /**
      * Update file with file information.
      *
      * @param other
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    default void update(@NotNull File other) throws DocumentException {
+    default void update(@NotNull File other) throws WorkspaceException {
         if (other.getName() != null) {
             this.setName(other.getName());
         }

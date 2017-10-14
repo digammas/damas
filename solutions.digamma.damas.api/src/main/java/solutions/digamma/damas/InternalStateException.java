@@ -9,7 +9,7 @@ import java.util.logging.Level;
  *
  * @author Ahmad Shahwan
  */
-public class InternalStateException extends DocumentException {
+public class InternalStateException extends WorkspaceException {
 
     public InternalStateException() {
         this(null, null);

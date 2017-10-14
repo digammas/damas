@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class ResourceBusyException extends DocumentException {
+public class ResourceBusyException extends WorkspaceException {
 
     public ResourceBusyException() {
     }

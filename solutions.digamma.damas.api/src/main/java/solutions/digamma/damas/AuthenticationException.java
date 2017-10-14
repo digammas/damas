@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class AuthenticationException extends DocumentException {
+public class AuthenticationException extends WorkspaceException {
 
     public AuthenticationException() {
     }

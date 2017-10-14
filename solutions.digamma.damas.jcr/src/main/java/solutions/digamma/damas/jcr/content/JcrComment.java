@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
@@ -26,24 +26,24 @@ public class JcrComment extends JcrBaseEntity
      * No argument constructor.
      *
      * @param node  comment's JCR node
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    JcrComment(@NotNull Node node) throws DocumentException {
+    JcrComment(@NotNull Node node) throws WorkspaceException {
         super(node);
     }
 
     @Override
-    public String getText() throws DocumentException {
+    public String getText() throws WorkspaceException {
         return this.getString(Property.JCR_CONTENT);
     }
 
     @Override
-    public void setText(@Nullable String value) throws DocumentException {
+    public void setText(@Nullable String value) throws WorkspaceException {
         this.setString(Property.JCR_CONTENT, value);
     }
 
     @Override
-    public String getReceiverId()throws DocumentException  {
+    public String getReceiverId()throws WorkspaceException {
         try {
             return this.getNode().getParent().getIdentifier();
         } catch (RepositoryException e) {
@@ -52,17 +52,17 @@ public class JcrComment extends JcrBaseEntity
     }
 
     @Override
-    public CommentReceiver getReceiver() throws DocumentException {
+    public CommentReceiver getReceiver() throws WorkspaceException {
         return (JcrCommentReceiver) () -> JcrComment.this.node;
     }
 
     @Override
-    public Long getRank()throws DocumentException  {
+    public Long getRank()throws WorkspaceException {
         return this.getLong(Namespace.RANK);
     }
 
     @Override
-    public void setRank(@Nullable Long value) throws DocumentException {
+    public void setRank(@Nullable Long value) throws WorkspaceException {
         this.setLong(Namespace.RANK, value);
     }
 
@@ -71,7 +71,7 @@ public class JcrComment extends JcrBaseEntity
         this.checkTypeCompatibility(Namespace.COMMENT);
     }
 
-    public void update(@NotNull Comment other) throws DocumentException {
+    public void update(@NotNull Comment other) throws WorkspaceException {
         if (other.getRank() != null) {
             this.setRank(other.getRank());
         }

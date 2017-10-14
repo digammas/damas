@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.session;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.ResourceBusyException;
 
@@ -38,9 +38,9 @@ public class SessionWrapper implements AutoCloseable {
      * @return The underling JCR session.
      * @throws ResourceBusyException When timeout is reached while the session
      * is still locked.
-     * @throws DocumentException When thread is interrupted.
+     * @throws WorkspaceException When thread is interrupted.
      */
-    public SessionWrapper open() throws DocumentException {
+    public SessionWrapper open() throws WorkspaceException {
         try {
             if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
                 return this;
@@ -50,11 +50,11 @@ public class SessionWrapper implements AutoCloseable {
                         "Session in use by another thread.");
             }
         } catch (InterruptedException e) {
-            throw new DocumentException("Thread interrupted.", e);
+            throw new WorkspaceException("Thread interrupted.", e);
         }
     }
 
-    private void checkUsability() throws DocumentException {
+    private void checkUsability() throws WorkspaceException {
         if (!this.lock.isLocked()) {
             throw new InternalStateException("Session not open yet.");
         }
@@ -75,7 +75,7 @@ public class SessionWrapper implements AutoCloseable {
      * @throws ResourceBusyException When session is open and used by another
      * thread.
      */
-    public Session getSession() throws DocumentException {
+    public Session getSession() throws WorkspaceException {
         this.checkUsability();
         return this.session;
     }

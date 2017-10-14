@@ -13,17 +13,17 @@ public interface Modifiable {
      * Modifier ID.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
-    String getModifiedBy() throws DocumentException;
+    String getModifiedBy() throws WorkspaceException;
 
     /**
      * Modification timestamp.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
-    Calendar getModificationDate() throws DocumentException;
+    Calendar getModificationDate() throws WorkspaceException;
 }

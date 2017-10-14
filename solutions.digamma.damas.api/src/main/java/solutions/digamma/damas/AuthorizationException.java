@@ -6,7 +6,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class AuthorizationException extends DocumentException {
+public class AuthorizationException extends WorkspaceException {
 
     public AuthorizationException() {
     }

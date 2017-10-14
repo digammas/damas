@@ -7,7 +7,7 @@ import java.util.logging.Level;
  *
  * @author Ahmad Shahwan
  */
-public class MisuseException extends DocumentException {
+public class MisuseException extends WorkspaceException {
 
     public MisuseException() {
         this(null, null);

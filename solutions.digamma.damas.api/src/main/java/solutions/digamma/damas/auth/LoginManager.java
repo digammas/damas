@@ -1,6 +1,6 @@
 package solutions.digamma.damas.auth;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 
 /**
@@ -17,10 +17,10 @@ public interface LoginManager {
      * @param username
      * @param password
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     Token login(@NotNull String username, @NotNull String password)
-            throws DocumentException;
+            throws WorkspaceException;
 
-    void logout(Token token) throws DocumentException;
+    void logout(Token token) throws WorkspaceException;
 }

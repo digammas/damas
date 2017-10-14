@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.PathFinder;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
@@ -23,13 +23,13 @@ public interface DocumentManager
      * @param entity
      * @param stream
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull Document create(
             @NotNull Token token,
             @NotNull Document entity,
             @NotNull InputStream stream)
-            throws DocumentException;
+            throws WorkspaceException;
 
     /**
      * Read document's content.
@@ -39,7 +39,7 @@ public interface DocumentManager
      * @return
      */
     DocumentPayload download(@NotNull Token token, @NotNull String id)
-            throws DocumentException;
+            throws WorkspaceException;
 
     /**
      * Write a stream to a document, replacing existing content.
@@ -52,5 +52,5 @@ public interface DocumentManager
             @NotNull Token token,
             @NotNull String id,
             @NotNull InputStream stream)
-            throws DocumentException;
+            throws WorkspaceException;
 }

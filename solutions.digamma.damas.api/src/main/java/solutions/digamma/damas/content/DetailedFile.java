@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.Created;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Modifiable;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
@@ -16,9 +16,9 @@ public interface DetailedFile
      * File's metadata.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @Nullable Metadata getMetadata() throws DocumentException;
+    @Nullable Metadata getMetadata() throws WorkspaceException;
 
     /**
      * Update file's metadata. If value is null, delete metadata. Only present
@@ -26,9 +26,9 @@ public interface DetailedFile
      * unchanged.
      *
      * @param metadata
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    void setMetadata(@Nullable Metadata metadata) throws DocumentException;
+    void setMetadata(@Nullable Metadata metadata) throws WorkspaceException;
 
     /**
      * Parent path.
@@ -38,15 +38,15 @@ public interface DetailedFile
      *
      * @return
      */
-    @Nullable String getPath() throws DocumentException;
+    @Nullable String getPath() throws WorkspaceException;
 
     /**
      * Update file with file information.
      *
      * @param other
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    default void update(@NotNull DetailedFile other) throws DocumentException {
+    default void update(@NotNull DetailedFile other) throws WorkspaceException {
         File.super.update(other);
         if (other.getMetadata() != null) {
             this.setMetadata(other.getMetadata());

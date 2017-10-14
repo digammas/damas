@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.CompatibilityException;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentManager;
@@ -26,13 +26,13 @@ public class JcrCommentManager
 
     @Override
     protected JcrComment retrieve(Session session, String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return new JcrComment(session.getNodeByIdentifier(id));
     }
 
     @Override
     protected JcrComment create(Session session, @NotNull Comment entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         String name = UUID.randomUUID().toString();
         Node parent = session.getNodeByIdentifier(entity.getReceiverId());
         if (!parent.isNodeType(Namespace.COMMENT_RECEIVER)) {
@@ -49,7 +49,7 @@ public class JcrCommentManager
     protected JcrComment update(
             Session session, String id,
             @NotNull Comment entity)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrComment comment = this.retrieve(session, id);
         comment.update(entity);
         return comment;
@@ -57,7 +57,7 @@ public class JcrCommentManager
 
     @Override
     protected void delete(Session session, String id)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         JcrComment comment = this.retrieve(session, id);
         comment.remove();
     }
@@ -68,7 +68,7 @@ public class JcrCommentManager
             int offset,
             int size,
             Object query)
-            throws RepositoryException, DocumentException {
+            throws RepositoryException, WorkspaceException {
         return null;
     }
 }

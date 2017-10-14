@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.SearchEngine;
@@ -36,14 +36,14 @@ public interface JcrSearchEngine<T extends Entity>
     }
 
     @Override
-    default Page<T> find(@NotNull Token token) throws DocumentException {
+    default Page<T> find(@NotNull Token token) throws WorkspaceException {
         return this.find(token, 0, this.getDefaultPageSize(), null);
     }
 
     @Override
     default Page<T> find(
             @NotNull Token token, int offset, int size)
-            throws DocumentException {
+            throws WorkspaceException {
         return this.find(token, offset, size, null);
     }
 
@@ -51,7 +51,7 @@ public interface JcrSearchEngine<T extends Entity>
     @Override
     default Page<T> find(
             @NotNull Token token, int offset, int size, @Nullable Object query)
-            throws DocumentException {
+            throws WorkspaceException {
         try (SessionWrapper session = openSession(token)) {
             return this.find(
                     session.getSession(), offset, size, query);
@@ -70,12 +70,12 @@ public interface JcrSearchEngine<T extends Entity>
      * @param query
      * @return
      * @throws RepositoryException
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     Page<T> find(
             @NotNull Session session,
             int offset,
             int size,
             @Nullable Object query)
-            throws RepositoryException, DocumentException;
+            throws RepositoryException, WorkspaceException;
 }

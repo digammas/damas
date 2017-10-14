@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
@@ -28,7 +28,7 @@ public interface JcrEntity extends Entity {
     @NotNull Node getNode();
 
     @NotNull
-    default String getId() throws DocumentException {
+    default String getId() throws WorkspaceException {
         try {
             return this.getNode().getIdentifier();
         } catch (RepositoryException e) {
@@ -41,10 +41,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name
      * @return Property value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default @NotNull String getString(@NotNull String name)
-            throws DocumentException {
+            throws WorkspaceException {
         try {
             return this.getNode().getProperty(name).getString();
         } catch (RepositoryException e) {
@@ -61,10 +61,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name.
      * @param value Property new value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default void setString(@NotNull String name, @Nullable String value)
-            throws DocumentException{
+            throws WorkspaceException {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
@@ -78,10 +78,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name.
      * @return Property value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default @NotNull Calendar getDate(@NotNull String name)
-            throws DocumentException {
+            throws WorkspaceException {
         try {
             return this.getNode().getProperty(name).getDate();
         } catch (RepositoryException e) {
@@ -98,10 +98,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name.
      * @param value Property new value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default void setDate(@NotNull String name, @Nullable Calendar value)
-            throws DocumentException{
+            throws WorkspaceException {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {
@@ -114,10 +114,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name.
      * @return Property value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default @NotNull Long getLong(@NotNull String name)
-            throws DocumentException {
+            throws WorkspaceException {
         try {
             return this.getNode().getProperty(name).getLong();
         } catch (RepositoryException e) {
@@ -134,10 +134,10 @@ public interface JcrEntity extends Entity {
      *
      * @param name Property name.
      * @param value Property new value.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     default void setLong(@NotNull String name, @Nullable Long value)
-            throws DocumentException{
+            throws WorkspaceException {
         try {
             this.getNode().setProperty(name, value);
         } catch (RepositoryException e) {

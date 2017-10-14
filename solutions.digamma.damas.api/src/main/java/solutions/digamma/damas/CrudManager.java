@@ -18,11 +18,11 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      * @param token
      * @param entity                Entity to create.
      * @return                      Newly created entity.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
     T create(@NotNull Token token, @NotNull T entity)
-            throws DocumentException;
+            throws WorkspaceException;
 
     /**
      * Update and existing entity.
@@ -32,13 +32,13 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      * @param entity                Pattern object, containing only values to be
      *                              updated.
      * @return                      Updated entity.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull T update(
             @NotNull Token token,
             @NotNull String id,
             @NotNull T entity)
-            throws DocumentException;
+            throws WorkspaceException;
 
     /**
      * Delete an existing entity.
@@ -46,8 +46,8 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      *
      * @param token
      * @param id                    ID of the entity to be deleted.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     void delete(@NotNull Token token, @NotNull String id)
-            throws DocumentException;
+            throws WorkspaceException;
 }
