@@ -24,7 +24,7 @@ public class StubProviders extends Mockito {
     static final String FOLDER_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
-    private Token token = () -> TOKEN;
+    private final Token token = () -> TOKEN;
 
     private DocumentSerialization document = new DocumentSerialization();
     private FolderSerialization folder = new FolderSerialization();
@@ -33,7 +33,7 @@ public class StubProviders extends Mockito {
     @Inject
     private Logger log;
 
-    public StubProviders() throws DocumentException {
+    public StubProviders() {
         document.setId(DOCUMENT_ID);
         folder.setId(FOLDER_ID);
 

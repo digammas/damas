@@ -17,9 +17,9 @@ public class SessionWrapper implements AutoCloseable {
 
     private final static long TIMEOUT = 60;
 
-    private Session session;
+    private final Session session;
 
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
 
     /**
      * Constructor.

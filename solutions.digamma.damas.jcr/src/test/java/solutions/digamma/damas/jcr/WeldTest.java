@@ -11,7 +11,7 @@ import solutions.digamma.damas.auth.LoginManager;
 public class WeldTest {
 
     @ClassRule
-    public static WeldRule weld = new WeldRule();
+    public static final WeldRule WELD = new WeldRule();
 
     protected LoginManager login;
 
@@ -25,7 +25,7 @@ public class WeldTest {
     }
 
     protected static <T> T inject(Class<T> klass) {
-        return weld.inject(klass);
+        return WELD.inject(klass);
     }
 
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class ExceptionReport implements Serializable {
 
-    private Throwable exception;
+    private final Throwable exception;
 
     /**
      * Package-protected constructor.

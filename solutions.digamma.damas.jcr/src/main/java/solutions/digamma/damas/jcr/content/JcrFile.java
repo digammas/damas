@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.UnsupportedOperationException;

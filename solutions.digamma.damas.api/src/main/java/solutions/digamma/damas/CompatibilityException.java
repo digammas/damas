@@ -1,7 +1,5 @@
 package solutions.digamma.damas;
 
-import java.util.logging.Level;
-
 /**
  * Exception occurs in case of incompatibility between DMS items. For example
  * this exception should be thrown when an identifier of existing but not
