@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class ContentPage<T> implements Page<T> {
 
-    private List<T> content;
-    private int offset;
-    private int total;
+    private final List<T> content;
+    private final int offset;
+    private final int total;
 
     /**
      * Constructor.

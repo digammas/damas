@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.CompatibilityException;
 import solutions.digamma.damas.DocumentException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.InternalStateException;

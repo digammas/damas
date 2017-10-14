@@ -11,7 +11,7 @@ import org.junit.rules.ExternalResource;
  */
 public class ContainerRule extends ExternalResource {
 
-    private WeldContainer container;
+    private final WeldContainer container;
 
     /**
      * Constructor.

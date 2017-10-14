@@ -14,9 +14,9 @@ import java.security.SecureRandom;
 public class SecureToken implements Token {
 
     @NotNull
-    private String token;
+    private final String token;
 
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ public class SecureToken implements Token {
     }
 
     private static String nextToken() {
-        return new BigInteger(132, random).toString(64);
+        return new BigInteger(132, RANDOM).toString(64);
     }
 
     @Override

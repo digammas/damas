@@ -31,8 +31,8 @@ public class JcrRepositoryInitializer implements RepositoryInitializer {
      * Lock used for thread safety.
      * @see "http://stackoverflow.com/a/1040821/3402449"
      */
-    private Lock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
+    private final Lock lock = new ReentrantLock();
+    private final Condition condition = lock.newCondition();
     private boolean isReady = false;
     private List<RepositoryJob> jobs;
 

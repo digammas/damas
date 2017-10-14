@@ -15,7 +15,7 @@ public final class BuiltInJob implements RepositoryJob {
 
     public static final BuiltInJob INSTANCE = new BuiltInJob();
 
-    private Node[] creations = {
+    private final static Node[] CREATIONS = {
             new Node(
                     JcrFile.CONTENT_ROOT,
                     Namespace.FOLDER,
@@ -35,7 +35,7 @@ public final class BuiltInJob implements RepositoryJob {
      * @return
      */
     public List<RepositoryJob.Node> getCreations() {
-        return Arrays.asList(this.creations);
+        return Arrays.asList(CREATIONS);
     }
 
     /**
@@ -43,9 +43,9 @@ public final class BuiltInJob implements RepositoryJob {
      */
     private static class Node implements RepositoryJob.Node {
 
-        private String path;
-        private String type;
-        private String[] mixins;
+        private final String path;
+        private final String type;
+        private final String[] mixins;
 
         public Node(String path, String type, String[] mixins) {
             this.path = path;
