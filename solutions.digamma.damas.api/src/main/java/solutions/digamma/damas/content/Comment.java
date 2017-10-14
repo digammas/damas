@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.Created;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.Modifiable;
 import solutions.digamma.damas.inspection.Nullable;
@@ -18,48 +18,48 @@ public interface Comment extends Entity, Created, Modifiable, CommentReceiver {
      * Comment text.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    String getText() throws DocumentException;
+    String getText() throws WorkspaceException;
 
     /**
      * Set comment text.
      *
      * @param value
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    void setText(@Nullable String value) throws DocumentException;
+    void setText(@Nullable String value) throws WorkspaceException;
 
     /**
      * Get ID of the entity comment to witch this comment replies.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @Nullable String getReceiverId() throws DocumentException;
+    @Nullable String getReceiverId() throws WorkspaceException;
 
     /**
      * Get the entity to witch this comment replies if such a comment exist, or
      * null otherwise.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @Nullable CommentReceiver getReceiver() throws DocumentException;
+    @Nullable CommentReceiver getReceiver() throws WorkspaceException;
 
     /**
      * Comment rank, can be negative.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @Nullable Long getRank() throws DocumentException;
+    @Nullable Long getRank() throws WorkspaceException;
 
     /**
      * Set comment rank;
      *
      * @param value
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    void setRank(@Nullable Long value) throws DocumentException;
+    void setRank(@Nullable Long value) throws WorkspaceException;
 }

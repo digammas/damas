@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.UnsupportedOperationException;
 import solutions.digamma.damas.content.File;
@@ -33,7 +33,7 @@ public abstract class JcrFile extends JcrBaseEntity
      *
      * @param node
      */
-    JcrFile(@NotNull Node node) throws DocumentException {
+    JcrFile(@NotNull Node node) throws WorkspaceException {
         super(node);
     }
 
@@ -51,7 +51,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public @NotNull String getName() throws DocumentException {
+    public @NotNull String getName() throws WorkspaceException {
         try {
             return this.node.getName();
         } catch (RepositoryException e) {
@@ -60,7 +60,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setName(@NotNull String value) throws DocumentException {
+    public void setName(@NotNull String value) throws WorkspaceException {
         try {
             /* Use node's path since paths don't end with a slash.
              */
@@ -75,7 +75,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public @Nullable Folder getParent() throws DocumentException {
+    public @Nullable Folder getParent() throws WorkspaceException {
         Node parent;
         try {
             parent = this.node.getParent();
@@ -89,7 +89,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setParent(@NotNull Folder value) throws DocumentException {
+    public void setParent(@NotNull Folder value) throws WorkspaceException {
         String id = value.getId();
         if (id == null) {
             throw new UnsupportedOperationException("Parent ID is null.");
@@ -98,7 +98,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public String getParentId() throws DocumentException {
+    public String getParentId() throws WorkspaceException {
         try {
             return this.node.getParent().getIdentifier();
         } catch (RepositoryException e) {
@@ -107,7 +107,7 @@ public abstract class JcrFile extends JcrBaseEntity
     }
 
     @Override
-    public void setParentId(@NotNull String value) throws DocumentException {
+    public void setParentId(@NotNull String value) throws WorkspaceException {
         try {
             String path = this.getSession()
                     .getNodeByIdentifier(value)

@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
@@ -27,11 +27,11 @@ public class JcrDocument extends JcrFile implements Document {
      *
      * @param node
      */
-    JcrDocument(@NotNull Node node) throws DocumentException {
+    JcrDocument(@NotNull Node node) throws WorkspaceException {
         super(node);
     }
 
-    public DocumentPayload getContent() throws DocumentException {
+    public DocumentPayload getContent() throws WorkspaceException {
         try {
             Binary binary = this.node
                     .getNode(Node.JCR_CONTENT)
@@ -56,7 +56,7 @@ public class JcrDocument extends JcrFile implements Document {
     }
 
     void updateContent(@NotNull InputStream stream)
-            throws DocumentException {
+            throws WorkspaceException {
         try {
             Binary binary = this
                     .getSession()
@@ -83,7 +83,7 @@ public class JcrDocument extends JcrFile implements Document {
     }
 
     @Override
-    public @NotNull DetailedDocument expand() throws DocumentException {
+    public @NotNull DetailedDocument expand() throws WorkspaceException {
         return new JcrDetailedDocument(this.node);
     }
 }

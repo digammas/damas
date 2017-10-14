@@ -5,7 +5,7 @@ package solutions.digamma.damas;
  *
  * @author Ahmad Shahwan
  */
-public class NotFoundException extends DocumentException {
+public class NotFoundException extends WorkspaceException {
 
     public NotFoundException() {
     }

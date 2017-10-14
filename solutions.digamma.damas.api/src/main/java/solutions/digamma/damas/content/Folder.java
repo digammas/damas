@@ -1,6 +1,6 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 
@@ -19,7 +19,7 @@ public interface Folder extends File {
      * @return
      */
     @Override
-    @NotNull DetailedFolder expand() throws DocumentException;
+    @NotNull DetailedFolder expand() throws WorkspaceException;
 
     /**
      * Expand content to the given depth.
@@ -40,9 +40,9 @@ public interface Folder extends File {
      * This method returns {@code null} if content is hidden or collapsed.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @Nullable Content getContent() throws DocumentException;
+    @Nullable Content getContent() throws WorkspaceException;
 
     /**
      * Folder's content object.

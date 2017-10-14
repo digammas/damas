@@ -22,5 +22,5 @@ public interface Entity {
      * @return
      */
     @Nullable
-    String getId() throws DocumentException;
+    String getId() throws WorkspaceException;
 }

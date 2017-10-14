@@ -19,10 +19,10 @@ public interface EntityManager<T extends Entity> {
      * @param id                    ID of the entity to be retrieved.
      * @return                      Retrieved entity.
      * @throws NotFoundException    When no such an entity exists.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @NotNull
     T retrieve(@NotNull Token token, @NotNull String id)
-            throws DocumentException;
+            throws WorkspaceException;
 
 }

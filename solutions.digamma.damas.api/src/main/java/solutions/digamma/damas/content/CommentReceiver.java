@@ -1,6 +1,6 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 
@@ -16,7 +16,7 @@ public interface CommentReceiver extends Entity {
      * Can be empty, but not null.
      *
      * @return
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    @NotNull Comment[] getComments() throws DocumentException;
+    @NotNull Comment[] getComments() throws WorkspaceException;
 }

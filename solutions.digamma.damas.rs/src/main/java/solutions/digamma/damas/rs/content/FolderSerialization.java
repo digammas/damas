@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 
@@ -25,9 +25,9 @@ public class FolderSerialization extends FileSerialization implements Folder {
      * A constructor that mimics another folder object.
      *
      * @param copy
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
-    public FolderSerialization(Folder copy) throws DocumentException {
+    public FolderSerialization(Folder copy) throws WorkspaceException {
         super(copy);
     }
 

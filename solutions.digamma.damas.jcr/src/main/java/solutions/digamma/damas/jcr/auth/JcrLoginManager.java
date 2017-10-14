@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.auth;
 
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.jcr.error.JcrException;
@@ -36,7 +36,7 @@ public class JcrLoginManager implements LoginManager {
 
     @Override
     public Token login(@NotNull String username, @NotNull String password)
-            throws DocumentException {
+            throws WorkspaceException {
         try {
             Credentials credentials = new SimpleCredentials(
                     username, password.toCharArray());
@@ -53,7 +53,7 @@ public class JcrLoginManager implements LoginManager {
     }
 
     @Override
-    public void logout(Token token) throws DocumentException {
+    public void logout(Token token) throws WorkspaceException {
         this.bookkeeper.unregister(token);
     }
 }

@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
@@ -21,7 +21,7 @@ abstract public class FileSerialization implements File {
     protected FileSerialization() {
     }
 
-    protected FileSerialization(File copy) throws DocumentException {
+    protected FileSerialization(File copy) throws WorkspaceException {
         this.id = copy.getId();
         this.name = copy.getName();
         this.parentId = copy.getParentId();
@@ -42,37 +42,37 @@ abstract public class FileSerialization implements File {
     }
 
     @Override
-    public @Nullable String getName() throws DocumentException {
+    public @Nullable String getName() throws WorkspaceException {
         return this.name;
     }
 
     @Override
-    public void setName(@NotNull String value) throws DocumentException {
+    public void setName(@NotNull String value) throws WorkspaceException {
         this.name = value;
     }
 
     @Override
-    public @Nullable FolderSerialization getParent() throws DocumentException {
+    public @Nullable FolderSerialization getParent() throws WorkspaceException {
         return null;
     }
 
     @Override
-    public void setParent(@NotNull Folder value) throws DocumentException {
+    public void setParent(@NotNull Folder value) throws WorkspaceException {
 
     }
 
     @Override
-    public String getParentId() throws DocumentException {
+    public String getParentId() throws WorkspaceException {
         return this.parentId;
     }
 
     @Override
-    public void setParentId(String value) throws DocumentException {
+    public void setParentId(String value) throws WorkspaceException {
         this.parentId = value;
     }
 
     @Override
-    public @NotNull DetailedFile expand() throws DocumentException {
+    public @NotNull DetailedFile expand() throws WorkspaceException {
         return null;
     }
 }

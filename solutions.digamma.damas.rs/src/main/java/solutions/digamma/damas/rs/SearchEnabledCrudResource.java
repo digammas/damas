@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.PathFinder;
@@ -45,7 +45,7 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
     public Page<S> retrieve(
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("size") @DefaultValue("30") int size)
-            throws DocumentException {
+            throws WorkspaceException {
         return wrap(this.getSearchEngine()
                 .find(this.getToken(), offset, size, this.getQuery()));
     }
@@ -54,18 +54,18 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
     @Path("path/{path}")
     public S find(
             @PathParam("path") String path)
-            throws DocumentException {
+            throws WorkspaceException {
         return wrap(this.getPathFinder().find(this.getToken(), path));
     }
 
     @GET
     @Path("path")
     public S find()
-            throws DocumentException {
+            throws WorkspaceException {
         return wrap(this.getPathFinder().find(this.getToken(), "."));
     }
 
-    protected Page<S> wrap(Page<E> page) throws DocumentException {
+    protected Page<S> wrap(Page<E> page) throws WorkspaceException {
         List<S> objects = new ArrayList<>(page.getObjects().size());
         for (E entity : page.getObjects()) {
             objects.add(wrap(entity));

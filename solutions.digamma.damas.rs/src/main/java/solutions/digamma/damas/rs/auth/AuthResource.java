@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.auth;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.rs.BaseResource;
@@ -34,8 +34,8 @@ public class AuthResource extends BaseResource {
     }
 
     @GET
-    public String info() throws DocumentException {
-        throw new DocumentException("Hand-made error.");
+    public String info() throws WorkspaceException {
+        throw new WorkspaceException("Hand-made error.");
     }
 
     /**
@@ -43,22 +43,22 @@ public class AuthResource extends BaseResource {
      *
      * @param cred User credentials.
      * @return Authentication object, containing token.
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Token login(Credentials cred) throws DocumentException {
+    public Token login(Credentials cred) throws WorkspaceException {
         return this.manager.login(cred.getUsername(), cred.getPassword());
     }
 
     /**
      * Disconnect user, invalidating their session.
      *
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     @DELETE
-    public void logout() throws DocumentException {
+    public void logout() throws WorkspaceException {
         this.manager.logout(this.getToken());
     }
 }

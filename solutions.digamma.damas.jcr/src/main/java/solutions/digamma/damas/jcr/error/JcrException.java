@@ -3,7 +3,7 @@ package solutions.digamma.damas.jcr.error;
 import solutions.digamma.damas.AuthenticationException;
 import solutions.digamma.damas.AuthorizationException;
 import solutions.digamma.damas.ConflictException;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.InternalStateException;
 import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.MisuseException;
@@ -40,10 +40,10 @@ public class JcrException extends MisuseException {
     }
 
     @NotNull
-    public static DocumentException of(
+    public static WorkspaceException of(
             @NotNull Exception e) {
-        if (e instanceof DocumentException) {
-            return (DocumentException) e;
+        if (e instanceof WorkspaceException) {
+            return (WorkspaceException) e;
         }
         if (e instanceof RepositoryException) {
             return JcrException.of((RepositoryException) e);
@@ -52,7 +52,7 @@ public class JcrException extends MisuseException {
     }
 
     @NotNull
-    public static DocumentException of(
+    public static WorkspaceException of(
             @NotNull RepositoryException e) {
         if (e instanceof AccessControlException) {
             return new AuthorizationException(e);

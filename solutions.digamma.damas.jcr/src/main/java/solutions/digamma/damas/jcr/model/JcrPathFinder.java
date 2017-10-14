@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.Entity;
 import solutions.digamma.damas.MisuseException;
 import solutions.digamma.damas.PathFinder;
@@ -22,7 +22,7 @@ public interface JcrPathFinder<T extends Entity>
 
     @Override
     default T find(@NotNull Token token, @NotNull  String path)
-            throws DocumentException {
+            throws WorkspaceException {
         try (SessionWrapper session = openSession(token)) {
             path = Paths.get(path).normalize().toString();
             if (path.startsWith("../")) {
@@ -42,8 +42,8 @@ public interface JcrPathFinder<T extends Entity>
      * @param path
      * @return
      * @throws RepositoryException
-     * @throws DocumentException
+     * @throws WorkspaceException
      */
     T find(@NotNull Session session, String path)
-            throws RepositoryException, DocumentException;
+            throws RepositoryException, WorkspaceException;
 }

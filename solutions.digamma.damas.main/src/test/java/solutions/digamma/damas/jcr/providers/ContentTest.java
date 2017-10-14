@@ -3,7 +3,7 @@ package solutions.digamma.damas.jcr.providers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import solutions.digamma.damas.DocumentException;
+import solutions.digamma.damas.WorkspaceException;
 import solutions.digamma.damas.NotFoundException;
 import solutions.digamma.damas.Page;
 import solutions.digamma.damas.auth.LoginManager;
@@ -38,12 +38,12 @@ public class ContentTest {
         try {
             Mockito.when(document.getParentId()).thenReturn(parentId);
             Mockito.when(document.getName()).thenReturn(name);
-        } catch (DocumentException e) {}
+        } catch (WorkspaceException e) {}
         return document;
     }
 
     private Document createDocument(Token token, String parentId, String name)
-        throws DocumentException {
+        throws WorkspaceException {
         return this.documentMgr.create(
                 token,
                 this.newDocument(
@@ -54,7 +54,7 @@ public class ContentTest {
     }
 
     @Test
-    public void testContent() throws DocumentException {
+    public void testContent() throws WorkspaceException {
         Token adminToken = loginMgr.login("admin", "admin");
         assert adminToken != null;
         Page<Folder> folderResult = this.folderMgr.find(adminToken);
