@@ -1,7 +1,7 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 
 /**

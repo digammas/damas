@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 /**
  * Exception thrown when authentication information are correct, but session

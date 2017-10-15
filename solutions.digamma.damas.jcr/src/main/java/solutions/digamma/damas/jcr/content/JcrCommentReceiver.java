@@ -1,12 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.model.JcrEntity;
-import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
 
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
@@ -28,7 +28,7 @@ public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
         try {
             String sql2 = String.format(
                     SQL2_SELECT_CHILDREN,
-                    Namespace.COMMENT,
+                    TypeNamespace.COMMENT,
                     this.getNode().getPath());
             QueryManager manager = this.getNode()
                     .getSession().getWorkspace().getQueryManager();
@@ -41,7 +41,7 @@ public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
             }
             return comments.toArray(new Comment[0]);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 }

@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 import java.util.logging.Level;
 
@@ -36,7 +36,7 @@ public class WorkspaceException extends Exception {
         return this.logLevel;
     }
 
-    protected void setLogLevel(Level value) {
+    public void setLogLevel(Level value) {
         this.logLevel = value;
     }
 }

@@ -1,8 +1,8 @@
 package solutions.digamma.damas.user;
 
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
 
 import java.util.List;
 

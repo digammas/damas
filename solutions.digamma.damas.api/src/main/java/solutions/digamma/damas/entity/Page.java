@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.inspection.NotNull;
 
@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @auther Ahmad Shahwan
  */
-public interface Page<T> {
+public interface Page<T extends Entity> {
 
     int getTotal();
 

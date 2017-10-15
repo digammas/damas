@@ -1,11 +1,11 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.Metadata;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.model.JcrCreated;
 import solutions.digamma.damas.jcr.model.JcrModifiable;
 
@@ -22,11 +22,11 @@ public interface JcrDetailedFile
     default @NotNull String getPath() throws WorkspaceException {
         try {
             return URI
-                    .create(JcrFile.CONTENT_ROOT)
+                    .create(JcrFile.ROOT_PATH)
                     .relativize(URI.create(this.getNode().getPath()))
                     .getPath();
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 

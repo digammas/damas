@@ -1,8 +1,8 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.Created;
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Modifiable;
+import solutions.digamma.damas.entity.Created;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Modifiable;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
 

@@ -1,10 +1,10 @@
 package solutions.digamma.damas.jcr.user;
 
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.user.User;
 
 import javax.jcr.Node;
@@ -64,14 +64,13 @@ public class JcrUser extends JcrSubject implements User {
         return new JcrUser(node);
     }
 
-    public static JcrUser from(@NotNull Session session)
+    public static JcrUser from(@NotNull Session session, String login)
             throws WorkspaceException {
         try {
             Node root = session.getNode(ROOT_PATH);
-            String name = UUID.randomUUID().toString();
-            return of(root.addNode(name, Namespace.USER));
+            return of(root.addNode(login, TypeNamespace.USER));
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 }

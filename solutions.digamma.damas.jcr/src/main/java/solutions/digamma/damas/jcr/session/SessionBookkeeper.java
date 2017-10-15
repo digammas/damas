@@ -1,9 +1,9 @@
 package solutions.digamma.damas.jcr.session;
 
-import solutions.digamma.damas.CompatibilityException;
+import solutions.digamma.damas.common.CompatibilityException;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.ConflictException;
-import solutions.digamma.damas.NotFoundException;
+import solutions.digamma.damas.common.ConflictException;
+import solutions.digamma.damas.common.NotFoundException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

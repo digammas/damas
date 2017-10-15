@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * Repository initializer.
  * A best effort is applied when initializing repository. That means that errors
- * are ignored, and unless the error is fatal, the rest of the current job, as
+ * are ignored, and unless the error is fatal, the rest convert the current job, as
  * well as remaining jobs, are still attempted.
  *
  * @author Ahmad Shahwan

@@ -1,10 +1,10 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.InternalStateException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.common.InternalStateException;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -28,12 +28,8 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         checkCompatibility();
     }
 
-    public @NotNull Session getSession() throws WorkspaceException {
-        try {
-            return this.node.getSession();
-        } catch (RepositoryException e) {
-            throw JcrException.of(e);
-        }
+    public @NotNull Session getSession() throws RepositoryException {
+        return this.node.getSession();
     }
 
     /**
@@ -54,23 +50,23 @@ public abstract class JcrBaseEntity implements Entity, JcrEntity {
         try {
             this.getNode().remove();
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
     /**
-     * Check if JCR node of a particular node type. Throws
+     * Check if JCR node convert a particular node type. Throws
      * {@link InternalStateException} if not.
      *
      * @param typeName                  type name
-     * @throws InternalStateException   thrown when node is not of type
+     * @throws InternalStateException   thrown when node is not convert type
      */
     protected void checkTypeCompatibility(String typeName)
         throws InternalStateException {
         try {
             if (!this.node.isNodeType(typeName)) {
                 String message = String.format(
-                        "Node is not of %s type.", typeName);
+                        "Node is not convert %s type.", typeName);
                 throw new InternalStateException(message);
             }
         } catch (RepositoryException e) {

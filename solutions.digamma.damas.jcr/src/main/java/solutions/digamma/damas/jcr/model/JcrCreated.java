@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.Created;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.entity.Created;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 
 import javax.jcr.Property;

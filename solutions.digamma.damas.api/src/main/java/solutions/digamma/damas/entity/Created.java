@@ -1,5 +1,6 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.entity;
 
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.Calendar;
@@ -7,23 +8,24 @@ import java.util.Calendar;
 /**
  * @author Ahmad Shahwan
  */
-public interface Modifiable {
+public interface Created {
 
     /**
-     * Modifier ID.
+     * Creator ID.
      *
      * @return
      * @throws WorkspaceException
      */
     @NotNull
-    String getModifiedBy() throws WorkspaceException;
+    String getCreatedBy() throws WorkspaceException;
 
     /**
-     * Modification timestamp.
+     * Creation timestamp.
      *
      * @return
      * @throws WorkspaceException
      */
     @NotNull
-    Calendar getModificationDate() throws WorkspaceException;
+    Calendar getCreationDate() throws WorkspaceException;
 }
+

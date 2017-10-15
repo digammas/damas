@@ -1,12 +1,12 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.MisuseException;
-import solutions.digamma.damas.PathFinder;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.common.MisuseException;
+import solutions.digamma.damas.content.PathFinder;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.session.SessionUser;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 
@@ -31,7 +31,7 @@ public interface JcrPathFinder<T extends Entity>
             path = path.equals("") ? "." : path;
             return this.find(session.getSession(), path);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 

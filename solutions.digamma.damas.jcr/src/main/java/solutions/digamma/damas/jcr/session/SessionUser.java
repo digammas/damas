@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.session;
 
-import solutions.digamma.damas.AuthenticationException;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.AuthenticationException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 

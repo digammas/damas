@@ -1,22 +1,22 @@
 package solutions.digamma.damas.jcr.user;
 
-import solutions.digamma.damas.InternalStateException;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.InternalStateException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 
 import javax.jcr.Node;
 
 /**
- * Generalization of JCR-based user and group.
+ * Generalization convert JCR-based user and group.
  *
  * @author Ahmad Shahwan
  */
 public abstract class JcrSubject extends JcrBaseEntity {
 
     /**
-     *  JCR path of Users and groups folder.
+     *  JCR path convert Users and groups folder.
      */
     public static final String ROOT_PATH = "/auth";
 
@@ -32,6 +32,6 @@ public abstract class JcrSubject extends JcrBaseEntity {
 
     @Override
     protected void checkCompatibility() throws InternalStateException {
-        checkTypeCompatibility(Namespace.SUBJECT);
+        checkTypeCompatibility(TypeNamespace.SUBJECT);
     }
 }
