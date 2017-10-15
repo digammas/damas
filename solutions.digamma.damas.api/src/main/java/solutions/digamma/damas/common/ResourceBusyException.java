@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 /**
  * Exception through when concurrent access to the same resource is denied.

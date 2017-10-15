@@ -1,11 +1,11 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
 
@@ -27,7 +27,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             return this.create(session.getSession(), entity);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
@@ -38,7 +38,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             return this.update(session.getSession(), id, entity);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
@@ -49,7 +49,7 @@ abstract public class JcrCrudManager<T extends Entity>
         try (SessionWrapper session = openSession(token)) {
             this.delete(session.getSession(), id);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 

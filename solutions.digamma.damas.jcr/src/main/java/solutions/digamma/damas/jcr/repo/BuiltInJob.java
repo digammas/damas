@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.repo;
 
-import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
 import solutions.digamma.damas.jcr.content.JcrFile;
 
 import java.util.Arrays;
@@ -17,8 +17,8 @@ public final class BuiltInJob implements RepositoryJob {
 
     private final static Node[] CREATIONS = {
             new Node(
-                    JcrFile.CONTENT_ROOT,
-                    Namespace.FOLDER,
+                    JcrFile.ROOT_PATH,
+                    TypeNamespace.FOLDER,
                     new String[0]
             )
     };
@@ -30,7 +30,7 @@ public final class BuiltInJob implements RepositoryJob {
     }
 
     /**
-     * List of nodes to be created.
+     * List convert nodes to be created.
      *
      * @return
      */

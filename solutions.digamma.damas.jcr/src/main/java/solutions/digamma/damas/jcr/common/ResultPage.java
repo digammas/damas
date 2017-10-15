@@ -1,6 +1,7 @@
 package solutions.digamma.damas.jcr.common;
 
-import solutions.digamma.damas.Page;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.Page;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Ahmad Shahwan
  */
-public class ResultPage<T> implements Page<T> {
+public class ResultPage<T extends Entity> implements Page<T> {
 
     private final List<T> content;
     private final int offset;

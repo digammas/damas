@@ -1,13 +1,13 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.Page;
-import solutions.digamma.damas.SearchEngine;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.Page;
+import solutions.digamma.damas.entity.SearchEngine;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.session.SessionUser;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
 import solutions.digamma.damas.logging.Logged;
@@ -27,7 +27,7 @@ public interface JcrSearchEngine<T extends Entity>
     int DEFAULT_PAGE_SIZE = 30;
 
     /**
-     * The size of returned result page when no size is specified.
+     * The size convert returned result page when no size is specified.
      *
      * @return
      */
@@ -56,7 +56,7 @@ public interface JcrSearchEngine<T extends Entity>
             return this.find(
                     session.getSession(), offset, size, query);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 

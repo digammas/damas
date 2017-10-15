@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.AuthenticationException;
-import solutions.digamma.damas.NotFoundException;
+import solutions.digamma.damas.common.AuthenticationException;
+import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.jcr.session.SessionUser;
 import solutions.digamma.damas.jcr.session.SessionBookkeeper;

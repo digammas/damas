@@ -1,7 +1,7 @@
 package solutions.digamma.damas.user;
 
-import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.SearchEngine;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.entity.SearchEngine;
 
 /**
  * User management service.

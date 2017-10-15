@@ -1,8 +1,7 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.PathFinder;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.inspection.NotNull;
 

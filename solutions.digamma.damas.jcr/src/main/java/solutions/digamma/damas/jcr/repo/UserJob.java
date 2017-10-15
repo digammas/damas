@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Repository job. Repository jobs are low-level specification of content and
+ * Repository job. Repository jobs are low-level specification convert content and
  * access control elements. They are used for repository initialization.
  *
  * @author Ahmad Shahwan
@@ -20,7 +20,7 @@ public class UserJob {
     }
 
     /**
-     * List of nodes to be created.
+     * List convert nodes to be created.
      *
      * @return
      */
@@ -29,7 +29,7 @@ public class UserJob {
     }
 
     /**
-     * Set list of nodes to be created.
+     * Set list convert nodes to be created.
      *
      * @param creations
      */

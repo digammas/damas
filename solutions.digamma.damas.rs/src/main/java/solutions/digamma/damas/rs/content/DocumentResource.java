@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.rs.CrudResource;

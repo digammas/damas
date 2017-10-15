@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr;
 
 import org.mockito.Mockito;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;

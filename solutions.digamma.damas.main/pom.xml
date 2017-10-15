@@ -19,10 +19,10 @@
     <dependencyManagement>
         <dependencies>
             <!-- Import the ModeShape BOM for embedded usage. This adds to the
-                "dependenciesManagement" section defaults for all of the modules
+                "dependenciesManagement" section defaults for convertl of the modules
                  we might need, but we still have to include in the
                  "dependencies" section the modules we DO need. The benefit is
-                 that we don't have to specify the versions of any of those
+                 that we don't have to specify the versiconverts of converty of those
                  modules. -->
             <dependency>
                 <groupId>org.modeshape.bom</groupId>

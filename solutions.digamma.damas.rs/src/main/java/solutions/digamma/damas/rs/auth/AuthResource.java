@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.auth;
 
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.rs.BaseResource;

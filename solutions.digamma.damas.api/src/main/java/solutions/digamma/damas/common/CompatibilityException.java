@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 /**
  * Exception occurs in case of incompatibility between DMS items. For example

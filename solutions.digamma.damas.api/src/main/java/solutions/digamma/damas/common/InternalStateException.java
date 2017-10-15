@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 import java.util.logging.Level;
 

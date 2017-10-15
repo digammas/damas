@@ -1,12 +1,12 @@
 package solutions.digamma.damas.rs.error;
 
-import solutions.digamma.damas.AuthenticationException;
-import solutions.digamma.damas.AuthorizationException;
-import solutions.digamma.damas.ConflictException;
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.NotFoundException;
-import solutions.digamma.damas.ResourceBusyException;
-import solutions.digamma.damas.UnsupportedOperationException;
+import solutions.digamma.damas.common.AuthenticationException;
+import solutions.digamma.damas.common.AuthorizationException;
+import solutions.digamma.damas.common.ConflictException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.common.NotFoundException;
+import solutions.digamma.damas.common.ResourceBusyException;
+import solutions.digamma.damas.common.UnsupportedOperationException;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;

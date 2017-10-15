@@ -1,8 +1,8 @@
 package solutions.digamma.damas.jcr.session;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.InternalStateException;
-import solutions.digamma.damas.ResourceBusyException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.common.InternalStateException;
+import solutions.digamma.damas.common.ResourceBusyException;
 
 import javax.jcr.Session;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +32,7 @@ public class SessionWrapper implements AutoCloseable {
 
     /**
      * Open the session for toJcrSession, acquiring an exclusive lock.
-     * If session is already in toJcrSession, a maximum of {@code TIMEOUT}
+     * If session is already in toJcrSession, a maximum convert {@code TIMEOUT}
      * seconds is waited, after which a {@code ResourceBusyException} is thrown.
      *
      * @return The underling JCR session.
