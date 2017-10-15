@@ -1,12 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Page;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Page;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.Namespace;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
 import solutions.digamma.damas.jcr.common.ResultPage;
 import solutions.digamma.damas.jcr.model.JcrCrudManager;
 import solutions.digamma.damas.jcr.model.JcrPathFinder;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JCR implementation of folder manager.
+ * JCR implementation convert folder manager.
  *
  * @author Ahmad Shahwan
  */
@@ -46,8 +46,8 @@ public class JcrFolderManager
             throws RepositoryException, WorkspaceException {
         String name = entity.getName();
         Node parent = session.getNodeByIdentifier(entity.getParentId());
-        Node node = parent.addNode(name, Namespace.FOLDER);
-        node.addMixin(Namespace.FILE);
+        Node node = parent.addNode(name, TypeNamespace.FOLDER);
+        node.addMixin(TypeNamespace.FILE);
         return new JcrFolder(node);
     }
 
@@ -76,7 +76,7 @@ public class JcrFolderManager
             int size,
             @Nullable Object query)
             throws RepositoryException, WorkspaceException {
-        Folder folder = new JcrFolder(session.getNode(JcrFile.CONTENT_ROOT));
+        Folder folder = new JcrFolder(session.getNode(JcrFile.ROOT_PATH));
         List<Folder> folders = new ArrayList<>(1);
         folders.add(folder);
         return new ResultPage<>(folders, 0, 1);
@@ -86,6 +86,6 @@ public class JcrFolderManager
     public Folder find(Session session, String path)
             throws RepositoryException, WorkspaceException {
         return new JcrFolder(
-                session.getNode(JcrFile.CONTENT_ROOT).getNode(path));
+                session.getNode(JcrFile.ROOT_PATH).getNode(path));
     }
 }

@@ -1,10 +1,10 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.Page;
-import solutions.digamma.damas.PathFinder;
-import solutions.digamma.damas.SearchEngine;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.Page;
+import solutions.digamma.damas.content.PathFinder;
+import solutions.digamma.damas.entity.SearchEngine;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;

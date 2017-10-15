@@ -1,5 +1,6 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.entity;
 
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.Nullable;
 
 /**

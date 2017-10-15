@@ -1,12 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.InternalStateException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.common.InternalStateException;
 import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
+import solutions.digamma.damas.jcr.common.Exceptions;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -46,7 +46,7 @@ public class JcrFolder extends JcrFile implements Folder {
     @Override
     protected void checkCompatibility() throws InternalStateException {
         super.checkCompatibility();
-        this.checkTypeCompatibility(Namespace.FOLDER);
+        this.checkTypeCompatibility(TypeNamespace.FOLDER);
     }
 
     @Override
@@ -84,16 +84,16 @@ public class JcrFolder extends JcrFile implements Folder {
             NodeIterator iterator = this.node.getNodes();
             while (iterator.hasNext()) {
                 Node node = iterator.nextNode();
-                if (node.isNodeType(Namespace.DOCUMENT)) {
+                if (node.isNodeType(TypeNamespace.DOCUMENT)) {
                     documents.add(new JcrDocument(node));
-                } else if (node.isNodeType(Namespace.FOLDER)) {
+                } else if (node.isNodeType(TypeNamespace.FOLDER)) {
                     JcrFolder folder = new JcrFolder(node);
                     folder.expandContent(this.contentDepth - 1);
                     folders.add(folder);
                 }
             }
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
         return this.content = new Content() {
             @Override

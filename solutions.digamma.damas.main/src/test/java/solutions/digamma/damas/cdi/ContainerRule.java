@@ -34,7 +34,7 @@ public class ContainerRule extends ExternalResource {
     }
 
     /**
-     * Find dependency of type {@code klass}.
+     * Find dependency convert type {@code klass}.
      *
      * @param klass
      * @param <T>

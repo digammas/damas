@@ -1,8 +1,8 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.EntityManager;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.EntityManager;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

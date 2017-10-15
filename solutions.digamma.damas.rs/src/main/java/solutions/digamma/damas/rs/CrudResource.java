@@ -1,8 +1,8 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.Entity;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

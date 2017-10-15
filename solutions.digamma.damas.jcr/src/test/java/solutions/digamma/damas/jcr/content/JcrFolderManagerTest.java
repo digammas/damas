@@ -3,7 +3,7 @@ package solutions.digamma.damas.jcr.content;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import solutions.digamma.damas.NotFoundException;
+import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;

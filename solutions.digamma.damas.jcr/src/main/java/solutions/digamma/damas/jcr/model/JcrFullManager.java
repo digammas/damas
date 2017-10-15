@@ -1,9 +1,9 @@
 package solutions.digamma.damas.jcr.model;
 
-import solutions.digamma.damas.CrudManager;
-import solutions.digamma.damas.Entity;
-import solutions.digamma.damas.PathFinder;
-import solutions.digamma.damas.SearchEngine;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.content.PathFinder;
+import solutions.digamma.damas.entity.SearchEngine;
 
 /**
  * JCR full manager.

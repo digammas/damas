@@ -1,4 +1,4 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.common;
 
 /**
  * Exception thrown when bad, or no, authentication information found.

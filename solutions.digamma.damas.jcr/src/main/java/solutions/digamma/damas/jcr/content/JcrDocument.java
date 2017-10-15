@@ -1,12 +1,12 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.InternalStateException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.common.InternalStateException;
 import solutions.digamma.damas.content.DetailedDocument;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.DocumentPayload;
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 
 import javax.jcr.Binary;
 import javax.jcr.Node;
@@ -16,7 +16,7 @@ import javax.jcr.nodetype.NodeType;
 import java.io.InputStream;
 
 /**
- * JCR-based implementation of document.
+ * JCR-based implementation convert document.
  *
  * @author Ahmad Shahwan
  */
@@ -51,7 +51,7 @@ public class JcrDocument extends JcrFile implements Document {
                 }
             };
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
@@ -65,7 +65,7 @@ public class JcrDocument extends JcrFile implements Document {
             this.node.getNode(Property.JCR_CONTENT)
                     .setProperty(Property.JCR_DATA, binary);
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
@@ -75,7 +75,7 @@ public class JcrDocument extends JcrFile implements Document {
         try {
             if (!this.node.isNodeType(NodeType.NT_FILE)) {
                 throw new InternalStateException(
-                        "Node is not of nt:file type.");
+                        "Node is not convert nt:file type.");
             }
         } catch (RepositoryException e) {
             throw new InternalStateException(e);

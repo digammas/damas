@@ -1,6 +1,8 @@
-package solutions.digamma.damas;
+package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.inspection.NotNull;
 
 /**

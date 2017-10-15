@@ -1,10 +1,10 @@
 package solutions.digamma.damas.jcr.auth;
 
 import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.WorkspaceException;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.auth.LoginManager;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.session.SecureToken;
 import solutions.digamma.damas.jcr.session.SessionBookkeeper;
 import solutions.digamma.damas.jcr.session.SessionWrapper;
@@ -48,7 +48,7 @@ public class JcrLoginManager implements LoginManager {
             this.logger.info("Session registered.");
             return token;
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 

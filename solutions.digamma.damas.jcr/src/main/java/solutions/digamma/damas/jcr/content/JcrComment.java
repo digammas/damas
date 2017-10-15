@@ -1,13 +1,14 @@
 package solutions.digamma.damas.jcr.content;
 
-import solutions.digamma.damas.WorkspaceException;
-import solutions.digamma.damas.InternalStateException;
+import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.common.InternalStateException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
 import solutions.digamma.damas.inspection.NotNull;
 import solutions.digamma.damas.inspection.Nullable;
-import solutions.digamma.damas.jcr.Namespace;
-import solutions.digamma.damas.jcr.error.JcrException;
+import solutions.digamma.damas.jcr.names.ItemNamespace;
+import solutions.digamma.damas.jcr.names.TypeNamespace;
+import solutions.digamma.damas.jcr.common.Exceptions;
 import solutions.digamma.damas.jcr.model.JcrBaseEntity;
 import solutions.digamma.damas.jcr.model.JcrCreated;
 import solutions.digamma.damas.jcr.model.JcrModifiable;
@@ -43,11 +44,11 @@ public class JcrComment extends JcrBaseEntity
     }
 
     @Override
-    public String getReceiverId()throws WorkspaceException {
+    public String getReceiverId() throws WorkspaceException {
         try {
             return this.getNode().getParent().getIdentifier();
         } catch (RepositoryException e) {
-            throw JcrException.of(e);
+            throw Exceptions.convert(e);
         }
     }
 
@@ -58,17 +59,17 @@ public class JcrComment extends JcrBaseEntity
 
     @Override
     public Long getRank()throws WorkspaceException {
-        return this.getLong(Namespace.RANK);
+        return this.getLong(ItemNamespace.RANK);
     }
 
     @Override
     public void setRank(@Nullable Long value) throws WorkspaceException {
-        this.setLong(Namespace.RANK, value);
+        this.setLong(ItemNamespace.RANK, value);
     }
 
     @Override
     protected void checkCompatibility() throws InternalStateException {
-        this.checkTypeCompatibility(Namespace.COMMENT);
+        this.checkTypeCompatibility(TypeNamespace.COMMENT);
     }
 
     public void update(@NotNull Comment other) throws WorkspaceException {
