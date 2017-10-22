@@ -40,6 +40,6 @@ public abstract class BaseResource {
                 }
             }
         }
-        return null;
+        return new Authentication();
     }
 }
