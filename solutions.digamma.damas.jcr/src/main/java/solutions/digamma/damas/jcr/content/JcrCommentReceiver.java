@@ -10,6 +10,7 @@ import solutions.digamma.damas.jcr.names.TypeNamespace;
 
 import javax.jcr.NodeIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
 
     @NotNull
-    default Comment[] getComments() throws WorkspaceException {
+    default List<Comment> getComments() throws WorkspaceException {
         List<Comment> comments = new ArrayList<>();
         Exceptions.wrap(() -> {
             NodeIterator nodes = this.getChildNodes(TypeNamespace.COMMENT);
@@ -28,6 +29,6 @@ public interface JcrCommentReceiver extends CommentReceiver, JcrEntity {
                 comments.add(new JcrComment(nodes.nextNode()));
             }
         });
-        return comments.toArray(new Comment[0]);
+        return Collections.unmodifiableList(comments);
     }
 }
