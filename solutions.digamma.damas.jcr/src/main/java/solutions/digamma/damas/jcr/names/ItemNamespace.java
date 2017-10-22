@@ -9,11 +9,17 @@ public interface ItemNamespace {
 
     String RANK = Namespace.prefix("rank");
 
-    String GROUP = Namespace.prefix("groups");
+    String GROUPS = Namespace.prefix("groups");
 
     String LOGIN = Namespace.prefix("login");
 
     String PASSWORD = Namespace.prefix("password");
 
     String ALIAS = Namespace.prefix("alias");
+
+    String EMAIL = Namespace.prefix("mail");
+
+    String FIRST_NAME = Namespace.prefix("firstName");
+
+    String LAST_NAME = Namespace.prefix("lastName");
 }
