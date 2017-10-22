@@ -15,17 +15,16 @@ import java.util.HashMap
  *
  * @author Ahmad Shahwan
  */
-
 class RepositoryProvider {
 
     @Inject
-    private var logger: Logbook? = null
+    private lateinit var logger: Logbook
 
     @Inject
-    private var factory: RepositoryFactory? = null
+    private lateinit var factory: RepositoryFactory
 
     @Inject
-    private var initializer: RepositoryInitializer? = null
+    private lateinit var initializer: RepositoryInitializer
 
     /**
      * Returns a JCR repository.
@@ -38,11 +37,12 @@ class RepositoryProvider {
         @Produces
         @Throws(RepositoryException::class)
         get() {
-            this.logger!!.info("Acquiring JCR repository from repository factory.")
+            this.logger.info(
+                    "Acquiring JCR repository from repository factory.")
             val params = HashMap<String, String>()
-            val repository = this.factory!!.getRepository(params)
-            this.logger?.info("Invoking initializer on acquired JCR repository.")
-            this.initializer!!.initialize(repository)
+            val repository = this.factory.getRepository(params)
+            this.logger.info("Invoking initializer on acquired JCR repository.")
+            this.initializer.initialize(repository)
             return repository
         }
 }

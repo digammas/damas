@@ -26,20 +26,20 @@ import java.util.ServiceLoader
 class InMemRepoFactory : RepositoryFactory {
 
     @Inject
-    private var logger: Logbook? = null
+    private lateinit var logger: Logbook
 
     @Throws(RepositoryException::class)
     override fun getRepository(params: MutableMap<*, *>): Repository {
-        this.logger!!.info("Acquiring JCR repository from Java service loader.")
+        this.logger.info("Acquiring JCR repository from Java service loader.")
         var repository: Repository?
         for (factory in ServiceLoader.load(RepositoryFactory::class.java)) {
-            this.logger!!.info("JCR repository factory service found.")
+            this.logger.info("JCR repository factory service found.")
             repository = factory.getRepository(
                     this.getParameters(params as MutableMap<String, Any>))
             if (repository == null) {
                 continue
             }
-            this.logger!!.info("JCR repository implementation found.")
+            this.logger.info("JCR repository implementation found.")
             val cnd = CndImporter(ExecutionContext.DEFAULT_CONTEXT)
             val problems = SimpleProblems()
             try {
@@ -59,7 +59,7 @@ class InMemRepoFactory : RepositoryFactory {
             session.logout()
             return repository
         }
-        this.logger!!.severe("No JCR implementation found.")
+        this.logger.severe("No JCR implementation found.")
         throw RepositoryException("No repository factory service found.")
     }
 
@@ -68,10 +68,11 @@ class InMemRepoFactory : RepositoryFactory {
      *
      * @return
      */
-    private fun getParameters(params: MutableMap<String, Any>): Map<String, Any> {
+    private fun getParameters(params: MutableMap<String, Any>):
+            Map<String, Any> {
         val url = this.javaClass.getResource("/repository/in_mem_repo.json")
                 .toString()
-        this.logger!!.info("JCR repository home URL is set to %s.", url)
+        this.logger.info("JCR repository home URL is set to %s.", url)
         params.put(JCR_URL, url)
         return params
     }

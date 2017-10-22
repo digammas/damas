@@ -26,25 +26,25 @@ import java.util.logging.Logger
 class JcrLoginManager : LoginManager {
 
     @Inject
-    private var logger: Logger? = null
+    private lateinit var logger: Logger
 
     @Inject
-    private var repository: Repository? = null
+    private lateinit var repository: Repository
 
     @Inject
-    private var bookkeeper: SessionBookkeeper? = null
+    private lateinit var bookkeeper: SessionBookkeeper
 
     @Throws(WorkspaceException::class)
     override fun login(username: String, password: String): Token {
         try {
             val credentials = SimpleCredentials(
                     username, password.toCharArray())
-            val jcrSession = this.repository!!.login(credentials)
-            this.logger?.info("Login successful.")
+            val jcrSession = this.repository.login(credentials)
+            this.logger.info("Login successful.")
             val token = SecureToken()
             val session = SessionWrapper(jcrSession)
-            this.bookkeeper!!.register(token, session)
-            this.logger?.info("Session registered.")
+            this.bookkeeper.register(token, session)
+            this.logger.info("Session registered.")
             return token
         } catch (e: RepositoryException) {
             throw Exceptions.convert(e)
@@ -54,6 +54,6 @@ class JcrLoginManager : LoginManager {
 
     @Throws(WorkspaceException::class)
     override fun logout(token: Token) {
-        this.bookkeeper!!.unregister(token)
+        this.bookkeeper.unregister(token)
     }
 }
