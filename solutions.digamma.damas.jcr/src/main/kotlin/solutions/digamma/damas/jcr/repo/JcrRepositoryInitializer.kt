@@ -1,0 +1,158 @@
+package solutions.digamma.damas.jcr.repo
+
+import javax.inject.Inject
+import javax.inject.Singleton
+import javax.jcr.Node
+import javax.jcr.Repository
+import javax.jcr.RepositoryException
+import javax.jcr.Session
+import java.net.URI
+import java.util.ArrayList
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.Condition
+import java.util.concurrent.locks.Lock
+import java.util.concurrent.locks.ReentrantLock
+import java.util.logging.Level
+import java.util.logging.Logger
+
+/**
+ * Repository initializer.
+ * A best effort is applied when initializing repository. That means that errors
+ * are ignored, and unless the error is fatal, the rest convert the current job, as
+ * well as remaining jobs, are still attempted.
+ *
+ * @author Ahmad Shahwan
+ */
+@Singleton
+class JcrRepositoryInitializer : RepositoryInitializer {
+
+    /**
+     * Lock used for thread safety.
+     * @see "http://stackoverflow.com/a/1040821/3402449"
+     */
+    private val lock = ReentrantLock()
+    private val condition = lock.newCondition()
+    private var isReady = false
+    private var jobs: MutableList<RepositoryJob>? = null
+
+    @Inject
+    private var logger: Logger? = null
+
+    /**
+     * Prepare repository for use.
+     *
+     * @param repository The repository to initialize.
+     */
+    override fun initialize(repository: Repository) {
+        this.logger!!.info("Initializing JCR repository.")
+        /* Use constructor, since SystemRepository is not available for
+         * injection at this point.
+         */
+        val system = SystemRepository(repository)
+        this.collectJobs()
+        this.logger?.info {
+            String.format(
+                    "%d jobs collected", this.jobs!!.size)
+        }
+        var superuser: Session? = null
+        try {
+            superuser = system.superuserSession
+            for (job in this.jobs!!) {
+                for (node in job.creations) {
+                    try {
+                        val jcrRoot = superuser!!.rootNode
+                        val path = URI
+                                .create(jcrRoot.path)
+                                .relativize(URI.create(node.path))
+                                .path
+                        val jcrNode: Node
+                        if (jcrRoot.hasNode(path)) {
+                            jcrNode = jcrRoot.getNode(path)
+                            this.logger?.info {
+                                String.format(
+                                        "Node %s already exists.", node.path)
+                            }
+                        } else {
+                            jcrNode = jcrRoot.addNode(
+                                    path, node.type)
+                            val jcrPath = jcrNode.path
+                            this.logger?.info {
+                                String.format(
+                                        "Node %s added.", jcrPath)
+                            }
+                        }
+                        for (mixin in node.mixins) {
+                            try {
+                                jcrNode.addMixin(mixin)
+                            } catch (e: RepositoryException) {
+                                this.logger?.warning {
+                                    String.format(
+                                            "Repo job unable to add mixin %s.", mixin)
+                                }
+                            }
+
+                        }
+                    } catch (e: RepositoryException) {
+                        this.logger!!.log(Level.SEVERE, e) {
+                            String.format(
+                                    "Repo job error adding node %s.", node.path)
+                        }
+                    }
+
+                }
+            }
+        } catch (e: RepositoryException) {
+            this.logger!!.log(
+                    Level.SEVERE, "Repo job unable to connect as admin.", e)
+        } finally {
+            try {
+                if (superuser != null) {
+                    superuser.save()
+                    this.logger?.info("Init session saved.")
+                }
+            } catch (e: RepositoryException) {
+                this.logger!!.log(
+                        Level.SEVERE, "Repo job unable to save session.", e)
+            }
+
+        }
+        this.lock.lock()
+        try {
+            this.isReady = true
+            condition.signalAll()
+        } finally {
+            this.lock.unlock()
+        }
+    }
+
+    private fun collectJobs(): List<RepositoryJob>? {
+        this.jobs = ArrayList(1)
+        this.jobs!!.add(BuiltInJob.INSTANCE)
+        return this.jobs
+    }
+
+    @Throws(InterruptedException::class)
+    override fun waitUntilDone() {
+        this.lock.lock()
+        try {
+            while (!this.isReady) {
+                condition.await()
+            }
+        } finally {
+            this.lock.unlock()
+        }
+    }
+
+    @Throws(InterruptedException::class)
+    override fun waitUntilDone(timeout: Long): Boolean {
+        this.lock.lock()
+        try {
+            if (!this.isReady) {
+                condition.await(timeout, TimeUnit.SECONDS)
+            }
+            return this.isReady
+        } finally {
+            this.lock.unlock()
+        }
+    }
+}
