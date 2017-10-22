@@ -40,6 +40,38 @@ public interface User extends Entity {
     void setEmailAddress(String value) throws WorkspaceException;
 
     /**
+     * User's first name.
+     *
+     * @return                      first name
+     * @throws WorkspaceException
+     */
+    String getFirstName() throws WorkspaceException;
+
+    /**
+     * Set user's last name.
+     *
+     * @param value                 first name
+     * @throws WorkspaceException
+     */
+    void setFirstName(String value) throws WorkspaceException;
+
+    /**
+     * User's last name.
+     *
+     * @return                      last name
+     * @throws WorkspaceException
+     */
+    String getLastName() throws WorkspaceException;
+
+    /**
+     * Set user's last name.
+     *
+     * @param value
+     * @throws WorkspaceException
+     */
+    void setLastName(String value) throws WorkspaceException;
+
+    /**
      * List all group names to which the user belongs.
      *
      * @return                      list of group names
