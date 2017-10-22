@@ -1,5 +1,7 @@
 package solutions.digamma.damas.content;
 
+import java.util.List;
+
 /**
  * Metadata object that can be attached to files.
  *
@@ -15,7 +17,7 @@ public interface Metadata {
 
     void setDescription(final String value);
 
-    String[] getKeywords();
+    List<String> getKeywords();
 
-    void setKeywords(final String[] value);
+    void setKeywords(final List<String> value);
 }
