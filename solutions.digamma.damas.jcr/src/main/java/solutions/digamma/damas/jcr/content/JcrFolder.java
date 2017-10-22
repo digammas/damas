@@ -12,6 +12,7 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -98,12 +99,12 @@ public class JcrFolder extends JcrFile implements Folder {
         return this.content = new Content() {
             @Override
             public @NotNull List<JcrFolder> getFolders() {
-                return folders;
+                return Collections.unmodifiableList(folders);
             }
 
             @Override
             public @NotNull List<JcrDocument> getDocuments() {
-                return documents;
+                return Collections.unmodifiableList(documents);
             }
         };
     }
