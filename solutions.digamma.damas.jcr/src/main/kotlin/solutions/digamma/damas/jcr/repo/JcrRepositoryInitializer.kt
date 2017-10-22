@@ -36,7 +36,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
     private var jobs: MutableList<RepositoryJob>? = null
 
     @Inject
-    private var logger: Logger? = null
+    private lateinit var logger: Logger
 
     /**
      * Prepare repository for use.
@@ -44,13 +44,13 @@ class JcrRepositoryInitializer : RepositoryInitializer {
      * @param repository The repository to initialize.
      */
     override fun initialize(repository: Repository) {
-        this.logger!!.info("Initializing JCR repository.")
+        this.logger.info("Initializing JCR repository.")
         /* Use constructor, since SystemRepository is not available for
          * injection at this point.
          */
         val system = SystemRepository(repository)
         this.collectJobs()
-        this.logger?.info {
+        this.logger.info {
             String.format(
                     "%d jobs collected", this.jobs!!.size)
         }
@@ -68,7 +68,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                         val jcrNode: Node
                         if (jcrRoot.hasNode(path)) {
                             jcrNode = jcrRoot.getNode(path)
-                            this.logger?.info {
+                            this.logger.info {
                                 String.format(
                                         "Node %s already exists.", node.path)
                             }
@@ -76,7 +76,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                             jcrNode = jcrRoot.addNode(
                                     path, node.type)
                             val jcrPath = jcrNode.path
-                            this.logger?.info {
+                            this.logger.info {
                                 String.format(
                                         "Node %s added.", jcrPath)
                             }
@@ -85,7 +85,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                             try {
                                 jcrNode.addMixin(mixin)
                             } catch (e: RepositoryException) {
-                                this.logger?.warning {
+                                this.logger.warning {
                                     String.format(
                                             "Repo job unable to add mixin %s.", mixin)
                                 }
@@ -93,7 +93,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
 
                         }
                     } catch (e: RepositoryException) {
-                        this.logger!!.log(Level.SEVERE, e) {
+                        this.logger.log(Level.SEVERE, e) {
                             String.format(
                                     "Repo job error adding node %s.", node.path)
                         }
@@ -102,16 +102,16 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                 }
             }
         } catch (e: RepositoryException) {
-            this.logger!!.log(
+            this.logger.log(
                     Level.SEVERE, "Repo job unable to connect as admin.", e)
         } finally {
             try {
                 if (superuser != null) {
                     superuser.save()
-                    this.logger?.info("Init session saved.")
+                    this.logger.info("Init session saved.")
                 }
             } catch (e: RepositoryException) {
-                this.logger!!.log(
+                this.logger.log(
                         Level.SEVERE, "Repo job unable to save session.", e)
             }
 

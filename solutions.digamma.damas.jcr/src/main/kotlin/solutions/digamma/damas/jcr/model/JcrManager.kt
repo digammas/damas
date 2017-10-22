@@ -17,15 +17,15 @@ import javax.inject.Inject
 abstract class JcrManager : SessionUser {
 
     @Inject
-    protected var logger: Logger? = null
+    protected lateinit var logger: Logger
 
     @Inject
-    private var bookkeeper: SessionBookkeeper? = null
+    private lateinit var bookkeeper: SessionBookkeeper
 
     @Throws(AuthenticationException::class)
     override fun getSession(token: Token): SessionWrapper {
         try {
-            return this.bookkeeper!!.lookup(token)
+            return this.bookkeeper.lookup(token)
         } catch (e: NotFoundException) {
             throw AuthenticationException("No session for token.", e)
         }

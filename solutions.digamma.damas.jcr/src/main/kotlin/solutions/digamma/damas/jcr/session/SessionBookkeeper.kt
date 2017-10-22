@@ -17,7 +17,7 @@ import java.util.logging.Logger
 class SessionBookkeeper {
 
     @Inject
-    private var logger: Logger? = null
+    private lateinit var logger: Logger
 
     private val sessions: MutableMap<String, SessionWrapper>
 
@@ -37,19 +37,19 @@ class SessionBookkeeper {
     @Throws(ConflictException::class, CompatibilityException::class)
     fun register(token: Token, session: SessionWrapper) {
         if (token !is SecureToken) {
-            this.logger!!.warning("Unrecognizable token.")
+            this.logger.warning("Unrecognizable token.")
             throw CompatibilityException("Incompatible token.")
         }
         synchronized(this.sessions) {
             if (this.sessions.containsKey(token.secret)) {
-                this.logger!!.warning {
+                this.logger.warning {
                     String.format(
                             "Token %s already exists.", token)
                 }
                 throw ConflictException("Token already exists.")
             }
             this.sessions.put(token.secret, session)
-            this.logger!!.info {
+            this.logger.info {
                 String.format("Token %s successfully stored.", token)
             }
         }
@@ -66,14 +66,14 @@ class SessionBookkeeper {
     fun unregister(token: Token) {
         synchronized(this.sessions) {
             if (!this.sessions.containsKey(token.secret)) {
-                this.logger!!.warning {
+                this.logger.warning {
                     String.format(
                             "Token %s did not exist.", token)
                 }
                 throw NotFoundException("No session for the given token.")
             }
             this.sessions.remove(token.secret)
-            this.logger!!.info {
+            this.logger.info {
                 String.format(
                         "Token %s successfully forgotten.", token)
             }
@@ -96,7 +96,7 @@ class SessionBookkeeper {
         }
         val session = this.sessions[token.secret]
         if (session == null) {
-            this.logger!!.info {
+            this.logger.info {
                 String.format(
                         "Token not found %s.", token)
             }

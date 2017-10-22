@@ -10,4 +10,5 @@ import solutions.digamma.damas.entity.SearchEngine
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrFullManager<T : Entity> : JcrCrudManager<T>(), CrudManager<T>, SearchEngine<T>, PathFinder<T>
+abstract class JcrFullManager<T : Entity> :
+        JcrCrudManager<T>(), CrudManager<T>, SearchEngine<T>, PathFinder<T>

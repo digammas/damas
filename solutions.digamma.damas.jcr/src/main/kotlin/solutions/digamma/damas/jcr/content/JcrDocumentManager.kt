@@ -28,10 +28,10 @@ import java.io.InputStream
  * @author Ahmad Shahwan
  */
 @Singleton
-class JcrDocumentManager : JcrCrudManager<Document>(), JcrPathFinder<Document>, DocumentManager {
+class JcrDocumentManager :
+        JcrCrudManager<Document>(), JcrPathFinder<Document>, DocumentManager {
 
     @Logged
-
     @Throws(WorkspaceException::class)
     override fun create(
             token: Token,
