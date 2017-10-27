@@ -6,16 +6,12 @@ import solutions.digamma.damas.entity.Page
 /**
  * Generic content page.
  *
+ * @param content       content of the result page
+ * @param total         total size of the result page
+ *
  * @author Ahmad Shahwan
  */
-class ResultPage<T : Entity>
-/**
- * Constructor.
- *
- * @param content
- * @param total
- */
-(
+class ResultPage<T : Entity> (
         private val content: List<T>,
         private val offset: Int, private val total: Int) : Page<T> {
 

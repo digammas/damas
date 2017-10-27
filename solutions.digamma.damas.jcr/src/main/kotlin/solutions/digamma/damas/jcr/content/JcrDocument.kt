@@ -30,57 +30,42 @@ open class JcrDocument
 internal constructor(node: Node) : JcrFile(node), Document {
 
     val content: DocumentPayload
-        @Throws(WorkspaceException::class)
-        get() {
-            try {
-                val binary = this.node
-                        .getNode(Node.JCR_CONTENT)
-                        .getProperty(Property.JCR_DATA)
-                        .binary
-                val stream = binary.stream
-                val size = binary.size
-                return object : DocumentPayload {
-                    override fun getSize(): Long {
-                        return size
-                    }
-
-                    override fun getStream(): InputStream {
-                        return stream
-                    }
-                }
-            } catch (e: RepositoryException) {
-                throw Exceptions.convert(e)
+    @Throws(WorkspaceException::class)
+    get() = Exceptions.wrap {
+        val binary = this.node
+                .getNode(Node.JCR_CONTENT)
+                .getProperty(Property.JCR_DATA)
+                .binary
+        val stream = binary.stream
+        val size = binary.size
+        object : DocumentPayload {
+            override fun getSize(): Long {
+                return size
             }
 
+            override fun getStream(): InputStream {
+                return stream
+            }
         }
+    }
 
     @Throws(WorkspaceException::class)
-    internal fun updateContent(stream: InputStream) {
-        try {
-            val binary = this
-                    .session
-                    .valueFactory
-                    .createBinary(stream)
-            this.node.getNode(Property.JCR_CONTENT)
-                    .setProperty(Property.JCR_DATA, binary)
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
+    internal fun updateContent(stream: InputStream) = Exceptions.wrap {
+        val binary = this
+                .session
+                .valueFactory
+                .createBinary(stream)
+        this.node.getNode(Property.JCR_CONTENT)
+                .setProperty(Property.JCR_DATA, binary)
     }
 
     @Throws(InternalStateException::class)
     override fun checkCompatibility() {
         super.checkCompatibility()
-        try {
-            if (!this.node.isNodeType(NodeType.NT_FILE)) {
-                throw InternalStateException(
-                        "Node is not convert nt:file type.")
-            }
-        } catch (e: RepositoryException) {
-            throw InternalStateException(e)
+        Exceptions.wrap {
+            this.node.isNodeType(NodeType.NT_FILE) ||
+                    throw InternalStateException("Node is not nt:file type.")
         }
-
     }
 
 

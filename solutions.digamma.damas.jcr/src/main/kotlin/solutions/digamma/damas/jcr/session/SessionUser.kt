@@ -1,9 +1,8 @@
 package solutions.digamma.damas.jcr.session
 
+import solutions.digamma.damas.auth.Token
 import solutions.digamma.damas.common.AuthenticationException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.auth.Token
-import solutions.digamma.damas.inspection.NotNull
 
 /**
  * Session user.
@@ -21,7 +20,6 @@ interface SessionUser {
      * @throws AuthenticationException  When no session is found for the given
      * token.
      */
-
     @Throws(AuthenticationException::class)
     fun getSession(token: Token): SessionWrapper
 
@@ -35,10 +33,6 @@ interface SessionUser {
      * @throws WorkspaceException        When things go wrong while opening
      * session.
      */
-
     @Throws(WorkspaceException::class)
-    fun openSession(token: Token): SessionWrapper {
-        return this.getSession(token).open()
-    }
-
+    fun openSession(token: Token) = this.getSession(token).open()
 }

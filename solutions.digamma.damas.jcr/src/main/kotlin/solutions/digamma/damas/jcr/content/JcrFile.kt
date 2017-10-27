@@ -38,17 +38,12 @@ internal constructor(node: Node) : JcrBaseEntity(node), File {
 
     @Throws(WorkspaceException::class)
     override fun getName(): String {
-        try {
-            return this.node.name
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
+        return Exceptions.wrap { this.node.name }
     }
 
     @Throws(WorkspaceException::class)
     override fun setName(value: String) {
-        try {
+        Exceptions.wrap {
             /* Use node's path since paths don't end with a slash.
              */
             val destination = URI
@@ -56,45 +51,30 @@ internal constructor(node: Node) : JcrBaseEntity(node), File {
                     .resolve(value)
                     .path
             this.move(destination)
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
         }
-
     }
 
     @Throws(WorkspaceException::class)
     override fun getParent(): Folder? {
-        val parent: Node?
-        try {
-            parent = this.node.parent
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
-        return if (parent == null) {
-            File.NO_PARENT
-        } else JcrFolder(parent)
+        val parent = Exceptions.wrap { this.node.parent }
+        return if (parent == null) File.NO_PARENT else JcrFolder(parent)
     }
 
     @Throws(WorkspaceException::class)
     override fun setParent(value: Folder) {
-        val id = value.id ?: throw UnsupportedOperationException("Parent ID is null.")
+        val id = value.id ?:
+                throw UnsupportedOperationException("Parent ID is null.")
         this.parentId = id
     }
 
     @Throws(WorkspaceException::class)
     override fun getParentId(): String {
-        try {
-            return this.node.parent.identifier
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
+        return Exceptions.wrap { this.node.parent.identifier }
     }
 
     @Throws(WorkspaceException::class)
     override fun setParentId(value: String) {
-        try {
+        Exceptions.wrap {
             val path = this.session
                     .getNodeByIdentifier(value)
                     .path + "/"
@@ -103,10 +83,7 @@ internal constructor(node: Node) : JcrBaseEntity(node), File {
                     .resolve(this.node.name)
                     .path
             this.move(destination)
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
         }
-
     }
 
     @Throws(RepositoryException::class)
@@ -119,6 +96,6 @@ internal constructor(node: Node) : JcrBaseEntity(node), File {
         /**
          * Content folder JCR path.
          */
-        val ROOT_PATH = "/content"
+        const val ROOT_PATH = "/content"
     }
 }

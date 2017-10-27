@@ -11,15 +11,11 @@ import java.util.concurrent.locks.ReentrantLock
 /**
  * JCR session box.
  *
+ * @param session JCR session.
+ *
  * @author Ahmad Shahwan
  */
-class SessionWrapper
-/**
- * Constructor.
- *
- * @param session JCR session.
- */
-(private val session: Session) : AutoCloseable {
+class SessionWrapper (private val session: Session) : AutoCloseable {
 
     private val lock = ReentrantLock()
 

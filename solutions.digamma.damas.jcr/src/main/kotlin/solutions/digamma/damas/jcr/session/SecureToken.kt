@@ -13,7 +13,6 @@ import java.security.SecureRandom
  */
 class SecureToken : Token {
 
-
     private val token: String
 
     /**
@@ -23,17 +22,16 @@ class SecureToken : Token {
         this.token = SecureToken.nextToken()
     }
 
+    override fun getSecret() = this.token
 
-    override fun getSecret(): String {
-        return this.token
-    }
-
-    override fun equals(other: Any?): Boolean {
-        /* Two token with no secret do not equal each other. */
-        return other is Token &&
-                this.secret != null &&
-                this.secret == other.secret
-    }
+    /**
+     * Two token with no secret do not equal each other.
+     *
+     * @param other object to compare with
+     * @return equality
+     */
+    override fun equals(other: Any?): Boolean =
+        other is Token && this.secret == other.secret
 
     companion object {
 

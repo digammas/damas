@@ -1,11 +1,9 @@
 package solutions.digamma.damas.jcr.model
 
+import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.entity.Entity
-import solutions.digamma.damas.common.InternalStateException
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
-
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -15,15 +13,9 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrBaseEntity @Throws(WorkspaceException::class)
-constructor(
-        /**
-         * The underling JCR node.
-         *
-         * @return
-         */
-        @Transient
-        override val node: Node) : Entity, JcrEntity {
+abstract class JcrBaseEntity
+@Throws(WorkspaceException::class)
+constructor(@Transient override val node: Node) : Entity, JcrEntity {
 
     init {
         checkCompatibility()

@@ -28,9 +28,7 @@ class JcrFolderManager :
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun retrieve(
             session: Session,
-            id: String): JcrFolder {
-        return JcrFolder(session.getNodeByIdentifier(id))
-    }
+            id: String) = JcrFolder(session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun create(
@@ -55,8 +53,7 @@ class JcrFolderManager :
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun delete(session: Session, id: String) {
-        val folder = this.retrieve(session, id)
-        folder.remove()
+        this.retrieve(session, id).remove()
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
@@ -72,8 +69,6 @@ class JcrFolderManager :
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun find(session: Session, path: String): Folder {
-        return JcrFolder(
-                session.getNode(JcrFile.ROOT_PATH).getNode(path))
-    }
+    override fun find(session: Session, path: String) =
+        JcrFolder(session.getNode(JcrFile.ROOT_PATH).getNode(path))
 }

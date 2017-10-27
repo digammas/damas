@@ -3,12 +3,9 @@ package solutions.digamma.damas.jcr.content
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.CommentReceiver
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrEntity
 import solutions.digamma.damas.jcr.names.TypeNamespace
-
-import javax.jcr.NodeIterator
 import java.util.ArrayList
 import java.util.Collections
 
