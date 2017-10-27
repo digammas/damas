@@ -1,17 +1,13 @@
 package solutions.digamma.damas.jcr.model
 
+import solutions.digamma.damas.auth.Token
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.entity.SearchEngine
-import solutions.digamma.damas.auth.Token
-import solutions.digamma.damas.inspection.NotNull
-import solutions.digamma.damas.inspection.Nullable
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.session.SessionUser
-import solutions.digamma.damas.jcr.session.SessionWrapper
 import solutions.digamma.damas.logging.Logged
-
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -43,15 +39,9 @@ interface JcrSearchEngine<T : Entity> : SessionUser, SearchEngine<T> {
     @Throws(WorkspaceException::class)
     override fun find(
             token: Token, offset: Int, size: Int, query: Any?): Page<T> {
-        try {
-            openSession(token).use { session ->
-                return this.find(
-                        session.getSession(), offset, size, query)
-            }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
+        return Exceptions.wrap(openSession(token)) {
+                this.find(it.getSession(), offset, size, query)
         }
-
     }
 
 

@@ -20,9 +20,8 @@ interface JcrModifiable : Modifiable, JcrEntity {
      * @return
      */
     @Throws(WorkspaceException::class)
-    override fun getModifiedBy(): String {
-        return this.getString(Property.JCR_LAST_MODIFIED_BY)
-    }
+    override fun getModifiedBy() =
+            this.getString(Property.JCR_LAST_MODIFIED_BY)
 
     /**
      * Last modification timestamp.
@@ -30,7 +29,6 @@ interface JcrModifiable : Modifiable, JcrEntity {
      * @return
      */
     @Throws(WorkspaceException::class)
-    override fun getModificationDate(): Calendar {
-        return this.getDate(Property.JCR_LAST_MODIFIED)
-    }
+    override fun getModificationDate() =
+            this.getDate(Property.JCR_LAST_MODIFIED)
 }

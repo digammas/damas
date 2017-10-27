@@ -18,13 +18,9 @@ abstract class JcrReadManager<T : Entity> : JcrManager(), EntityManager<T> {
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun retrieve(token: Token, id: String): T {
-        try {
-            openSession(token).use { session -> return this.retrieve(session.getSession(), id) }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
+    override fun retrieve(token: Token, id: String): T =
+            Exceptions.wrap(openSession(token)) {
+        this.retrieve(it.getSession(), id)
     }
 
     /**

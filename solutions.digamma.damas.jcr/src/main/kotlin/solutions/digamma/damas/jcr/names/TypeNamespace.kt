@@ -5,23 +5,21 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-interface TypeNamespace : Namespace {
-    companion object {
+object TypeNamespace {
 
-        val FILE = Namespace.prefix("File")
+    val FILE = Namespace.prefix("File")
 
-        val COMMENT = Namespace.prefix("Comment")
+    val COMMENT = Namespace.prefix("Comment")
 
-        val COMMENT_RECEIVER = Namespace.prefix("CommentReceiver")
+    val COMMENT_RECEIVER = Namespace.prefix("CommentReceiver")
 
-        val DOCUMENT = Namespace.prefix("Document")
+    val DOCUMENT = Namespace.prefix("Document")
 
-        val FOLDER = Namespace.prefix("Folder")
+    val FOLDER = Namespace.prefix("Folder")
 
-        val SUBJECT = Namespace.prefix("Subject")
+    val SUBJECT = Namespace.prefix("Subject")
 
-        val USER = Namespace.prefix("User")
+    val USER = Namespace.prefix("User")
 
-        val GROUP = Namespace.prefix("Group")
-    }
+    val GROUP = Namespace.prefix("Group")
 }

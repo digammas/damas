@@ -5,23 +5,21 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-interface ItemNamespace {
-    companion object {
+object ItemNamespace {
 
-        val RANK = Namespace.prefix("rank")
+    val RANK = Namespace.prefix("rank")
 
-        val GROUPS = Namespace.prefix("groups")
+    val GROUPS = Namespace.prefix("groups")
 
-        val LOGIN = Namespace.prefix("login")
+    val LOGIN = Namespace.prefix("login")
 
-        val PASSWORD = Namespace.prefix("password")
+    val PASSWORD = Namespace.prefix("password")
 
-        val ALIAS = Namespace.prefix("alias")
+    val ALIAS = Namespace.prefix("alias")
 
-        val EMAIL = Namespace.prefix("mail")
+    val EMAIL = Namespace.prefix("mail")
 
-        val FIRST_NAME = Namespace.prefix("firstName")
+    val FIRST_NAME = Namespace.prefix("firstName")
 
-        val LAST_NAME = Namespace.prefix("lastName")
-    }
+    val LAST_NAME = Namespace.prefix("lastName")
 }

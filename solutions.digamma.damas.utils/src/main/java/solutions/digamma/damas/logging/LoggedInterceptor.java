@@ -33,8 +33,7 @@ public class LoggedInterceptor {
      */
     @AroundInvoke
     public Object invoke(InvocationContext context) throws Exception {
-        String name = String.format(
-                "%s::%s",
+        String name = "%s::%s".format(
                 context.getClass().getName(),
                 context.getMethod().getName());
         try {

@@ -2,17 +2,15 @@ package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.CommentManager
-import solutions.digamma.damas.inspection.NotNull
+import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.jcr.common.ResultPage
-import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
-import java.util.*
-
-import javax.jcr.Node
+import solutions.digamma.damas.jcr.names.TypeNamespace
+import java.util.Collections
+import java.util.UUID
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -34,8 +32,7 @@ class JcrCommentManager :
         val name = UUID.randomUUID().toString()
         val parent = session.getNodeByIdentifier(entity.receiverId)
         if (!parent.isNodeType(TypeNamespace.COMMENT_RECEIVER)) {
-            throw CompatibilityException(
-                    "Parent cannot receive comments.")
+            throw CompatibilityException("Parent cannot receive comments.")
         }
         val node = parent.addNode(name, TypeNamespace.COMMENT)
         val comment = JcrComment(node)

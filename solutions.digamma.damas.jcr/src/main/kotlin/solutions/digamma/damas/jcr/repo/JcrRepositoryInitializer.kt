@@ -1,25 +1,23 @@
 package solutions.digamma.damas.jcr.repo
 
+import java.net.URI
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
+import java.util.logging.Level
+import java.util.logging.Logger
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.jcr.Node
 import javax.jcr.Repository
 import javax.jcr.RepositoryException
 import javax.jcr.Session
-import java.net.URI
-import java.util.ArrayList
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.Condition
-import java.util.concurrent.locks.Lock
-import java.util.concurrent.locks.ReentrantLock
-import java.util.logging.Level
-import java.util.logging.Logger
 
 /**
  * Repository initializer.
+ *
  * A best effort is applied when initializing repository. That means that errors
- * are ignored, and unless the error is fatal, the rest convert the current job, as
- * well as remaining jobs, are still attempted.
+ * are ignored, and unless the error is fatal, the rest convert the current job,
+ * as well as remaining jobs, are still attempted.
  *
  * @author Ahmad Shahwan
  */
@@ -33,7 +31,7 @@ class JcrRepositoryInitializer : RepositoryInitializer {
     private val lock = ReentrantLock()
     private val condition = lock.newCondition()
     private var isReady = false
-    private var jobs: MutableList<RepositoryJob>? = null
+    private val jobs: MutableList<RepositoryJob> = ArrayList(1)
 
     @Inject
     private lateinit var logger: Logger
@@ -50,17 +48,14 @@ class JcrRepositoryInitializer : RepositoryInitializer {
          */
         val system = SystemRepository(repository)
         this.collectJobs()
-        this.logger.info {
-            String.format(
-                    "%d jobs collected", this.jobs!!.size)
-        }
+        this.logger.info { "%d jobs collected".format(this.jobs.size) }
         var superuser: Session? = null
         try {
             superuser = system.superuserSession
-            for (job in this.jobs!!) {
+            for (job in this.jobs) {
                 for (node in job.creations) {
                     try {
-                        val jcrRoot = superuser!!.rootNode
+                        val jcrRoot = superuser.rootNode
                         val path = URI
                                 .create(jcrRoot.path)
                                 .relativize(URI.create(node.path))
@@ -69,16 +64,13 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                         if (jcrRoot.hasNode(path)) {
                             jcrNode = jcrRoot.getNode(path)
                             this.logger.info {
-                                String.format(
-                                        "Node %s already exists.", node.path)
+                                    "Node %s already exists.".format(node.path)
                             }
                         } else {
                             jcrNode = jcrRoot.addNode(
                                     path, node.type)
-                            val jcrPath = jcrNode.path
                             this.logger.info {
-                                String.format(
-                                        "Node %s added.", jcrPath)
+                                "Node %s added.".format(jcrNode.path)
                             }
                         }
                         for (mixin in node.mixins) {
@@ -86,16 +78,15 @@ class JcrRepositoryInitializer : RepositoryInitializer {
                                 jcrNode.addMixin(mixin)
                             } catch (e: RepositoryException) {
                                 this.logger.warning {
-                                    String.format(
-                                            "Repo job unable to add mixin %s.", mixin)
+                                    "Repo job unable to add mixin %s."
+                                            .format(mixin)
                                 }
                             }
 
                         }
                     } catch (e: RepositoryException) {
-                        this.logger.log(Level.SEVERE, e) {
-                            String.format(
-                                    "Repo job error adding node %s.", node.path)
+                        this.logger.severe {
+                            "Repo job error adding node %s.".format(node.path)
                         }
                     }
 
@@ -126,8 +117,8 @@ class JcrRepositoryInitializer : RepositoryInitializer {
     }
 
     private fun collectJobs(): List<RepositoryJob>? {
-        this.jobs = ArrayList(1)
-        this.jobs!!.add(BuiltInJob.INSTANCE)
+        this.jobs.clear()
+        this.jobs.add(BuiltInJob)
         return this.jobs
     }
 

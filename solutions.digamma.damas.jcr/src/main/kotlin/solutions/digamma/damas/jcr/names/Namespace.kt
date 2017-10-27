@@ -5,27 +5,25 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-interface Namespace {
-    companion object {
+object Namespace {
 
-        /**
-         * TypeNamespace delimiter.
-         */
-        val SEPARATOR = ":"
+    /**
+     * TypeNamespace delimiter.
+     */
+    const val SEPARATOR = ":"
 
-        /**
-         * DMS name space.
-         */
-        val NAMESPACE = "dms"
+    /**
+     * DMS name space.
+     */
+    const val NAMESPACE = "dms"
 
-        /**
-         * Prefix name with namespace.
-         *
-         * @param name
-         * @return
-         */
-        fun prefix(name: String): String {
-            return String.format("%s%s%s", NAMESPACE, SEPARATOR, name)
-        }
+    /**
+     * Prefix name with namespace.
+     *
+     * @param name
+     * @return
+     */
+    fun prefix(name: String): String {
+        return "%s%s%s".format(NAMESPACE, SEPARATOR, name)
     }
 }

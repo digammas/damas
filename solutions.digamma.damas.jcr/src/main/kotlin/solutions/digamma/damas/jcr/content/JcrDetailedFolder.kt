@@ -2,8 +2,6 @@ package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.DetailedFolder
-import solutions.digamma.damas.inspection.NotNull
-
 import javax.jcr.Node
 
 /**

@@ -30,8 +30,8 @@ class JcrFolderTest : WeldTest() {
                 Mocks.folder(parentId, "test"))
         var parent = this.folder
         for (i in 0..9) {
-            parentId = parent!!.getId()
-            val name = String.format("test_%d", i)
+            parentId = parent!!.id
+            val name = "test_$i"
             parent = manager.create(this.token!!,
                     Mocks.folder(parentId, name))
         }
@@ -66,7 +66,7 @@ class JcrFolderTest : WeldTest() {
         var expanded = this.folder
         val depth = 5
         expanded!!.expandContent(depth)
-        for (i in 0..depth - 1) {
+        for (i in 0 until depth) {
             expanded = expanded!!.content.folders.iterator().next()
         }
         assert(expanded!!.content == null)
@@ -79,6 +79,6 @@ class JcrFolderTest : WeldTest() {
         val folders = this.folder!!.content.folders
         assert(folders.size != 0)
         val subfolder = folders.iterator().next()
-        assert(subfolder.name == String.format("test_%d", 0))
+        assert(subfolder.name == "test_${0}")
     }
 }

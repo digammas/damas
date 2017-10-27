@@ -3,7 +3,6 @@ package solutions.digamma.damas.jcr.content
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Comment
-import solutions.digamma.damas.content.CommentReceiver
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.model.JcrCreated
@@ -12,7 +11,6 @@ import solutions.digamma.damas.jcr.names.ItemNamespace
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import javax.jcr.Node
 import javax.jcr.Property
-import javax.jcr.RepositoryException
 
 /**
  * @author Ahmad Shahwan
@@ -43,19 +41,12 @@ internal constructor(node: Node) :
     }
 
     @Throws(WorkspaceException::class)
-    override fun getReceiverId(): String {
-        try {
-            return this.node.parent.identifier
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
-        }
-
+    override fun getReceiverId(): String = Exceptions.wrap {
+        this.node.parent.identifier
     }
 
     @Throws(WorkspaceException::class)
-    override fun getReceiver(): CommentReceiver {
-        return { this@JcrComment.node } as JcrCommentReceiver
-    }
+    override fun getReceiver() = { this.node } as JcrCommentReceiver
 
     @Throws(WorkspaceException::class)
     override fun getRank(): Long? {

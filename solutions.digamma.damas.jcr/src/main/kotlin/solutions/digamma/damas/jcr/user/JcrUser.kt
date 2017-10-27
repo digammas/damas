@@ -2,31 +2,27 @@ package solutions.digamma.damas.jcr.user
 
 import solutions.digamma.damas.common.MisuseException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.ItemNamespace
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.user.User
-
-import javax.jcr.Node
-import javax.jcr.RepositoryException
-import javax.jcr.Session
 import java.util.regex.Pattern
+import javax.jcr.Node
+import javax.jcr.Session
 
 /**
  * JCR-node-backed user implementation.
  *
- * @author Ahmad Shahwan
- */
-class JcrUser
-/**
- * Constructor with JCR-node.
+ * @constructor Constructor with JCR-node.
  *
  * @param node JCR node
  * @throws WorkspaceException
+ *
+ * @author Ahmad Shahwan
  */
+class JcrUser
 @Throws(WorkspaceException::class)
-protected constructor(node: Node) : JcrSubject(node), User {
+private constructor(node: Node) : JcrSubject(node), User {
 
     @Throws(WorkspaceException::class)
     override fun getLogin(): String {
@@ -92,14 +88,9 @@ protected constructor(node: Node) : JcrSubject(node), User {
         }
 
         @Throws(WorkspaceException::class)
-        fun from(session: Session, login: String): JcrUser {
-            try {
-                val root = session.getNode(JcrSubject.ROOT_PATH)
-                return of(root.addNode(login, TypeNamespace.USER))
-            } catch (e: RepositoryException) {
-                throw Exceptions.convert(e)
-            }
-
+        fun from(session: Session, login: String): JcrUser = Exceptions.wrap {
+            val root = session.getNode(JcrSubject.ROOT_PATH)
+            of(root.addNode(login, TypeNamespace.USER))
         }
     }
 }

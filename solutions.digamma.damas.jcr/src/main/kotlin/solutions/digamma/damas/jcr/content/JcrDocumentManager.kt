@@ -1,26 +1,22 @@
 package solutions.digamma.damas.jcr.content
 
+import solutions.digamma.damas.auth.Token
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.auth.Token
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.DocumentPayload
-import solutions.digamma.damas.inspection.NotNull
-import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrPathFinder
-import solutions.digamma.damas.jcr.session.SessionWrapper
+import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.logging.Logged
-
+import java.io.InputStream
 import javax.inject.Singleton
-import javax.jcr.Node
 import javax.jcr.Property
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 import javax.jcr.nodetype.NodeType
-import java.io.InputStream
 
 /**
  * JCR implementation convert folder manager.
@@ -36,31 +32,23 @@ class JcrDocumentManager :
     override fun create(
             token: Token,
             entity: Document,
-            stream: InputStream): Document {
-        try {
-            this.openSession(token).use { session ->
-                val document = this.create(session.getSession(), entity)
-                document.updateContent(stream)
-                return document
-            }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
+            stream: InputStream): Document = Exceptions.wrap {
+        this.openSession(token).use {
+            val document = this.create(it.getSession(), entity)
+            document.updateContent(stream)
+            document
         }
-
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun download(token: Token, id: String): DocumentPayload {
-        try {
-            this.openSession(token).use { session ->
-                val document = this.retrieve(session.getSession(), id)
-                return document.content
-            }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
+    override fun download(
+            token: Token,
+            id: String): DocumentPayload = Exceptions.wrap {
+        this.openSession(token).use {
+            val document = this.retrieve(it.getSession(), id)
+            document.content
         }
-
     }
 
     @Logged
@@ -69,20 +57,16 @@ class JcrDocumentManager :
             token: Token,
             id: String,
             stream: InputStream) {
-        try {
-            this.openSession(token).use { session -> this.retrieve(session.getSession(), id).updateContent(stream) }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
+        Exceptions.wrap {
+            this.openSession(token).use {
+                this.retrieve(it.getSession(), id).updateContent(stream)
+            }
         }
-
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun retrieve(
-            session: Session,
-            id: String): JcrDocument {
-        return JcrDocument(session.getNodeByIdentifier(id))
-    }
+    override fun retrieve(session: Session, id: String) =
+            JcrDocument(session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun create(
@@ -117,7 +101,6 @@ class JcrDocumentManager :
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun find(session: Session, path: String): Document {
-        return JcrDocument(
-                session.getNode(JcrFile.ROOT_PATH).getNode(path))
+        return JcrDocument(session.getNode(JcrFile.ROOT_PATH).getNode(path))
     }
 }

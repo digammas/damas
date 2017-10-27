@@ -42,16 +42,11 @@ class SessionBookkeeper {
         }
         synchronized(this.sessions) {
             if (this.sessions.containsKey(token.secret)) {
-                this.logger.warning {
-                    String.format(
-                            "Token %s already exists.", token)
-                }
+                this.logger.warning("Token $token already exists.")
                 throw ConflictException("Token already exists.")
             }
             this.sessions.put(token.secret, session)
-            this.logger.info {
-                String.format("Token %s successfully stored.", token)
-            }
+            this.logger.info { "Token %s successfully stored.".format(token) }
         }
     }
 
@@ -67,15 +62,13 @@ class SessionBookkeeper {
         synchronized(this.sessions) {
             if (!this.sessions.containsKey(token.secret)) {
                 this.logger.warning {
-                    String.format(
-                            "Token %s did not exist.", token)
+                    "Token %s did not exist.".format(token)
                 }
                 throw NotFoundException("No session for the given token.")
             }
             this.sessions.remove(token.secret)
             this.logger.info {
-                String.format(
-                        "Token %s successfully forgotten.", token)
+                "Token %s successfully forgotten.".format(token)
             }
         }
     }
@@ -96,10 +89,7 @@ class SessionBookkeeper {
         }
         val session = this.sessions[token.secret]
         if (session == null) {
-            this.logger.info {
-                String.format(
-                        "Token not found %s.", token)
-            }
+            this.logger.info { "Token not found %s.".format(token) }
             throw NotFoundException("No session for the given token.")
         }
         return session

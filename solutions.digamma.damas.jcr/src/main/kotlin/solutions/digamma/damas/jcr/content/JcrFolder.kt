@@ -2,14 +2,11 @@ package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.content.DetailedFolder
 import solutions.digamma.damas.content.Folder
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.util.Collections
 import javax.jcr.Node
-import javax.jcr.RepositoryException
 
 /**
  * JCR-based folder implementation.
@@ -45,9 +42,7 @@ internal constructor(node: Node) : JcrFile(node), Folder {
     }
 
     @Throws(WorkspaceException::class)
-    override fun expand(): DetailedFolder {
-        return JcrDetailedFolder(this.node)
-    }
+    override fun expand() = JcrDetailedFolder(this.node)
 
     override fun expandContent(depth: Int) {
         if (depth != this.contentDepth) {
@@ -75,7 +70,7 @@ internal constructor(node: Node) : JcrFile(node), Folder {
         }
         val documents = ArrayList<JcrDocument>()
         val folders = ArrayList<JcrFolder>()
-        try {
+        Exceptions.wrap {
             val iterator = this.node.nodes
             while (iterator.hasNext()) {
                 val node = iterator.nextNode()
@@ -87,21 +82,16 @@ internal constructor(node: Node) : JcrFile(node), Folder {
                     folders.add(folder)
                 }
             }
-        } catch (e: RepositoryException) {
-            throw Exceptions.convert(e)
         }
 
         this.content = object : Folder.Content {
 
-            override fun getFolders(): List<JcrFolder> {
-                return Collections.unmodifiableList(folders)
-            }
+            override fun getFolders() =
+                    Collections.unmodifiableList(folders)
 
-            override fun getDocuments(): List<JcrDocument> {
-                return Collections.unmodifiableList(documents)
-            }
+            override fun getDocuments() =
+                    Collections.unmodifiableList(documents)
         }
-
         return this.content
     }
 }

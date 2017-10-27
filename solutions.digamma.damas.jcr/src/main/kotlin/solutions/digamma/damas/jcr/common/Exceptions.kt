@@ -26,73 +26,55 @@ import java.util.logging.Level
  */
 object Exceptions {
 
-    fun convert(e: RepositoryException): WorkspaceException {
-        if (e is AccessControlException) {
-            return AuthorizationException(e)
+    /**
+     * Convert a given [RepositoryException] to its [WorkspaceException]
+     * equivalent.
+     *
+     * @param e a repository exception
+     * @return workspace exception, equivalent to the passed exception
+     */
+    private fun convert(e: RepositoryException) = when (e) {
+        is AccessControlException -> AuthorizationException(e)
+        is ItemNotFoundException -> NotFoundException(e)
+        is ItemExistsException -> ConflictException(e)
+        is PathNotFoundException -> NotFoundException(e)
+        is LoginException -> AuthenticationException(e)
+        is ConstraintViolationException -> InternalStateException(e)
+        else -> {
+            val we = WorkspaceException(e)
+            we.logLevel = Level.SEVERE
+            we
         }
-        if (e is ItemNotFoundException) {
-            return NotFoundException(e)
-        }
-        if (e is ItemExistsException) {
-            return ConflictException(e)
-        }
-        if (e is PathNotFoundException) {
-            return NotFoundException(e)
-        }
-        if (e is LoginException) {
-            return AuthenticationException(e)
-        }
-        if (e is ConstraintViolationException) {
-            return InternalStateException(e)
-        }
-        val we = WorkspaceException(e)
-        we.logLevel = Level.SEVERE
-        return we
     }
 
-    fun convert(e: MutedException): WorkspaceException {
-        val cause = e.cause
-        if (cause is WorkspaceException) {
-            return cause
-        }
-        if (cause is RepositoryException) {
-            return convert(cause)
-        }
-        val we = WorkspaceException(cause)
-        we.logLevel = Level.SEVERE
-        return we
-    }
-
+    /**
+     * Wraps a callable and convert any thrown exception.
+     *
+     * If the callable throws a [RepositoryException] exception it is converted
+     * into their [WorkspaceException] counterparts.
+     *
+     * @param op a callable that potentially throws a [RepositoryException]
+     * @return returned object by the callable, if any
+     */
     @Throws(WorkspaceException::class)
-    fun wrap(op: () -> Any) {
-        try {
-            op()
-        } catch (e: RepositoryException) {
-            throw convert(e)
-        } catch (e: MutedException) {
+    fun <T> wrap(op: () -> T) = try {
+        op()
+    } catch (e: RepositoryException) { throw convert(e) }
 
-        }
-
-    }
-
+    /**
+     * Wraps a callable and convert thrown exception, using a resource.
+     *
+     * If the callable throws a [RepositoryException] exception it is converted
+     * into their [WorkspaceException] counterparts.
+     *
+     * An auto-closable resource is used, and assured to be properly closed.
+     *
+     * @param res a closable resource
+     * @param op a callable that potentially throws a [RepositoryException]
+     * @return returned object by the callable, if any
+     */
     @Throws(WorkspaceException::class)
-    fun <T> wrap(op: () -> T): T {
-        try {
-            return op()
-        } catch (e: RepositoryException) {
-            throw convert(e)
-        }
-
-    }
-
-    fun <T> mute(op: () -> T): T {
-        try {
-            return op()
-        } catch (e: RepositoryException) {
-            throw MutedException(e)
-        } catch (e: WorkspaceException) {
-            throw MutedException(e)
-        }
-
-    }
+    fun <C: AutoCloseable, T> wrap(res: C, op: (res: C) -> T) = try {
+        res.use { op(it) }
+    } catch (e: RepositoryException) { throw convert(e) }
 }

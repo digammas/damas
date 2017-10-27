@@ -2,24 +2,20 @@ package solutions.digamma.damas.jcr.user
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.inspection.NotNull
-import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.jcr.model.JcrBaseEntity
-
+import solutions.digamma.damas.jcr.names.TypeNamespace
 import javax.jcr.Node
 
 /**
  * Generalization convert JCR-based user and group.
  *
+ * @constructor Constructor with JCR-node.
+ * @param node                  JCR node
+ * @throws WorkspaceException
+ *
  * @author Ahmad Shahwan
  */
 abstract class JcrSubject
-/**
- * Constructor with JCR-node.
- *
- * @param node                  JCR node
- * @throws WorkspaceException
- */
 @Throws(WorkspaceException::class)
 protected constructor(node: Node) : JcrBaseEntity(node) {
 
