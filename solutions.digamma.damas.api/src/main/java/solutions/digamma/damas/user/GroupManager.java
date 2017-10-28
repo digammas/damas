@@ -8,6 +8,6 @@ import solutions.digamma.damas.entity.SearchEngine;
  *
  * @author Ahmad Shahwan
  */
-public interface GroupManagement
+public interface GroupManager
         extends CrudManager<Group>, SearchEngine<Group> {
 }

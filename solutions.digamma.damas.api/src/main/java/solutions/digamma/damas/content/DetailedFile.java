@@ -39,17 +39,4 @@ public interface DetailedFile
      * @return
      */
     @Nullable String getPath() throws WorkspaceException;
-
-    /**
-     * Update file with file information.
-     *
-     * @param other
-     * @throws WorkspaceException
-     */
-    default void update(@NotNull DetailedFile other) throws WorkspaceException {
-        File.super.update(other);
-        if (other.getMetadata() != null) {
-            this.setMetadata(other.getMetadata());
-        }
-    }
 }

@@ -7,16 +7,24 @@ import java.util.ArrayList
 import javax.jcr.Node
 
 /**
+ * Detailed document.
+ *
  * @author Ahmad Shahwan
  *
  * @param node
  */
 class JcrDetailedDocument
 @Throws(WorkspaceException::class)
-internal constructor(node: Node) : JcrDocument(node), DetailedDocument,
+private constructor(node: Node) : JcrDocument(node), DetailedDocument,
         JcrDetailedFile, JcrCommentReceiver {
 
     override fun getVersions(): List<Version> {
         return ArrayList(0)
+    }
+
+    companion object {
+
+        @Throws(WorkspaceException::class)
+        fun of(node: Node) = JcrDetailedDocument(node)
     }
 }

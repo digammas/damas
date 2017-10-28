@@ -8,7 +8,7 @@ import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrPathFinder
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
-import solutions.digamma.damas.jcr.names.TypeNamespace
+import java.util.Collections
 import javax.inject.Singleton
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -26,49 +26,32 @@ class JcrFolderManager :
         FolderManager {
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun retrieve(
-            session: Session,
-            id: String) = JcrFolder(session.getNodeByIdentifier(id))
+    override fun retrieve(session: Session, id: String) =
+        JcrFolder.of(session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun create(
             session: Session,
-            entity: Folder): JcrFolder {
-        val name = entity.name
-        val parent = session.getNodeByIdentifier(entity.parentId)
-        val node = parent.addNode(name, TypeNamespace.FOLDER)
-        node.addMixin(TypeNamespace.FILE)
-        return JcrFolder(node)
-    }
+            pattern: Folder) =
+        JcrFolder.from(session, pattern.parentId, pattern.name)
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun update(
-            session: Session,
-            id: String,
-            entity: Folder): JcrFolder {
-        val folder = this.retrieve(session, id)
-        folder.update(entity)
-        return folder
-    }
+    override fun update(session: Session, id: String, pattern: Folder) =
+        this.retrieve(session, id).also { it.update(pattern) }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun delete(session: Session, id: String) {
+    override fun delete(session: Session, id: String) =
         this.retrieve(session, id).remove()
-    }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun find(
             session: Session,
             offset: Int,
             size: Int,
-            query: Any?): Page<Folder> {
-        val folder = JcrFolder(session.getNode(JcrFile.ROOT_PATH))
-        val folders = ArrayList<Folder>(1)
-        folders.add(folder)
-        return ResultPage(folders, 0, 1)
-    }
+            query: Any?): Page<Folder> = ResultPage(Collections.singletonList(
+                JcrFolder.of(session.getNode(JcrFile.ROOT_PATH))))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun find(session: Session, path: String) =
-        JcrFolder(session.getNode(JcrFile.ROOT_PATH).getNode(path))
+        JcrFolder.of(session.getNode(JcrFile.ROOT_PATH).getNode(path))
 }

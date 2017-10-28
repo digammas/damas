@@ -15,25 +15,21 @@ import javax.jcr.RepositoryException
 /**
  * JCR-based implementation convert file abstract type.
  *
+ * @param node              JCR node to capture state
+ *
  * @author Ahmad Shahwan
  */
 abstract class JcrFile
-/**
- * Constructor.
- *
- * @param node
- */
 @Throws(WorkspaceException::class)
-internal constructor(node: Node) : JcrBaseEntity(node), File {
+protected constructor(node: Node) : JcrBaseEntity(node), File {
 
     @Throws(InternalStateException::class)
     override fun checkCompatibility() {
         this.checkTypeCompatibility(TypeNamespace.FILE)
-        Exceptions.wrap( {
-            if (!this.node.path.startsWith(ROOT_PATH)) {
+        Exceptions.wrap {
+            this.node.path.startsWith(ROOT_PATH) ||
                 throw InternalStateException("Node not in content root.")
-            }
-        })
+        }
     }
 
     @Throws(WorkspaceException::class)
@@ -55,40 +51,45 @@ internal constructor(node: Node) : JcrBaseEntity(node), File {
     }
 
     @Throws(WorkspaceException::class)
-    override fun getParent(): Folder? {
-        val parent = Exceptions.wrap { this.node.parent }
-        return if (parent == null) File.NO_PARENT else JcrFolder(parent)
-    }
+    override fun getParent(): Folder? =
+        Exceptions.wrap { this.node.parent }?.let { JcrFolder.of(it) }
 
     @Throws(WorkspaceException::class)
     override fun setParent(value: Folder) {
-        val id = value.id ?:
+        this.parentId = value.id ?:
                 throw UnsupportedOperationException("Parent ID is null.")
-        this.parentId = id
     }
 
     @Throws(WorkspaceException::class)
-    override fun getParentId(): String {
-        return Exceptions.wrap { this.node.parent.identifier }
-    }
+    override fun getParentId(): String =
+        Exceptions.wrap { this.node.parent.identifier }
 
     @Throws(WorkspaceException::class)
-    override fun setParentId(value: String) {
-        Exceptions.wrap {
-            val path = this.session
-                    .getNodeByIdentifier(value)
-                    .path + "/"
-            val destination = URI
-                    .create(path)
-                    .resolve(this.node.name)
-                    .path
-            this.move(destination)
-        }
+    override fun setParentId(value: String) = Exceptions.wrap {
+        val path = this.session
+                .getNodeByIdentifier(value)
+                .path + "/"
+        val destination = URI
+                .create(path)
+                .resolve(this.node.name)
+                .path
+        this.move(destination)
     }
 
     @Throws(RepositoryException::class)
-    private fun move(path: String) {
+    private fun move(path: String) =
         this.node.session.move(this.node.path, path)
+
+    /**
+     * Update file with file information.
+     *
+     * @param other
+     * @throws WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun update(other: File) {
+        other.name?.let { this.name = it }
+        other.parentId?.let { this.parentId = it }
     }
 
     companion object {
