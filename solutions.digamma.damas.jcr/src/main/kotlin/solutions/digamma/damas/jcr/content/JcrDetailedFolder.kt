@@ -7,13 +7,18 @@ import javax.jcr.Node
 /**
  * Expanded folder.
  *
+ * @param node              back-bone JCR node
+ *
  * @author Ahmad Shahwan
  */
 class JcrDetailedFolder
-/**
- * Constructor with JCR node.
- *
- * @param node      back-bone JCR node
- */
 @Throws(WorkspaceException::class)
-constructor(node: Node) : JcrFolder(node), DetailedFolder, JcrDetailedFile
+private constructor(node: Node) : JcrFolder(node),
+        DetailedFolder, JcrDetailedFile {
+
+    companion object {
+
+        @Throws(WorkspaceException::class)
+        fun of(node: Node) = JcrDetailedFolder(node)
+    }
+}

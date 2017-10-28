@@ -13,11 +13,6 @@ import solutions.digamma.damas.inspection.Nullable;
 public interface File extends Entity {
 
     /**
-     * A value returned by {@code getParent()} when the file is root.
-     */
-    Folder NO_PARENT = null;
-
-    /**
      * A value returned by {@code getParentId()} when the file is root.
      */
     String NO_PARENT_ID = "";
@@ -37,7 +32,8 @@ public interface File extends Entity {
     void setName(@NotNull String value) throws WorkspaceException;
 
     /**
-     * Parent folder.
+     * Parent folder. When the current file is the root folder, this method
+     * return {@code null}.
      *
      * @return
      */
@@ -71,19 +67,4 @@ public interface File extends Entity {
      * @throws WorkspaceException
      */
     @NotNull DetailedFile expand() throws WorkspaceException;
-
-    /**
-     * Update file with file information.
-     *
-     * @param other
-     * @throws WorkspaceException
-     */
-    default void update(@NotNull File other) throws WorkspaceException {
-        if (other.getName() != null) {
-            this.setName(other.getName());
-        }
-        if (other.getParentId() != null) {
-            this.setParentId(other.getParentId());
-        }
-    }
 }

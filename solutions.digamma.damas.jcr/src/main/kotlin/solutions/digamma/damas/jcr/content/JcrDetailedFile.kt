@@ -7,13 +7,11 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrCreated
 import solutions.digamma.damas.jcr.model.JcrModifiable
 import java.net.URI
-import javax.jcr.RepositoryException
 
 /**
  * @author Ahmad Shahwan
  */
-interface JcrDetailedFile : DetailedFile, JcrCreated, JcrModifiable {
-
+interface JcrDetailedFile: DetailedFile, JcrCreated, JcrModifiable {
 
     @Throws(WorkspaceException::class)
     override fun getPath(): String = Exceptions.wrap {
@@ -26,4 +24,18 @@ interface JcrDetailedFile : DetailedFile, JcrCreated, JcrModifiable {
 
     @Throws(WorkspaceException::class)
     override fun setMetadata(metadata: Metadata) {}
+
+    /**
+     * Update file with file information.
+     *
+     * @param other
+     * @throws WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun update(other: DetailedFile) {
+        if (this is JcrFile) {
+            (this as JcrFile).update(other)
+        }
+        other.metadata?.let { this.setMetadata(it) }
+    }
 }

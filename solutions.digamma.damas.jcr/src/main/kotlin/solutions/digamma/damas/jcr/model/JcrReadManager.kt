@@ -14,7 +14,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrReadManager<T : Entity> : JcrManager(), EntityManager<T> {
+abstract class JcrReadManager<T: Entity> : JcrManager(), EntityManager<T> {
 
     @Logged
     @Throws(WorkspaceException::class)

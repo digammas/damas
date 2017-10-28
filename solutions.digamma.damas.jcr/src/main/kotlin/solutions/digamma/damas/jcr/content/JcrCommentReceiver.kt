@@ -22,7 +22,7 @@ interface JcrCommentReceiver : CommentReceiver, JcrEntity {
         Exceptions.wrap {
             val nodes = this.getChildNodes(TypeNamespace.COMMENT)
             while (nodes.hasNext()) {
-                comments.add(JcrComment(nodes.nextNode()))
+                comments.add(JcrComment.of(nodes.nextNode()))
             }
         }
         return Collections.unmodifiableList(comments)

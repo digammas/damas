@@ -7,20 +7,19 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.util.Collections
 import javax.jcr.Node
+import javax.jcr.Session
 
 /**
  * JCR-based folder implementation.
  *
+ * @constructor Private construct folder with a JCR node.
+ * @param node
+ *
  * @author Ahmad Shahwan
  */
 open class JcrFolder
-/**
- * Construct folder with a JCR node.
- *
- * @param node
- */
 @Throws(WorkspaceException::class)
-internal constructor(node: Node) : JcrFile(node), Folder {
+protected constructor(node: Node) : JcrFile(node), Folder {
 
     /**
      * Content depth used to indicate to which depth is content returned with
@@ -42,7 +41,7 @@ internal constructor(node: Node) : JcrFile(node), Folder {
     }
 
     @Throws(WorkspaceException::class)
-    override fun expand() = JcrDetailedFolder(this.node)
+    override fun expand() = JcrDetailedFolder.of(this.node)
 
     override fun expandContent(depth: Int) {
         if (depth != this.contentDepth) {
@@ -75,9 +74,9 @@ internal constructor(node: Node) : JcrFile(node), Folder {
             while (iterator.hasNext()) {
                 val node = iterator.nextNode()
                 if (node.isNodeType(TypeNamespace.DOCUMENT)) {
-                    documents.add(JcrDocument(node))
+                    documents.add(JcrDocument.of(node))
                 } else if (node.isNodeType(TypeNamespace.FOLDER)) {
-                    val folder = JcrFolder(node)
+                    val folder = JcrFolder.of(node)
                     folder.expandContent(this.contentDepth - 1)
                     folders.add(folder)
                 }
@@ -93,5 +92,20 @@ internal constructor(node: Node) : JcrFile(node), Folder {
                     Collections.unmodifiableList(documents)
         }
         return this.content
+    }
+
+    companion object {
+
+        @Throws(WorkspaceException::class)
+        fun of(node: Node) = JcrFolder(node)
+
+        @Throws(WorkspaceException::class)
+        fun from(session: Session, parentId: String, name: String) =
+                Exceptions.wrap {
+            val parent = session.getNodeByIdentifier(parentId)
+            val node = parent.addNode(name, TypeNamespace.FOLDER)
+            node.addMixin(TypeNamespace.FILE)
+            JcrFolder.of(node)
+        }
     }
 }

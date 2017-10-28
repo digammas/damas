@@ -14,8 +14,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrCrudManager<T : Entity> :
-        JcrReadManager<T>(), CrudManager<T> {
+abstract class JcrCrudManager<T: Entity>: JcrReadManager<T>(), CrudManager<T> {
 
     @Logged
     @Throws(WorkspaceException::class)
@@ -43,26 +42,26 @@ abstract class JcrCrudManager<T : Entity> :
      * Perform creation.
      *
      * @param session
-     * @param entity
+     * @param pattern
      * @return
      * @throws RepositoryException
      * @throws WorkspaceException
      */
     @Throws(RepositoryException::class, WorkspaceException::class)
-    protected abstract fun create(session: Session, entity: T): T
+    protected abstract fun create(session: Session, pattern: T): T
 
     /**
      * Perform update.
      *
      * @param session
      * @param id
-     * @param entity
+     * @param pattern
      * @return
      * @throws RepositoryException
      * @throws WorkspaceException
      */
     @Throws(RepositoryException::class, WorkspaceException::class)
-    protected abstract fun update(session: Session, id: String, entity: T): T
+    protected abstract fun update(session: Session, id: String, pattern: T): T
 
     /**
      * Perform deletion.

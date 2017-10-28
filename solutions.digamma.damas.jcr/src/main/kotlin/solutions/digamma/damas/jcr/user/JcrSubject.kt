@@ -20,9 +20,8 @@ abstract class JcrSubject
 protected constructor(node: Node) : JcrBaseEntity(node) {
 
     @Throws(InternalStateException::class)
-    override fun checkCompatibility() {
-        checkTypeCompatibility(TypeNamespace.SUBJECT)
-    }
+    override fun checkCompatibility() =
+            checkTypeCompatibility(TypeNamespace.SUBJECT)
 
     companion object {
 
