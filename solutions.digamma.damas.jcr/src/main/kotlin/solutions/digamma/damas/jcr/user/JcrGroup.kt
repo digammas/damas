@@ -1,9 +1,11 @@
 package solutions.digamma.damas.jcr.user
 
+import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.user.Group
+import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.Session
 
@@ -18,7 +20,11 @@ private constructor(node: Node) : JcrSubject(node), Group {
     override fun setName(value: String?) {
         if (value != null) Exceptions.wrap {
             val destination = "${this.node.path}/$value"
-            this.node.session.move(this.node.path, destination)
+            try {
+                this.node.session.move(this.node.path, destination)
+            } catch(e: ItemExistsException) {
+                throw SubjectExistsException(value, e)
+            }
         }
     }
 
@@ -33,9 +39,13 @@ private constructor(node: Node) : JcrSubject(node), Group {
         fun of(node: Node) = JcrGroup(node)
 
         @Throws(WorkspaceException::class)
-        fun from(session: Session, login: String) = Exceptions.wrap {
+        fun from(session: Session, name: String) = Exceptions.wrap {
             val root = session.getNode(JcrSubject.ROOT_PATH)
-            of(root.addNode(login, TypeNamespace.GROUP))
+            try {
+                of(root.addNode(name, TypeNamespace.GROUP))
+            } catch(e: ItemExistsException) {
+                throw SubjectExistsException(name, e)
+            }
         }
     }
 }

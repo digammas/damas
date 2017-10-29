@@ -3,6 +3,7 @@ package solutions.digamma.damas.rs.error;
 import solutions.digamma.damas.common.AuthenticationException;
 import solutions.digamma.damas.common.AuthorizationException;
 import solutions.digamma.damas.common.ConflictException;
+import solutions.digamma.damas.common.InvalidArgumentException;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.common.ResourceBusyException;
@@ -54,23 +55,34 @@ public class GenericExceptionMapper
 
     private static int toStatusCode(Throwable e) {
         if (e instanceof NotFoundException) {
+            /* Not Found */
             return 404;
         }
         if (e instanceof AuthenticationException) {
+            /* Unauthorized */
             return 401;
         }
         if (e instanceof AuthorizationException) {
+            /* Forbidden */
             return 403;
         }
         if (e instanceof ConflictException) {
+            /* Conflict */
             return 409;
         }
         if (e instanceof ResourceBusyException) {
+            /* Too Many Requests */
             return 429;
         }
+        if (e instanceof InvalidArgumentException) {
+            /* Unprocessable Entity */
+            return 422;
+        }
         if (e instanceof UnsupportedOperationException) {
+            /* Not Implemented */
             return 501;
         }
+        /* Internal Server Error */
         return 500;
     }
 }
