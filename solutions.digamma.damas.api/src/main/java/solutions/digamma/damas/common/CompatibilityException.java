@@ -2,8 +2,8 @@ package solutions.digamma.damas.common;
 
 /**
  * Exception occurs in case of incompatibility between DMS items. For example
- * this exception should be thrown when an identifier of existing but not
- * compatible item is passed to a method.
+ * this exception should be thrown when an identifier of existing but
+ * incompatible item is passed to a method.
  *
  * @author Ahmad Shahwan
  */

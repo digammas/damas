@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.user
 
+import solutions.digamma.damas.common.InvalidArgumentException
 import solutions.digamma.damas.common.MisuseException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.inspection.NotNull
@@ -8,6 +9,7 @@ import solutions.digamma.damas.jcr.names.ItemNamespace
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.user.User
 import java.util.regex.Pattern
+import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.Session
 
@@ -72,7 +74,7 @@ private constructor(node: Node) : JcrSubject(node), User {
     @Throws(MisuseException::class)
     private fun validateEmailAddress(value: String?) {
         if (value == null || !EMAIL_ADDRESS_REGEX.matcher(value).find()) {
-            throw MisuseException("Invalid email address.")
+            throw InvalidArgumentException("Invalid email address.")
         }
     }
 
@@ -100,7 +102,11 @@ private constructor(node: Node) : JcrSubject(node), User {
         @Throws(WorkspaceException::class)
         fun from(session: Session, login: String): JcrUser = Exceptions.wrap {
             val root = session.getNode(JcrSubject.ROOT_PATH)
-            of(root.addNode(login, TypeNamespace.USER))
+            try {
+                of(root.addNode(login, TypeNamespace.USER))
+            } catch(e: ItemExistsException) {
+                throw SubjectExistsException(login, e)
+            }
         }
     }
 }

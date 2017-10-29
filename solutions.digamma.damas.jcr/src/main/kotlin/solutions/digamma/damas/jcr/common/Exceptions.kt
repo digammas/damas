@@ -40,11 +40,7 @@ object Exceptions {
         is PathNotFoundException -> NotFoundException(e)
         is LoginException -> AuthenticationException(e)
         is ConstraintViolationException -> InternalStateException(e)
-        else -> {
-            val we = WorkspaceException(e)
-            we.logLevel = Level.SEVERE
-            we
-        }
+        else -> WorkspaceException(e).also { it.logLevel = Level.SEVERE }
     }
 
     /**
