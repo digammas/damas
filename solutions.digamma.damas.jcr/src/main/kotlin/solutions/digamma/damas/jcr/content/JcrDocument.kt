@@ -79,6 +79,9 @@ protected constructor(node: Node) : JcrFile(node), Document {
             if (!parent.isNodeType(TypeNamespace.FOLDER)) {
                 throw CompatibilityException("Parent is not a folder")
             }
+            if (parent.hasNode(name)) {
+                throw FileExistsException(name)
+            }
             val node = parent.addNode(name, TypeNamespace.DOCUMENT)
             node.addMixin(TypeNamespace.FILE)
             node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE)

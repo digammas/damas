@@ -9,6 +9,7 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.net.URI
+import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 
@@ -77,8 +78,13 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
     }
 
     @Throws(RepositoryException::class)
-    private fun move(path: String) =
-        this.node.session.move(this.node.path, path)
+    private fun move(path: String) {
+        try {
+            this.node.session.move(this.node.path, path)
+        } catch (e: ItemExistsException) {
+            throw FileExistsException(path, e)
+        }
+    }
 
     /**
      * Update file with file information.

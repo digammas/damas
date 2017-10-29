@@ -103,6 +103,9 @@ protected constructor(node: Node) : JcrFile(node), Folder {
         fun from(session: Session, parentId: String, name: String) =
                 Exceptions.wrap {
             val parent = session.getNodeByIdentifier(parentId)
+            if (parent.hasNode(name)) {
+                throw FileExistsException(name)
+            }
             val node = parent.addNode(name, TypeNamespace.FOLDER)
             node.addMixin(TypeNamespace.FILE)
             JcrFolder.of(node)
