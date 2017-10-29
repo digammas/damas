@@ -26,12 +26,12 @@ public interface Folder extends File {
      *
      * @param depth
      */
-    void expandContent(int depth);
+    void expandContent(int depth) throws WorkspaceException;
 
     /**
      * Expand content down to the leaves.
      */
-    void expandContent();
+    void expandContent() throws WorkspaceException;
 
     /**
      * Retrieve all files in a folder, recursively to a the depth defined by
