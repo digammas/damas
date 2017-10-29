@@ -1,5 +1,6 @@
 package solutions.digamma.damas.content;
 
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface DetailedDocument
      * All versions of the document.
      * @return
      */
-    @NotNull List<@NotNull Version> getVersions();
+    @NotNull List<@NotNull Version> getVersions() throws WorkspaceException;
 }

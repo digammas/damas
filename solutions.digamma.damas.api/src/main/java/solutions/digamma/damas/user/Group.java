@@ -2,7 +2,6 @@ package solutions.digamma.damas.user;
 
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * A group of users,
