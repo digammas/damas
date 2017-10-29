@@ -20,7 +20,7 @@ import javax.jcr.RepositoryException
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrFile
+internal abstract class JcrFile
 @Throws(WorkspaceException::class)
 protected constructor(node: Node) : JcrBaseEntity(node), File {
 

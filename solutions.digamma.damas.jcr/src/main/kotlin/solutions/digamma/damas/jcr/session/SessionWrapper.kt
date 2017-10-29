@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock
  *
  * @author Ahmad Shahwan
  */
-class SessionWrapper (private val session: Session) : AutoCloseable {
+internal class SessionWrapper (private val session: Session) : AutoCloseable {
 
     private val lock = ReentrantLock()
 

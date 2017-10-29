@@ -22,7 +22,7 @@ import javax.jcr.Session
  * @author Ahmad Shahwan
  */
 @Singleton
-class JcrRepositoryInitializer : RepositoryInitializer {
+internal class JcrRepositoryInitializer : RepositoryInitializer {
 
     /**
      * Lock used for thread safety.

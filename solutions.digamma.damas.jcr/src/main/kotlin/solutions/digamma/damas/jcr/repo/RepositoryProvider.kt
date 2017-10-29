@@ -15,7 +15,7 @@ import java.util.HashMap
  *
  * @author Ahmad Shahwan
  */
-class RepositoryProvider {
+internal class RepositoryProvider {
 
     @Inject
     private lateinit var logger: Logbook

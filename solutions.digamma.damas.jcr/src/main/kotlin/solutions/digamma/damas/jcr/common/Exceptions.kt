@@ -24,7 +24,7 @@ import java.util.logging.Level
  *
  * @author Ahmad Shahwan
  */
-object Exceptions {
+internal object Exceptions {
 
     /**
      * Convert a given [RepositoryException] to its [WorkspaceException]

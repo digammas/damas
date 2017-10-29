@@ -13,7 +13,7 @@ import javax.jcr.SimpleCredentials
  * @author Ahmad Shahwan
  */
 @Singleton
-class SystemRepository
+internal class SystemRepository
 @Inject
 constructor(private val repository: Repository) {
 

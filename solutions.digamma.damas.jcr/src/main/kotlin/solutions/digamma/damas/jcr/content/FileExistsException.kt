@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.common.ConflictException
 
-class FileExistsException(path: String, cause: Exception?):
+internal class FileExistsException(path: String, cause: Exception?):
         ConflictException("File at ${strip(path)} already exists.", cause) {
 
     constructor(path: String): this(path, null)

@@ -6,8 +6,7 @@ package solutions.digamma.damas.jcr.repo
  *
  * @author Ahmad Shahwan
  */
-interface RepositoryJob {
-
+internal interface RepositoryJob {
 
     /**
      * List convert nodes to be created.

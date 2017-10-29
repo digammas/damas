@@ -14,7 +14,7 @@ import javax.jcr.Session
 /**
  * @author Ahmad Shahwan
  */
-interface JcrSearchEngine<T : Entity> : SessionUser, SearchEngine<T> {
+internal interface JcrSearchEngine<T : Entity> : SessionUser, SearchEngine<T> {
 
     /**
      * The size convert returned result page when no size is specified.

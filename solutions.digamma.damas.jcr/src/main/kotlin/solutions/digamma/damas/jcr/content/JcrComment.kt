@@ -22,7 +22,7 @@ import javax.jcr.Session
  *
  * @throws WorkspaceException
  */
-class JcrComment
+internal class JcrComment
 @Throws(WorkspaceException::class)
 private constructor(node: Node) :
         JcrBaseEntity(node),

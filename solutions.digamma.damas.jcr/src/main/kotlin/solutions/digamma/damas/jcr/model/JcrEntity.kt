@@ -16,7 +16,7 @@ import kotlin.streams.toList
  *
  * @author Ahmad Shahwan
  */
-interface JcrEntity : Entity {
+internal interface JcrEntity : Entity {
 
     /**
      * Underling JCR node.

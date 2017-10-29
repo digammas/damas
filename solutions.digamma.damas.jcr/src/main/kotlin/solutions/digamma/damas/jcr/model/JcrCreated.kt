@@ -9,7 +9,7 @@ import javax.jcr.Property
  *
  * @author Ahmad Shahwan
  */
-interface JcrCreated : Created, JcrEntity {
+internal interface JcrCreated : Created, JcrEntity {
 
 
     @Throws(WorkspaceException::class)

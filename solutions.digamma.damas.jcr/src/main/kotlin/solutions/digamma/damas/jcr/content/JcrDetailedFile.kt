@@ -11,7 +11,7 @@ import java.net.URI
 /**
  * @author Ahmad Shahwan
  */
-interface JcrDetailedFile: DetailedFile, JcrCreated, JcrModifiable {
+internal interface JcrDetailedFile: DetailedFile, JcrCreated, JcrModifiable {
 
     @Throws(WorkspaceException::class)
     override fun getPath(): String = Exceptions.wrap {
