@@ -19,6 +19,12 @@
 [dms:User] > dms:Subject
     - dms:password (string) mandatory
     - dms:mail (string)
+    - dms:firstName (string)
+    - dms:lastName (string)
+
 
 [dms:Group] > dms:Subject
-    - dms:alias (string) mandatory
+    - dms:alias (string)
+
+[dms:SubjectDirectory] > nt:base
+    + * (dms:Subject)

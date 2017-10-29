@@ -10,7 +10,7 @@ import solutions.digamma.damas.auth.LoginManager
  */
 open class WeldTest {
 
-    protected var login: LoginManager? = null
+    protected lateinit var login: LoginManager
 
     @Before
     @Throws(Exception::class)

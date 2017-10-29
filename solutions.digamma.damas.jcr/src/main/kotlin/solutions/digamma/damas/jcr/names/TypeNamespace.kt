@@ -22,4 +22,6 @@ internal object TypeNamespace {
     val USER = Namespace.prefix("User")
 
     val GROUP = Namespace.prefix("Group")
+
+    val SUBJECT_DIRECTORY = Namespace.prefix("SubjectDirectory")
 }
