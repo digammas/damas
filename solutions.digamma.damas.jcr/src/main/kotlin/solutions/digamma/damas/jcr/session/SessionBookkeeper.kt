@@ -14,7 +14,7 @@ import java.util.logging.Logger
  * @author Ahmad Shahwan
  */
 @Singleton
-class SessionBookkeeper {
+internal class SessionBookkeeper {
 
     @Inject
     private lateinit var logger: Logger

@@ -13,7 +13,7 @@ import javax.jcr.Node
  *
  * @param node
  */
-class JcrDetailedDocument
+internal class JcrDetailedDocument
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrDocument(node), DetailedDocument,
         JcrDetailedFile, JcrCommentReceiver {

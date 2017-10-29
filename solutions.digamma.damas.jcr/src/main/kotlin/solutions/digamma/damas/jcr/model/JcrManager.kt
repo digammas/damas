@@ -13,7 +13,7 @@ import javax.inject.Inject
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrManager : SessionUser {
+internal abstract class JcrManager : SessionUser {
 
     @Inject
     protected lateinit var logger: Logger

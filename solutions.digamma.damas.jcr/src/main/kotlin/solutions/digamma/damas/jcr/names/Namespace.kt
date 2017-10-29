@@ -5,7 +5,7 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-object Namespace {
+internal object Namespace {
 
     /**
      * TypeNamespace delimiter.

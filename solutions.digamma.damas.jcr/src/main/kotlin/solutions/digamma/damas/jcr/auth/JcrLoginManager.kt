@@ -22,7 +22,7 @@ import javax.jcr.SimpleCredentials
  * @author Ahmad Shahwan
  */
 @Singleton
-class JcrLoginManager : LoginManager {
+internal class JcrLoginManager : LoginManager {
 
     @Inject
     private lateinit var logger: Logger

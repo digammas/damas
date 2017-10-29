@@ -9,7 +9,7 @@ import java.util.Collections
  *
  * @author Ahmad Shahwan
  */
-object BuiltInJob : RepositoryJob {
+internal object BuiltInJob : RepositoryJob {
 
     /**
      * Node specification.

@@ -19,7 +19,7 @@ import javax.jcr.Session
  * @author Ahmad Shahwan
  */
 @Singleton
-class JcrFolderManager :
+internal class JcrFolderManager :
         JcrCrudManager<Folder>(),
         JcrPathFinder<Folder>,
         JcrSearchEngine<Folder>,

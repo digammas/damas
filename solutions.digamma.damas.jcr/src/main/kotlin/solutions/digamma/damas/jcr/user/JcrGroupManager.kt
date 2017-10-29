@@ -15,7 +15,7 @@ import javax.jcr.Session
  * JCR implementation of group manager.
  *
  */
-class JcrGroupManager: JcrCrudManager<Group>(),
+internal class JcrGroupManager: JcrCrudManager<Group>(),
         JcrSearchEngine<Group>,
         GroupManager {
 

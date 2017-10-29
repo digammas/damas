@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.user
 
-import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
@@ -9,7 +8,7 @@ import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.Session
 
-class JcrGroup
+internal class JcrGroup
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), Group {
 

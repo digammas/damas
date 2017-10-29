@@ -11,7 +11,7 @@ import java.util.ArrayList
 /**
  * No-args constructor.
  */
-class UserJob {
+internal class UserJob {
 
     /**
      * List convert nodes to be created.

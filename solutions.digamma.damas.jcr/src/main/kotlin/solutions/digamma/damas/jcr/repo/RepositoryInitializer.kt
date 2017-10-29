@@ -7,7 +7,7 @@ import javax.jcr.Repository
  *
  * @author Ahmad Shahwan
  */
-interface RepositoryInitializer {
+internal interface RepositoryInitializer {
 
     /**
      * Initialize repository. This means running all initialization jobs against

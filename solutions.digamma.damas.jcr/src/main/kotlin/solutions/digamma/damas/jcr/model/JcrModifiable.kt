@@ -12,7 +12,7 @@ import java.util.Calendar
  *
  * @author Ahmad Shahwan
  */
-interface JcrModifiable : Modifiable, JcrEntity {
+internal interface JcrModifiable : Modifiable, JcrEntity {
 
     /**
      * Login with which last modification was done.

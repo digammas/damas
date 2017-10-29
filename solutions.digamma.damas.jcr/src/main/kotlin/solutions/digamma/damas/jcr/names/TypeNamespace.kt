@@ -5,7 +5,7 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-object TypeNamespace {
+internal object TypeNamespace {
 
     val FILE = Namespace.prefix("File")
 

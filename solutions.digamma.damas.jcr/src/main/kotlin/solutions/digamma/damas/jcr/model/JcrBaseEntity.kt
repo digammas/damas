@@ -14,7 +14,7 @@ import javax.print.attribute.standard.Destination
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrBaseEntity
+internal abstract class JcrBaseEntity
 @Throws(WorkspaceException::class)
 constructor(@Transient override val node: Node) : Entity, JcrEntity {
 

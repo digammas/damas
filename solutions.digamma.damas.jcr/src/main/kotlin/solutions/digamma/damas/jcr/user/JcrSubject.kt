@@ -15,7 +15,7 @@ import javax.jcr.Node
  *
  * @author Ahmad Shahwan
  */
-abstract class JcrSubject
+internal abstract class JcrSubject
 @Throws(WorkspaceException::class)
 protected constructor(node: Node) : JcrBaseEntity(node) {
 

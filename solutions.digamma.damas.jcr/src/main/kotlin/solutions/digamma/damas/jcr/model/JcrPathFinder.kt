@@ -14,7 +14,7 @@ import javax.jcr.Session
 /**
  * @author Ahmad Shahwan
  */
-interface JcrPathFinder<T : Entity> : SessionUser, PathFinder<T> {
+internal interface JcrPathFinder<T : Entity> : SessionUser, PathFinder<T> {
 
     @Throws(WorkspaceException::class)
     override fun find(token: Token, path: String): T {

@@ -11,7 +11,7 @@ import javax.jcr.Node
  *
  * @author Ahmad Shahwan
  */
-class JcrDetailedFolder
+internal class JcrDetailedFolder
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrFolder(node),
         DetailedFolder, JcrDetailedFile {

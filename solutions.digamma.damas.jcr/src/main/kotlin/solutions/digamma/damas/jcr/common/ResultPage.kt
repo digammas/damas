@@ -11,7 +11,7 @@ import solutions.digamma.damas.entity.Page
  *
  * @author Ahmad Shahwan
  */
-class ResultPage<T : Entity> (
+internal class ResultPage<T : Entity> (
         private val content: List<T>,
         private val offset: Int, private val total: Int) : Page<T> {
 

@@ -25,7 +25,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-open class JcrDocument
+internal open class JcrDocument
 @Throws(WorkspaceException::class)
 protected constructor(node: Node) : JcrFile(node), Document {
 

@@ -9,7 +9,7 @@ import solutions.digamma.damas.common.WorkspaceException
  *
  * @author Ahmad Shahwan
  */
-interface SessionUser {
+internal interface SessionUser {
 
     /**
      * Obtain a session wrapper that contains a valid session. Returned session

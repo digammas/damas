@@ -5,7 +5,7 @@ package solutions.digamma.damas.jcr.names
  *
  * @author Ahmad Shahwan
  */
-object ItemNamespace {
+internal object ItemNamespace {
 
     val RANK = Namespace.prefix("rank")
 

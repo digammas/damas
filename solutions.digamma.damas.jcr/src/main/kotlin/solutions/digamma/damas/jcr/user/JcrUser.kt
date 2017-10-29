@@ -3,7 +3,6 @@ package solutions.digamma.damas.jcr.user
 import solutions.digamma.damas.common.InvalidArgumentException
 import solutions.digamma.damas.common.MisuseException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.ItemNamespace
 import solutions.digamma.damas.jcr.names.TypeNamespace
@@ -23,7 +22,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-class JcrUser
+internal class JcrUser
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), User {
 

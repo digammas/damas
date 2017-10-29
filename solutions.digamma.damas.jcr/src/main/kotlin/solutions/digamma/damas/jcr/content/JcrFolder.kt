@@ -17,7 +17,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
-open class JcrFolder
+internal open class JcrFolder
 @Throws(WorkspaceException::class)
 protected constructor(node: Node) : JcrFile(node), Folder {
 

@@ -11,7 +11,7 @@ import java.security.SecureRandom
  *
  * @author Ahmad Shahwan
  */
-class SecureToken : Token {
+internal class SecureToken : Token {
 
     private val token: String
 

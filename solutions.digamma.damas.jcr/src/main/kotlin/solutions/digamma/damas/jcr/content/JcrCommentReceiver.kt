@@ -14,7 +14,7 @@ import java.util.Collections
  *
  * @author Ahmad Shahwan
  */
-interface JcrCommentReceiver : CommentReceiver, JcrEntity {
+internal interface JcrCommentReceiver : CommentReceiver, JcrEntity {
 
     @Throws(WorkspaceException::class)
     override fun getComments(): List<Comment> {
