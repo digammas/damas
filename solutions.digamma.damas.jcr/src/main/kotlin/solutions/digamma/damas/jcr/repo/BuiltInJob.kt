@@ -28,6 +28,6 @@ internal object BuiltInJob : RepositoryJob {
      */
     override val creations: List<RepositoryJob.Node> = listOf(
         Node(JcrFile.ROOT_PATH, TypeNamespace.FOLDER),
-        Node(JcrSubject.ROOT_PATH, TypeNamespace.SUBJECT_DIRECTORY)
+        Node(JcrSubject.ROOT_PATH, TypeNamespace.DIRECTORY)
     )
 }
