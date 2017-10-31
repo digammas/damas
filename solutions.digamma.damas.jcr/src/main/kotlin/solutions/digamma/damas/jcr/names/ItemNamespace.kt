@@ -11,15 +11,15 @@ internal object ItemNamespace {
 
     val GROUPS = Namespace.prefix("groups")
 
-    val LOGIN = Namespace.prefix("login")
-
     val PASSWORD = Namespace.prefix("password")
+
+    val SALT = Namespace.prefix("salt")
 
     val ALIAS = Namespace.prefix("alias")
 
     val EMAIL = Namespace.prefix("mail")
 
-    val FIRST_NAME = Namespace.prefix("firstName")
+    val NAME = Namespace.prefix("name")
 
-    val LAST_NAME = Namespace.prefix("lastName")
+    val SURNAME = Namespace.prefix("surname")
 }

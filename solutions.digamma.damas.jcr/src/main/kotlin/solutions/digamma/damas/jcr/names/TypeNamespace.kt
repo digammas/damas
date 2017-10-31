@@ -23,5 +23,5 @@ internal object TypeNamespace {
 
     val GROUP = Namespace.prefix("Group")
 
-    val SUBJECT_DIRECTORY = Namespace.prefix("SubjectDirectory")
+    val DIRECTORY = Namespace.prefix("Directory")
 }
