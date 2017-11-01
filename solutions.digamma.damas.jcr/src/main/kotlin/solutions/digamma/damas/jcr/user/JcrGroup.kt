@@ -17,8 +17,8 @@ private constructor(node: Node) : JcrSubject(node), Group {
 
     @Throws(WorkspaceException::class)
     override fun setName(value: String?) {
-        if (value != null) Exceptions.wrap {
-            val destination = "${this.node.path}/$value"
+        if (value != null && value != this.name) Exceptions.wrap {
+            val destination = "${this.node.parent.path}/$value"
             try {
                 this.node.session.move(this.node.path, destination)
             } catch(e: ItemExistsException) {
