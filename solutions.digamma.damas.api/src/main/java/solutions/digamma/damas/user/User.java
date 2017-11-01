@@ -16,14 +16,6 @@ public interface User extends Entity {
     String getLogin() throws WorkspaceException;
 
     /**
-     * Change user password.
-     *
-     * @param value                 new password
-     * @throws WorkspaceException
-     */
-    void setPassword(String value) throws WorkspaceException;
-
-    /**
      * User's email address.
      *
      * @return                      email address
