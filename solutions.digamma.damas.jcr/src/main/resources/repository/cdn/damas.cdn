@@ -18,7 +18,7 @@
 
 [dms:User] > dms:Subject
     - dms:password (string) mandatory
-    - dms:sald (string) mandatory
+    - dms:salt (string) mandatory
     - dms:mail (string)
     - dms:name (string)
     - dms:surname (string)

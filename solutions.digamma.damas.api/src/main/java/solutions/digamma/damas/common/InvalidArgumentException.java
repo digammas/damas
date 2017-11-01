@@ -1,6 +1,10 @@
 package solutions.digamma.damas.common;
 
 /**
+ * Exception thrown when the provided argument is invalid.
+ *
+ * Examples are insecure password, or invalid email address.
+ *
  * @author Ahmad Shahwan
  */
 public class InvalidArgumentException extends WorkspaceException {
