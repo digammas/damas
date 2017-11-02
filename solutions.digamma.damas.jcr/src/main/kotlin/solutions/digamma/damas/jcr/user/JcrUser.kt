@@ -32,6 +32,9 @@ internal class JcrUser
 private constructor(node: Node) : JcrSubject(node), User {
 
     @Throws(WorkspaceException::class)
+    override fun getId(): String = Exceptions.wrap { this.login }
+
+    @Throws(WorkspaceException::class)
     override fun getLogin(): String = Exceptions.wrap { this.node.name }
 
     @Throws(WorkspaceException::class)

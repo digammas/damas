@@ -45,7 +45,7 @@ internal class JcrUserManager : JcrCrudManager<User>(),
 
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun retrieve(session: Session, id: String) =
-            JcrUser.of(session.getNodeByIdentifier(id))
+            JcrUser.of(session.getNode("${JcrSubject.ROOT_PATH}/$id"))
 
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun delete(session: Session, id: String) =

@@ -1,7 +1,9 @@
 package solutions.digamma.damas.jcr.user
 
+import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
+import solutions.digamma.damas.jcr.names.ItemNamespace
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.user.Group
 import javax.jcr.ItemExistsException
@@ -13,17 +15,19 @@ internal class JcrGroup
 private constructor(node: Node) : JcrSubject(node), Group {
 
     @Throws(WorkspaceException::class)
-    override fun getName(): String = Exceptions.wrap { this.node.name }
+    override fun getId(): String = Exceptions.wrap { this.node.name }
+
+    @Throws(WorkspaceException::class)
+    override fun getName(): String = try {
+        this.getString(ItemNamespace.ALIAS)
+    } catch (_: NotFoundException) {
+        this.id
+    }
 
     @Throws(WorkspaceException::class)
     override fun setName(value: String?) {
-        if (value != null && value != this.name) Exceptions.wrap {
-            val destination = "${this.node.parent.path}/$value"
-            try {
-                this.node.session.move(this.node.path, destination)
-            } catch(e: ItemExistsException) {
-                throw SubjectExistsException(value, e)
-            }
+        if (value != null && value != this.name) {
+            this.setString(ItemNamespace.ALIAS, value)
         }
     }
 

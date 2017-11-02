@@ -29,7 +29,7 @@ internal class JcrGroupManager: JcrCrudManager<Group>(),
 
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun retrieve(session: Session, id: String) =
-        JcrGroup.of(session.getNodeByIdentifier(id))
+        JcrGroup.of(session.getNode("${JcrSubject.ROOT_PATH}/$id"))
 
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun delete(session: Session, id: String) =
