@@ -36,7 +36,6 @@ internal interface JcrEntity : Entity {
      * @return Property value
      * @throws WorkspaceException
      */
-    
     @Throws(WorkspaceException::class)
     fun getString(name: String): String = Exceptions.wrap {
         this.node.getProperty(name).string
