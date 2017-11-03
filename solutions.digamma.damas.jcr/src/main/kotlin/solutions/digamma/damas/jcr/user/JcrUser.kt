@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.user
 
-import solutions.digamma.damas.common.InvalidArgumentException
 import solutions.digamma.damas.common.MisuseException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
@@ -14,11 +13,12 @@ import java.util.Random
 import java.util.regex.Pattern
 import javax.jcr.ItemExistsException
 import javax.jcr.Node
-import javax.jcr.RepositoryException
 import javax.jcr.Session
 
 /**
  * JCR-node-backed user implementation.
+ *
+ * Users are identified by their login. User login cannot be modified.
  *
  * @constructor Constructor with JCR-node.
  *

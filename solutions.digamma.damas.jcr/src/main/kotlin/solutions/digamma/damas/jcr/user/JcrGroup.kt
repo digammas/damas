@@ -10,6 +10,15 @@ import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.Session
 
+/**
+ * User group with JCR backbone.
+ *
+ * Groups are identified by their names. Group names cannot ne modified.
+ *
+ * @constructor private constructor with JCR node
+ * @param node              JCR node
+ * @throws WorkspaceException
+ */
 internal class JcrGroup
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), Group {
