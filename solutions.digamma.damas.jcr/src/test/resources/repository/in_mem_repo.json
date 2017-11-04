@@ -11,7 +11,11 @@
       "roles" : ["readonly","readwrite","admin"],
       "username" : "<anonymous>",
       "useOnFailedLogin" : true
-    }
+    },
+    "providers" : [{
+        "classname" : "JAAS",
+        "policyName" : "modeshape-jcr"
+    }]
   },
   "node-types" : ["repository/cdn/damas.cdn"]
 }
