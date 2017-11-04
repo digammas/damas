@@ -28,6 +28,6 @@ class JcrJaasConfiguration: Configuration() {
 
     companion object {
 
-        const val REALM: String = "modeshape-jcr"
+        const val REALM: String = "damas"
     }
 }

@@ -14,7 +14,7 @@
     },
     "providers" : [{
         "classname" : "JAAS",
-        "policyName" : "modeshape-jcr"
+        "policyName" : "damas"
     }]
   },
   "node-types" : ["repository/cdn/damas.cdn"]
