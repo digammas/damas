@@ -8,11 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * JAAS real qualifier.
+ * JAAS realm, also called policy name, qualifier.
  *
  * JAAS {@link javax.security.auth.login.Configuration} implementations that are
- * annotated with this annotation can handle realms, also known as policy names,
- * identified by values of {@code value()} member.
+ * annotated with this qualifier can handle realms identified by values of
+ * {@code value()} member.
  *
  * @author Ahmad Shahwan
  */
@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 public @interface Realm {
 
     /**
-     * Realm name, also referred to as policy name.
+     * Realm names, also referred to as policy names.
      *
      * @return
      */
