@@ -57,29 +57,31 @@ class JcrLoginModule : LoginModule {
     private fun extractCredentials() {
         val userObj = sharedState!![USERNAME]
         val passObj = sharedState!![PASSWORD]
-        if (userObj is Principal)
-            this.login = userObj.name
-        else if (userObj != null) {
-            this.login = userObj.toString()
+        when (userObj) {
+            is Principal -> this.login = userObj.name
+            null -> {
+                val callback = NameCallback("username")
+                try {
+                    this.callbackHandler!!.handle(arrayOf(callback))
+                    this.login = callback.name
+                } catch (_: UnsupportedCallbackException) {
+                    this.login = null
+                }
+            }
+            else -> this.login = userObj.toString()
         }
-        if (passObj is CharArray)
-            this.password = passObj
-        else if (passObj != null) {
-            this.password = passObj.toString().toCharArray()
-        }
-        if (this.login != null && this.password != null) {
-            return
-        }
-        val nameCallback = NameCallback("username")
-        val passwordCallback = PasswordCallback("password", false)
-        try {
-            this.callbackHandler!!.handle(
-                    arrayOf(nameCallback, passwordCallback))
-            this.login = nameCallback.name
-            this.password = passwordCallback.password
-        } catch (e: UnsupportedCallbackException) {
-            this.login = null
-            this.password = null
+        when (passObj) {
+            is CharArray -> this.password = passObj
+            null -> {
+                val callback = PasswordCallback("password", false)
+                try {
+                    this.callbackHandler!!.handle(arrayOf(callback))
+                    this.password = callback.password
+                } catch (_: UnsupportedCallbackException) {
+                    this.password = null
+                }
+            }
+            else -> this.password = passObj.toString().toCharArray()
         }
     }
 

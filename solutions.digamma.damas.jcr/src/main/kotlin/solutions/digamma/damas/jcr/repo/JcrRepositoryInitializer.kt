@@ -34,13 +34,6 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
     private var isReady = false
     private val jobs: MutableList<RepositoryJob> = ArrayList(1)
 
-    /**
-     * This field is necessary even though not used. It is injected to insure
-     * that JAAS configuration has been properly initialized to allow JCR login.
-     */
-    @Inject
-    private lateinit var jaas: Configuration
-
     @Inject
     private lateinit var logger: Logger
 
