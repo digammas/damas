@@ -13,8 +13,6 @@ internal object ItemNamespace {
 
     val PASSWORD = Namespace.prefix("password")
 
-    val SALT = Namespace.prefix("salt")
-
     val ALIAS = Namespace.prefix("alias")
 
     val EMAIL = Namespace.prefix("mail")

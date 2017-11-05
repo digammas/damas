@@ -81,10 +81,9 @@ private constructor(node: Node) : JcrSubject(node), User {
         val salt = ByteArray(32)
         RANDOM.nextBytes(salt)
         val digest = MD.digest(salt + value.toByteArray())
+        val password = salt + digest
         this.setString(ItemNamespace.PASSWORD,
-                Base64.getEncoder().encodeToString(digest))
-        this.setString(ItemNamespace.SALT,
-                Base64.getEncoder().encodeToString(salt))
+                Base64.getEncoder().encodeToString(password))
     }
 
     /**
@@ -97,11 +96,11 @@ private constructor(node: Node) : JcrSubject(node), User {
      */
     @Throws(WorkspaceException::class)
     fun checkPassword(value: String): Boolean {
-        val salt = Base64.getDecoder().decode(
-                this.getString(ItemNamespace.SALT))
-        val digest = MD.digest(salt + value.toByteArray())
-        val stored = Base64.getDecoder().decode(
+        val password = Base64.getDecoder().decode(
                 this.getString(ItemNamespace.PASSWORD))
+        val salt = password.sliceArray(0..31)
+        val digest = MD.digest(salt + value.toByteArray())
+        val stored = password.sliceArray(32..63)
         return Arrays.equals(stored, digest)
     }
 
