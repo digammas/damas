@@ -8,15 +8,15 @@ import javax.security.auth.login.AppConfigurationEntry.LoginModuleControlFlag
 import javax.security.auth.login.Configuration
 
 /**
- * Add new entry to JAAS configuration.
+ * JAAS configuration for user authentication.
  */
 @Singleton
-@Realm(JcrJaasConfiguration.REALM)
-class JcrJaasConfiguration: Configuration() {
+@Realm(UserJaasConfiguration.REALM)
+internal class UserJaasConfiguration : Configuration() {
 
     private val entries =  Array(1, {
         AppConfigurationEntry(
-                JcrLoginModule::class.java.name,
+                UserLoginModule::class.java.name,
                 LoginModuleControlFlag.REQUISITE,
                 Collections.emptyMap<String, Any>())
     })
@@ -28,6 +28,6 @@ class JcrJaasConfiguration: Configuration() {
 
     companion object {
 
-        const val REALM: String = "damas"
+        const val REALM: String = "damas-user"
     }
 }

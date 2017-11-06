@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.repo
 
+import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.net.URI
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
@@ -11,7 +12,6 @@ import javax.jcr.Node
 import javax.jcr.Repository
 import javax.jcr.RepositoryException
 import javax.jcr.Session
-import javax.security.auth.login.Configuration
 
 /**
  * Repository initializer.
@@ -44,15 +44,15 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
      */
     override fun initialize(repository: Repository) {
         this.logger.info("Initializing JCR repository.")
-        /* Use constructor, since SystemRepository is not available for
+        /* Use constructor, since SystemSessions is not available for
          * injection at this point.
          */
-        val system = SystemRepository(repository)
+        val system = SystemSessions(repository)
         this.collectJobs()
         this.logger.info { "%d jobs collected".format(this.jobs.size) }
         var superuser: Session? = null
         try {
-            superuser = system.superuserSession
+            superuser = system.superuser
             for (job in this.jobs) {
                 for (node in job.creations) {
                     try {
