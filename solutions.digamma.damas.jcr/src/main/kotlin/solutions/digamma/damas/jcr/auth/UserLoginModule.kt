@@ -12,14 +12,14 @@ import javax.security.auth.spi.LoginModule
 /**
  * @author Ahmad Shahwan
  */
-class JcrLoginModule : LoginModule {
+open internal class UserLoginModule : LoginModule {
 
     private var subject: Subject? = null
     private var callbackHandler: CallbackHandler? = null
-    private var login: String? = null
-    private var password: CharArray? = null
+    protected var login: String? = null
+    protected var password: CharArray? = null
     private var sharedState: Map<String, *>? = null
-    private val roles: List<String>? = null
+    protected var roles: MutableList<String> = ArrayList()
 
     override fun initialize(
             subject: Subject,
