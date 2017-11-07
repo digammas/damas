@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.user
 
+import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.MisuseException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
@@ -68,6 +69,10 @@ private constructor(node: Node) : JcrSubject(node), User {
     @Throws(WorkspaceException::class)
     override fun getMemberships() =
         this.getStrings(ItemNamespace.GROUPS)
+
+    @Throws(InternalStateException::class)
+    override fun checkCompatibility() =
+            checkTypeCompatibility(TypeNamespace.USER)
 
     /**
      * Set user's password.

@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.repo
 
+import solutions.digamma.damas.jcr.auth.UserLoginModule
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.net.URI
 import java.util.concurrent.TimeUnit
@@ -108,6 +109,9 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
             }
 
         }
+        /* Set system session in user-login module. */
+        UserLoginModule.system = system
+        /* Signal readiness. */
         this.lock.lock()
         try {
             this.isReady = true

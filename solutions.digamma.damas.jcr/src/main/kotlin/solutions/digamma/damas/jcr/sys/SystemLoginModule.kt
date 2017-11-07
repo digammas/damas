@@ -13,13 +13,12 @@ internal class SystemLoginModule : UserLoginModule() {
     override fun login(): Boolean {
         if (SystemSessions.SU_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.SU_PASSWORD, this.password)) {
-            this.roles.add("readwrite")
-            this.roles.add("admin")
+            this.roles = listOf("readwrite", "admin")
             return true
         }
         if (SystemSessions.RO_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.RO_PASSWORD, this.password)) {
-            this.roles.add("readonly")
+            this.roles = listOf("readonly")
             return true
         }
         return false

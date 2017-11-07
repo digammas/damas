@@ -20,4 +20,6 @@ internal object ItemNamespace {
     val NAME = Namespace.prefix("name")
 
     val SURNAME = Namespace.prefix("surname")
+
+    val ENABLED = Namespace.prefix("enabled")
 }
