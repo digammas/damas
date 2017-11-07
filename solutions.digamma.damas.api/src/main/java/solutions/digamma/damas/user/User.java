@@ -7,11 +7,11 @@ import solutions.digamma.damas.entity.Entity;
 import java.util.List;
 
 /**
- * System user.
+ * User entity.
  *
  * @author Ahmad Shahwan
  */
-public interface User extends Entity {
+public interface User extends Subject {
 
     String getLogin() throws WorkspaceException;
 

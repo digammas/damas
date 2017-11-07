@@ -32,8 +32,8 @@ internal interface JcrEntity : Entity {
     /**
      * String property.
      *
-     * @param name Property name
-     * @return Property value
+     * @param name      property name
+     * @return          property value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
@@ -48,8 +48,8 @@ internal interface JcrEntity : Entity {
      * value. Otherwise (`value` is null), property will be removed if it
      * exists.
      *
-     * @param name Property name
-     * @param value Property new value
+     * @param name      property name
+     * @param value     property new value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
@@ -60,8 +60,8 @@ internal interface JcrEntity : Entity {
     /**
      * Llist of all string values of a property.
      *
-     * @param name                  Property name
-     * @return
+     * @param name      property name
+     * @return          property value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
@@ -75,8 +75,8 @@ internal interface JcrEntity : Entity {
     /**
      * Date property.
      *
-     * @param name Property name
-     * @return Property value
+     * @param name      property name
+     * @return          property value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
@@ -91,8 +91,8 @@ internal interface JcrEntity : Entity {
      * this value. Otherwise (`value` is null), property will be removed
      * if it exists.
      *
-     * @param name Property name
-     * @param value Property new value
+     * @param name      property name
+     * @param value     property new value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
@@ -103,8 +103,8 @@ internal interface JcrEntity : Entity {
     /**
      * Integer property.
      *
-     * @param name Property name
-     * @return Property value
+     * @param name      property name
+     * @return          property value
      * @throws WorkspaceException
      */
     
@@ -120,12 +120,46 @@ internal interface JcrEntity : Entity {
      * value. Otherwise (`value` is null), property will be removed if it
      * exists.
      *
-     * @param name Property name
-     * @param value Property new value
+     * @param name      property name
+     * @param value     property new value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
     fun setLong(name: String, value: Long?) {
+        Exceptions.wrap {
+            when (value) {
+                null -> this.node.getProperty(name).remove()
+                else -> this.node.setProperty(name, value)
+            }
+        }
+    }
+
+    /**
+     * Boolean property.
+     *
+     * @param name      property name
+     * @return          property value
+     * @throws WorkspaceException
+     */
+
+    @Throws(WorkspaceException::class)
+    fun getBoolean(name: String): Boolean = Exceptions.wrap {
+        this.node.getProperty(name).boolean
+    }
+
+    /**
+     * Set or remove boolean property.
+     *
+     * If `value` is not null property will be updated or created with this
+     * value. Otherwise (`value` is null), property will be removed if it
+     * exists.
+     *
+     * @param name      property name
+     * @param value     property new value
+     * @throws WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun setBoolean(name: String, value: Boolean?) {
         Exceptions.wrap {
             when (value) {
                 null -> this.node.getProperty(name).remove()

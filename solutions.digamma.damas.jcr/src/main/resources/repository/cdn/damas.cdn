@@ -24,6 +24,7 @@
 
 [dms:Group] > dms:Subject
     - dms:alias (string)
+    - dms:enabled (boolean)
 
 [dms:Directory] > nt:base
     + * (dms:Subject)
