@@ -11,7 +11,11 @@ import javax.security.auth.callback.CallbackHandler
 import javax.security.auth.callback.NameCallback
 import javax.security.auth.callback.PasswordCallback
 import javax.security.auth.callback.UnsupportedCallbackException
-import javax.security.auth.login.*
+import javax.security.auth.login.AccountLockedException
+import javax.security.auth.login.AccountNotFoundException
+import javax.security.auth.login.CredentialNotFoundException
+import javax.security.auth.login.FailedLoginException
+import javax.security.auth.login.LoginException
 import javax.security.auth.spi.LoginModule
 
 /**
@@ -19,12 +23,12 @@ import javax.security.auth.spi.LoginModule
  */
 open internal class UserLoginModule : LoginModule {
 
-    private var subject: Subject? = null
+    protected var subject: Subject? = null
     private var callbackHandler: CallbackHandler? = null
     protected var login: String? = null
     protected var password: CharArray? = null
     private var sharedState: Map<String, *>? = null
-    protected var roles: List<String> = ArrayList()
+    private var roles: List<String> = ArrayList()
 
     override fun initialize(
             subject: Subject,
@@ -66,7 +70,7 @@ open internal class UserLoginModule : LoginModule {
 
     @Throws(LoginException::class)
     override fun commit(): Boolean {
-        val principals = this.subject?.getPrincipals()
+        val principals = this.subject?.principals
         if (principals != null) {
             this.roles.forEach({
                 principals.add(Principal { it })
@@ -83,7 +87,7 @@ open internal class UserLoginModule : LoginModule {
 
     @Throws(LoginException::class)
     override fun logout(): Boolean {
-        this.subject?.getPrincipals()?.clear()
+        this.subject?.principals?.clear()
         return true
     }
 
