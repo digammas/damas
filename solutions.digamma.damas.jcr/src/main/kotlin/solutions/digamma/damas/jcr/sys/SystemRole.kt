@@ -5,6 +5,10 @@ import java.security.acl.Group
 import java.util.Enumeration
 import java.util.Vector
 
+/**
+ * System principals. Those are principals that can run a JCR repository as
+ * expected by modeshape.
+ */
 enum class SystemRole(private val principal: String): Group {
 
     READONLY("readonly"),

@@ -1,12 +1,16 @@
 package solutions.digamma.damas.jcr.sys
 
 import solutions.digamma.damas.jaas.PasswordBasedLoginModule
-import solutions.digamma.damas.jcr.auth.UserLoginModule
 import java.security.Principal
 import java.util.Arrays
 import javax.security.auth.login.LoginException
 
 /**
+ * System users login module.
+ *
+ * This login module is used to authenticate system users, that is readonly and
+ * superuser session.
+ *
  * @author Ahmad Shahwan
  */
 internal class SystemLoginModule : PasswordBasedLoginModule() {
