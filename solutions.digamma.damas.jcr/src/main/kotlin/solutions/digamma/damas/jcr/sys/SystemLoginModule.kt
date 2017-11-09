@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.sys
 
+import solutions.digamma.damas.jaas.PasswordBasedLoginModule
 import solutions.digamma.damas.jcr.auth.UserLoginModule
 import java.security.Principal
 import java.util.Arrays
@@ -8,7 +9,7 @@ import javax.security.auth.login.LoginException
 /**
  * @author Ahmad Shahwan
  */
-internal class SystemLoginModule : UserLoginModule() {
+internal class SystemLoginModule : PasswordBasedLoginModule() {
 
     private val roles: MutableList<Principal> = ArrayList()
 
