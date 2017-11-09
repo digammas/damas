@@ -11,18 +11,30 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
 
+/**
+ * A generic, username-and-password-based login module.
+ *
+ * This abstract class provide a default implementation to extract password-
+ * based credentials. Implementation of {@code login()} and {@code commit()}
+ * methods are left for sub-classes.
+ */
 public abstract class PasswordBasedLoginModule implements LoginModule {
     protected Subject subject;
-    private CallbackHandler callbackHandler;
     protected String login;
     protected char[] password;
-    protected Map sharedState;
+
+    private Map sharedState;
+    private CallbackHandler callbackHandler;
 
     private static final String USERNAME = "javax.security.auth.login.name";
     private static final String PASSWORD = "javax.security.auth.login.password";
 
     @Override
-    public void initialize(Subject subject, CallbackHandler callbackHandler, Map sharedState, Map options) {
+    public void initialize(
+            Subject subject,
+            CallbackHandler callbackHandler,
+            Map sharedState,
+            Map options) {
         this.subject = subject;
         this.callbackHandler = callbackHandler;
         this.sharedState = sharedState;
