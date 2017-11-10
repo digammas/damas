@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.session
 
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.Token
 
 import java.math.BigInteger
 import java.security.SecureRandom

@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.auth
+package solutions.digamma.damas.jcr.login
 
 import solutions.digamma.damas.jaas.Realm
 import java.util.Collections

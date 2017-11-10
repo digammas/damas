@@ -1,6 +1,6 @@
 package solutions.digamma.damas.entity;
 
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.common.WorkspaceException;
 

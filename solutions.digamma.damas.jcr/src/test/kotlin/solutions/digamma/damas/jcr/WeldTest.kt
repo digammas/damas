@@ -3,7 +3,7 @@ package solutions.digamma.damas.jcr
 import org.junit.After
 import org.junit.Before
 import org.junit.ClassRule
-import solutions.digamma.damas.auth.LoginManager
+import solutions.digamma.damas.login.LoginManager
 
 /**
  * @author Ahmad Shahwan

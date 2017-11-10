@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.rs.auth.Credentials;
@@ -68,7 +68,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testAuth() {
         Credentials cred = new Credentials("admin", "admin");
-        Token auth = target("auth").request().post(
+        Token auth = target("login").request().post(
                 Entity.entity(cred, this.ct),
                 Authentication.class);
         String token = auth.getSecret();

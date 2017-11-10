@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs;
 
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.Token;
 
 import java.io.Serializable;
 

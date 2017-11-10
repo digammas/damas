@@ -5,7 +5,7 @@ import org.junit.Test
 
 import org.junit.Before
 import org.mockito.Mockito
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.jcr.WeldTest
 import solutions.digamma.damas.user.Group

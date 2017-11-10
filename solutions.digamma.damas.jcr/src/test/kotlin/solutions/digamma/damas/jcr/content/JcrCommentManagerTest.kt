@@ -5,12 +5,10 @@ import org.junit.Before
 import org.junit.Test
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.auth.Token
-import solutions.digamma.damas.content.Comment
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.Folder
-import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
 

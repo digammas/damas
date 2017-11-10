@@ -1,6 +1,6 @@
 package solutions.digamma.damas.user;
 
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.SearchEngine;

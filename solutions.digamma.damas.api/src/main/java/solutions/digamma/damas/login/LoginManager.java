@@ -1,4 +1,4 @@
-package solutions.digamma.damas.auth;
+package solutions.digamma.damas.login;
 
 import solutions.digamma.damas.common.WorkspaceException;
 

@@ -4,8 +4,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.auth.Token
-import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
