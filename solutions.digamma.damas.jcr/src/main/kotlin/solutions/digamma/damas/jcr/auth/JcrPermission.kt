@@ -2,69 +2,65 @@ package solutions.digamma.damas.jcr.auth
 
 import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.auth.Privilege
-import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
+import solutions.digamma.damas.jcr.content.JcrFile
+import solutions.digamma.damas.jcr.user.JcrSubject
 import solutions.digamma.damas.user.Subject
 import java.util.Calendar
 import java.util.EnumSet
-import javax.jcr.Node
 
 /**
  * @author Ahmad Shahwan
  */
 class JcrPermission private constructor(
-        val node: Node,
-        val subject: String
+        private var file: JcrFile,
+        private var subject: JcrSubject
 ): Permission {
 
     private var privileges: EnumSet<Privilege> =
             EnumSet.noneOf(Privilege::class.java)
 
-    override fun getPrivileges() = this.privileges
-
-    override fun setPrivileges(value: EnumSet<Privilege>) {
-        this.privileges = value
+    override fun getModifiedBy(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-
-    override fun getSubject(): Subject? {
-        return null
+    override fun getPrivileges(): EnumSet<Privilege> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setSubject(value: Subject) {
-
+    override fun getId(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getObject(): File? {
-        return null
+    override fun setPrivileges(value: EnumSet<Privilege>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setObject(value: File) {
-
+    override fun getSubject(): Subject {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getCreatedBy(): String? {
-        return null
+    override fun setSubjectId(value: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getCreationDate(): Calendar? {
-        return null
+    override fun getObject(): File {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getId(): String? {
-        return null
+    override fun setObjectId(value: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getModifiedBy(): String? {
-        return null
+    override fun getCreatedBy(): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getModificationDate(): Calendar? {
-        return null
+    override fun getCreationDate(): Calendar {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getModificationDate(): Calendar {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
