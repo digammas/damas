@@ -4,8 +4,6 @@ import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.DetailedFile;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 
 /**
  * File object serialization.
@@ -28,7 +26,7 @@ abstract public class FileSerialization implements File {
     }
 
     @Override
-    public @Nullable String getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -42,22 +40,22 @@ abstract public class FileSerialization implements File {
     }
 
     @Override
-    public @Nullable String getName() throws WorkspaceException {
+    public String getName() throws WorkspaceException {
         return this.name;
     }
 
     @Override
-    public void setName(@NotNull String value) throws WorkspaceException {
+    public void setName(String value) throws WorkspaceException {
         this.name = value;
     }
 
     @Override
-    public @Nullable FolderSerialization getParent() throws WorkspaceException {
+    public FolderSerialization getParent() throws WorkspaceException {
         return null;
     }
 
     @Override
-    public void setParent(@NotNull Folder value) throws WorkspaceException {
+    public void setParent(Folder value) throws WorkspaceException {
 
     }
 
@@ -72,7 +70,7 @@ abstract public class FileSerialization implements File {
     }
 
     @Override
-    public @NotNull DetailedFile expand() throws WorkspaceException {
+    public DetailedFile expand() throws WorkspaceException {
         return null;
     }
 }

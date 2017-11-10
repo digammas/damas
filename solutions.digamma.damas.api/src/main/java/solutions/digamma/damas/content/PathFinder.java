@@ -3,7 +3,6 @@ package solutions.digamma.damas.content;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Path look-up enabler.
@@ -20,6 +19,6 @@ public interface PathFinder<T extends Entity> {
      * @return          The entity whose path is {@code path}.
      * @throws WorkspaceException    If not such path exists, or other errors.
      */
-    @NotNull T find(@NotNull Token token, @NotNull String path)
+    T find(Token token, String path)
             throws WorkspaceException;
 }

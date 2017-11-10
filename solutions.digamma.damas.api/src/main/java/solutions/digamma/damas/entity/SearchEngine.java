@@ -2,8 +2,6 @@ package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 
 /**
  * Entity search facilities manager.
@@ -18,8 +16,7 @@ public interface SearchEngine<T extends Entity> {
      * @param token
      * @return A page of all known entities.
      */
-    @NotNull
-    Page<T> find(@NotNull Token token) throws WorkspaceException;
+    Page<T> find(Token token) throws WorkspaceException;
 
     /**
      * Find entities from an offset, up to certain size.
@@ -29,8 +26,7 @@ public interface SearchEngine<T extends Entity> {
      * @param size   Maximum result size.
      * @return A page of entities.
      */
-    @NotNull
-    Page<T> find(@NotNull Token token, int offset, int size)
+    Page<T> find(Token token, int offset, int size)
             throws WorkspaceException;
 
     /**
@@ -43,8 +39,7 @@ public interface SearchEngine<T extends Entity> {
      * @param query  Search query. If null, no filtering is done.
      * @return A page of entities.
      */
-    @NotNull
     Page<T> find(
-            @NotNull Token token, int offset, int size, @Nullable Object query)
+            Token token, int offset, int size, Object query)
             throws WorkspaceException;
 }

@@ -1,7 +1,6 @@
 package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.Calendar;
 
@@ -16,7 +15,6 @@ public interface Created {
      * @return
      * @throws WorkspaceException
      */
-    @NotNull
     String getCreatedBy() throws WorkspaceException;
 
     /**
@@ -25,7 +23,6 @@ public interface Created {
      * @return
      * @throws WorkspaceException
      */
-    @NotNull
     Calendar getCreationDate() throws WorkspaceException;
 }
 

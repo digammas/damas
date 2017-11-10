@@ -3,7 +3,6 @@ package solutions.digamma.damas.content;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.NotNull;
 
 import java.io.InputStream;
 
@@ -24,10 +23,10 @@ public interface DocumentManager
      * @return
      * @throws WorkspaceException
      */
-    @NotNull Document create(
-            @NotNull Token token,
-            @NotNull Document entity,
-            @NotNull InputStream stream)
+    Document create(
+            Token token,
+            Document entity,
+            InputStream stream)
             throws WorkspaceException;
 
     /**
@@ -37,7 +36,7 @@ public interface DocumentManager
      * @param id
      * @return
      */
-    DocumentPayload download(@NotNull Token token, @NotNull String id)
+    DocumentPayload download(Token token, String id)
             throws WorkspaceException;
 
     /**
@@ -48,8 +47,8 @@ public interface DocumentManager
      * @param stream
      */
     void upload(
-            @NotNull Token token,
-            @NotNull String id,
-            @NotNull InputStream stream)
+            Token token,
+            String id,
+            InputStream stream)
             throws WorkspaceException;
 }

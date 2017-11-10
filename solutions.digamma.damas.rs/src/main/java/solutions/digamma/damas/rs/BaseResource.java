@@ -1,7 +1,6 @@
 package solutions.digamma.damas.rs;
 
 import solutions.digamma.damas.auth.Token;
-import solutions.digamma.damas.inspection.Nullable;
 
 import javax.ws.rs.HeaderParam;
 
@@ -29,7 +28,6 @@ public abstract class BaseResource {
      *
      * @return AuthResource token if any, {@code null} otherwise.
      */
-    @Nullable
     protected Token getToken() {
         if (authHeader != null) {
             authHeader = this.authHeader.trim();

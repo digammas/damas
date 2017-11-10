@@ -2,7 +2,6 @@ package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * CRUD entity manager. This is a manager that allow full CRUD (create,
@@ -21,8 +20,7 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      * @return                      Newly created entity.
      * @throws WorkspaceException
      */
-    @NotNull
-    T create(@NotNull Token token, @NotNull T entity)
+    T create(Token token, T entity)
             throws WorkspaceException;
 
     /**
@@ -35,10 +33,10 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      * @return                      Updated entity.
      * @throws WorkspaceException
      */
-    @NotNull T update(
-            @NotNull Token token,
-            @NotNull String id,
-            @NotNull T entity)
+    T update(
+            Token token,
+            String id,
+            T entity)
             throws WorkspaceException;
 
     /**
@@ -49,6 +47,6 @@ public interface CrudManager<T extends Entity> extends EntityManager<T> {
      * @param id                    ID of the entity to be deleted.
      * @throws WorkspaceException
      */
-    void delete(@NotNull Token token, @NotNull String id)
+    void delete(Token token, String id)
             throws WorkspaceException;
 }

@@ -1,7 +1,6 @@
 package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.Nullable;
 
 /**
  * Generic persistent entity.
@@ -22,6 +21,5 @@ public interface Entity {
      *
      * @return
      */
-    @Nullable
     String getId() throws WorkspaceException;
 }
