@@ -1,5 +1,6 @@
 package solutions.digamma.damas.auth;
 
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.entity.Entity;
@@ -16,15 +17,31 @@ import java.util.EnumSet;
  */
 public interface Permission extends Entity, Created, Modifiable {
 
-    EnumSet<Privilege> getPrivileges();
+    EnumSet<Privilege> getPrivileges() throws WorkspaceException;
 
-    void setPrivileges(EnumSet<Privilege> value);
+    void setPrivileges(EnumSet<Privilege> value) throws WorkspaceException;
 
-    Subject getSubject();
+    Subject getSubject() throws WorkspaceException;
 
-    void setSubject(Subject value);
+    default void setSubject(Subject value) throws WorkspaceException {
+        setSubjectId(value == null ? null : value.getId());
+    }
 
-    File getObject();
+    default String getSubjectId() throws WorkspaceException {
+        return getSubject() == null ? null : getSubject().getId();
+    }
 
-    void setObject(File value);
+    void setSubjectId(String value) throws WorkspaceException;
+
+    File getObject() throws WorkspaceException;
+
+    default void setObject(File value) throws WorkspaceException {
+        setObjectId(value == null ? null : value.getId());
+    }
+
+    default String getObjectId() throws WorkspaceException {
+        return getObject() == null ? null : getSubject().getId();
+    }
+
+    void setObjectId(String value) throws WorkspaceException;
 }
