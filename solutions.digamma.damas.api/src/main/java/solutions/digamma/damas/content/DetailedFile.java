@@ -3,8 +3,6 @@ package solutions.digamma.damas.content;
 import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Modifiable;
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 
 /**
  * @author Ahmad Shahwan
@@ -18,7 +16,7 @@ public interface DetailedFile
      * @return
      * @throws WorkspaceException
      */
-    @Nullable Metadata getMetadata() throws WorkspaceException;
+    Metadata getMetadata() throws WorkspaceException;
 
     /**
      * Update file's metadata. If value is null, delete metadata. Only present
@@ -28,7 +26,7 @@ public interface DetailedFile
      * @param metadata
      * @throws WorkspaceException
      */
-    void setMetadata(@Nullable Metadata metadata) throws WorkspaceException;
+    void setMetadata(Metadata metadata) throws WorkspaceException;
 
     /**
      * Parent path.
@@ -38,5 +36,5 @@ public interface DetailedFile
      *
      * @return
      */
-    @Nullable String getPath() throws WorkspaceException;
+    String getPath() throws WorkspaceException;
 }

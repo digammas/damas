@@ -1,7 +1,6 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Document object.
@@ -16,5 +15,5 @@ public interface Document extends File {
      * @return
      */
     @Override
-    @NotNull DetailedDocument expand() throws WorkspaceException;
+    DetailedDocument expand() throws WorkspaceException;
 }

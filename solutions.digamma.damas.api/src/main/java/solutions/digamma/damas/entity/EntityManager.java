@@ -3,7 +3,6 @@ package solutions.digamma.damas.entity;
 import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * Entity manager.
@@ -23,8 +22,7 @@ public interface EntityManager<T extends Entity> {
      * @throws NotFoundException    When no such an entity exists.
      * @throws WorkspaceException
      */
-    @NotNull
-    T retrieve(@NotNull Token token, @NotNull String id)
+    T retrieve(Token token, String id)
             throws WorkspaceException;
 
 }

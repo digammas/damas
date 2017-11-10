@@ -1,7 +1,6 @@
 package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
 
 import java.util.Calendar;
 
@@ -16,7 +15,6 @@ public interface Modifiable {
      * @return
      * @throws WorkspaceException
      */
-    @NotNull
     String getModifiedBy() throws WorkspaceException;
 
     /**
@@ -25,6 +23,5 @@ public interface Modifiable {
      * @return
      * @throws WorkspaceException
      */
-    @NotNull
     Calendar getModificationDate() throws WorkspaceException;
 }

@@ -2,8 +2,6 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 
 /**
  * File object. A generalization of a documents and folders.
@@ -22,14 +20,14 @@ public interface File extends Entity {
      *
      * @return
      */
-    @Nullable String getName() throws WorkspaceException;
+    String getName() throws WorkspaceException;
 
     /**
      * Set file's name.
      *
      * @param value
      */
-    void setName(@NotNull String value) throws WorkspaceException;
+    void setName(String value) throws WorkspaceException;
 
     /**
      * Parent folder. When the current file is the root folder, this method
@@ -37,14 +35,14 @@ public interface File extends Entity {
      *
      * @return
      */
-    @Nullable Folder getParent() throws WorkspaceException;
+    Folder getParent() throws WorkspaceException;
 
     /**
      * Set file's parent folder.
      *
      * @param value
      */
-    void setParent(@NotNull Folder value) throws WorkspaceException;
+    void setParent(Folder value) throws WorkspaceException;
 
     /**
      * Parent ID.
@@ -66,5 +64,5 @@ public interface File extends Entity {
      * @return
      * @throws WorkspaceException
      */
-    @NotNull DetailedFile expand() throws WorkspaceException;
+    DetailedFile expand() throws WorkspaceException;
 }

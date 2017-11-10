@@ -4,7 +4,6 @@ import solutions.digamma.damas.auth.Token;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.SearchEngine;
-import solutions.digamma.damas.inspection.NotNull;
 
 /**
  * User management service.
@@ -26,8 +25,8 @@ public interface UserManager extends CrudManager<User>, SearchEngine<User> {
      * @throws WorkspaceException
      */
     void updatePassword(
-            @NotNull Token token,
-            @NotNull String id,
-            @NotNull String value)
+            Token token,
+            String id,
+            String value)
             throws WorkspaceException;
 }

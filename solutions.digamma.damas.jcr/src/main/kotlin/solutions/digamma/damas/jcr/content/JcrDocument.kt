@@ -3,17 +3,13 @@ package solutions.digamma.damas.jcr.content
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
-import solutions.digamma.damas.content.DetailedDocument
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentPayload
-import solutions.digamma.damas.inspection.NotNull
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 
-import javax.jcr.Binary
 import javax.jcr.Node
 import javax.jcr.Property
-import javax.jcr.RepositoryException
 import javax.jcr.nodetype.NodeType
 import java.io.InputStream
 import javax.jcr.Session

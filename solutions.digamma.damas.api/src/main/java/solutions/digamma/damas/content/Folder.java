@@ -1,8 +1,6 @@
 package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.inspection.NotNull;
-import solutions.digamma.damas.inspection.Nullable;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public interface Folder extends File {
      * @return
      */
     @Override
-    @NotNull DetailedFolder expand() throws WorkspaceException;
+    DetailedFolder expand() throws WorkspaceException;
 
     /**
      * Expand content to the given depth.
@@ -42,7 +40,7 @@ public interface Folder extends File {
      * @return
      * @throws WorkspaceException
      */
-    @Nullable Content getContent() throws WorkspaceException;
+    Content getContent() throws WorkspaceException;
 
     /**
      * Folder's content object.
@@ -54,12 +52,12 @@ public interface Folder extends File {
          *
          * @return
          */
-        @NotNull List<@NotNull ? extends Folder> getFolders();
+        List<? extends Folder> getFolders();
 
         /**
          * Array of all documents in a documents.
          * @return
          */
-        @NotNull List<@NotNull ? extends Document> getDocuments();
+        List<? extends Document> getDocuments();
     }
 }
