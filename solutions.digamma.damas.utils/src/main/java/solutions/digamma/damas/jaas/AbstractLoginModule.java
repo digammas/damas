@@ -9,19 +9,23 @@ import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * A generic, username-and-password-based login module.
  *
  * This abstract class provide a default implementation to extract password-
- * based credentials. Implementation of {@code login()} and {@code commit()}
- * methods are left for sub-classes.
+ * based credentials. Implementation of {@code login()} method is left for sub-
+ * classes.
  */
-public abstract class PasswordBasedLoginModule implements LoginModule {
-    protected Subject subject;
+public abstract class AbstractLoginModule implements LoginModule {
     protected String login;
     protected char[] password;
+    protected List<Principal> roles;
+    private Subject subject;
+    private boolean success;
 
     private Map sharedState;
     private CallbackHandler callbackHandler;
@@ -39,7 +43,38 @@ public abstract class PasswordBasedLoginModule implements LoginModule {
         this.callbackHandler = callbackHandler;
         this.sharedState = sharedState;
         this.extractCredentials();
+        this.roles = new ArrayList<>();
     }
+
+    @Override
+    public boolean login() throws LoginException {
+        return this.success = doLogin();
+    }
+
+    @Override
+    public boolean commit() throws LoginException {
+        if (!success) {
+            return false;
+        }
+        NamedGroup group = new NamedGroup("Roles", this.roles);
+        NamedPrincipal principal = new NamedPrincipal(this.login);
+        this.subject.getPrincipals().add(principal);
+        this.subject.getPrincipals().add(group);
+        return true;
+    }
+
+    @Override
+    public boolean abort() throws LoginException {
+        return this.success;
+    }
+
+    @Override
+    public boolean logout() throws LoginException {
+        this.subject.getPrincipals().clear();
+        return true;
+    }
+
+    protected abstract boolean doLogin() throws LoginException;
 
     private void extractCredentials() {
         Object userObj = this.sharedState.get(USERNAME);
@@ -70,16 +105,5 @@ public abstract class PasswordBasedLoginModule implements LoginModule {
                 this.password = null;
             }
         }
-    }
-
-    @Override
-    public boolean abort() throws LoginException {
-        return true;
-    }
-
-    @Override
-    public boolean logout() throws LoginException {
-        this.subject.getPrincipals().clear();
-        return true;
     }
 }

@@ -1,7 +1,6 @@
 package solutions.digamma.damas.jcr.sys
 
-import solutions.digamma.damas.jaas.PasswordBasedLoginModule
-import java.security.Principal
+import solutions.digamma.damas.jaas.AbstractLoginModule
 import java.util.Arrays
 import javax.security.auth.login.LoginException
 
@@ -13,12 +12,10 @@ import javax.security.auth.login.LoginException
  *
  * @author Ahmad Shahwan
  */
-internal class SystemLoginModule : PasswordBasedLoginModule() {
-
-    private val roles: MutableList<Principal> = ArrayList()
+internal class SystemLoginModule : AbstractLoginModule() {
 
     @Throws(LoginException::class)
-    override fun login(): Boolean {
+    override fun doLogin(): Boolean {
         if (SystemSessions.SU_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.SU_PASSWORD, this.password)) {
             this.roles.add(SystemRole.READWRITE)
@@ -30,12 +27,5 @@ internal class SystemLoginModule : PasswordBasedLoginModule() {
             return true
         }
         return false
-    }
-
-    @Throws(LoginException::class)
-    override fun commit(): Boolean {
-        val principals = this.subject?.principals
-        principals?.addAll(this.roles)
-        return true
     }
 }
