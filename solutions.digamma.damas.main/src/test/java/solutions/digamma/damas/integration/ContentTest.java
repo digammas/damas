@@ -74,7 +74,7 @@ public class ContentTest {
             login.put("username", USERNAME);
             login.put("password", PASSWORD);
             Map<String, String> auth = target
-                .path("auth")
+                .path("login")
                 .request(MEDIA_TYPE)
                 .post(Entity.json(login))
                 .readEntity(HashMap.class);
@@ -99,7 +99,7 @@ public class ContentTest {
     private void disconnect() {
         if (this.token != null) {
             int status = target
-                .path("auth")
+                .path("login")
                 .request()
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .delete()
@@ -118,7 +118,7 @@ public class ContentTest {
         login.put("username", "villain");
         login.put("password", "bad");
         int status = target
-                .path("auth")
+                .path("login")
                 .request(MEDIA_TYPE)
                 .post(Entity.json(login))
                 .getStatus();

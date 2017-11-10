@@ -10,12 +10,10 @@ import org.junit.Test
 import org.mockito.Mockito
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.entity.Page
-import solutions.digamma.damas.auth.LoginManager
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.LoginManager
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
-import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.content.FolderManager
 
 import java.io.IOException

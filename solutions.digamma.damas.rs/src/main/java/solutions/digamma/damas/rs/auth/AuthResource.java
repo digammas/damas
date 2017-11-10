@@ -1,8 +1,8 @@
 package solutions.digamma.damas.rs.auth;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.auth.LoginManager;
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.LoginManager;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.BaseResource;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
  * @author Ahmad Shahwan
  * @label Authentication
  */
-@Path("auth")
+@Path("login")
 public class AuthResource extends BaseResource {
 
     @Inject

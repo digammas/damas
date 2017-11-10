@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.auth
+package solutions.digamma.damas.jcr.login
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException

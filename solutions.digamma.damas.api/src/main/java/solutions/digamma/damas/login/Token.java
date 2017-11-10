@@ -1,4 +1,4 @@
-package solutions.digamma.damas.auth;
+package solutions.digamma.damas.login;
 
 /**
  * User session token.

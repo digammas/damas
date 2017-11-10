@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.repo
 
-import solutions.digamma.damas.jcr.auth.UserLoginModule
+import solutions.digamma.damas.jcr.login.UserLoginModule
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.net.URI
 import java.util.concurrent.TimeUnit

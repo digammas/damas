@@ -1,8 +1,8 @@
-package solutions.digamma.damas.jcr.auth
+package solutions.digamma.damas.jcr.login
 
 
-import solutions.digamma.damas.auth.LoginManager
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.LoginManager
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.session.SecureToken

@@ -2,8 +2,8 @@ package solutions.digamma.damas.rs;
 
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.auth.LoginManager;
-import solutions.digamma.damas.auth.Token;
+import solutions.digamma.damas.login.LoginManager;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.content.DocumentSerialization;

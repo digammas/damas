@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model
 
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.AuthenticationException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.jcr.session.SessionBookkeeper

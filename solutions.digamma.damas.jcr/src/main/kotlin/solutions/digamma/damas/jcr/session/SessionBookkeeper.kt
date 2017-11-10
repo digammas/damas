@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.session
 
 import solutions.digamma.damas.common.CompatibilityException
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.NotFoundException
 

@@ -30,8 +30,8 @@ public abstract class AbstractLoginModule implements LoginModule {
     private Map sharedState;
     private CallbackHandler callbackHandler;
 
-    private static final String USERNAME = "javax.security.auth.login.name";
-    private static final String PASSWORD = "javax.security.auth.login.password";
+    private static final String USERNAME = "javax.security.login.login.name";
+    private static final String PASSWORD = "javax.security.login.login.password";
 
     @Override
     public void initialize(

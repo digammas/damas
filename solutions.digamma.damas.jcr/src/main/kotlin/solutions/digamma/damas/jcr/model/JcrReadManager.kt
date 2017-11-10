@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.model
 
-import solutions.digamma.damas.auth.Token
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.entity.EntityManager
