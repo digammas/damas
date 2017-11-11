@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.common.InternalStateException
-import solutions.digamma.damas.common.UnsupportedOperationException
+import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
 import solutions.digamma.damas.content.Folder
@@ -58,7 +58,7 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
     @Throws(WorkspaceException::class)
     override fun setParent(value: Folder) {
         this.parentId = value.id ?:
-                throw UnsupportedOperationException("Parent ID is null.")
+                throw UnsupportedActionException("Parent ID is null.")
     }
 
     @Throws(WorkspaceException::class)
