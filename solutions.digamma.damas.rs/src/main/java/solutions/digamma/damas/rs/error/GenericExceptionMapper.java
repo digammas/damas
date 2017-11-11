@@ -7,7 +7,7 @@ import solutions.digamma.damas.common.InvalidArgumentException;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.common.ResourceBusyException;
-import solutions.digamma.damas.common.UnsupportedOperationException;
+import solutions.digamma.damas.common.UnsupportedActionException;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
@@ -78,7 +78,7 @@ public class GenericExceptionMapper
             /* Unprocessable Entity */
             return 422;
         }
-        if (e instanceof UnsupportedOperationException) {
+        if (e instanceof UnsupportedActionException) {
             /* Not Implemented */
             return 501;
         }
