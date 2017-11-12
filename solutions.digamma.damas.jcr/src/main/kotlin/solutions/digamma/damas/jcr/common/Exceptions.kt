@@ -33,7 +33,7 @@ internal object Exceptions {
      * @param e a repository exception
      * @return workspace exception, equivalent to the passed exception
      */
-    private fun convert(e: RepositoryException) = when (e) {
+    public fun convert(e: RepositoryException) = when (e) {
         is AccessControlException -> AuthorizationException(e)
         is ItemNotFoundException -> NotFoundException(e)
         is ItemExistsException -> ConflictException(e)

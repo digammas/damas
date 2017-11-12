@@ -7,7 +7,7 @@ package solutions.digamma.damas.auth;
  *
  * @author Ahmad Shahwan
  */
-public enum Privilege {
+public enum AccessRight {
     READ,
     WRITE,
     SHARE;
