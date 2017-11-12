@@ -12,6 +12,7 @@ import java.net.URI
 import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.RepositoryException
+import javax.jcr.nodetype.NodeType
 
 /**
  * JCR-based implementation convert file abstract type.
@@ -104,5 +105,18 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
          * Content folder JCR path.
          */
         const val ROOT_PATH = "/content"
+
+        /**
+         * Retrieve file from JCR node.
+         */
+        fun of(node: Node): File {
+            if (node.isNodeType(NodeType.NT_FILE)) {
+                return JcrDocument.of(node)
+            }
+            if (node.isNodeType(NodeType.NT_FOLDER)) {
+                return JcrFolder.of(node)
+            }
+            throw InternalStateException("Node not a file type.")
+        }
     }
 }

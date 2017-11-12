@@ -3,7 +3,6 @@ package solutions.digamma.damas.auth;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.user.Subject;
 
 import java.util.EnumSet;
 
@@ -19,19 +18,11 @@ public interface Permission extends Entity {
 
     void setAccessRights(EnumSet<AccessRight> value) throws WorkspaceException;
 
-    Subject getSubject() throws WorkspaceException;
-
-    default String getSubjectId() throws WorkspaceException {
-        return getSubject() == null ? null : getSubject().getId();
-    }
-
-    void setSubjectId(String value) throws WorkspaceException;
+    String getSubjectId() throws WorkspaceException;
 
     File getObject() throws WorkspaceException;
 
     default String getObjectId() throws WorkspaceException {
-        return getObject() == null ? null : getSubject().getId();
+        return getObject() == null ? null : getObject().getId();
     }
-
-    void setObjectId(String value) throws WorkspaceException;
 }
