@@ -109,14 +109,17 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
         /**
          * Retrieve file from JCR node.
          */
+        @Throws(WorkspaceException::class)
         fun of(node: Node): File {
-            if (node.isNodeType(NodeType.NT_FILE)) {
-                return JcrDocument.of(node)
+            return Exceptions.wrap {
+                if (node.isNodeType(NodeType.NT_FILE)) {
+                    JcrDocument.of(node)
+                } else if (node.isNodeType(NodeType.NT_FOLDER)) {
+                    JcrFolder.of(node)
+                } else {
+                    throw InternalStateException("Node not a file type.")
+                }
             }
-            if (node.isNodeType(NodeType.NT_FOLDER)) {
-                return JcrFolder.of(node)
-            }
-            throw InternalStateException("Node not a file type.")
         }
     }
 }
