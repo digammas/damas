@@ -38,6 +38,7 @@ private constructor(
         return "${node.identifier}$ID_SEPARATOR$subject"
     }
 
+    @Throws(WorkspaceException::class)
     override fun setAccessRights(value: EnumSet<AccessRight>?) {
         if (value == null) return
         Exceptions.wrap {
@@ -49,8 +50,16 @@ private constructor(
         return this.subject
     }
 
+    @Throws(WorkspaceException::class)
     override fun getObject(): File {
         return JcrFile.of(this.node)
+    }
+
+    @Throws(WorkspaceException::class)
+    fun remove() {
+        Exceptions.wrap {
+            writePrivileges(this.node, this.subject, null)
+        }
     }
 
     companion object {
@@ -58,12 +67,18 @@ private constructor(
         private const val ID_SEPARATOR = ":"
 
         @Throws(WorkspaceException::class)
-        fun of(session: Session, id: String) = Exceptions.wrap {
+        fun of(session: Session, id: String): JcrPermission {
             val ids = id.split(ID_SEPARATOR)
             ids.size == 2 || throw InternalStateException("Invalid ID")
+            return of(session, ids[0], ids[1])
+        }
+
+        @Throws(WorkspaceException::class)
+        fun of(session: Session, fileId: String, subjectId: String) =
+                Exceptions.wrap {
             /* Retrieve object node, a file. */
-            val node = session.getNodeByIdentifier(ids[0])
-            JcrPermission(node, ids[2])
+            val node = session.getNodeByIdentifier(fileId)
+            JcrPermission(node, subjectId)
         }
 
         /**
@@ -133,14 +148,23 @@ private constructor(
             return accessRights
         }
 
+        /**
+         * Rewrite privileges of a subject at a given node.
+         *
+         * @param node      JCR node
+         * @param subject   subject ID
+         * @param value     set of privileges, if null, delete all privileges
+         */
         @Throws(RepositoryException::class)
         private fun writePrivileges(
-                node: Node, subject: String, value: EnumSet<AccessRight>) {
+                node: Node, subject: String, value: EnumSet<AccessRight>?) {
             val entries = getAppliedEntries(node, subject)
             if (value != readPrivileges(entries)) {
                 val policy = getApplicablePolicy(node)
                 /* Remove all old entries */
                 entries.forEach({ policy.removeAccessControlEntry(it) })
+                /* If value null, stop here */
+                if (value == null) return
                 val names: MutableList<String> = ArrayList(value.size)
                 for (right in value) {
                     when (value) {
