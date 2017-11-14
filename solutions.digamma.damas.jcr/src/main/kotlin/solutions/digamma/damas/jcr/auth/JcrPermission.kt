@@ -18,6 +18,7 @@ import javax.jcr.Session
 import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
 import javax.jcr.security.Privilege
+import kotlin.collections.ArrayList
 
 /**
  * @author Ahmad Shahwan
@@ -26,12 +27,13 @@ class JcrPermission
 @Throws(WorkspaceException::class)
 private constructor(
         private val node: Node,
-        private val subject: String
+        private val subject: String,
+        private val acl: List<AccessControlEntry>? = null
 ): Permission {
 
     @Throws(WorkspaceException::class)
     override fun getAccessRights() = Exceptions.wrap {
-        readPrivileges(getAppliedEntries(this.node, this.subject))
+        readPrivileges(this.acl ?: getAppliedEntries(this.node, this.subject))
     }
 
     override fun getId(): String {
@@ -64,7 +66,7 @@ private constructor(
 
     companion object {
 
-        private const val ID_SEPARATOR = ":"
+        internal const val ID_SEPARATOR = ":"
 
         @Throws(WorkspaceException::class)
         fun of(session: Session, id: String): JcrPermission {
@@ -82,6 +84,21 @@ private constructor(
         }
 
         /**
+         * Optimized way to retrieve all permissions applied at a given node.
+         */
+        @Throws(WorkspaceException::class)
+        fun lisOf(session: Session, fileId: String):
+                List<JcrPermission> = Exceptions.wrap {
+            /* Retrieve object node, a file. */
+            val node = session.getNodeByIdentifier(fileId)
+            getAppliedPolicy(node)?.accessControlEntries?.groupBy {
+                it.principal.name
+            }?.map {
+                JcrPermission(node, it.key, it.value)
+            } ?: emptyList()
+        }
+
+        /**
          * Retrieve access control list applied at a given path.
          * If no ACL is applied return null.
          *
@@ -89,7 +106,7 @@ private constructor(
          * @return ACL policy applied at path, if any, `null` otherwise
          */
         @Throws(RepositoryException::class)
-        private fun getAppliedPolicy(node: Node):
+        internal fun getAppliedPolicy(node: Node):
                 AccessControlList? {
             node.session.accessControlManager.getPolicies(node.path).forEach {
                 if (it is AccessControlList) return it
@@ -134,7 +151,7 @@ private constructor(
         }
 
         @Throws(RepositoryException::class)
-        private fun readPrivileges(entries: List<AccessControlEntry>):
+        internal fun readPrivileges(entries: List<AccessControlEntry>):
                 EnumSet<AccessRight> {
             val accessRights = EnumSet.noneOf(AccessRight::class.java)
             for (entry in entries) {
