@@ -9,6 +9,8 @@ import solutions.digamma.damas.login.Token
 import javax.jcr.Session
 
 /**
+ * JCR implementation of permission management service.
+ *
  * @author Ahmad Shahwan
  */
 internal class JcrPermissionManager:
@@ -30,7 +32,10 @@ internal class JcrPermissionManager:
     }
 
     @Throws(WorkspaceException::class)
-    override fun updateAt(token: Token, fileId: String, permissions: List<Permission>) {
+    override fun updateAt(
+            token: Token,
+            fileId: String,
+            permissions: List<Permission>) {
         return Exceptions.wrap(openSession(token)) {
             updateAt(it.getSession(), fileId, permissions)
         }
@@ -61,9 +66,18 @@ internal class JcrPermissionManager:
     fun retrieveAt(session: Session, fileId: String) =
         JcrPermission.lisOf(session, fileId)
 
-    fun updateAt(session: Session, fileId: String, permissions: List<Permission>) {
-        permissions.reversed().forEach {
-            update(session, "$fileId${JcrPermission.ID_SEPARATOR}${it.subjectId}", it)
+    /**
+     * Apply access right changes, in reverse order.
+     * IDs of patterns are ignored, as well as their object IDs. The file ID
+     * passed as a parameter is used instead as object ID.
+     */
+    fun updateAt(
+            session: Session,
+            fileId: String,
+            permissions: List<Permission>) {
+        for (pattern in permissions.reversed()) {
+            JcrPermission.of(session, fileId, pattern.subjectId).accessRights =
+                    pattern.accessRights
         }
     }
 }
