@@ -21,6 +21,8 @@ import javax.jcr.security.Privilege
 import kotlin.collections.ArrayList
 
 /**
+ * JCR implementation of a permission entry.
+ *
  * @author Ahmad Shahwan
  */
 class JcrPermission

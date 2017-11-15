@@ -48,10 +48,12 @@ public interface PermissionManager extends CrudManager<Permission> {
      * If the set of access rights passed throw the parameter {@code entity} is
      * {@code null}, the method does nothing.
      *
-     * @param token
-     * @param id                    ID of entity to be updated.
-     * @param entity
-     * @return
+     * Object and subject IDs of the pattern are ignored.
+     *
+     * @param token access token
+     * @param id ID of entity to be updated
+     * @param entity update patterns, only its access rights are considered
+     * @return newly updated permission
      * @throws WorkspaceException
      */
     Permission update(Token token, String id, Permission entity)
