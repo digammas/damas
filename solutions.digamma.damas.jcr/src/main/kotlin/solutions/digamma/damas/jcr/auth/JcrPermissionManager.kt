@@ -5,7 +5,9 @@ import solutions.digamma.damas.auth.PermissionManager
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrCrudManager
+import solutions.digamma.damas.logging.Logged
 import solutions.digamma.damas.login.Token
+import javax.inject.Singleton
 import javax.jcr.Session
 
 /**
@@ -13,9 +15,11 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
+@Singleton
 internal class JcrPermissionManager:
         JcrCrudManager<Permission>(), PermissionManager {
 
+    @Logged
     @Throws(WorkspaceException::class)
     override fun retrieve(token: Token, fileId: String, subjectId: String):
             Permission {
@@ -24,6 +28,7 @@ internal class JcrPermissionManager:
         }
     }
 
+    @Logged
     @Throws(WorkspaceException::class)
     override fun retrieveAt(token: Token, fileId: String): List<Permission> {
         return Exceptions.wrap(openSession(token)) {
@@ -31,6 +36,7 @@ internal class JcrPermissionManager:
         }
     }
 
+    @Logged
     @Throws(WorkspaceException::class)
     override fun updateAt(
             token: Token,
