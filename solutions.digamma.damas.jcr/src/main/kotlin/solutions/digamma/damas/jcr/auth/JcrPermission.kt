@@ -127,9 +127,9 @@ private constructor(
         @Throws(RepositoryException::class, UnsupportedActionException::class)
         private fun getApplicablePolicy(node: Node):
                 AccessControlList {
-            var policy = getAppliedPolicy(node)
-            if (policy != null) {
-                return policy
+            val acl = getAppliedPolicy(node)
+            if (acl != null) {
+                return acl
             } else {
                 val itr = node.session.accessControlManager
                         .getApplicablePolicies(node.path)
