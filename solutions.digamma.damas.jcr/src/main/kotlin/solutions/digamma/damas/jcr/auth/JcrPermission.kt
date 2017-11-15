@@ -25,7 +25,7 @@ import kotlin.collections.ArrayList
  *
  * @author Ahmad Shahwan
  */
-class JcrPermission
+internal class JcrPermission
 @Throws(WorkspaceException::class)
 private constructor(
         private val node: Node,
