@@ -1,10 +1,8 @@
 package solutions.digamma.damas.auth;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.login.Token;
 
-import java.util.EnumSet;
 import java.util.List;
 
 /**
