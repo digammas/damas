@@ -93,7 +93,7 @@ private constructor(
          * @return ACL policy applied at path, if any, `null` otherwise
          */
         @Throws(RepositoryException::class)
-        internal fun getAppliedPolicy(node: Node):
+        private fun getAppliedPolicy(node: Node):
                 AccessControlList? {
             node.session.accessControlManager.getPolicies(node.path).forEach {
                 if (it is AccessControlList) return it
@@ -138,7 +138,7 @@ private constructor(
         }
 
         @Throws(RepositoryException::class)
-        internal fun readPrivileges(entries: List<AccessControlEntry>):
+        private fun readPrivileges(entries: List<AccessControlEntry>):
                 EnumSet<AccessRight> {
             val accessRights = EnumSet.noneOf(AccessRight::class.java)
             for (entry in entries) {
