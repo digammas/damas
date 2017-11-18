@@ -4,7 +4,6 @@ import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.auth.AccessRight.READ
 import solutions.digamma.damas.auth.AccessRight.WRITE
 import solutions.digamma.damas.auth.Permission
-import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
@@ -18,7 +17,6 @@ import javax.jcr.Session
 import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
 import javax.jcr.security.Privilege
-import kotlin.collections.ArrayList
 
 /**
  * JCR implementation of a permission entry.
@@ -36,10 +34,6 @@ private constructor(
     @Throws(WorkspaceException::class)
     override fun getAccessRights() = Exceptions.wrap {
         readPrivileges(this.acl ?: getAppliedEntries(this.node, this.subject))
-    }
-
-    override fun getId(): String {
-        return "${node.identifier}$ID_SEPARATOR$subject"
     }
 
     @Throws(WorkspaceException::class)
@@ -67,15 +61,6 @@ private constructor(
     }
 
     companion object {
-
-        internal const val ID_SEPARATOR = ":"
-
-        @Throws(WorkspaceException::class)
-        fun of(session: Session, id: String): JcrPermission {
-            val ids = id.split(ID_SEPARATOR)
-            ids.size == 2 || throw InternalStateException("Invalid ID")
-            return of(session, ids[0], ids[1])
-        }
 
         @Throws(WorkspaceException::class)
         fun of(session: Session, fileId: String, subjectId: String) =

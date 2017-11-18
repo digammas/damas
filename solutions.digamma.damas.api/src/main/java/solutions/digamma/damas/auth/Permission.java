@@ -12,7 +12,7 @@ import java.util.EnumSet;
  *
  * @author Ahmad Shahwan
  */
-public interface Permission extends Entity {
+public interface Permission {
 
     EnumSet<AccessRight> getAccessRights() throws WorkspaceException;
 
