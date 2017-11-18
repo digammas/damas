@@ -4,6 +4,7 @@ import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.login.Token;
 
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -12,51 +13,52 @@ import java.util.List;
  *
  * @author Ahmad Shahwan
  */
-public interface PermissionManager extends CrudManager<Permission> {
+public interface PermissionManager {
 
     /**
      * Retrieve a permission applied at a given file, for a given subject. If no
      * such permission exists, this method returns {@code null}.
      *
      * @param token         access token
-     * @param fileId        file id
+     * @param objectId        file id
      * @param subjectId     subject id
      * @return              permission applied at file for subject, or {@code
      *                      null} if no such permission
      * @throws WorkspaceException
      */
-    Permission retrieve(Token token, String fileId, String subjectId)
+    Permission retrieve(Token token, String objectId, String subjectId)
             throws WorkspaceException;
 
     /**
      * Retrieve all permissions applied to a given file.
      *
      * @param token         access token
-     * @param fileId        file id
+     * @param objectId        file id
      * @return              a list of all permissions at that file
      * @throws WorkspaceException
      */
-    List<Permission> retrieveAt(Token token, String fileId)
+    List<Permission> retrieve(Token token, String objectId)
             throws WorkspaceException;
 
     /**
-     * Update access rights of a given permission.
+     * Update permission at a given file for a given subject.
      * Beside updating access rights, this method has the side effect of giving
      * the updated permission the highest priority at the file on which it
      * applies. To reorganise priorities, use method {@code updateAll()}.
      *
+     * File ID and Subject ID of the passed pattern identify the permission to
+     * be updated. Permission is updated with access right set. If permission
+     * does not exist, it will be created.
+     *
      * If the set of access rights passed throw the parameter {@code entity} is
      * {@code null}, the method does nothing.
      *
-     * Object and subject IDs of the pattern are ignored.
-     *
-     * @param token access token
-     * @param id ID of entity to be updated
-     * @param entity update patterns, only its access rights are considered
-     * @return newly updated permission
+     * @param token         access token
+     * @param pattern       modification patern
+     * @return              newly updated, may be created, permission
      * @throws WorkspaceException
      */
-    Permission update(Token token, String id, Permission entity)
+    Permission update(Token token, Permission pattern)
             throws WorkspaceException;
 
     /**
@@ -73,6 +75,17 @@ public interface PermissionManager extends CrudManager<Permission> {
      * @param permissions
      * @throws WorkspaceException
      */
-    void updateAt(Token token, String fileId, List<Permission> permissions)
+    void update(Token token, String fileId, List<Permission> permissions)
+            throws WorkspaceException;
+
+    /**
+     * Remove permission object at a given file, for a given subject.
+     *
+     * @param token         access token
+     * @param objectId      file ID
+     * @param subjectId     subject ID
+     * @throws WorkspaceException
+     */
+    void delete(Token token, String objectId, String subjectId)
             throws WorkspaceException;
 }
