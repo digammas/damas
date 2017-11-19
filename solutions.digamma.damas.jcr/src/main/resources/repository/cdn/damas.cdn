@@ -17,7 +17,7 @@
     - dms:groups (reference) * < 'dms:Group'
 
 [dms:User] > dms:Subject
-    - dms:password (string) mandatory
+    - dms:password (string)
     - dms:mail (string)
     - dms:name (string)
     - dms:surname (string)

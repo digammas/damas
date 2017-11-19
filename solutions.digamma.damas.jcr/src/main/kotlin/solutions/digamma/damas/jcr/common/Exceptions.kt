@@ -6,6 +6,7 @@ import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
+import solutions.digamma.damas.jcr.session.SessionWrapper
 
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
@@ -58,19 +59,27 @@ internal object Exceptions {
     } catch (e: RepositoryException) { throw convert(e) }
 
     /**
-     * Wraps a callable and convert thrown exception, using a resource.
+     * Wraps a session wrapper and convert thrown exception, using a resource.
      *
      * If the callable throws a [RepositoryException] exception it is converted
      * into their [WorkspaceException] counterparts.
      *
-     * An auto-closable resource is used, and assured to be properly closed.
+     * An auto-closable session wrapper is used, and assured to be properly
+     * closed.
      *
-     * @param res a closable resource
+     * @param res a session wrapper
      * @param op a callable that potentially throws a [RepositoryException]
      * @return returned object by the callable, if any
      */
     @Throws(WorkspaceException::class)
-    fun <C: AutoCloseable, T> wrap(res: C, op: (res: C) -> T) = try {
-        res.use { op(it) }
-    } catch (e: RepositoryException) { throw convert(e) }
+    fun <T> wrap(res: SessionWrapper, op: (res: SessionWrapper) -> T): T {
+        return res.use {
+            try {
+                op(it).also { res.commit() }
+            } catch (e: Exception) {
+                res.rollback()
+                throw if (e is RepositoryException) convert(e) else e
+            }
+        }
+    }
 }

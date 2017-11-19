@@ -3,6 +3,7 @@ package solutions.digamma.damas.jcr.session
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.ResourceBusyException
+import solutions.digamma.damas.jcr.common.Exceptions
 
 import javax.jcr.Session
 import java.util.concurrent.TimeUnit
@@ -44,17 +45,6 @@ internal class SessionWrapper (private val session: Session) : AutoCloseable {
 
     }
 
-    @Throws(WorkspaceException::class)
-    private fun checkUsability() {
-        if (!this.lock.isLocked) {
-            throw InternalStateException("Session not open yet.")
-        }
-        if (!this.lock.tryLock()) {
-            throw ResourceBusyException(
-                    "Session open and in use by another thread.")
-        }
-    }
-
     /**
      * Use the underling JCR session.
      *
@@ -72,13 +62,36 @@ internal class SessionWrapper (private val session: Session) : AutoCloseable {
         return this.session
     }
 
+    @Throws(WorkspaceException::class)
+    fun commit() {
+        this.checkUsability()
+        Exceptions.wrap { this.session.save() }
+    }
+
+    @Throws(WorkspaceException::class)
+    fun rollback() {
+        this.checkUsability()
+        Exceptions.wrap { this.session.refresh(false) }
+    }
+
     @Synchronized override fun close() {
         while (this.lock.isLocked) this.lock.unlock()
     }
 
+    @Throws(WorkspaceException::class)
+    private fun checkUsability() {
+        if (!this.lock.isLocked) {
+            throw InternalStateException("Session not open yet.")
+        }
+        if (!this.lock.tryLock()) {
+            throw ResourceBusyException(
+                    "Session open and in use by another thread.")
+        }
+    }
+
     companion object {
 
-        private val TIMEOUT: Long = 60
+        private const val TIMEOUT: Long = 60
     }
 
 }

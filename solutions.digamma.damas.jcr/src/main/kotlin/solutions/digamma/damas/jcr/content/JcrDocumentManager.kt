@@ -26,9 +26,7 @@ internal class JcrDocumentManager :
     @Throws(WorkspaceException::class)
     override fun create(token: Token, entity: Document, stream: InputStream) =
             Exceptions.wrap(this.openSession(token)) {
-        val document = this.create(it.getSession(), entity)
-        document.updateContent(stream)
-        document
+        this.create(it.getSession(), entity).also { it.updateContent(stream) }
     }
 
     @Logged

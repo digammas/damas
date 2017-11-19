@@ -35,6 +35,7 @@ class JcrUserManagerTest: WeldTest() {
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
+        this.manager.delete(this.token, entity.id)
     }
 
     @Test
@@ -51,6 +52,7 @@ class JcrUserManagerTest: WeldTest() {
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
+        this.manager.delete(this.token, id)
     }
 
     @Test
@@ -64,6 +66,7 @@ class JcrUserManagerTest: WeldTest() {
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
+        this.manager.delete(this.token, id)
     }
 
     @Test
@@ -97,5 +100,6 @@ class JcrUserManagerTest: WeldTest() {
         } catch (_: InvalidArgumentException) {
             assert(true)
         }
+        this.manager.delete(this.token, id)
     }
 }

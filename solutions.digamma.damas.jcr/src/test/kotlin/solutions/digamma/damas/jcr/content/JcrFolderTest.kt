@@ -39,6 +39,8 @@ class JcrFolderTest : WeldTest() {
     @After
     @Throws(Exception::class)
     fun tearDown() {
+        val manager = WeldTest.inject(JcrFolderManager::class.java)
+        manager.delete(this.token!!, this.folder!!.id)
         this.login!!.logout(this.token)
     }
 

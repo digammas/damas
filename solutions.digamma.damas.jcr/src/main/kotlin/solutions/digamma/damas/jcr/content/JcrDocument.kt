@@ -80,7 +80,9 @@ protected constructor(node: Node) : JcrFile(node), Document {
             }
             val node = parent.addNode(name, TypeNamespace.DOCUMENT)
             node.addMixin(TypeNamespace.FILE)
-            node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE)
+            node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE).apply {
+                setProperty(Property.JCR_DATA, "")
+            }
             JcrDocument.of(node)
         }
     }

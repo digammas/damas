@@ -5,13 +5,13 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.user.User
 
 /**
  * @author Ahmad Shahwan
  */
 object Mocks {
 
-    @Throws(WorkspaceException::class)
     fun document(parentId: String?, name: String?): Document {
         val document = Mockito.mock(Document::class.java)
         Mockito.`when`(document.parentId).thenReturn(parentId)
@@ -19,7 +19,6 @@ object Mocks {
         return document
     }
 
-    @Throws(WorkspaceException::class)
     fun folder(parentId: String?, name: String?): Folder {
         val folder = Mockito.mock(Folder::class.java)
         Mockito.`when`(folder.parentId).thenReturn(parentId)
@@ -27,12 +26,17 @@ object Mocks {
         return folder
     }
 
-    @Throws(WorkspaceException::class)
     fun comment(receiverId: String?, text: String?, rank: Long?): Comment {
         val comment = Mockito.mock(Comment::class.java)
         Mockito.`when`(comment.receiverId).thenReturn(receiverId)
         Mockito.`when`(comment.text).thenReturn(text)
         Mockito.`when`(comment.rank).thenReturn(rank)
         return comment
+    }
+
+    fun user(login: String): User {
+        return Mockito.mock(User::class.java).also {
+            Mockito.`when`(it.login).thenReturn(login)
+        }
     }
 }
