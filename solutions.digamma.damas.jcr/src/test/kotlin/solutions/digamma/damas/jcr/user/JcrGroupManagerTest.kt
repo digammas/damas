@@ -32,6 +32,7 @@ class JcrGroupManagerTest: WeldTest() {
         Mockito.`when`(group.name).thenReturn("testers")
         val entity = this.manager.create(this.token, group)
         assert(group.name == entity.name)
+        this.manager.delete(this.token, entity.id)
     }
 
     @Test
@@ -43,6 +44,7 @@ class JcrGroupManagerTest: WeldTest() {
         this.manager.update(this.token, id, group)
         val entity = this.manager.retrieve(this.token, id)
         assert(group.name == entity.name)
+        this.manager.delete(this.token, id)
     }
 
     @Test
@@ -52,6 +54,7 @@ class JcrGroupManagerTest: WeldTest() {
         val id = this.manager.create(this.token, group).id
         val entity = this.manager.retrieve(this.token, id)
         assert(group.name == entity.name)
+        this.manager.delete(this.token, id)
     }
 
     @Test

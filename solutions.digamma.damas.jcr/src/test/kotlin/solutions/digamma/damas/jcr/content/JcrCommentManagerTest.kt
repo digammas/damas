@@ -29,7 +29,7 @@ class JcrCommentManagerTest : WeldTest() {
     fun setUp() {
         val fm = WeldTest.inject(JcrFolderManager::class.java)
         val dm = WeldTest.inject(DocumentManager::class.java)
-        this.token = this.login!!.login("admin", "admin")
+        this.token = this.login.login("admin", "admin")
         var parentId = fm
                 .find(this.token!!).objects.iterator().next().id
         this.folder = fm.create(this.token!!, Mocks.folder(parentId, "test"))
@@ -41,7 +41,11 @@ class JcrCommentManagerTest : WeldTest() {
     @After
     @Throws(Exception::class)
     fun tearDown() {
-        this.login!!.logout(this.token)
+        val fm = WeldTest.inject(JcrFolderManager::class.java)
+        val dm = WeldTest.inject(DocumentManager::class.java)
+        dm.delete(this.token!!, this.document!!.id)
+        fm.delete(this.token!!, this.folder!!.id)
+        this.login.logout(this.token)
     }
 
     @Test
@@ -54,7 +58,8 @@ class JcrCommentManagerTest : WeldTest() {
         ).id
         val comment = manager.retrieve(this.token!!, id)
         assert(text == comment.text)
-        assert(comment.rank === 1L)
+        assert(comment.rank == 1L)
+        manager.delete(this.token!!, id)
     }
 
     @Test
@@ -65,15 +70,17 @@ class JcrCommentManagerTest : WeldTest() {
                 this.token!!,
                 Mocks.comment(this.document!!.id, text, 1L))
         assert(text == comment.text)
-        assert(comment.rank === 1L)
+        assert(comment.rank == 1L)
+        manager.delete(this.token!!, comment.id)
     }
 
     @Test(expected = CompatibilityException::class)
     @Throws(Exception::class)
     fun createWithError() {
-        manager.create(
+        val id = manager.create(
                 this.token!!,
-                Mocks.comment(this.folder!!.id, "Hello Comment", 1L))
+                Mocks.comment(this.folder!!.id, "Hello Comment", 1L)).id
+        manager.delete(this.token!!, id)
     }
 
     @Test
@@ -91,7 +98,8 @@ class JcrCommentManagerTest : WeldTest() {
                 Mocks.comment(this.document!!.id, text, 0L))
         val comment = manager.retrieve(this.token!!, id)
         assert(text == comment.text)
-        assert(comment.rank === 0L)
+        assert(comment.rank == 0L)
+        manager.delete(this.token!!, id)
     }
 
     @Test
@@ -106,9 +114,7 @@ class JcrCommentManagerTest : WeldTest() {
         try {
             manager.retrieve(this.token!!, id)
             assert(false)
-        } catch (e: NotFoundException) {
-        }
-
+        } catch (e: NotFoundException) { }
     }
 
     @Test

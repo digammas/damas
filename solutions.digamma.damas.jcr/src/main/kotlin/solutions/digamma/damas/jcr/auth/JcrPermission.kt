@@ -41,6 +41,7 @@ private constructor(
         if (value == null) return
         Exceptions.wrap {
             writePrivileges(this.node, this.subject, value)
+            this.node.session.save()
         }
     }
 
@@ -167,11 +168,11 @@ private constructor(
                 val policy = getApplicablePolicy(node)
                 /* Remove all old entries */
                 entries.forEach({ policy.removeAccessControlEntry(it) })
-                /* If value null, stop here */
-                if (value == null) return
+                /* If value null or empty, stop here */
+                if (value == null || value.isEmpty()) return
                 val names: MutableList<String> = ArrayList(value.size)
                 for (right in value) {
-                    when (value) {
+                    when (right) {
                         READ -> names.add(Privilege.JCR_READ)
                         WRITE -> names.add(Privilege.JCR_WRITE)
                     }

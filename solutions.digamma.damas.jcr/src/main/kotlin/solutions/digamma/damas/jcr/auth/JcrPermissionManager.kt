@@ -70,8 +70,8 @@ internal class JcrPermissionManager: JcrManager(), PermissionManager {
 
     fun update(session: Session, pattern: Permission): Permission {
         return JcrPermission
-                .of(session, pattern.objectId, pattern.subjectId).also {
-            it.accessRights = pattern.accessRights
+                .of(session, pattern.objectId, pattern.subjectId).apply {
+            accessRights = pattern.accessRights
         }
     }
 
