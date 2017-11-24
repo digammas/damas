@@ -2,7 +2,6 @@ package solutions.digamma.damas.jcr.auth
 
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.content.DocumentManager
@@ -11,7 +10,7 @@ import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
 import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.UserManager
-import java.util.EnumSet
+import java.util.*
 
 class JcrPermissionManagerTest   : WeldTest() {
 
@@ -54,17 +53,17 @@ class JcrPermissionManagerTest   : WeldTest() {
     }
 
 
-    @Test @Ignore
+    @Test
     fun retrieve() {
         val permission = this.manager.retrieve(this.token, folderId, username)
         assert(permission.accessRights.isEmpty())
     }
 
-    @Test @Ignore
+    @Test
     fun update() {
-        var permission = this.manager.retrieve(this.token, folderId, username)
-        permission.accessRights = EnumSet.of(AccessRight.READ)
-        permission = this.manager.update(this.token, permission)
+        val pattern = Mocks.permission(
+                folderId, username, EnumSet.of(AccessRight.READ))
+        val permission = this.manager.update(this.token, pattern)
         assert(permission.accessRights == EnumSet.of(AccessRight.READ))
     }
 
