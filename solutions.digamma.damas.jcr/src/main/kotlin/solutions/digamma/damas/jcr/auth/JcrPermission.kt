@@ -17,6 +17,7 @@ import javax.jcr.Session
 import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
 import javax.jcr.security.Privilege
+import kotlin.collections.ArrayList
 
 /**
  * JCR implementation of a permission entry.
@@ -57,7 +58,8 @@ private constructor(
     @Throws(WorkspaceException::class)
     fun remove() {
         Exceptions.wrap {
-            writePrivileges(this.node, this.subject, null)
+            writePrivileges(this.node, this.subject, EnumSet.noneOf(AccessRight::class.java))
+            this.node.session.save()
         }
     }
 
@@ -162,27 +164,28 @@ private constructor(
          */
         @Throws(RepositoryException::class)
         private fun writePrivileges(
-                node: Node, subject: String, value: EnumSet<AccessRight>?) {
+                node: Node, subject: String, value: EnumSet<AccessRight>) {
             val entries = getAppliedEntries(node, subject)
-            if (value != readPrivileges(entries)) {
-                val policy = getApplicablePolicy(node)
-                /* Remove all old entries */
-                entries.forEach({ policy.removeAccessControlEntry(it) })
-                /* If value null or empty, stop here */
-                if (value == null || value.isEmpty()) return
-                val names: MutableList<String> = ArrayList(value.size)
-                for (right in value) {
-                    when (right) {
-                        READ -> names.add(Privilege.JCR_READ)
-                        WRITE -> names.add(Privilege.JCR_WRITE)
-                    }
+            if (value == readPrivileges(entries)) return
+            val policy = getApplicablePolicy(node)
+            /* Remove all old entries */
+            node.session.accessControlManager.removePolicy(node.path, policy)
+            /* If value null or empty, stop here */
+            if (value.isEmpty()) return
+            val names: MutableList<String> = ArrayList(value.size)
+            for (right in value) {
+                when (right) {
+                    READ -> names.add(Privilege.JCR_READ)
+                    WRITE -> names.add(Privilege.JCR_WRITE)
+                    else -> {}
                 }
-                val privileges = names.map {
-                    node.session.accessControlManager.privilegeFromName(it)
-                }.toTypedArray()
-                val principal = NamedPrincipal(subject)
-                policy.addAccessControlEntry(principal, privileges)
             }
+            val privileges = names.map {
+                node.session.accessControlManager.privilegeFromName(it)
+            }.toTypedArray()
+            val principal = NamedPrincipal(subject)
+            policy.addAccessControlEntry(principal, privileges)
+            node.session.accessControlManager.setPolicy(node.path, policy)
         }
     }
 }
