@@ -10,14 +10,15 @@ import solutions.digamma.damas.content.File
 import solutions.digamma.damas.jaas.NamedPrincipal
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.content.JcrFile
+import solutions.digamma.damas.jcr.sys.SystemRole
 import java.util.EnumSet
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
+import javax.jcr.security.AccessControlManager
 import javax.jcr.security.Privilege
-import kotlin.collections.ArrayList
 
 /**
  * JCR implementation of a permission entry.
@@ -34,7 +35,10 @@ private constructor(
 
     @Throws(WorkspaceException::class)
     override fun getAccessRights() = Exceptions.wrap {
-        readPrivileges(this.acl ?: getAppliedEntries(this.node, this.subject))
+        readPrivileges(
+                this.node.session.accessControlManager,
+                this.acl ?: getAppliedEntries(this.node, this.subject)
+        )
     }
 
     @Throws(WorkspaceException::class)
@@ -42,7 +46,6 @@ private constructor(
         if (value == null) return
         Exceptions.wrap {
             writePrivileges(this.node, this.subject, value)
-            this.node.session.save()
         }
     }
 
@@ -58,7 +61,7 @@ private constructor(
     @Throws(WorkspaceException::class)
     fun remove() {
         Exceptions.wrap {
-            writePrivileges(this.node, this.subject, EnumSet.noneOf(AccessRight::class.java))
+            writePrivileges(this.node, this.subject, AccessRight.none())
             this.node.session.save()
         }
     }
@@ -141,14 +144,17 @@ private constructor(
         }
 
         @Throws(RepositoryException::class)
-        private fun readPrivileges(entries: List<AccessControlEntry>):
-                EnumSet<AccessRight> {
-            val accessRights = EnumSet.noneOf(AccessRight::class.java)
+        private fun readPrivileges(
+                acm: AccessControlManager,
+                entries: List<AccessControlEntry>): EnumSet<AccessRight> {
+            val accessRights = AccessRight.none()
+            val jcrRead = acm.privilegeFromName(Privilege.JCR_READ)
+            val jcrWrite = acm.privilegeFromName(Privilege.JCR_WRITE)
             for (entry in entries) {
-                if (entry.privileges.any { it.name == Privilege.JCR_READ }) {
+                if (entry.privileges.any { it == jcrRead }) {
                     accessRights.add(READ)
                 }
-                if (entry.privileges.any { it.name == Privilege.JCR_WRITE }) {
+                if (entry.privileges.any { it == jcrWrite }) {
                     accessRights.add(WRITE)
                 }
             }
@@ -165,13 +171,18 @@ private constructor(
         @Throws(RepositoryException::class)
         private fun writePrivileges(
                 node: Node, subject: String, value: EnumSet<AccessRight>) {
-            val entries = getAppliedEntries(node, subject)
-            if (value == readPrivileges(entries)) return
             val policy = getApplicablePolicy(node)
-            /* Remove all old entries */
-            node.session.accessControlManager.removePolicy(node.path, policy)
+            val acm = node.session.accessControlManager
+            /* Remove all old entries of this subject */
+            policy.accessControlEntries.filter {
+                it.principal.name == subject
+            }.forEach {
+                policy.removeAccessControlEntry(it)
+            }
             /* If value null or empty, stop here */
             if (value.isEmpty()) return
+            /* Add default flavours */
+            preparePolicy(acm, policy)
             val names: MutableList<String> = ArrayList(value.size)
             for (right in value) {
                 when (right) {
@@ -181,11 +192,34 @@ private constructor(
                 }
             }
             val privileges = names.map {
-                node.session.accessControlManager.privilegeFromName(it)
+                acm.privilegeFromName(it)
             }.toTypedArray()
             val principal = NamedPrincipal(subject)
             policy.addAccessControlEntry(principal, privileges)
-            node.session.accessControlManager.setPolicy(node.path, policy)
+            acm.setPolicy(node.path, policy)
+        }
+
+        /**
+         * Add default access right to a policy.
+         * Those are admin rights (full access) superuser rights (read/write
+         * access and readonly user rights.
+         *
+         * @param acm access control manager
+         * @param policy policy to prepare
+         */
+        private fun preparePolicy(
+                acm: AccessControlManager,
+                policy: AccessControlList) {
+            policy.addAccessControlEntry(SystemRole.ADMIN, arrayOf(
+                    acm.privilegeFromName(Privilege.JCR_ALL)
+            ))
+            policy.addAccessControlEntry(SystemRole.READWRITE,   arrayOf(
+                    acm.privilegeFromName(Privilege.JCR_READ),
+                    acm.privilegeFromName(Privilege.JCR_WRITE)
+            ))
+            policy.addAccessControlEntry(SystemRole.READONLY, arrayOf(
+                    acm.privilegeFromName(Privilege.JCR_READ)
+            ))
         }
     }
 }
