@@ -46,8 +46,7 @@ private constructor(
     override fun setAccessRights(value: EnumSet<AccessRight>?) {
         if (value == null) return
         if (isProtected()) {
-            val msg = "Permission for $subjectId at ${node.path} is protected."
-            throw UnsupportedActionException(msg)
+            throw PermissionProtectedException(subjectId, node.path)
         }
         Exceptions.wrap {
             writePrivileges(this.node, this.subject, value)
