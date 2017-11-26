@@ -11,6 +11,7 @@ import solutions.digamma.damas.jaas.NamedPrincipal
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.content.JcrFile
 import solutions.digamma.damas.jcr.sys.SystemRole
+import java.util.Arrays
 import java.util.EnumSet
 import javax.jcr.Node
 import javax.jcr.RepositoryException
@@ -44,19 +45,19 @@ private constructor(
     @Throws(WorkspaceException::class)
     override fun setAccessRights(value: EnumSet<AccessRight>?) {
         if (value == null) return
+        if (isProtected()) {
+            val msg = "Permission for $subjectId at ${node.path} is protected."
+            throw UnsupportedActionException(msg)
+        }
         Exceptions.wrap {
             writePrivileges(this.node, this.subject, value)
         }
     }
 
-    override fun getSubjectId(): String {
-        return this.subject
-    }
+    override fun getSubjectId(): String = this.subject
 
     @Throws(WorkspaceException::class)
-    override fun getObject(): File {
-        return JcrFile.of(this.node)
-    }
+    override fun getObject(): File = JcrFile.of(this.node)
 
     @Throws(WorkspaceException::class)
     fun remove() {
@@ -65,6 +66,20 @@ private constructor(
             this.node.session.save()
         }
     }
+
+    /**
+     * Whether this permission is protected. Protected permissions are
+     * immutable.
+     * All permissions applying to a system role, or the current user are
+     * protected.
+     * Current user is not allowed to modify its own permissions.
+     */
+    private fun isProtected(): Boolean = this.subject in Arrays.asList(
+            SystemRole.ADMIN.name,
+            SystemRole.READONLY.name,
+            SystemRole.READWRITE.name,
+            this.node.session.userID
+    )
 
     companion object {
 
@@ -109,7 +124,8 @@ private constructor(
 
         /**
          * Retrieve access control list applied at a given path.
-         * If no ACL is applied return a new one.
+         * If no ACL is applied return a new one, after having added default
+         * access rights.
          *
          * @param node JCR node
          * @return ACL policy applied at path, if any, new one otherwise
@@ -121,17 +137,19 @@ private constructor(
             val acl = getAppliedPolicy(node)
             if (acl != null) {
                 return acl
-            } else {
-                val itr = node.session.accessControlManager
-                        .getApplicablePolicies(node.path)
-                while (itr.hasNext()) {
-                    val policy = itr.nextAccessControlPolicy()
-                    if (policy is AccessControlList) {
-                        return policy
-                    }
+            }
+            val path = node.path
+            val session = node.session
+            val itr = session.accessControlManager
+                    .getApplicablePolicies(path)
+            while (itr.hasNext()) {
+                val policy = itr.nextAccessControlPolicy()
+                if (policy is AccessControlList) {
+                    preparePolicy(session, policy)
+                    return policy
                 }
             }
-            throw UnsupportedActionException("ACL unsupported at ${node.path}.")
+            throw UnsupportedActionException("ACL unsupported at $path.")
         }
 
         @Throws(RepositoryException::class)
@@ -181,8 +199,6 @@ private constructor(
             }
             /* If value null or empty, stop here */
             if (value.isEmpty()) return
-            /* Add default flavours */
-            preparePolicy(acm, policy)
             val names: MutableList<String> = ArrayList(value.size)
             for (right in value) {
                 when (right) {
@@ -204,12 +220,13 @@ private constructor(
          * Those are admin rights (full access) superuser rights (read/write
          * access and readonly user rights.
          *
-         * @param acm access control manager
+         * @param session user JCR session
          * @param policy policy to prepare
          */
         private fun preparePolicy(
-                acm: AccessControlManager,
+                session: Session,
                 policy: AccessControlList) {
+            val acm = session.accessControlManager
             policy.addAccessControlEntry(SystemRole.ADMIN, arrayOf(
                     acm.privilegeFromName(Privilege.JCR_ALL)
             ))
