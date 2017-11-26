@@ -4,6 +4,8 @@ import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.auth.PermissionManager
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
+import solutions.digamma.damas.jcr.content.JcrFile
+import solutions.digamma.damas.jcr.content.JcrFolder
 import solutions.digamma.damas.jcr.model.JcrManager
 import solutions.digamma.damas.logging.Logged
 import solutions.digamma.damas.login.Token
@@ -56,19 +58,31 @@ internal class JcrPermissionManager: JcrManager(), PermissionManager {
 
     @Logged
     @Throws(WorkspaceException::class)
+    override fun update(
+            token: Token,
+            fileId: String,
+            permissions: List<Permission>,
+            recursive: Boolean) {
+        return Exceptions.wrap(openSession(token)) {
+            update(it.getSession(), fileId, permissions, recursive)
+        }
+    }
+
+    @Logged
+    @Throws(WorkspaceException::class)
     override fun delete(token: Token, objectId: String, subjectId: String) {
         return Exceptions.wrap(openSession(token)) {
             delete(it.getSession(), objectId, subjectId)
         }
     }
 
-    fun retrieve(session: Session, fileId: String, subjectId: String) =
+    private fun retrieve(session: Session, fileId: String, subjectId: String) =
             JcrPermission.of(session, fileId, subjectId)
 
-    fun retrieve(session: Session, fileId: String) =
+    private fun retrieve(session: Session, fileId: String) =
             JcrPermission.lisOf(session, fileId)
 
-    fun update(session: Session, pattern: Permission): Permission {
+    private fun update(session: Session, pattern: Permission): Permission {
         return JcrPermission
                 .of(session, pattern.objectId, pattern.subjectId).apply {
             accessRights = pattern.accessRights
@@ -80,7 +94,7 @@ internal class JcrPermissionManager: JcrManager(), PermissionManager {
      * IDs of patterns are ignored, as well as their object IDs. The file ID
      * passed as a parameter is used instead as object ID.
      */
-    fun update(
+    private fun update(
             session: Session,
             fileId: String,
             permissions: List<Permission>) {
@@ -90,7 +104,28 @@ internal class JcrPermissionManager: JcrManager(), PermissionManager {
         }
     }
 
-    fun delete(session: Session, objectId: String, subjectId: String) {
+    /**
+     * Apply access right changes, possibly recursively.
+     */
+    private fun update(
+            session: Session,
+            fileId: String,
+            permissions: List<Permission>,
+            recursive: Boolean) {
+        update(session, fileId, permissions)
+        val file = JcrFile.of(session.getNodeByIdentifier(fileId))
+        if (recursive && file is JcrFolder) {
+            file.expandContent(1)
+            file.content?.folders?.forEach {
+                update(session, it.id, permissions, true)
+            }
+            file.content?.documents?.forEach {
+                update(session, it.id, permissions, true)
+            }
+        }
+    }
+
+    private fun delete(session: Session, objectId: String, subjectId: String) {
         this.retrieve(session, objectId, subjectId).remove()
     }
 }
