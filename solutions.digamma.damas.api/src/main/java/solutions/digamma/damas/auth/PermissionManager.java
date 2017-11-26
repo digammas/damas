@@ -40,14 +40,11 @@ public interface PermissionManager {
 
     /**
      * Update permission at a given file for a given subject.
-     * Beside updating access rights, this method has the side effect of giving
-     * the updated permission the highest priority at the file on which it
-     * applies. To reorganise priorities, use method {@code updateAll()}.
-     *
+     * <p/>
      * File ID and Subject ID of the passed pattern identify the permission to
      * be updated. Permission is updated with access right set. If permission
      * does not exist, it will be created.
-     *
+     * <p/>
      * If the set of access rights passed throw the parameter {@code entity} is
      * {@code null}, the method does nothing.
      *
@@ -61,19 +58,32 @@ public interface PermissionManager {
 
     /**
      * Update permissions at a given file.
-     * Calling this method has the effect of calling {@code update()} several
-     * times, in reverse order of the passed list. It does thus reorder
-     * priorities putting the first element at the highest priority.
      *
-     * Apart from lowering their priorities, this methods doesn't change
-     * existing permission at file that are not mentioned in the list.
-     *
-     * @param token
-     * @param fileId
-     * @param permissions
+     * @param token         access token
+     * @param fileId        file ID
+     * @param permissions   permission list
      * @throws WorkspaceException
      */
     void update(Token token, String fileId, List<Permission> permissions)
+            throws WorkspaceException;
+
+    /**
+     * Update permissions at a given file, allowing recursion.
+     *
+     * If the file is a folder, and {@code recursive} is {@code true} update
+     * is propagated to all sub-folder and documents.
+     *
+     * @param token         access token
+     * @param fileId        file ID
+     * @param permissions   permission list
+     * @param recursive     whether to update sub-folders and documents
+     * @throws WorkspaceException
+     */
+    void update(
+            Token token,
+            String fileId,
+            List<Permission> permissions,
+            boolean recursive)
             throws WorkspaceException;
 
     /**
