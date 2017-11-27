@@ -1,8 +1,10 @@
 package solutions.digamma.damas.jcr.content
 
+import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.jcr.auth.Permissions
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.util.Collections
@@ -108,6 +110,7 @@ protected constructor(node: Node) : JcrFile(node), Folder {
             }
             val node = parent.addNode(name, TypeNamespace.FOLDER)
             node.addMixin(TypeNamespace.FILE)
+            Permissions.selfGrant(node, AccessRight.all())
             JcrFolder.of(node)
         }
     }
