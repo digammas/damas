@@ -128,6 +128,12 @@ object Permissions {
         acm.setPolicy(node.path, policy)
     }
 
+    /**
+     * Grant access rights to connected user on a given node.
+     *
+     * @param node the node on which access rights are granted
+     * @param rights access rights to be granted
+     */
     internal fun selfGrant(node: Node, rights: EnumSet<AccessRight>) {
         writePrivileges(node, node.session.userID, rights)
     }

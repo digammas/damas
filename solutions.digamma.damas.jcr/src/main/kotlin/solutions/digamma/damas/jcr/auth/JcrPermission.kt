@@ -35,7 +35,7 @@ private constructor(
         val acm = this.node.session.accessControlManager
         val jcrRead = acm.privilegeFromName(Privilege.JCR_READ)
         val jcrWrite = acm.privilegeFromName(Privilege.JCR_WRITE)
-        val accessRights = AccessRight.none()
+        val accessRights = AccessRight.none()!!
         for (entry in acl) {
             if (entry.privileges.any { it == jcrRead }) {
                 accessRights.add(READ)
