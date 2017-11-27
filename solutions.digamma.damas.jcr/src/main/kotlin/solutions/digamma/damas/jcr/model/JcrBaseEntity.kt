@@ -7,7 +7,6 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
-import javax.print.attribute.standard.Destination
 
 /**
  * Generic entity, implemented as a JCR node.
@@ -40,14 +39,15 @@ constructor(@Transient override val node: Node) : Entity, JcrEntity {
      * Check if JCR node convert a particular node type. Throws
      * [InternalStateException] if not.
      *
-     * @param typeName                  type name
+     * @param type                      type name
      * @throws InternalStateException   thrown when node is not convert type
      */
     @Throws(InternalStateException::class)
-    protected fun checkTypeCompatibility(typeName: String) {
+    protected fun checkTypeCompatibility(type: String) {
         Exceptions.wrap {
-            this.node.isNodeType(typeName) || throw InternalStateException(
-                    "Node is not convert $typeName type.")
+            if (!this.node.isNodeType(type)) {
+                throw InvalidNodeTypeException(this.node.path, type)
+            }
         }
     }
 

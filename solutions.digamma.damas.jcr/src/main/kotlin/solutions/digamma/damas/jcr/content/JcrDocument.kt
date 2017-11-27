@@ -83,7 +83,7 @@ protected constructor(node: Node) : JcrFile(node), Document {
             node.addNode(Property.JCR_CONTENT, NodeType.NT_RESOURCE).apply {
                 setProperty(Property.JCR_DATA, "")
             }
-            JcrDocument.of(node)
+            JcrDocument.of(node).apply { initPermissions() }
         }
     }
 }
