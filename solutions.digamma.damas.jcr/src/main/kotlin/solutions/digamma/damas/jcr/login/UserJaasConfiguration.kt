@@ -9,6 +9,10 @@ import javax.security.auth.login.Configuration
 
 /**
  * JAAS configuration for user authentication.
+ *
+ * Unlike `solutions.digamma.damas.jcr.sys.SystemJaasConfiguration` that
+ * authenticate system users, this configuration is responsible of
+ * authenticating non-system users created by the user management module.
  */
 @Singleton
 @Realm(UserJaasConfiguration.REALM)
@@ -28,6 +32,9 @@ internal class UserJaasConfiguration : Configuration() {
 
     companion object {
 
-        const val REALM: String = "damas-user"
+        /**
+         * User realm.
+         */
+        internal const val REALM: String = "damas-user"
     }
 }

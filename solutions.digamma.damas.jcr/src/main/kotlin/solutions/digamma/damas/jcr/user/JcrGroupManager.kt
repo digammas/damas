@@ -8,6 +8,7 @@ import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.GroupManager
 import java.util.Collections
+import javax.inject.Singleton
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -15,6 +16,7 @@ import javax.jcr.Session
  * JCR implementation of group manager.
  *
  */
+@Singleton
 internal class JcrGroupManager: JcrCrudManager<Group>(),
         JcrSearchEngine<Group>,
         GroupManager {

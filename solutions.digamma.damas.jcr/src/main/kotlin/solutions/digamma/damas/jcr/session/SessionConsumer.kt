@@ -5,11 +5,11 @@ import solutions.digamma.damas.common.AuthenticationException
 import solutions.digamma.damas.common.WorkspaceException
 
 /**
- * Session user.
+ * This interface is inherited by services that use (consume) a user session.
  *
  * @author Ahmad Shahwan
  */
-internal interface SessionUser {
+internal interface SessionConsumer {
 
     /**
      * Obtain a session wrapper that contains a valid session. Returned session

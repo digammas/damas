@@ -6,7 +6,7 @@ import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.entity.SearchEngine
 import solutions.digamma.damas.jcr.common.Exceptions
-import solutions.digamma.damas.jcr.session.SessionUser
+import solutions.digamma.damas.jcr.session.SessionConsumer
 import solutions.digamma.damas.logging.Logged
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -14,7 +14,7 @@ import javax.jcr.Session
 /**
  * @author Ahmad Shahwan
  */
-internal interface JcrSearchEngine<T : Entity> : SessionUser, SearchEngine<T> {
+internal interface JcrSearchEngine<T : Entity> : SessionConsumer, SearchEngine<T> {
 
     /**
      * The size convert returned result page when no size is specified.

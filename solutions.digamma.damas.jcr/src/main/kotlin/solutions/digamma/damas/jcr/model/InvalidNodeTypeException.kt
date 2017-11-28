@@ -8,8 +8,8 @@ import solutions.digamma.damas.common.InternalStateException
  */
 class InvalidNodeTypeException: InternalStateException {
 
-    constructor(path: String, expected: String):
+    internal constructor(path: String, expected: String):
             super("Node at $path is not of expected type $expected.")
 
-    constructor(path: String): super("Invalid node type at $path.")
+    internal constructor(path: String): super("Invalid node type at $path.")
 }

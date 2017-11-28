@@ -1,8 +1,8 @@
 package solutions.digamma.damas.jcr.repo
 
 /**
- * Repository job. Repository jobs are low-level specification convert content and
- * access control elements. They are used for repository initialization.
+ * Repository job. Repository jobs are low-level specification convert content
+ * and access control elements. They are used for repository initialization.
  *
  * @author Ahmad Shahwan
  */

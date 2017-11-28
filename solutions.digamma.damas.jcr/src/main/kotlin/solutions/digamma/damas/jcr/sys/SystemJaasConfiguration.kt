@@ -28,6 +28,6 @@ class SystemJaasConfiguration : Configuration() {
 
     companion object {
 
-        const val REALM: String = "damas-system"
+        internal const val REALM: String = "damas-system"
     }
 }
