@@ -7,19 +7,19 @@ package solutions.digamma.damas.jcr.names
  */
 internal object ItemNamespace {
 
-    val RANK = Namespace.prefix("rank")
+    internal val RANK = Namespace.prefix("rank")
 
-    val GROUPS = Namespace.prefix("groups")
+    internal val GROUPS = Namespace.prefix("groups")
 
-    val PASSWORD = Namespace.prefix("password")
+    internal val PASSWORD = Namespace.prefix("password")
 
-    val ALIAS = Namespace.prefix("alias")
+    internal val ALIAS = Namespace.prefix("alias")
 
-    val EMAIL = Namespace.prefix("mail")
+    internal val EMAIL = Namespace.prefix("mail")
 
-    val NAME = Namespace.prefix("name")
+    internal val NAME = Namespace.prefix("name")
 
-    val SURNAME = Namespace.prefix("surname")
+    internal val SURNAME = Namespace.prefix("surname")
 
-    val ENABLED = Namespace.prefix("enabled")
+    internal val ENABLED = Namespace.prefix("enabled")
 }

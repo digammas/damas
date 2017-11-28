@@ -34,7 +34,7 @@ internal object Exceptions {
      * @param e a repository exception
      * @return workspace exception, equivalent to the passed exception
      */
-    public fun convert(e: RepositoryException) = when (e) {
+    internal fun convert(e: RepositoryException) = when (e) {
         is AccessControlException -> AuthorizationException(e)
         is ItemNotFoundException -> NotFoundException(e)
         is ItemExistsException -> ConflictException(e)
@@ -54,7 +54,7 @@ internal object Exceptions {
      * @return returned object by the callable, if any
      */
     @Throws(WorkspaceException::class)
-    fun <T> wrap(op: () -> T) = try {
+    internal fun <T> wrap(op: () -> T) = try {
         op()
     } catch (e: RepositoryException) { throw convert(e) }
 

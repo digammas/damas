@@ -10,12 +10,12 @@ internal object Namespace {
     /**
      * TypeNamespace delimiter.
      */
-    const val SEPARATOR = ":"
+    private const val SEPARATOR = ":"
 
     /**
      * DMS name space.
      */
-    const val NAMESPACE = "dms"
+    private const val NAMESPACE = "dms"
 
     /**
      * Prefix name with namespace.

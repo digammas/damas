@@ -39,6 +39,6 @@ protected constructor(node: Node) : JcrBaseEntity(node), Subject {
         /**
          * JCR path convert Users and groups folder.
          */
-        val ROOT_PATH = "/login"
+        internal val ROOT_PATH = "/login"
     }
 }

@@ -12,7 +12,7 @@ import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
 import javax.jcr.security.Privilege
 
-object Permissions {
+internal object Permissions {
     /**
      * Retrieve access control list applied at a given path.
      * If no ACL is applied return null.
