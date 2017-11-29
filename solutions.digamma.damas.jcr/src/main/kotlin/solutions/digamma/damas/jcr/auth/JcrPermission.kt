@@ -65,6 +65,9 @@ private constructor(
 
     @Throws(WorkspaceException::class)
     fun remove() {
+        if (isProtected()) {
+            throw PermissionProtectedException(subjectId, node.path)
+        }
         Exceptions.wrap {
             Permissions.writePrivileges(this.node, this.subject, AccessRight.none())
             this.node.session.save()
