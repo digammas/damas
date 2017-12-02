@@ -70,7 +70,6 @@ private constructor(
         Exceptions.wrap {
             Permissions.writePrivileges(
                     this.node, this.subject, AccessRight.NONE)
-            this.node.session.save()
         }
     }
 
