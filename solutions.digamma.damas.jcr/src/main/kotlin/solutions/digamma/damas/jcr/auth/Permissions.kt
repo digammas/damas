@@ -13,6 +13,9 @@ import javax.jcr.security.AccessControlEntry
 import javax.jcr.security.AccessControlList
 import javax.jcr.security.Privilege
 
+/**
+ * Utilities methods for permission management.
+ */
 internal object Permissions {
     /**
      * Retrieve access control list applied at a given path.
@@ -22,8 +25,7 @@ internal object Permissions {
      * @return ACL policy applied at path, if any, `null` otherwise
      */
     @Throws(RepositoryException::class)
-    internal fun getAppliedPolicy(node: Node):
-            AccessControlList? {
+    internal fun getAppliedPolicy(node: Node): AccessControlList? {
         node.session.accessControlManager.getPolicies(node.path).forEach {
             if (it is AccessControlList) return it
         }
@@ -106,15 +108,18 @@ internal object Permissions {
         }
         /* If value is empty, stop here */
         if (value == AccessRight.NONE) return
-        val names = when (value) {
-            AccessRight.READ -> Arrays.asList(Privilege.JCR_READ)
+        val privileges = when (value) {
+            AccessRight.READ -> Arrays.asList(
+                    acm.privilegeFromName(Privilege.JCR_READ)
+            )
             AccessRight.WRITE -> Arrays.asList(
-                    Privilege.JCR_READ, Privilege.JCR_WRITE)
-            AccessRight.MAINTAIN -> Arrays.asList(Privilege.JCR_ALL)
+                    acm.privilegeFromName(Privilege.JCR_READ),
+                    acm.privilegeFromName(Privilege.JCR_WRITE)
+            )
+            AccessRight.MAINTAIN -> Arrays.asList(
+                    acm.privilegeFromName(Privilege.JCR_ALL)
+            )
             else -> Collections.emptyList()
-        }
-        val privileges = names.map {
-            acm.privilegeFromName(it)
         }.toTypedArray()
         val principal = NamedPrincipal(subject)
         policy.addAccessControlEntry(principal, privileges)
