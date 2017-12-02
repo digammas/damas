@@ -87,6 +87,7 @@ private constructor(
             SystemSessions.RO_USERNAME,
             SystemSessions.SU_USERNAME,
             UserLoginModule.ADMIN_USERNAME,
+            SystemRole.SHADOW.name,
             this.node.session.userID
     )
 
