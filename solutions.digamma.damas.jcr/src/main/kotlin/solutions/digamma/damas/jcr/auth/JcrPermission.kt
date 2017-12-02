@@ -94,7 +94,7 @@ private constructor(
         @Throws(WorkspaceException::class)
         fun of(session: Session, fileId: String, subjectId: String) =
                 Exceptions.wrap {
-            /* Retrieve obqject node, a file. */
+            /* Retrieve object node, a file. */
             val node = session.getNodeByIdentifier(fileId)
             JcrPermission(node, subjectId)
         }
