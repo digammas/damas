@@ -11,7 +11,6 @@ import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
 import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.UserManager
-import java.util.EnumSet
 
 class JcrPermissionManagerTest   : WeldTest() {
 
@@ -57,7 +56,7 @@ class JcrPermissionManagerTest   : WeldTest() {
     @Test
     fun retrieve() {
         val permission = this.manager.retrieve(this.token, folderId, username)
-        assert(permission.accessRights.isEmpty())
+        assert(permission.accessRights == AccessRight.NONE)
     }
 
     @Test
@@ -67,9 +66,9 @@ class JcrPermissionManagerTest   : WeldTest() {
             assert(false) { "Expecting access rights denial." }
         } catch (_: WorkspaceException) {}
         val pattern = Mocks.permission(
-                folderId, username, EnumSet.of(AccessRight.READ))
+                folderId, username, AccessRight.READ)
         val permission = manager.update(token, pattern)
-        assert(permission.accessRights == EnumSet.of(AccessRight.READ))
+        assert(permission.accessRights == AccessRight.READ)
         manager.delete(token, folderId, username)
     }
 

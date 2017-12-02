@@ -12,7 +12,6 @@ import solutions.digamma.damas.jcr.model.InvalidNodeTypeException
 import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.net.URI
-import java.util.EnumSet
 import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.RepositoryException
@@ -108,7 +107,7 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
      * once upon creation.
      */
     protected fun initPermissions() {
-        Permissions.selfGrant(this.node, EnumSet.of(AccessRight.MAINTAIN))
+        Permissions.selfGrant(this.node, AccessRight.MAINTAIN)
     }
 
     companion object {

@@ -1,7 +1,5 @@
 package solutions.digamma.damas.auth;
 
-import java.util.EnumSet;
-
 /**
  * Access privilege.
  * An access privilege can be granted to a given subject, on given objects.
@@ -10,6 +8,10 @@ import java.util.EnumSet;
  * @author Ahmad Shahwan
  */
 public enum AccessRight {
+    /**
+     * No access right at all.
+     */
+    NONE,
     /**
      * Access right allowing its owner to read content.
      */
@@ -29,14 +31,5 @@ public enum AccessRight {
      * This access right include {@link AccessRight#READ} and {@link
      * AccessRight#WRITE}.
      */
-    MAINTAIN;
-
-    /**
-     * None of these.
-     *
-     * @return empty enum set
-     */
-    public static EnumSet<AccessRight> none() {
-        return EnumSet.noneOf(AccessRight.class);
-    }
+    MAINTAIN
 }

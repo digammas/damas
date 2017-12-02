@@ -4,7 +4,8 @@ import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.jaas.NamedPrincipal
 import solutions.digamma.damas.jcr.sys.SystemRole
-import java.util.EnumSet
+import java.util.Arrays
+import java.util.Collections
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -41,7 +42,7 @@ internal object Permissions {
     @Throws(RepositoryException::class, UnsupportedActionException::class)
     private fun getApplicablePolicy(node: Node):
             AccessControlList {
-        val acl = getAppliedPolicy(node)
+        val acl = this.getAppliedPolicy(node)
         if (acl != null) {
             return acl
         }
@@ -62,7 +63,7 @@ internal object Permissions {
     @Throws(RepositoryException::class)
     internal fun getAppliedEntries(node: Node, subject: String):
             List<AccessControlEntry> {
-        val list = Permissions.getAppliedPolicy(node)?.accessControlEntries?.filter {
+        val list = this.getAppliedPolicy(node)?.accessControlEntries?.filter {
             it.principal.name == subject
         }
         return list ?: emptyList()
@@ -94,8 +95,8 @@ internal object Permissions {
      */
     @Throws(RepositoryException::class)
     internal fun writePrivileges(
-            node: Node, subject: String, value: EnumSet<AccessRight>) {
-        val policy = Permissions.getApplicablePolicy(node)
+            node: Node, subject: String, value: AccessRight) {
+        val policy = this.getApplicablePolicy(node)
         val acm = node.session.accessControlManager
         /* Remove all old entries of this subject */
         policy.accessControlEntries.filter {
@@ -103,19 +104,14 @@ internal object Permissions {
         }.forEach {
             policy.removeAccessControlEntry(it)
         }
-        /* If value null or empty, stop here */
-        if (value.isEmpty()) return
-        val names: MutableList<String> = ArrayList(value.size)
-        for (right in value) {
-            when (right) {
-                AccessRight.READ -> names.add(Privilege.JCR_READ)
-                AccessRight.WRITE -> {
-                    names.add(Privilege.JCR_READ)
-                    names.add(Privilege.JCR_WRITE)
-                }
-                AccessRight.MAINTAIN -> names.add(Privilege.JCR_ALL)
-                else -> {}
-            }
+        /* If value is empty, stop here */
+        if (value == AccessRight.NONE) return
+        val names = when (value) {
+            AccessRight.READ -> Arrays.asList(Privilege.JCR_READ)
+            AccessRight.WRITE -> Arrays.asList(
+                    Privilege.JCR_READ, Privilege.JCR_WRITE)
+            AccessRight.MAINTAIN -> Arrays.asList(Privilege.JCR_ALL)
+            else -> Collections.emptyList()
         }
         val privileges = names.map {
             acm.privilegeFromName(it)
@@ -126,17 +122,17 @@ internal object Permissions {
     }
 
     /**
-     * Grant access rights to connected user on a given node.
+     * Grant access right to connected user on a given node.
      * This is usually only possible when the node is newly created (by the
      * connected user), and has no policies of its own yet.
      *
-     * @param node the node on which access rights are granted
-     * @param rights access rights to be granted
+     * @param node the node on which access right are granted
+     * @param right access right to be granted
      */
-    internal fun selfGrant(node: Node, rights: EnumSet<AccessRight>) {
+    internal fun selfGrant(node: Node, right: AccessRight) {
         val subject = node.session.userID
         if (!SystemRole.values().map { it.name }.contains(subject)) {
-            writePrivileges(node, node.session.userID, rights)
+            writePrivileges(node, node.session.userID, right)
         }
     }
 }
