@@ -39,7 +39,7 @@ internal object Permissions {
      * @throws UnsupportedActionException if repository doesn't support ACL
      */
     @Throws(RepositoryException::class, UnsupportedActionException::class)
-    internal fun getApplicablePolicy(node: Node):
+    private fun getApplicablePolicy(node: Node):
             AccessControlList {
         val acl = getAppliedPolicy(node)
         if (acl != null) {
@@ -76,19 +76,12 @@ internal object Permissions {
      * @param session user JCR session
      * @param policy policy to prepare
      */
-    internal fun preparePolicy(
+    private fun preparePolicy(
             session: Session,
             policy: AccessControlList) {
         val acm = session.accessControlManager
-        policy.addAccessControlEntry(SystemRole.ADMIN, arrayOf(
+        policy.addAccessControlEntry(SystemRole.SHADOW, arrayOf(
                 acm.privilegeFromName(Privilege.JCR_ALL)
-        ))
-        policy.addAccessControlEntry(SystemRole.READWRITE,   arrayOf(
-                acm.privilegeFromName(Privilege.JCR_READ),
-                acm.privilegeFromName(Privilege.JCR_WRITE)
-        ))
-        policy.addAccessControlEntry(SystemRole.READONLY, arrayOf(
-                acm.privilegeFromName(Privilege.JCR_READ)
         ))
     }
 
@@ -116,7 +109,11 @@ internal object Permissions {
         for (right in value) {
             when (right) {
                 AccessRight.READ -> names.add(Privilege.JCR_READ)
-                AccessRight.WRITE -> names.add(Privilege.JCR_WRITE)
+                AccessRight.WRITE -> {
+                    names.add(Privilege.JCR_READ)
+                    names.add(Privilege.JCR_WRITE)
+                }
+                AccessRight.MAINTAIN -> names.add(Privilege.JCR_ALL)
                 else -> {}
             }
         }
@@ -130,12 +127,17 @@ internal object Permissions {
 
     /**
      * Grant access rights to connected user on a given node.
+     * This is usually only possible when the node is newly created (by the
+     * connected user), and has no policies of its own yet.
      *
      * @param node the node on which access rights are granted
      * @param rights access rights to be granted
      */
     internal fun selfGrant(node: Node, rights: EnumSet<AccessRight>) {
-        writePrivileges(node, node.session.userID, rights)
+        val subject = node.session.userID
+        if (!SystemRole.values().map { it.name }.contains(subject)) {
+            writePrivileges(node, node.session.userID, rights)
+        }
     }
 }
 

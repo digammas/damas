@@ -113,6 +113,7 @@ public class ContentTest {
         return String.format("%s %s", AUTH_SCHEME, this.token);
     }
 
+    @Test
     public void testBadAuth() {
         Map<String, Object> login = new HashMap<>(2);
         login.put("username", "villain");

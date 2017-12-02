@@ -2,12 +2,14 @@ package solutions.digamma.damas.jcr.login
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.jaas.NamedPrincipal
+import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jaas.AbstractLoginModule
+import solutions.digamma.damas.jaas.NamedPrincipal
 import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import solutions.digamma.damas.jcr.user.JcrSubject
 import solutions.digamma.damas.jcr.user.JcrUser
+import javax.jcr.PathNotFoundException
 import javax.security.auth.login.AccountLockedException
 import javax.security.auth.login.AccountNotFoundException
 import javax.security.auth.login.CredentialNotFoundException
@@ -22,27 +24,37 @@ open internal class UserLoginModule : AbstractLoginModule() {
     @Throws(LoginException::class)
     override fun doLogin(): Boolean {
         /* If system sessions not yes set, bypass this login module. */
-        system ?: return false
+        val sys = UserLoginModule.system ?: return false
         this.login ?: throw CredentialNotFoundException("Missing login")
         this.password ?: throw CredentialNotFoundException("Missing password")
-        val ro = system!!.readonly
+        val ro = sys.readonly
+        val node = try {
+            ro.getNode("${JcrSubject.ROOT_PATH}/$login")
+        } catch (_: PathNotFoundException) {
+            return loginAdmin() ||
+                    throw AccountNotFoundException("No such login")
+        }
+        val user = try {
+            JcrUser.of(node)
+        } catch (_: InternalStateException) {
+            return loginAdmin() ||
+                    throw AccountNotFoundException("Account is not a user")
+        }
         try {
-            val user = JcrUser.of(ro.getNode("${JcrSubject.ROOT_PATH}/$login"))
             user.isEnabled || throw AccountLockedException("Account disabled")
-            user.checkPassword(password.toString()) ||
+            user.checkPassword(String(this.password)) ||
                     throw FailedLoginException("Invalid password")
             this.roles = user.memberships.map { NamedPrincipal(it) }
+            this.roles.add(SystemRole.READWRITE)
             return true
-        } catch (_: NotFoundException) {
-            return loginAdmin() || throw AccountNotFoundException("No such login")
-        } catch (_: InternalStateException) {
-            return loginAdmin() || throw AccountNotFoundException("Account is not a user")
+        } catch (e: WorkspaceException) {
+            throw LoginException("Authentication error")
         }
     }
 
     private fun loginAdmin(): Boolean {
         if (ADMIN_USERNAME == this.login &&
-                ADMIN_PASSWORD == this.password.toString()) {
+                ADMIN_PASSWORD == String(this.password)) {
             this.roles = listOf(SystemRole.ADMIN)
             return true
         }
@@ -53,7 +65,7 @@ open internal class UserLoginModule : AbstractLoginModule() {
 
         var system: SystemSessions? = null
 
-        private val ADMIN_USERNAME = "admin"
+        internal val ADMIN_USERNAME = "admin"
         private val ADMIN_PASSWORD = "admin"
     }
 }

@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.user
 
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.config.Configuration
 import solutions.digamma.damas.config.Fallback
@@ -9,6 +8,7 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
+import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 import java.util.Collections
@@ -58,8 +58,8 @@ internal class JcrUserManager : JcrCrudManager<User>(),
     @Throws(WorkspaceException::class)
     override fun updatePassword(token: Token, id: String, value: String) {
         pwRegex.matcher(value).matches() || throw InsecurePasswordException()
-        val user = this.retrieve(token, id) as JcrUser
-        Exceptions.wrap {
+        Exceptions.wrap(openSession(token)) {
+            val user = this.retrieve(it.getSession(), id)
             user.setPassword(value)
         }
     }
