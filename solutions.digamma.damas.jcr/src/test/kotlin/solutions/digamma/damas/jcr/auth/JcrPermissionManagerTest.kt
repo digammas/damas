@@ -65,6 +65,27 @@ class JcrPermissionManagerTest   : WeldTest() {
             folderManager.retrieve(userToken, folderId)
             assert(false) { "Expecting access rights denial." }
         } catch (_: WorkspaceException) {}
+        assert(manager.update(token,
+            Mocks.permission(folderId, username, AccessRight.READ)
+        ).accessRights == AccessRight.READ)
+        folderManager.retrieve(userToken, folderId)
+        try {
+            folderManager.update(userToken, folderId,
+                    Mocks.folder(null, "new_name")
+            )
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        assert(manager.update(token,
+                Mocks.permission(folderId, username, AccessRight.WRITE)
+        ).accessRights == AccessRight.WRITE)
+        folderManager.update(userToken, folderId,
+            Mocks.folder(null, "new_name")
+        )
+        manager.delete(token, folderId, username)
+    }
+
+    @Test
+    fun delete() {
         val pattern = Mocks.permission(
                 folderId, username, AccessRight.READ)
         val permission = manager.update(token, pattern)
@@ -75,9 +96,5 @@ class JcrPermissionManagerTest   : WeldTest() {
             folderManager.retrieve(userToken, folderId)
             assert(false) { "Expecting access rights denial." }
         } catch (_: WorkspaceException) {}
-    }
-
-    @Test
-    fun delete() {
     }
 }
