@@ -48,7 +48,7 @@ public abstract class AbstractLoginModule implements LoginModule {
 
     @Override
     public boolean login() throws LoginException {
-        return this.success = doLogin();
+        return this.success = this.doLogin();
     }
 
     @Override

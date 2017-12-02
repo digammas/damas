@@ -17,7 +17,7 @@ class SystemJaasConfiguration : Configuration() {
     private val entries =  Array(1, {
         AppConfigurationEntry(
                 SystemLoginModule::class.java.name,
-                LoginModuleControlFlag.REQUISITE,
+                LoginModuleControlFlag.SUFFICIENT,
                 Collections.emptyMap<String, Any>())
     })
 

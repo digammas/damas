@@ -7,11 +7,6 @@
   "indexes": {
   },
   "security" : {
-    "anonymous" : {
-      "roles" : ["readonly","readwrite","admin"],
-      "username" : "<anonymous>",
-      "useOnFailedLogin" : true
-    },
     "providers" : [{
         "classname" : "JAAS",
         "policyName" : "damas-system"

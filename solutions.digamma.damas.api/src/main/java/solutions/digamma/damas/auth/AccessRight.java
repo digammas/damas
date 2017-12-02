@@ -10,9 +10,26 @@ import java.util.EnumSet;
  * @author Ahmad Shahwan
  */
 public enum AccessRight {
+    /**
+     * Access right allowing its owner to read content.
+     */
     READ,
+    /**
+     * Access right allowing its owner to read and modify content.
+     * <p/>
+     * This access right include {@link AccessRight#READ}.
+     */
     WRITE,
-    SHARE;
+    /**
+     * Access right allowing its owner to read, modify and maintain items.
+     * Maintenance include privilege such as access to access right information,
+     * sharing and locking.
+     *
+     * <p/>
+     * This access right include {@link AccessRight#READ} and {@link
+     * AccessRight#WRITE}.
+     */
+    MAINTAIN;
 
     /**
      * None of these.
@@ -21,14 +38,5 @@ public enum AccessRight {
      */
     public static EnumSet<AccessRight> none() {
         return EnumSet.noneOf(AccessRight.class);
-    }
-
-    /**
-     * All of these.
-     *
-     * @return all access rights
-     */
-    public static EnumSet<AccessRight> all() {
-        return EnumSet.allOf(AccessRight.class);
     }
 }

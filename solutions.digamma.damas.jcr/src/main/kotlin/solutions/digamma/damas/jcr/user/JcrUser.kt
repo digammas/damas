@@ -2,6 +2,7 @@ package solutions.digamma.damas.jcr.user
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.MisuseException
+import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.ItemNamespace
@@ -10,6 +11,7 @@ import solutions.digamma.damas.user.User
 import java.security.MessageDigest
 import java.util.Arrays
 import java.util.Base64
+import java.util.Collections
 import java.util.Random
 import java.util.regex.Pattern
 import javax.jcr.ItemExistsException
@@ -67,8 +69,11 @@ private constructor(node: Node) : JcrSubject(node), User {
     }
 
     @Throws(WorkspaceException::class)
-    override fun getMemberships() =
+    override fun getMemberships(): List<String> = try {
         this.getStrings(ItemNamespace.GROUPS)
+    } catch (_: NotFoundException) {
+        Collections.emptyList()
+    }
 
     @Throws(InternalStateException::class)
     override fun checkCompatibility() =

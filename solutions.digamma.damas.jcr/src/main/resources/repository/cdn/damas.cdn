@@ -2,7 +2,7 @@
 
 [dms:Comment] > mix:created, mix:lastModified, mix:referenceable
     - jcr:content (string) = "" mandatory
-    - dms:rank (long)  = 0 mandatory
+    - dms:rank (long) = 0 mandatory
 
 [dms:CommentReceiver] mixin orderable
     + * (dms:Comment)
@@ -15,6 +15,7 @@
 
 [dms:Subject] > mix:created, mix:lastModified, mix:referenceable
     - dms:groups (reference) * < 'dms:Group'
+    - dms:enabled (boolean) = true mandatory
 
 [dms:User] > dms:Subject
     - dms:password (string)
@@ -24,7 +25,6 @@
 
 [dms:Group] > dms:Subject
     - dms:alias (string)
-    - dms:enabled (boolean)
 
 [dms:Directory] > nt:base
     + * (dms:Subject)

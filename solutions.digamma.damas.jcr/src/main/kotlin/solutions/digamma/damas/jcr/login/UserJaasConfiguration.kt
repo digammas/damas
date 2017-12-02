@@ -21,7 +21,7 @@ internal class UserJaasConfiguration : Configuration() {
     private val entries =  Array(1, {
         AppConfigurationEntry(
                 UserLoginModule::class.java.name,
-                LoginModuleControlFlag.REQUISITE,
+                LoginModuleControlFlag.SUFFICIENT,
                 Collections.emptyMap<String, Any>())
     })
 
