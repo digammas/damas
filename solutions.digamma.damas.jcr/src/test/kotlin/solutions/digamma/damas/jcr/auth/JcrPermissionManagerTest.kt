@@ -69,11 +69,15 @@ class JcrPermissionManagerTest   : WeldTest() {
                 folderId, username, AccessRight.READ)
         val permission = manager.update(token, pattern)
         assert(permission.accessRights == AccessRight.READ)
+        folderManager.retrieve(userToken, folderId)
         manager.delete(token, folderId, username)
+        try {
+            folderManager.retrieve(userToken, folderId)
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
     }
 
     @Test
     fun delete() {
     }
-
 }

@@ -106,8 +106,6 @@ internal object Permissions {
         }.forEach {
             policy.removeAccessControlEntry(it)
         }
-        /* If value is empty, stop here */
-        if (value == AccessRight.NONE) return
         val privileges = when (value) {
             AccessRight.READ -> Arrays.asList(
                     acm.privilegeFromName(Privilege.JCR_READ)
@@ -121,8 +119,10 @@ internal object Permissions {
             )
             else -> Collections.emptyList()
         }.toTypedArray()
-        val principal = NamedPrincipal(subject)
-        policy.addAccessControlEntry(principal, privileges)
+        if (!privileges.isEmpty()) {
+            val principal = NamedPrincipal(subject)
+            policy.addAccessControlEntry(principal, privileges)
+        }
         acm.setPolicy(node.path, policy)
     }
 
