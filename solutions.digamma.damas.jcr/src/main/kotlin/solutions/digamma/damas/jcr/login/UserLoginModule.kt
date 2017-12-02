@@ -1,7 +1,6 @@
 package solutions.digamma.damas.jcr.login
 
 import solutions.digamma.damas.common.InternalStateException
-import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jaas.AbstractLoginModule
 import solutions.digamma.damas.jaas.NamedPrincipal
@@ -9,6 +8,7 @@ import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import solutions.digamma.damas.jcr.user.JcrSubject
 import solutions.digamma.damas.jcr.user.JcrUser
+import java.util.Arrays
 import javax.jcr.PathNotFoundException
 import javax.security.auth.login.AccountLockedException
 import javax.security.auth.login.AccountNotFoundException
@@ -44,7 +44,7 @@ open internal class UserLoginModule : AbstractLoginModule() {
             user.isEnabled || throw AccountLockedException("Account disabled")
             user.checkPassword(String(this.password)) ||
                     throw FailedLoginException("Invalid password")
-            this.roles = user.memberships.map { NamedPrincipal(it) }
+            this.roles.addAll(user.memberships.map { NamedPrincipal(it) })
             this.roles.add(SystemRole.READWRITE)
             return true
         } catch (e: WorkspaceException) {
@@ -55,7 +55,8 @@ open internal class UserLoginModule : AbstractLoginModule() {
     private fun loginAdmin(): Boolean {
         if (ADMIN_USERNAME == this.login &&
                 ADMIN_PASSWORD == String(this.password)) {
-            this.roles = listOf(SystemRole.ADMIN)
+            this.roles.addAll(Arrays.asList(
+                    SystemRole.ADMIN, SystemRole.SHADOW))
             return true
         }
         return false

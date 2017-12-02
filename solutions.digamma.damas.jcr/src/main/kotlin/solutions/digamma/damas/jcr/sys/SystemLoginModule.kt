@@ -18,11 +18,13 @@ internal class SystemLoginModule : AbstractLoginModule() {
     override fun doLogin(): Boolean {
         if (SystemSessions.SU_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.SU_PASSWORD, this.password)) {
+            this.roles.add(SystemRole.SHADOW)
             this.roles.add(SystemRole.READWRITE)
             return true
         }
         if (SystemSessions.RO_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.RO_PASSWORD, this.password)) {
+            this.roles.add(SystemRole.SHADOW)
             this.roles.add(SystemRole.READONLY)
             return true
         }

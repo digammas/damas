@@ -16,6 +16,9 @@ enum class SystemRole(private val principal: String): Principal {
      * Read-only role. This role gives its owner a read access repository-wide.
      * To actually be able to read content, users need to have the relevant
      * access right on the node being read.
+     *
+     * This role is used to restrict access for certain account (such as system
+     * RO) to read-only.
      */
     READONLY("readonly"),
 
@@ -49,6 +52,10 @@ enum class SystemRole(private val principal: String): Principal {
      *
      * Admin user is also assigned this role besides [ADMIN]. Both roles
      * combined give the admin user the superpower they need.
+     *
+     * This role is also assigned to system users (RO and SU). Combined with
+     * either [READONLY] or [READWRITE] system users can accomplish their tasks
+     * of reading or reading/writing content respectively.
      */
     SHADOW("dms:shadow");
 
