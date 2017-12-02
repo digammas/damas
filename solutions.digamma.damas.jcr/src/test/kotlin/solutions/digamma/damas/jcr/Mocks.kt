@@ -7,7 +7,6 @@ import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.user.User
-import java.util.EnumSet
 
 /**
  * @author Ahmad Shahwan
@@ -45,7 +44,7 @@ object Mocks {
     fun permission(
             objectId: String,
             subjectId: String,
-            accessRights: EnumSet<AccessRight>)
+            accessRights: AccessRight)
                 = Mockito.mock(Permission::class.java).also {
         Mockito.`when`(it.subjectId).thenReturn(subjectId)
         Mockito.`when`(it.objectId).thenReturn(objectId)

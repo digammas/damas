@@ -1,8 +1,6 @@
 package solutions.digamma.damas.jcr.auth
 
 import solutions.digamma.damas.auth.AccessRight
-import solutions.digamma.damas.auth.AccessRight.READ
-import solutions.digamma.damas.auth.AccessRight.WRITE
 import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
@@ -12,7 +10,6 @@ import solutions.digamma.damas.jcr.login.UserLoginModule
 import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.util.Arrays
-import java.util.EnumSet
 import javax.jcr.Node
 import javax.jcr.Session
 import javax.jcr.security.AccessControlEntry
@@ -32,25 +29,25 @@ private constructor(
 ): Permission {
 
     @Throws(WorkspaceException::class)
-    override fun getAccessRights() = Exceptions.wrap {
-        val acl = this.acl ?: Permissions.getAppliedEntries(this.node, this.subject)
+    override fun getAccessRights(): AccessRight = Exceptions.wrap {
+        val acl = this.acl ?: Permissions
+                .getAppliedEntries(this.node, this.subject)
         val acm = this.node.session.accessControlManager
         val jcrRead = acm.privilegeFromName(Privilege.JCR_READ)
         val jcrWrite = acm.privilegeFromName(Privilege.JCR_WRITE)
-        val accessRights = AccessRight.none()!!
-        for (entry in acl) {
-            if (entry.privileges.any { it == jcrRead }) {
-                accessRights.add(READ)
+        val jcrAll = acm.privilegeFromName(Privilege.JCR_ALL)
+        if (acl.isEmpty()) AccessRight.NONE else acl.map {
+            when {
+                it.privileges.contains(jcrAll) -> AccessRight.MAINTAIN
+                it.privileges.contains(jcrWrite) -> AccessRight.WRITE
+                it.privileges.contains(jcrRead) -> AccessRight.READ
+                else -> AccessRight.NONE
             }
-            if (entry.privileges.any { it == jcrWrite }) {
-                accessRights.add(WRITE)
-            }
-        }
-        accessRights
+        }.reduce(::maxOf)
     }
 
     @Throws(WorkspaceException::class)
-    override fun setAccessRights(value: EnumSet<AccessRight>?) {
+    override fun setAccessRights(value: AccessRight?) {
         if (value == null) return
         if (isProtected()) {
             throw PermissionProtectedException(subjectId, node.path)
@@ -71,7 +68,8 @@ private constructor(
             throw PermissionProtectedException(subjectId, node.path)
         }
         Exceptions.wrap {
-            Permissions.writePrivileges(this.node, this.subject, AccessRight.none())
+            Permissions.writePrivileges(
+                    this.node, this.subject, AccessRight.NONE)
             this.node.session.save()
         }
     }
