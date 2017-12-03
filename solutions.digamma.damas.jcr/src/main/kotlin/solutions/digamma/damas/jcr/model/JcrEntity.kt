@@ -58,19 +58,33 @@ internal interface JcrEntity : Entity {
     }
 
     /**
-     * Llist of all string values of a property.
+     * List of all string values of a property.
      *
      * @param name      property name
      * @return          property value
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun getStrings(name: String): List<String> = Exceptions.wrap<List<String>> {
+    fun getStrings(name: String): List<String> = Exceptions.wrap {
         Arrays.stream(this.node.getProperty(name).values)
                 .map { it.string }
                 .toList()
     }
 
+    /**
+     * Set the list of string values of a property, creating the property if it
+     * didn't exist.
+     *
+     * @param name property name
+     * @param values property string values
+     * @throws WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun setStrings(name: String, values: List<String>) {
+        Exceptions.wrap {
+            this.node.setProperty(name, values.toTypedArray())
+        }
+    }
 
     /**
      * Date property.

@@ -70,9 +70,18 @@ private constructor(node: Node) : JcrSubject(node), User {
 
     @Throws(WorkspaceException::class)
     override fun getMemberships(): List<String> = try {
-        this.getStrings(ItemNamespace.GROUPS)
+        this.getStrings(ItemNamespace.GROUPS).map {
+            this.node.session.getNodeByIdentifier(it).name
+        }
     } catch (_: NotFoundException) {
         Collections.emptyList()
+    }
+
+    @Throws(WorkspaceException::class)
+    fun setMemberships(groups: List<String>) {
+        this.setStrings(ItemNamespace.GROUPS, groups.map {
+            this.node.session.getNode("$ROOT_PATH/$it").identifier
+        })
     }
 
     @Throws(InternalStateException::class)
@@ -131,6 +140,8 @@ private constructor(node: Node) : JcrSubject(node), User {
         other.firstName?.let { this.firstName = it }
         other.lastName?.let { this.lastName = it }
         other.emailAddress?.let { this.emailAddress = it }
+        other.memberships?.let { this.memberships = it }
+        other.memberships?.let { this.memberships = it }
     }
 
     companion object {
