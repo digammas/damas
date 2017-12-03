@@ -10,11 +10,14 @@ import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
 import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.user.GroupManager
 import solutions.digamma.damas.user.UserManager
+import java.util.Arrays
 
-class JcrPermissionManagerTest   : WeldTest() {
+class JcrPermissionManagerTest: WeldTest() {
 
     private val userManager = WeldTest.inject(UserManager::class.java)
+    private val groupManager = WeldTest.inject(GroupManager::class.java)
     private val folderManager = WeldTest.inject(FolderManager::class.java)
     private val documentManager = WeldTest.inject(DocumentManager::class.java)
     private val manager = WeldTest.inject(JcrPermissionManager::class.java)
@@ -24,14 +27,18 @@ class JcrPermissionManagerTest   : WeldTest() {
     private lateinit var folderId: String
     private lateinit var subfolderId: String
     private lateinit var docId: String
+    private lateinit var groupId: String
 
     @Before
     fun setUp() {
         this.token = this.login.login("admin", "admin")
-        val user = Mocks.user("tester")
+        val group = Mocks.group("testers")
+        this.groupId = this.groupManager.create(this.token, group).id
+        val user = Mocks.user("tester", Arrays.asList(this.groupId))
         this.username = this.userManager.create(this.token, user).login
         val password = "P@55w0rd"
         this.userManager.updatePassword(this.token, this.username, password)
+
         this.userToken = this.login.login(this.username, password)
 
         val rootId = this.folderManager
@@ -46,9 +53,11 @@ class JcrPermissionManagerTest   : WeldTest() {
 
     @After
     fun tearDown() {
+        this.manager.delete(this.token, this.folderId, this.username)
         this.folderManager.delete(this.token, this.folderId)
         this.login.logout(this.userToken)
         this.userManager.delete(this.token, this.username)
+        this.groupManager.delete(this.token, this.groupId)
         this.login.logout(this.token)
     }
 
@@ -56,7 +65,9 @@ class JcrPermissionManagerTest   : WeldTest() {
     @Test
     fun retrieve() {
         val permission = this.manager.retrieve(this.token, folderId, username)
-        assert(permission.accessRights == AccessRight.NONE)
+        assert(permission.accessRights == AccessRight.NONE) {
+            "Error retrieving permission."
+        }
     }
 
     @Test
@@ -67,7 +78,9 @@ class JcrPermissionManagerTest   : WeldTest() {
         } catch (_: WorkspaceException) {}
         assert(manager.update(token,
             Mocks.permission(folderId, username, AccessRight.READ)
-        ).accessRights == AccessRight.READ)
+        ).accessRights == AccessRight.READ) {
+            "Error creating permission."
+        }
         folderManager.retrieve(userToken, folderId)
         try {
             folderManager.update(userToken, folderId,
@@ -77,19 +90,46 @@ class JcrPermissionManagerTest   : WeldTest() {
         } catch (_: WorkspaceException) {}
         assert(manager.update(token,
                 Mocks.permission(folderId, username, AccessRight.WRITE)
-        ).accessRights == AccessRight.WRITE)
+        ).accessRights == AccessRight.WRITE) {
+            "Error updating permission."
+        }
         folderManager.update(userToken, folderId,
             Mocks.folder(null, "new_name")
         )
-        manager.delete(token, folderId, username)
+    }
+
+    @Test
+    fun updateForGroup() {
+        try {
+            folderManager.retrieve(userToken, folderId)
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        assert(manager.update(token,
+                Mocks.permission(folderId, groupId, AccessRight.READ)
+        ).accessRights == AccessRight.READ) {
+            "Error creating permission."
+        }
+        folderManager.retrieve(userToken, folderId)
+        try {
+            folderManager.update(userToken, folderId,
+                    Mocks.folder(null, "new_name")
+            )
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        assert(manager.update(token,
+                Mocks.permission(folderId, groupId, AccessRight.WRITE)
+        ).accessRights == AccessRight.WRITE) {
+            "Error updating permission."
+        }
+        folderManager.update(userToken, folderId,
+                Mocks.folder(null, "new_name")
+        )
     }
 
     @Test
     fun delete() {
-        val pattern = Mocks.permission(
-                folderId, username, AccessRight.READ)
-        val permission = manager.update(token, pattern)
-        assert(permission.accessRights == AccessRight.READ)
+        manager.update(token,
+                Mocks.permission(folderId, username, AccessRight.READ))
         folderManager.retrieve(userToken, folderId)
         manager.delete(token, folderId, username)
         try {

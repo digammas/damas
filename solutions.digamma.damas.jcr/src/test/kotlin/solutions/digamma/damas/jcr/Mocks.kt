@@ -6,6 +6,7 @@ import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.User
 
 /**
@@ -35,10 +36,14 @@ object Mocks {
         return comment
     }
 
-    fun user(login: String): User {
-        return Mockito.mock(User::class.java).also {
-            Mockito.`when`(it.login).thenReturn(login)
-        }
+    fun user(login: String, groups: List<String>): User =
+            Mockito.mock(User::class.java).also {
+        Mockito.`when`(it.login).thenReturn(login)
+        Mockito.`when`(it.memberships).thenReturn(groups)
+    }
+
+    fun group(name: String): Group = Mockito.mock(Group::class.java).also {
+        Mockito.`when`(it.name).thenReturn(name)
     }
 
     fun permission(
