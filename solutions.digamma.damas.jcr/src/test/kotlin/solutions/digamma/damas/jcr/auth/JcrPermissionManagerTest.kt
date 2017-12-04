@@ -13,6 +13,7 @@ import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.GroupManager
 import solutions.digamma.damas.user.UserManager
 import java.util.Arrays
+import java.util.Collections
 
 class JcrPermissionManagerTest: WeldTest() {
 
@@ -124,6 +125,49 @@ class JcrPermissionManagerTest: WeldTest() {
         folderManager.update(userToken, folderId,
                 Mocks.folder(null, "new_name")
         )
+    }
+
+    @Test
+    fun updateRecursive() {
+        try {
+            folderManager.retrieve(userToken, subfolderId)
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        /* Try with no recursion */
+        manager.update(token, folderId, Arrays.asList(
+                Mocks.permission(null, username, AccessRight.READ)))
+        /* It won't work */
+        try {
+            folderManager.retrieve(userToken, subfolderId)
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        /* Grand access on folder, recursively */
+        manager.update(token, folderId, Arrays.asList(
+                Mocks.permission(null, username, AccessRight.READ)), true)
+        /* Also works on sub-folder */
+        folderManager.retrieve(userToken, subfolderId)
+        /* Not for write, yet */
+        try {
+            folderManager.update(userToken, subfolderId,
+                    Mocks.folder(null, "new_name")
+            )
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
+        /* Grant write access, recursively */
+        manager.update(token, folderId, Arrays.asList(
+                Mocks.permission(null, username, AccessRight.WRITE)), true)
+        /* And watch it apply to children */
+        folderManager.update(userToken, folderId,
+                Mocks.folder(null, "new_name")
+        )
+        /* Revoke all */
+        manager.update(token, folderId, Arrays.asList(
+                Mocks.permission(null, username, AccessRight.NONE)), true)
+        /* Back to square one */
+        try {
+            folderManager.retrieve(userToken, subfolderId)
+            assert(false) { "Expecting access rights denial." }
+        } catch (_: WorkspaceException) {}
     }
 
     @Test
