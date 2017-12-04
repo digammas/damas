@@ -47,7 +47,7 @@ object Mocks {
     }
 
     fun permission(
-            objectId: String,
+            objectId: String?,
             subjectId: String,
             accessRights: AccessRight)
                 = Mockito.mock(Permission::class.java).also {
