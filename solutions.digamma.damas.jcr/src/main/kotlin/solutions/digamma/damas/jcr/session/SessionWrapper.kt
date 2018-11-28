@@ -4,6 +4,7 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.ResourceBusyException
 import solutions.digamma.damas.jcr.common.Exceptions
+import java.io.Closeable
 
 import javax.jcr.Session
 import java.util.concurrent.TimeUnit
@@ -16,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock
  * @author Ahmad Shahwan
  */
 internal class SessionWrapper
-internal constructor(private val session: Session) : AutoCloseable {
+internal constructor(private val session: Session) : Closeable {
 
     private val lock = ReentrantLock()
 

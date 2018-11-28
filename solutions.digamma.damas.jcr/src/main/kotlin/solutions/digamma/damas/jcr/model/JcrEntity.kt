@@ -5,11 +5,11 @@ import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.jcr.common.Exceptions
 import java.util.Arrays
 import java.util.Calendar
+import java.util.stream.Collectors
 import javax.jcr.Node
 import javax.jcr.NodeIterator
 import javax.jcr.RepositoryException
 import javax.jcr.query.Query
-import kotlin.streams.toList
 
 /**
  * Entity implementation, with underling JCR node.
@@ -68,7 +68,7 @@ internal interface JcrEntity : Entity {
     fun getStrings(name: String): List<String> = Exceptions.wrap {
         Arrays.stream(this.node.getProperty(name).values)
                 .map { it.string }
-                .toList()
+                .collect(Collectors.toList())
     }
 
     /**
