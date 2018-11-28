@@ -16,7 +16,7 @@
     </description>
 
     <properties>
-        <enunciate.version>2.9.1</enunciate.version>
+        <enunciate.version>2.11.1</enunciate.version>
     </properties>
 
     <build>
