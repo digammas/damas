@@ -72,7 +72,6 @@
             </dependency>
 
             <!-- Test only dependencies -->
-            <!-- https://mvnrepository.com/artifact/junit/junit -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -83,12 +82,6 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>2.23.4</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>2.7.22</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -178,5 +171,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
