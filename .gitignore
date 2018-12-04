@@ -27,3 +27,5 @@ target/
 .idea/
 *.iml
 
+# Maven flattened POM files
+.flattened-pom.xml
