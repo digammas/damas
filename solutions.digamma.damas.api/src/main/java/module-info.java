@@ -4,8 +4,11 @@
  * @author Ahmad Shahwan
  */
 module solutions.digamma.damas.api {
-    exports solutions.digamma.damas;
+    requires java.logging;
+
     exports solutions.digamma.damas.auth;
     exports solutions.digamma.damas.content;
-    exports solutions.digamma.damas.inspection;
+    exports solutions.digamma.damas.entity;
+    exports solutions.digamma.damas.common;
+    exports solutions.digamma.damas.login;
 }
