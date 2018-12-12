@@ -86,10 +86,10 @@
             <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Allow JSON serialization with Jackson -->
+        <!-- Allow JSON serialization with JSONB -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
+            <artifactId>jersey-media-json-binding</artifactId>
             <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
