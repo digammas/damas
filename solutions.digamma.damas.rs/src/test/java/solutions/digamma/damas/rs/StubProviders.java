@@ -24,8 +24,6 @@ public class StubProviders extends Mockito {
     static final String FOLDER_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
-    private final Token token = () -> TOKEN;
-
     private DocumentSerialization document = new DocumentSerialization();
     private FolderSerialization folder = new FolderSerialization();
 
@@ -43,7 +41,7 @@ public class StubProviders extends Mockito {
     public LoginManager getLoginManager() throws WorkspaceException {
         this.log.info("Acquiring mock login manager.");
         LoginManager manager = mock(LoginManager.class);
-        when(manager.login(any(), any())).thenReturn(token);
+        when(manager.login(any(), any())).thenReturn(new MockToken());
         return manager;
     }
 
@@ -71,5 +69,13 @@ public class StubProviders extends Mockito {
         Mockito.when(manager.update(any(), eq(FOLDER_ID), any()))
                 .thenReturn(this.folder);
         return manager;
+    }
+
+    public static class MockToken implements Token {
+
+        @Override
+        public String getSecret() {
+            return TOKEN;
+        }
     }
 }
