@@ -1,7 +1,5 @@
 package solutions.digamma.damas.common;
 
-import java.util.logging.Level;
-
 /**
  * Exception thrown when internal state is incompatible with requested
  * operation. Such an exception usual denotes an anomaly and should be fully
@@ -25,6 +23,6 @@ public class InternalStateException extends WorkspaceException {
 
     public InternalStateException(String message, Exception e) {
         super(message, e);
-        this.setLogLevel(Level.SEVERE);
+        this.setOrigin(Origin.INTERNAL);
     }
 }

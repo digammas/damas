@@ -4,8 +4,6 @@
  * @author Ahmad Shahwan
  */
 module solutions.digamma.damas.api {
-    requires java.logging;
-
     exports solutions.digamma.damas.auth;
     exports solutions.digamma.damas.content;
     exports solutions.digamma.damas.entity;

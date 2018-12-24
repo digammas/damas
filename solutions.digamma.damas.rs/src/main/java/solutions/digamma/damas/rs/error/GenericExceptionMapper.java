@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Checked exception mapper.
+ * Unchecked exception mapper.
  *
  * @author Ahmad Shahwan
  */
@@ -30,59 +30,10 @@ public class GenericExceptionMapper
 
     @Override
     public Response toResponse(Throwable e) {
-        log(e);
+        this.logger.log(Level.SEVERE, "Unchecked exception.", e);
         return Response
-            .status(toStatusCode(e))
+            .status(Response.Status.INTERNAL_SERVER_ERROR)
             .entity(new ExceptionReport(e))
             .build();
-    }
-
-    private void log(WorkspaceException e) {
-        if (e.getLogLevel() == Level.SEVERE) {
-            this.logger.log(Level.SEVERE, "Checked exception.", e);
-        } else {
-            this.logger.log(e.getLogLevel(), e.getMessage());
-        }
-    }
-
-    private void log(Throwable e) {
-        if (e instanceof WorkspaceException) {
-            log((WorkspaceException) e);
-        } else {
-            this.logger.log(Level.SEVERE, "Unchecked exception.", e);
-        }
-    }
-
-    private static int toStatusCode(Throwable e) {
-        if (e instanceof NotFoundException) {
-            /* Not Found */
-            return 404;
-        }
-        if (e instanceof AuthenticationException) {
-            /* Unauthorized */
-            return 401;
-        }
-        if (e instanceof AuthorizationException) {
-            /* Forbidden */
-            return 403;
-        }
-        if (e instanceof ConflictException) {
-            /* Conflict */
-            return 409;
-        }
-        if (e instanceof ResourceBusyException) {
-            /* Too Many Requests */
-            return 429;
-        }
-        if (e instanceof InvalidArgumentException) {
-            /* Unprocessable Entity */
-            return 422;
-        }
-        if (e instanceof UnsupportedActionException) {
-            /* Not Implemented */
-            return 501;
-        }
-        /* Internal Server Error */
-        return 500;
     }
 }

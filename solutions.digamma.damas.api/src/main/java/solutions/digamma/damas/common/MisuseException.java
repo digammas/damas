@@ -1,7 +1,5 @@
 package solutions.digamma.damas.common;
 
-import java.util.logging.Level;
-
 /**
  * Exception occurs when the DMS API is misused.
  *
@@ -23,6 +21,6 @@ public class MisuseException extends WorkspaceException {
 
     public MisuseException(String message, Exception e) {
         super(message, e);
-        this.setLogLevel(Level.WARNING);
+        this.setOrigin(Origin.API);
     }
 }
