@@ -1,7 +1,5 @@
 package solutions.digamma.damas.common;
 
-import java.util.logging.Level;
-
 /**
  * Generic exception. All API method may throw an instance of this exception.
  *
@@ -9,7 +7,26 @@ import java.util.logging.Level;
  */
 public class WorkspaceException extends Exception {
 
-    private Level logLevel = Level.INFO;
+    /**
+     * Exception's origin.
+     */
+    public enum Origin {
+        /**
+         * Domain exceptions happen during normal usage, and indicate a domain
+         * specific error (access denied, requested document not found, etc).
+         */
+        DOMAIN,
+        /**
+         * API exceptions happen when the programming interface is misused.
+         */
+        API,
+        /**
+         * Internal exceptions happen when an unexpected error occurs.
+         */
+        INTERNAL
+    }
+
+    private Origin origin = Origin.DOMAIN;
 
     public WorkspaceException() {
         super();
@@ -28,15 +45,15 @@ public class WorkspaceException extends Exception {
     }
 
     /**
-     * Exception logLevel.
+     * Exception origin.
      *
-     * @return
+     * @return  exception's origin
      */
-    public Level getLogLevel() {
-        return this.logLevel;
+    public Origin getOrigin() {
+        return this.origin;
     }
 
-    public void setLogLevel(Level value) {
-        this.logLevel = value;
+    public void setOrigin(Origin value) {
+        this.origin = value;
     }
 }

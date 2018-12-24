@@ -21,7 +21,7 @@ public class ExceptionReport implements Serializable {
     /**
      * Error message.
      *
-     * @return
+     * @return error message
      */
     public String getMessage() {
         return this.exception.getMessage();
@@ -30,7 +30,7 @@ public class ExceptionReport implements Serializable {
     /**
      * Error cause.
      *
-     * @return
+     * @return exception cause
      */
     public ExceptionReport getCause() {
         Throwable cause = this.exception.getCause();

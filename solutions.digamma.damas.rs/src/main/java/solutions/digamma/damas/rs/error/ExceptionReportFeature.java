@@ -13,8 +13,9 @@ import javax.ws.rs.ext.Provider;
 public class ExceptionReportFeature implements Feature {
 
     @Override
-    public boolean configure(FeatureContext featureContext) {
-        featureContext.register(GenericExceptionMapper.class);
+    public boolean configure(FeatureContext context) {
+        context.register(WorkspaceExceptionMapper.class);
+        context.register(GenericExceptionMapper.class);
         return true;
     }
 }

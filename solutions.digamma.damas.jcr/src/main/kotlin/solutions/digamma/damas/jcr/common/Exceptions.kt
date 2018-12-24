@@ -6,6 +6,7 @@ import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
+import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
 import solutions.digamma.damas.jcr.session.SessionWrapper
 
 import javax.jcr.ItemExistsException
@@ -41,7 +42,7 @@ internal object Exceptions {
         is PathNotFoundException -> NotFoundException(e)
         is LoginException -> AuthenticationException(e)
         is ConstraintViolationException -> InternalStateException(e)
-        else -> WorkspaceException(e).also { it.logLevel = Level.SEVERE }
+        else -> WorkspaceException(e).also { it.origin = INTERNAL }
     }
 
     /**
