@@ -39,15 +39,14 @@ public class WorkspaceExceptionMapper
 
     private void log(WorkspaceException e) {
         switch (e.getOrigin()) {
-            case INTERNAL:
-                this.logger.log(Level.SEVERE, "Checked exception.", e);
-                break;
             case API:
                 this.logger.log(Level.WARNING, e.getMessage());
                 break;
             case DOMAIN:
                 this.logger.log(Level.INFO, e.getMessage());
                 break;
+            default:
+                this.logger.log(Level.SEVERE, "Checked exception.", e);
         }
     }
 
