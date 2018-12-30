@@ -6,10 +6,13 @@ import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
 import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.content.Metadata
 import solutions.digamma.damas.jcr.auth.Permissions
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.InvalidNodeTypeException
 import solutions.digamma.damas.jcr.model.JcrBaseEntity
+import solutions.digamma.damas.jcr.model.JcrCreated
+import solutions.digamma.damas.jcr.model.JcrModifiable
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import java.net.URI
 import javax.jcr.ItemExistsException
@@ -26,7 +29,8 @@ import javax.jcr.nodetype.NodeType
  */
 internal abstract class JcrFile
 @Throws(WorkspaceException::class)
-protected constructor(node: Node) : JcrBaseEntity(node), File {
+protected constructor(node: Node) : JcrBaseEntity(node),
+        JcrCreated, JcrModifiable, File {
 
     @Throws(InternalStateException::class)
     override fun checkCompatibility() {
@@ -81,6 +85,18 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
         this.move(destination)
     }
 
+    @Throws(WorkspaceException::class)
+    override fun getPath(): String = Exceptions.wrap {
+        URI.create(JcrFile.ROOT_PATH)
+                .relativize(URI.create(this.node.path)).path
+    }
+
+    @Throws(WorkspaceException::class)
+    override fun getMetadata(): Metadata? = null
+
+    @Throws(WorkspaceException::class)
+    override fun setMetadata(metadata: Metadata) {}
+
     @Throws(RepositoryException::class)
     private fun move(path: String) {
         try {
@@ -100,6 +116,7 @@ protected constructor(node: Node) : JcrBaseEntity(node), File {
     fun update(other: File) {
         other.name?.let { this.name = it }
         other.parentId?.let { this.parentId = it }
+        other.metadata?.let { this.setMetadata(it) }
     }
 
     /**

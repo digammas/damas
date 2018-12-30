@@ -40,9 +40,6 @@ protected constructor(node: Node) : JcrFile(node), Folder {
         this.checkTypeCompatibility(TypeNamespace.FOLDER)
     }
 
-    @Throws(WorkspaceException::class)
-    override fun expand() = JcrDetailedFolder.of(this.node)
-
     override fun expandContent(depth: Int) {
         if (depth != this.contentDepth) {
             this.content = null
@@ -64,7 +61,6 @@ protected constructor(node: Node) : JcrFile(node), Folder {
             return this.content
         }
         if (this.content != null) {
-            this.content
             return this.content
         }
         val documents = ArrayList<JcrDocument>()

@@ -5,5 +5,5 @@ package solutions.digamma.damas.content;
  *
  * @author Ahmad Shahwan
  */
-public interface Version extends Document {
+public interface Version extends File {
 }

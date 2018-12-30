@@ -46,13 +46,6 @@ class JcrFolderTest : WeldTest() {
 
     @Test
     @Throws(Exception::class)
-    fun expand() {
-        this.folder!!.expand()
-
-    }
-
-    @Test
-    @Throws(Exception::class)
     fun expandContent() {
         var expanded = this.folder
         expanded!!.expandContent()

@@ -1,5 +1,7 @@
 package solutions.digamma.damas.entity;
 
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.Page;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.common.WorkspaceException;
 
@@ -13,15 +15,15 @@ public interface SearchEngine<T extends Entity> {
     /**
      * Find all entities.
      *
-     * @param token
+     * @param token Authentication taken.
      * @return A page of all known entities.
      */
     Page<T> find(Token token) throws WorkspaceException;
 
     /**
-     * Find entities from an offset, up to certain size.
+     * Find entities starting from a given offset, up to certain size.
      *
-     * @param token
+     * @param token Authentication taken.
      * @param offset Search offset.
      * @param size   Maximum result size.
      * @return A page of entities.
@@ -30,10 +32,10 @@ public interface SearchEngine<T extends Entity> {
             throws WorkspaceException;
 
     /**
-     * Find entities from an offset, up to certain size, satisfying a give
-     * query.
+     * Find entities satisfying a query starting from a given offset, and up to
+     * certain size.
      *
-     * @param token
+     * @param token Authentication taken.
      * @param offset Search offset.
      * @param size   Maximum result size.
      * @param query  Search query. If null, no filtering is done.
