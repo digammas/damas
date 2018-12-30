@@ -12,14 +12,6 @@ import java.util.List;
 public interface Folder extends File {
 
     /**
-     * Expand folder to a detailed document.
-     *
-     * @return
-     */
-    @Override
-    DetailedFolder expand() throws WorkspaceException;
-
-    /**
      * Expand content to the given depth.
      *
      * @param depth

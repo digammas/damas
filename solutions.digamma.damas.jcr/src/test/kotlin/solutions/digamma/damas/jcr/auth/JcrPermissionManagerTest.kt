@@ -2,6 +2,7 @@ package solutions.digamma.damas.jcr.auth
 
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.WorkspaceException

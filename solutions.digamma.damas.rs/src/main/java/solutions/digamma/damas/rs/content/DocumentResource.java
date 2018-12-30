@@ -25,7 +25,8 @@ public class DocumentResource
     /**
      * Provide detailed description of folder.
      */
-    private @QueryParam("full") Boolean full;
+    @QueryParam("full")
+    private boolean full;
 
     @Override
     protected DocumentManager getManager() {
@@ -35,16 +36,12 @@ public class DocumentResource
     @Override
     public DocumentSerialization retrieve(String id)
             throws WorkspaceException {
-        Document document = super.retrieve(id);
-        if (this.full != null && this.full) {
-            document = document.expand();
-        }
-        return wrap(document);
+        return wrap(super.retrieve(id));
     }
 
     @Override
     protected DocumentSerialization wrap(Document entity)
             throws WorkspaceException {
-        return new DocumentSerialization(entity);
+        return new DocumentSerialization(entity, this.full);
     }
 }

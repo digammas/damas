@@ -6,6 +6,7 @@ import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
@@ -25,13 +26,16 @@ public class FolderResource
     /**
      * Provide detailed description of folder.
      */
-    private @QueryParam("full") Boolean full;
+    @QueryParam("full")
+    private boolean full;
+
 
     /**
      * Depth of retrieved content. For full depth, provide zero. If this
      * parameter is omitted no content will be shown.
      */
-    private @QueryParam("depth") Integer depth;
+    @QueryParam("depth")
+    private Integer depth;
 
     @Override
     protected FolderManager getManager() {
@@ -51,10 +55,7 @@ public class FolderResource
     @Override
     public FolderSerialization retrieve(String id)
             throws WorkspaceException {
-        Folder folder = super.retrieve(id);
-        if (this.full != null && this.full) {
-            folder = folder.expand();
-        }
+        FolderSerialization folder = wrap(super.retrieve(id));
         if (this.depth != null) {
             if (this.depth == 0) {
                 folder.expandContent();
@@ -62,11 +63,12 @@ public class FolderResource
                 folder.expandContent(this.depth);
             }
         }
-        return wrap(folder);
+        return folder;
     }
 
     @Override
-    protected FolderSerialization wrap(Folder entity) throws WorkspaceException {
-        return new FolderSerialization(entity);
+    protected FolderSerialization wrap(Folder entity)
+            throws WorkspaceException {
+        return new FolderSerialization(entity, this.full);
     }
 }

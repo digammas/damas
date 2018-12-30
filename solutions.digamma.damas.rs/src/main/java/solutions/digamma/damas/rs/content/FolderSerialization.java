@@ -1,7 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.content.DetailedFolder;
 import solutions.digamma.damas.content.Folder;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,12 +26,12 @@ public class FolderSerialization extends FileSerialization implements Folder {
      * @param copy
      * @throws WorkspaceException
      */
-    public FolderSerialization(Folder copy) throws WorkspaceException {
-        super(copy);
+    public FolderSerialization(Folder copy, boolean full)
+            throws WorkspaceException {
+        super(copy, full);
     }
 
-    @Override
-    public DetailedFolder expand() {
+    public FolderSerialization expand() {
         return null;
     }
 

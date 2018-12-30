@@ -2,18 +2,18 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.common.WorkspaceException;
 
+import java.util.List;
+
 /**
  * Document object.
  *
  * @author Ahmad Shahwan
  */
-public interface Document extends File {
+public interface Document extends File, CommentReceiver {
 
     /**
-     * Expand document to a detailed document.
-     *
+     * All versions of the document.
      * @return
      */
-    @Override
-    DetailedDocument expand() throws WorkspaceException;
+    List<Version> getVersions() throws WorkspaceException;
 }

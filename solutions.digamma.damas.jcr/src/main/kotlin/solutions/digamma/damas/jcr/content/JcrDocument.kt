@@ -5,6 +5,7 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentPayload
+import solutions.digamma.damas.content.Version
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
 
@@ -12,6 +13,7 @@ import javax.jcr.Node
 import javax.jcr.Property
 import javax.jcr.nodetype.NodeType
 import java.io.InputStream
+import java.util.ArrayList
 import javax.jcr.Session
 
 /**
@@ -23,7 +25,8 @@ import javax.jcr.Session
  */
 internal open class JcrDocument
 @Throws(WorkspaceException::class)
-protected constructor(node: Node) : JcrFile(node), Document {
+protected constructor(node: Node) : JcrFile(node),
+        JcrCommentReceiver, Document {
 
     val content: DocumentPayload
     @Throws(WorkspaceException::class)
@@ -38,6 +41,10 @@ protected constructor(node: Node) : JcrFile(node), Document {
             override fun getSize() = size
             override fun getStream() = stream
         }
+    }
+
+    override fun getVersions(): List<Version> {
+        return ArrayList(0)
     }
 
     @Throws(WorkspaceException::class)
@@ -58,10 +65,6 @@ protected constructor(node: Node) : JcrFile(node), Document {
                     throw InternalStateException("Node is not nt:file type.")
         }
     }
-
-
-    @Throws(WorkspaceException::class)
-    override fun expand() = JcrDetailedDocument.of(this.node)
 
     companion object {
 
