@@ -42,6 +42,6 @@ public class DocumentResource
     @Override
     protected DocumentSerialization wrap(Document entity)
             throws WorkspaceException {
-        return new DocumentSerialization(entity, this.full);
+        return DocumentSerialization.from(entity, this.full);
     }
 }

@@ -26,7 +26,7 @@ public class FolderSerialization extends FileSerialization implements Folder {
      * @param copy
      * @throws WorkspaceException
      */
-    public FolderSerialization(Folder copy, boolean full)
+    private FolderSerialization(Folder copy, boolean full)
             throws WorkspaceException {
         super(copy, full);
     }
@@ -54,5 +54,18 @@ public class FolderSerialization extends FileSerialization implements Folder {
      * @param value
      */
     public void setContent(Object value) {
+    }
+
+    /**
+     * Create serializable folder from another folder pattern.
+     *
+     * @param p     Document pattern.
+     * @param full  Whether to copy with full details.
+     * @return      Serializable copy.
+     * @throws WorkspaceException
+     */
+    public static FolderSerialization from(Folder p, boolean full)
+            throws WorkspaceException {
+        return p == null ? null : new FolderSerialization(p, full);
     }
 }
