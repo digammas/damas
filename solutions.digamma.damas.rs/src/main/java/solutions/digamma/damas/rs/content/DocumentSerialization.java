@@ -26,11 +26,11 @@ public class DocumentSerialization
     /**
      * Constructor that mimics another document object.
      *
-     * @param copy a copy to mimic
-     * @param full whether to copy with full details
+     * @param copy A copy to mimic.
+     * @param full Whether to copy with full details.
      * @throws WorkspaceException
      */
-    public DocumentSerialization(Document copy, boolean full)
+    private DocumentSerialization(Document copy, boolean full)
             throws WorkspaceException {
         super(copy, full);
     }
@@ -43,5 +43,18 @@ public class DocumentSerialization
     @Override
     public List<Comment> getComments() throws WorkspaceException {
         return null;
+    }
+
+    /**
+     * Create serializable document from another document pattern.
+     *
+     * @param p     Document pattern.
+     * @param full  Whether to copy with full details.
+     * @return      Serializable copy.
+     * @throws WorkspaceException
+     */
+    public static DocumentSerialization from(Document p, boolean full)
+            throws WorkspaceException {
+        return p == null ? null : new DocumentSerialization(p, full);
     }
 }

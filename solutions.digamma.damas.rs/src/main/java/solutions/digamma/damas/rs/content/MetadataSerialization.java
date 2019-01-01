@@ -3,40 +3,77 @@ package solutions.digamma.damas.rs.content;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Metadata;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
  * Metadata object serialization.
  */
+@XmlRootElement(name = "Metadata")
 public class MetadataSerialization implements Metadata {
+
+    private String title;
+    private String description;
+    private List<String> keywords;
+
+    /**
+     * No-argument constructor.
+     */
+    public MetadataSerialization() {
+
+    }
+
+    /**
+     * Copy constructor.
+     *
+     * @param copy A copy to mimic.
+     * @throws WorkspaceException
+     */
+    private MetadataSerialization(Metadata copy) throws WorkspaceException {
+        this.title = copy.getTitle();
+        this.description = copy.getDescription();
+        this.keywords = copy.getKeywords();
+    }
 
     @Override
     public String getTitle() {
-        return null;
+        return this.title;
     }
 
     @Override
-    public void setTitle(String value) throws WorkspaceException {
-
+    public void setTitle(String value) {
+        this.title = value;
     }
 
     @Override
-    public String getDescription() throws WorkspaceException {
-        return null;
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
-    public void setDescription(String value) throws WorkspaceException {
-
+    public void setDescription(String value) {
+        this.description = value;
     }
 
     @Override
-    public List<String> getKeywords() throws WorkspaceException {
-        return null;
+    public List<String> getKeywords() {
+        return this.keywords;
     }
 
     @Override
-    public void setKeywords(List<String> value) throws WorkspaceException {
+    public void setKeywords(List<String> value) {
+        this.keywords = value;
+    }
 
+    /**
+     * Create serializable copy from a pattern.
+     *
+     * @param p     The pattern.
+     * @return      Serializable copy.
+     * @throws WorkspaceException
+     */
+    public static MetadataSerialization from(Metadata p)
+            throws WorkspaceException {
+        return p == null ? null : new MetadataSerialization(p);
     }
 }

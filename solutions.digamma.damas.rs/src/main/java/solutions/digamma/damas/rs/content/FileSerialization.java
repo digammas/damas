@@ -22,6 +22,7 @@ abstract public class FileSerialization implements File {
     private Calendar creationDate;
     private String modifiedBy;
     private Calendar modificationDate;
+    private MetadataSerialization metadata;
 
     /**
      * No-argument constructor.
@@ -47,6 +48,7 @@ abstract public class FileSerialization implements File {
             this.creationDate = copy.getCreationDate();
             this.modifiedBy = copy.getModifiedBy();
             this.modificationDate = copy.getModificationDate();
+            this.metadata = MetadataSerialization.from(copy.getMetadata());
         }
     }
 
@@ -65,67 +67,67 @@ abstract public class FileSerialization implements File {
     }
 
     @Override
-    public String getName() throws WorkspaceException {
+    public String getName() {
         return this.name;
     }
 
     @Override
-    public void setName(String value) throws WorkspaceException {
+    public void setName(String value) {
         this.name = value;
     }
 
     @Override
-    public FolderSerialization getParent() throws WorkspaceException {
+    public FolderSerialization getParent() {
         return null;
     }
 
     @Override
-    public void setParent(Folder value) throws WorkspaceException {
+    public void setParent(Folder value) {
 
     }
 
     @Override
-    public String getParentId() throws WorkspaceException {
+    public String getParentId() {
         return this.parentId;
     }
 
     @Override
-    public void setParentId(String value) throws WorkspaceException {
+    public void setParentId(String value) {
         this.parentId = value;
     }
 
     @Override
-    public MetadataSerialization getMetadata() throws WorkspaceException {
-        return null;
+    public MetadataSerialization getMetadata() {
+        return this.metadata;
     }
 
     @Override
     public void setMetadata(Metadata metadata) throws WorkspaceException {
-
+        this.metadata = MetadataSerialization.from(metadata);
     }
 
     @Override
-    public String getPath() throws WorkspaceException {
+    public String getPath() {
         return this.path;
     }
 
     @Override
-    public String getCreatedBy() throws WorkspaceException {
+    public String getCreatedBy() {
         return this.createdBy;
     }
 
     @Override
-    public Calendar getCreationDate() throws WorkspaceException {
+    public Calendar getCreationDate() {
         return this.creationDate;
     }
 
     @Override
-    public String getModifiedBy() throws WorkspaceException {
+    public String getModifiedBy() {
         return this.modifiedBy;
     }
 
     @Override
-    public Calendar getModificationDate() throws WorkspaceException {
+    public Calendar getModificationDate() {
         return this.modificationDate;
     }
 }
