@@ -11,10 +11,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.auth.Credentials;
+import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
 
@@ -160,6 +162,27 @@ public class RestTest extends JerseyTest {
                 .accept(this.ct)
                 .get(DocumentSerialization.class);
         assert file.getMetadata() == null : "Metadata in short version.";
+    }
+
+    @Test
+    public void testComment() {
+        Comment cmnt;
+        cmnt = target("comments/%s", StubProviders.COMMENT_ID)
+                .request()
+                .accept(this.ct)
+                .get(CommentSerialization.class);
+        assert cmnt != null : "Error GETting comment.";
+        cmnt = target("comments")
+                .request()
+                .post(Entity.entity(cmnt, this.ct), CommentSerialization.class);
+        assert cmnt != null : "Error POSTing folder.";
+        cmnt = target("comments/%s", StubProviders.COMMENT_ID)
+                .request()
+                .put(Entity.entity(cmnt, this.ct), CommentSerialization.class);
+        assert cmnt != null : "Error PUTing comment.";
+        target("comments/%s", StubProviders.COMMENT_ID)
+                .request()
+                .delete();
     }
 
     private WebTarget target(String pattern, Object... args) {

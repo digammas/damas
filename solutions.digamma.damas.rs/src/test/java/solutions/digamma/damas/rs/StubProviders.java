@@ -7,6 +7,7 @@ import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
+import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
 import solutions.digamma.damas.rs.content.MetadataSerialization;
@@ -24,10 +25,12 @@ public class StubProviders extends Mockito {
 
     static final String DOCUMENT_ID = UUID.randomUUID().toString();
     static final String FOLDER_ID = UUID.randomUUID().toString();
+    static final String COMMENT_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
     private DocumentSerialization document = new DocumentSerialization();
     private FolderSerialization folder = new FolderSerialization();
+    private CommentSerialization comment = new CommentSerialization();
 
 
     @Inject
@@ -37,6 +40,7 @@ public class StubProviders extends Mockito {
         document.setId(DOCUMENT_ID);
         document.setMetadata(new MetadataSerialization());
         folder.setId(FOLDER_ID);
+        comment.setId(COMMENT_ID);
 
     }
 
@@ -78,6 +82,12 @@ public class StubProviders extends Mockito {
     public CommentManager getCommentManager() throws WorkspaceException {
         this.log.info("Acquiring mock document manager.");
         CommentManager manager = mock(CommentManager.class);
+        Mockito.when(manager.retrieve(any(), eq(COMMENT_ID)))
+                .thenReturn(this.comment);
+        Mockito.when(manager.create(any(), any()))
+                .thenReturn(this.comment);
+        Mockito.when(manager.update(any(), eq(COMMENT_ID), any()))
+                .thenReturn(this.comment);
         return manager;
     }
 
