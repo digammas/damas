@@ -3,8 +3,9 @@ package solutions.digamma.damas.jcr.model
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.jcr.common.Exceptions
+import java.time.ZonedDateTime
 import java.util.Arrays
-import java.util.Calendar
+import java.util.GregorianCalendar
 import java.util.stream.Collectors
 import javax.jcr.Node
 import javax.jcr.NodeIterator
@@ -94,8 +95,9 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun getDate(name: String): Calendar = Exceptions.wrap {
-        this.node.getProperty(name).date
+    fun getDate(name: String): ZonedDateTime = Exceptions.wrap {
+        val cal = this.node.getProperty(name).date
+        cal.toInstant().atZone(cal.timeZone.toZoneId())
     }
 
     /**
@@ -110,8 +112,8 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun setDate(name: String, value: Calendar) {
-        Exceptions.wrap { this.node.setProperty(name, value) }
+    fun setDate(name: String, value: ZonedDateTime?): Unit = Exceptions.wrap {
+        this.node.setProperty(name, value?.let { GregorianCalendar.from(it) })
     }
 
     /**

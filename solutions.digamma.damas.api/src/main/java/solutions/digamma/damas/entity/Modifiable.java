@@ -2,7 +2,7 @@ package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.common.WorkspaceException;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 /**
  * @author Ahmad Shahwan
@@ -23,5 +23,5 @@ public interface Modifiable {
      * @return
      * @throws WorkspaceException
      */
-    Calendar getModificationDate() throws WorkspaceException;
+    ZonedDateTime getModificationDate() throws WorkspaceException;
 }

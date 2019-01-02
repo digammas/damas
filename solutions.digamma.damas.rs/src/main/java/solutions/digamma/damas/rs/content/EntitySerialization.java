@@ -4,15 +4,15 @@ import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.entity.Modifiable;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public abstract class EntitySerialization implements Entity, Created, Modifiable {
 
     protected String id;
     protected String createdBy;
-    protected Calendar creationDate;
+    protected ZonedDateTime creationDate;
     protected String modifiedBy;
-    protected Calendar modificationDate;
+    protected ZonedDateTime modificationDate;
 
     @Override
     public String getId() {
@@ -34,7 +34,7 @@ public abstract class EntitySerialization implements Entity, Created, Modifiable
     }
 
     @Override
-    public Calendar getCreationDate() {
+    public ZonedDateTime getCreationDate() {
         return this.creationDate;
     }
 
@@ -44,7 +44,7 @@ public abstract class EntitySerialization implements Entity, Created, Modifiable
     }
 
     @Override
-    public Calendar getModificationDate() {
+    public ZonedDateTime getModificationDate() {
         return this.modificationDate;
     }
 }

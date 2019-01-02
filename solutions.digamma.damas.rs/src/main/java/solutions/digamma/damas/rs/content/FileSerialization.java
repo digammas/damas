@@ -5,8 +5,6 @@ import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.Metadata;
 
-import java.util.Calendar;
-
 /**
  * File object serialization.
  *
