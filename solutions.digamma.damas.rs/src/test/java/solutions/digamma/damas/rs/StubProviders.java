@@ -2,6 +2,7 @@ package solutions.digamma.damas.rs;
 
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
+import solutions.digamma.damas.content.CommentManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.content.DocumentManager;
@@ -70,6 +71,13 @@ public class StubProviders extends Mockito {
                 .thenReturn(this.folder);
         Mockito.when(manager.update(any(), eq(FOLDER_ID), any()))
                 .thenReturn(this.folder);
+        return manager;
+    }
+
+    @Produces @Singleton
+    public CommentManager getCommentManager() throws WorkspaceException {
+        this.log.info("Acquiring mock document manager.");
+        CommentManager manager = mock(CommentManager.class);
         return manager;
     }
 

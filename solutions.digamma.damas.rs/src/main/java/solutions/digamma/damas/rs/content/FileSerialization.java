@@ -12,16 +12,13 @@ import java.util.Calendar;
  *
  * @author Ahmad Shahwan
  */
-abstract public class FileSerialization implements File {
+abstract public class FileSerialization
+        extends  EntitySerialization
+        implements File {
 
-    private String id;
     private String name;
     private String parentId;
     private String path;
-    private String createdBy;
-    private Calendar creationDate;
-    private String modifiedBy;
-    private Calendar modificationDate;
     private MetadataSerialization metadata;
 
     /**
@@ -50,20 +47,6 @@ abstract public class FileSerialization implements File {
             this.modificationDate = copy.getModificationDate();
             this.metadata = MetadataSerialization.from(copy.getMetadata());
         }
-    }
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    /**
-     * Set ID.
-     *
-     * @param value
-     */
-    public void setId(String value) {
-        this.id = value;
     }
 
     @Override
@@ -115,23 +98,4 @@ abstract public class FileSerialization implements File {
         return this.path;
     }
 
-    @Override
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    @Override
-    public Calendar getCreationDate() {
-        return this.creationDate;
-    }
-
-    @Override
-    public String getModifiedBy() {
-        return this.modifiedBy;
-    }
-
-    @Override
-    public Calendar getModificationDate() {
-        return this.modificationDate;
-    }
 }
