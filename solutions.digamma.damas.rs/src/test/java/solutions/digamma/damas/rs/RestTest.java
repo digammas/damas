@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.login.Token;
@@ -117,4 +118,51 @@ public class RestTest extends JerseyTest {
                 .request()
                 .delete();
     }
+
+    @Test
+    public void testFullDocumentResponseContainsMetadata() {
+        String response = target(String
+                    .format("documents/%s", StubProviders.DOCUMENT_ID))
+                .queryParam("full", true)
+                .request()
+                .accept(this.ct)
+                .get(String.class);
+        assert response.contains("metadata") : "Expecting metadata in details.";
+    }
+
+    @Test
+    public void testShortDocumentResponseContainsMetadata() {
+        String response = target(String
+                .format("documents/%s", StubProviders.DOCUMENT_ID))
+                .queryParam("full", false)
+                .request()
+                .accept(this.ct)
+                .get(String.class);
+        assert !response.contains("metadata") : "Metadata in short version.";
+    }
+
+    @Test
+    public void testFullDocumentEntityContainsMetadata()
+            throws WorkspaceException {
+        Document file = target(String
+                .format("documents/%s", StubProviders.DOCUMENT_ID))
+                .queryParam("full", true)
+                .request()
+                .accept(this.ct)
+                .get(DocumentSerialization.class);
+        assert file.getMetadata() != null : "Expecting metadata in details.";
+    }
+
+    @Test
+    public void testShortDocumentEntityContainsMetadata()
+            throws WorkspaceException {
+        Document file = target(String
+                .format("documents/%s", StubProviders.DOCUMENT_ID))
+                .queryParam("full", false)
+                .request()
+                .accept(this.ct)
+                .get(DocumentSerialization.class);
+        assert file.getMetadata() == null : "Metadata in short version.";
+    }
+
 }

@@ -106,6 +106,10 @@ abstract public class FileSerialization implements File {
         this.metadata = MetadataSerialization.from(metadata);
     }
 
+    public void setMetadata(MetadataSerialization metadata) {
+        this.metadata = metadata;
+    }
+
     @Override
     public String getPath() {
         return this.path;
