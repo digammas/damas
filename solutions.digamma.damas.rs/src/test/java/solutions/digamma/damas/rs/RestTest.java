@@ -19,6 +19,7 @@ import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
@@ -80,7 +81,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testDocument() {
         Document file;
-        file = target("documents/" + StubProviders.DOCUMENT_ID)
+        file = target("documents/%s", StubProviders.DOCUMENT_ID)
                 .request()
                 .accept(this.ct)
                 .get(DocumentSerialization.class);
@@ -89,11 +90,11 @@ public class RestTest extends JerseyTest {
             .request()
             .post(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error POSTing document.";
-        file = target("documents/" + StubProviders.DOCUMENT_ID)
+        file = target("documents/%s", StubProviders.DOCUMENT_ID)
             .request()
             .put(Entity.entity(file, this.ct), DocumentSerialization.class);
         assert file != null : "Error PUTing document.";
-        target("documents/" + StubProviders.DOCUMENT_ID)
+        target("documents/%s", StubProviders.DOCUMENT_ID)
                 .request()
                 .delete();
     }
@@ -101,7 +102,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testFolder() {
         Folder file;
-        file = target("folders/" + StubProviders.FOLDER_ID)
+        file = target("folders/%s", StubProviders.FOLDER_ID)
                 .request()
                 .accept(this.ct)
                 .get(FolderSerialization.class);
@@ -110,19 +111,18 @@ public class RestTest extends JerseyTest {
                 .request()
                 .post(Entity.entity(file, this.ct), FolderSerialization.class);
         assert file != null : "Error POSTing folder.";
-        file = target("folders/" + StubProviders.FOLDER_ID)
+        file = target("folders/%s", StubProviders.FOLDER_ID)
                 .request()
                 .put(Entity.entity(file, this.ct), FolderSerialization.class);
         assert file != null : "Error PUTing folder.";
-        target("folders/" + StubProviders.FOLDER_ID)
+        target("folders/%s", StubProviders.FOLDER_ID)
                 .request()
                 .delete();
     }
 
     @Test
     public void testFullDocumentResponseContainsMetadata() {
-        String response = target(String
-                    .format("documents/%s", StubProviders.DOCUMENT_ID))
+        String response = target("documents/%s", StubProviders.DOCUMENT_ID)
                 .queryParam("full", true)
                 .request()
                 .accept(this.ct)
@@ -132,8 +132,7 @@ public class RestTest extends JerseyTest {
 
     @Test
     public void testShortDocumentResponseContainsMetadata() {
-        String response = target(String
-                .format("documents/%s", StubProviders.DOCUMENT_ID))
+        String response = target("documents/%s", StubProviders.DOCUMENT_ID)
                 .queryParam("full", false)
                 .request()
                 .accept(this.ct)
@@ -144,8 +143,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testFullDocumentEntityContainsMetadata()
             throws WorkspaceException {
-        Document file = target(String
-                .format("documents/%s", StubProviders.DOCUMENT_ID))
+        Document file = target("documents/%s", StubProviders.DOCUMENT_ID)
                 .queryParam("full", true)
                 .request()
                 .accept(this.ct)
@@ -156,13 +154,16 @@ public class RestTest extends JerseyTest {
     @Test
     public void testShortDocumentEntityContainsMetadata()
             throws WorkspaceException {
-        Document file = target(String
-                .format("documents/%s", StubProviders.DOCUMENT_ID))
+        Document file = target("documents/%s", StubProviders.DOCUMENT_ID)
                 .queryParam("full", false)
                 .request()
                 .accept(this.ct)
                 .get(DocumentSerialization.class);
         assert file.getMetadata() == null : "Metadata in short version.";
+    }
+
+    private WebTarget target(String pattern, Object... args) {
+        return target(String.format(pattern, args));
     }
 
 }
