@@ -10,7 +10,7 @@ import solutions.digamma.damas.rs.SearchEnabledCrudResource;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
-@Path("comment")
+@Path("comments")
 public class CommentResource
         extends SearchEnabledCrudResource<Comment, CommentSerialization> {
 

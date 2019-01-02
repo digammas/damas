@@ -4,10 +4,11 @@ import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
 
-import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@XmlRootElement(name = "Comment")
 public class CommentSerialization
         extends EntitySerialization
         implements Comment {
@@ -68,7 +69,7 @@ public class CommentSerialization
 
     @Override
     public List<Comment> getComments() {
-        return new ArrayList<>(this.comments);
+        return this.comments == null ? null : List.copyOf(this.comments);
     }
 
     /**
@@ -93,11 +94,14 @@ public class CommentSerialization
     public static List<CommentSerialization> copy(List<Comment> p)
             throws WorkspaceException {
         try {
-            return p.stream()
+            return p == null ? null : p.stream()
                     .map(CommentSerialization::copyOrKeep)
                     .collect(Collectors.toList());
         } catch (RuntimeException e) {
-            throw (WorkspaceException) e.getCause();
+            if (e.getCause() instanceof WorkspaceException) {
+                throw (WorkspaceException) e.getCause();
+            }
+            throw e;
         }
     }
 
