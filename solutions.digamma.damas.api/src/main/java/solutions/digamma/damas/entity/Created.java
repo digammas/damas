@@ -2,7 +2,7 @@ package solutions.digamma.damas.entity;
 
 import solutions.digamma.damas.common.WorkspaceException;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 /**
  * @author Ahmad Shahwan
@@ -23,6 +23,6 @@ public interface Created {
      * @return
      * @throws WorkspaceException
      */
-    Calendar getCreationDate() throws WorkspaceException;
+    ZonedDateTime getCreationDate() throws WorkspaceException;
 }
 
