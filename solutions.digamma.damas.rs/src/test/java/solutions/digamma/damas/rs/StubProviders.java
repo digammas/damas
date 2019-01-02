@@ -8,6 +8,7 @@ import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
+import solutions.digamma.damas.rs.content.MetadataSerialization;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ public class StubProviders extends Mockito {
 
     public StubProviders() {
         document.setId(DOCUMENT_ID);
+        document.setMetadata(new MetadataSerialization());
         folder.setId(FOLDER_ID);
 
     }
