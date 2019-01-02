@@ -24,15 +24,15 @@ public class DocumentSerialization
     }
 
     /**
-     * Constructor that mimics another document object.
+     * Constructor that copies another document object.
      *
-     * @param copy A copy to mimic.
-     * @param full Whether to copy with full details.
+     * @param pattern   A pattern to Copy.
+     * @param full      Whether to copy with full details.
      * @throws WorkspaceException
      */
-    private DocumentSerialization(Document copy, boolean full)
+    private DocumentSerialization(Document pattern, boolean full)
             throws WorkspaceException {
-        super(copy, full);
+        super(pattern, full);
     }
 
     @Override
