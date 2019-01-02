@@ -6,7 +6,8 @@ import solutions.digamma.damas.entity.Modifiable;
 
 import java.time.ZonedDateTime;
 
-public abstract class EntitySerialization implements Entity, Created, Modifiable {
+public abstract class EntitySerialization
+        implements Entity, Created, Modifiable {
 
     protected String id;
     protected String createdBy;

@@ -20,19 +20,18 @@ public class MetadataSerialization implements Metadata {
      * No-argument constructor.
      */
     public MetadataSerialization() {
-
     }
 
     /**
      * Copy constructor.
      *
-     * @param copy A copy to mimic.
-     * @throws WorkspaceException
+     * @param pattern   A copy to mimic.
+     * @throws          WorkspaceException
      */
-    private MetadataSerialization(Metadata copy) throws WorkspaceException {
-        this.title = copy.getTitle();
-        this.description = copy.getDescription();
-        this.keywords = copy.getKeywords();
+    private MetadataSerialization(Metadata pattern) throws WorkspaceException {
+        this.title = pattern.getTitle();
+        this.description = pattern.getDescription();
+        this.keywords = pattern.getKeywords();
     }
 
     @Override

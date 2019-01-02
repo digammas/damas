@@ -28,22 +28,22 @@ abstract public class FileSerialization
     /**
      * Copy constructor.
      *
-     * @param copy a copy to mimic
-     * @param full whether to copy with full details
+     * @param pattern   A copy to follow.
+     * @param full      Whether to copy with full details.
      * @throws WorkspaceException
      */
-    protected FileSerialization(File copy, boolean full)
+    protected FileSerialization(File pattern, boolean full)
             throws WorkspaceException {
-        this.id = copy.getId();
-        this.name = copy.getName();
-        this.parentId = copy.getParentId();
+        this.id = pattern.getId();
+        this.name = pattern.getName();
+        this.parentId = pattern.getParentId();
         if (full) {
-            this.path = copy.getPath();
-            this.createdBy = copy.getCreatedBy();
-            this.creationDate = copy.getCreationDate();
-            this.modifiedBy = copy.getModifiedBy();
-            this.modificationDate = copy.getModificationDate();
-            this.metadata = MetadataSerialization.from(copy.getMetadata());
+            this.path = pattern.getPath();
+            this.createdBy = pattern.getCreatedBy();
+            this.creationDate = pattern.getCreationDate();
+            this.modifiedBy = pattern.getModifiedBy();
+            this.modificationDate = pattern.getModificationDate();
+            this.metadata = MetadataSerialization.from(pattern.getMetadata());
         }
     }
 
