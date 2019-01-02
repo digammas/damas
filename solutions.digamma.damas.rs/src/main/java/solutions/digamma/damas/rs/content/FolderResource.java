@@ -6,8 +6,9 @@ import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.rs.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
-import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 /**
@@ -48,11 +49,6 @@ public class FolderResource
     }
 
     @Override
-    protected FolderManager getPathFinder() {
-        return this.manager;
-    }
-
-    @Override
     public FolderSerialization retrieve(String id)
             throws WorkspaceException {
         FolderSerialization folder = wrap(super.retrieve(id));
@@ -64,6 +60,21 @@ public class FolderResource
             }
         }
         return folder;
+    }
+
+    @GET
+    @Path("path/{path}")
+    public FolderSerialization find(
+            @PathParam("path") String path)
+            throws WorkspaceException {
+        return wrap(this.manager.find(this.getToken(), path));
+    }
+
+    @GET
+    @Path("path")
+    public FolderSerialization find()
+            throws WorkspaceException {
+        return wrap(this.manager.find(this.getToken(), "."));
     }
 
     @Override

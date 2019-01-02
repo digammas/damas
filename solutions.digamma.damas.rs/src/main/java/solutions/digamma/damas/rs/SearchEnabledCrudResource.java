@@ -3,13 +3,10 @@ package solutions.digamma.damas.rs;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.entity.Page;
-import solutions.digamma.damas.content.PathFinder;
 import solutions.digamma.damas.entity.SearchEngine;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -29,8 +26,6 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
 
     abstract protected SearchEngine<E> getSearchEngine();
 
-    abstract protected PathFinder<E> getPathFinder();
-
     /**
      * Search query. Subclasses are expected to override this method.
      *
@@ -48,21 +43,6 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
             throws WorkspaceException {
         return wrap(this.getSearchEngine()
                 .find(this.getToken(), offset, size, this.getQuery()));
-    }
-
-    @GET
-    @Path("path/{path}")
-    public S find(
-            @PathParam("path") String path)
-            throws WorkspaceException {
-        return wrap(this.getPathFinder().find(this.getToken(), path));
-    }
-
-    @GET
-    @Path("path")
-    public S find()
-            throws WorkspaceException {
-        return wrap(this.getPathFinder().find(this.getToken(), "."));
     }
 
     protected Page<S> wrap(Page<E> page) throws WorkspaceException {

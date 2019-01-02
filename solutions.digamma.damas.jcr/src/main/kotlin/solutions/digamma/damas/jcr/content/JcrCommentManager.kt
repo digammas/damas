@@ -8,6 +8,7 @@ import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import java.util.Collections
+import javax.inject.Singleton
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -16,6 +17,7 @@ import javax.jcr.Session
  *
  * @author Ahmad Shahwan
  */
+@Singleton
 internal class JcrCommentManager :
         JcrCrudManager<Comment>(), JcrSearchEngine<Comment>, CommentManager {
 
