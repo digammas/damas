@@ -56,7 +56,7 @@ public class ContentTest {
     @PostConstruct
     public void init() {
         URI url = URI.create(String.format(
-                "http://localhost:%d/%s/", this.port, this.path));
+                "http://localhost:%d/%s/rest/", this.port, this.path));
         this.target = ClientBuilder.newClient().target(url);
         this.authenticate();
         this.getRootId();
