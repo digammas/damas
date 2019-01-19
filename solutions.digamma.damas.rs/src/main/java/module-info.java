@@ -8,11 +8,4 @@ module solutions.digamma.damas.rs {
     requires java.xml.bind;
 
     requires solutions.digamma.damas.api;
-
-    exports solutions.digamma.damas.rs.content
-            to solutions.digamma.damas.rs.test;
-    exports solutions.digamma.damas.rs.auth
-            to solutions.digamma.damas.rs.test;
-    exports solutions.digamma.damas.rs
-            to solutions.digamma.damas.rs.test;
 }
