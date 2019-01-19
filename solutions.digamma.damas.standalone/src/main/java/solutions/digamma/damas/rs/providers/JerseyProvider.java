@@ -11,9 +11,11 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * Jersey JAX-RS implementation provider, with Grizzly HTTP server.
@@ -39,8 +41,16 @@ public class JerseyProvider {
 
     @PostConstruct
     void init() {
+        ApplicationPath applicationPath = this.application
+                .getClass()
+                .getAnnotation(ApplicationPath.class);
+        if (applicationPath == null) {
+            this.logger.sever("No Web application with a context path found.");
+            return;
+        }
+        String context = applicationPath.value();
         URI url = URI.create(String.format(
-                "http://localhost:%d/%s/", this.port, this.path));
+                "http://localhost:%d/%s/%s/", this.port, this.path, context));
         this.server = GrizzlyHttpServerFactory.createHttpServer(
                 url, ResourceConfig.forApplication(this.application), false);
         logger.info("Starting HTTP server.");

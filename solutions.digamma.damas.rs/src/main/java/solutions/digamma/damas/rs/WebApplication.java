@@ -8,6 +8,7 @@ import solutions.digamma.damas.rs.error.ExceptionReportFeature;
 import solutions.digamma.damas.rs.log.LogFeature;
 
 import javax.inject.Singleton;
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,7 @@ import java.util.Set;
  * @author Ahmad Shahwan
  */
 @Singleton
+@ApplicationPath("rest")
 public class WebApplication extends Application {
 
     @Override
