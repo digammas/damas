@@ -16,33 +16,7 @@
         <weld.version>3.0.5.Final</weld.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Import the ModeShape BOM for embedded usage -->
-            <dependency>
-                <groupId>org.modeshape.bom</groupId>
-                <artifactId>modeshape-bom-embedded</artifactId>
-                <version>5.1.0.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <dependency>
-            <groupId>org.modeshape</groupId>
-            <artifactId>modeshape-jcr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.modeshape</groupId>
-            <artifactId>modeshape-lucene-index-provider</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.modeshape</groupId>
-            <artifactId>modeshape-extractor-tika</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
@@ -79,6 +53,11 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.jcr.provider</artifactId>
             <scope>runtime</scope>
         </dependency>
 
