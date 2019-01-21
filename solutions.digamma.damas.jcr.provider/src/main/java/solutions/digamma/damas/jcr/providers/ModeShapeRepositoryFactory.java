@@ -3,12 +3,21 @@ package solutions.digamma.damas.jcr.providers;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.logging.Logbook;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -28,6 +37,29 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
 
     @Inject
     private Logbook logger;
+
+    @PostConstruct
+    public void setUp() throws IOException {
+        Files.createDirectories(Paths.get("repository/cdn/"));
+        extractResource(
+                "/repository/repository.json",
+                "repository/repository.json");
+        extractResource(
+                "/repository/cdn/damas.cdn",
+                "repository/cdn/damas.cdn");
+    }
+
+    @PreDestroy
+    public void tearDown() {
+        try {
+            Files.walk(Paths.get("repository"))
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            System.err.println("IO Exception while cleaning up.");
+        }
+    }
 
     /**
      * Returns a JCR repository.
@@ -65,5 +97,16 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
             params.put(JCR_URL, url);
         }
         return params;
+    }
+
+    private void extractResource(String resourcePath, String distPath)
+            throws IOException {
+        try (InputStream stream = getClass()
+                .getResourceAsStream(resourcePath)) {
+            Files.copy(
+                    stream,
+                    Paths.get(distPath),
+                    StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 }
