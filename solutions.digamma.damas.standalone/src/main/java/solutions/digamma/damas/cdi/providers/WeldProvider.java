@@ -1,4 +1,4 @@
-package solutions.digamma.damas.cdi;
+package solutions.digamma.damas.cdi.providers;
 
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;

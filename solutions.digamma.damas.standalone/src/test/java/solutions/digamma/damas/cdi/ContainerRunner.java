@@ -3,6 +3,7 @@ package solutions.digamma.damas.cdi;
 import org.junit.rules.TestRule;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
+import solutions.digamma.damas.cdi.ContainerRule;
 
 import java.util.List;
 
