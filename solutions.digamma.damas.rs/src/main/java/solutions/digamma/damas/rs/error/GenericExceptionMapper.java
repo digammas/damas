@@ -9,6 +9,7 @@ import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.common.ResourceBusyException;
 import solutions.digamma.damas.common.UnsupportedActionException;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -21,19 +22,33 @@ import java.util.logging.Logger;
  *
  * @author Ahmad Shahwan
  */
-@Provider
-public class GenericExceptionMapper
-        implements ExceptionMapper<Throwable> {
+public class GenericExceptionMapper<E extends Throwable>
+        implements ExceptionMapper<E> {
 
-    @Inject
-    private Logger logger;
+    protected Response.Status status;
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
+
+    public GenericExceptionMapper(Response.Status status) {
+        this.status = status;
+    }
+
+    public GenericExceptionMapper() {
+        this(Response.Status.INTERNAL_SERVER_ERROR);
+    }
+
 
     @Override
-    public Response toResponse(Throwable e) {
-        this.logger.log(Level.SEVERE, "Unchecked exception.", e);
+    public Response toResponse(E e) {
+        log(e);
         return Response
-            .status(Response.Status.INTERNAL_SERVER_ERROR)
+            .status(this.status)
             .entity(new ExceptionReport(e))
             .build();
+    }
+
+    protected void log(E e) {
+        if (this.logger != null) {
+            this.logger.log(Level.SEVERE, "Unchecked exception.", e);
+        }
     }
 }

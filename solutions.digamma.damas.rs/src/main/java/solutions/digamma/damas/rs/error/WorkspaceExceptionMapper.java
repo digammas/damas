@@ -21,23 +21,18 @@ import java.util.logging.Logger;
  *
  * @author Ahmad Shahwan
  */
-@Provider
-public class WorkspaceExceptionMapper
-        implements ExceptionMapper<WorkspaceException> {
+public class WorkspaceExceptionMapper<E extends WorkspaceException>
+        extends GenericExceptionMapper<E> {
 
-    @Inject
-    private Logger logger;
-
-    @Override
-    public Response toResponse(WorkspaceException e) {
-        log(e);
-        return Response
-            .status(toStatus(e))
-            .entity(new ExceptionReport(e))
-            .build();
+    public WorkspaceExceptionMapper(Response.Status status) {
+        super(status);
     }
 
-    private void log(WorkspaceException e) {
+    @Override
+    protected void log(E e) {
+        if (this.logger == null) {
+            return;
+        }
         switch (e.getOrigin()) {
             case API:
                 this.logger.log(Level.WARNING, e.getMessage());
@@ -48,38 +43,5 @@ public class WorkspaceExceptionMapper
             default:
                 this.logger.log(Level.SEVERE, "Checked exception.", e);
         }
-    }
-
-    private static Response.Status toStatus(Throwable e) {
-        if (e instanceof NotFoundException) {
-            /* Not Found */
-            return Response.Status.NOT_FOUND;
-        }
-        if (e instanceof AuthenticationException) {
-            /* Unauthorized */
-            return Response.Status.UNAUTHORIZED;
-        }
-        if (e instanceof AuthorizationException) {
-            /* Forbidden */
-            return Response.Status.FORBIDDEN;
-        }
-        if (e instanceof ConflictException) {
-            /* Conflict */
-            return Response.Status.CONFLICT;
-        }
-        if (e instanceof ResourceBusyException) {
-            /* Request timeout */
-            return Response.Status.REQUEST_TIMEOUT;
-        }
-        if (e instanceof InvalidArgumentException) {
-            /* Bad request */
-            return Response.Status.BAD_REQUEST;
-        }
-        if (e instanceof UnsupportedActionException) {
-            /* Not Implemented */
-            return Response.Status.NOT_IMPLEMENTED;
-        }
-        /* Internal Server Error */
-        return Response.Status.INTERNAL_SERVER_ERROR;
     }
 }
