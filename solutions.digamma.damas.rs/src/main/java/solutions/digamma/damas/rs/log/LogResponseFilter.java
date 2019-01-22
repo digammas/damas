@@ -24,8 +24,7 @@ public class LogResponseFilter implements ContainerResponseFilter {
     @Override
     public void filter(
             ContainerRequestContext containerRequestContext,
-            ContainerResponseContext containerResponseContext)
-            throws IOException {
+            ContainerResponseContext containerResponseContext) {
         String url = containerRequestContext
                 .getUriInfo()
                 .getAbsolutePath()

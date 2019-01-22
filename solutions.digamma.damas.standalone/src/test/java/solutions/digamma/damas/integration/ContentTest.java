@@ -35,7 +35,7 @@ public class ContentTest {
     private final static String AUTH_HEADER = "Authorization";
     private final static String AUTH_SCHEME = "bearer";
 
-    private final static MediaType MEDIA_TYPE =MediaType.APPLICATION_JSON_TYPE;
+    private final static MediaType MEDIA_TYPE = MediaType.APPLICATION_JSON_TYPE;
 
     private String token;
     private String rootId;

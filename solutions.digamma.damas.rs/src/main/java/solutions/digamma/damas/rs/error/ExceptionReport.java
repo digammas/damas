@@ -1,6 +1,8 @@
 package solutions.digamma.damas.rs.error;
 
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Exception report.
@@ -21,20 +23,31 @@ public class ExceptionReport implements Serializable {
     /**
      * Error message.
      *
-     * @return error message
+     * @return Error message.
      */
     public String getMessage() {
         return this.exception.getMessage();
     }
 
     /**
-     * Error cause.
+     * Cause exception report, if any, or null when no cause.
      *
-     * @return exception cause
+     * @return Cause exception report.
      */
     public ExceptionReport getCause() {
         Throwable cause = this.exception.getCause();
         return cause == null ? null : new ExceptionReport(cause);
+    }
+
+    /**
+     * Original exception.
+     *
+     * @return reported exception
+     */
+    @XmlTransient
+    @JsonbTransient
+    public Throwable getException() {
+        return this.exception;
     }
 }
 
