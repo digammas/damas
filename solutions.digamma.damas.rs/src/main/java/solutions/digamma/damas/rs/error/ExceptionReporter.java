@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Unchecked exception mapper.
+ * Exception mapper that boxes each exception into a serializable report.
  *
  * @author Ahmad Shahwan
  */

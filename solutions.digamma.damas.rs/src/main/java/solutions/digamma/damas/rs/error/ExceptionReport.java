@@ -5,7 +5,8 @@ import java.io.Serializable;
 import javax.json.bind.annotation.JsonbTransient;
 
 /**
- * Exception report.
+ * Exception report. An object of this class encapsulates an exception allowing
+ * for its serialization.
  */
 public class ExceptionReport implements Serializable {
 
