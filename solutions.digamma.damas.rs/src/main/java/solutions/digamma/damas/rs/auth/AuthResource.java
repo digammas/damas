@@ -33,11 +33,6 @@ public class AuthResource extends BaseResource {
         super();
     }
 
-    @GET
-    public String info() throws WorkspaceException {
-        throw new WorkspaceException("Hand-made error.");
-    }
-
     /**
      * Authenticate user.
      *
