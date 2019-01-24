@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 
 /**
@@ -44,13 +45,9 @@ public class LoggedInterceptor {
                     "Method %s returned successfully.", name));
             return object;
         } catch (RuntimeException e) {
-            this.log.log(Level.SEVERE, e, () -> String.format(
-                    "Unchecked exception @%s.", name));
-            throw e;
+            throw sever(name, e);
         } catch (Exception e) {
-            this.log.info(() -> String.format(
-                    "Checked exception: \"%s\" @%s.", e.getMessage(), name));
-            throw e;
+            throw info(name, e);
         }
     }
 
@@ -72,13 +69,9 @@ public class LoggedInterceptor {
                     "Bean of type %s initialized successfully.", name));
             return object;
         } catch (RuntimeException e) {
-            this.log.log(Level.SEVERE, e, () -> String.format(
-                    "Unchecked exception @%s.", name));
-            throw e;
+            throw sever(name, e);
         } catch (Exception e) {
-            this.log.info(() -> String.format(
-                    "Checked exception: \"%s\" @%s.", e.getMessage(), name));
-            throw e;
+            throw info(name, e);
         }
     }
 
@@ -100,13 +93,21 @@ public class LoggedInterceptor {
                     "Bean of type %s disposed successfully.", name));
             return object;
         } catch (RuntimeException e) {
-            this.log.log(Level.SEVERE, e, () -> String.format(
-                    "Unchecked exception @%s.", name));
-            throw e;
+            throw sever(name, e);
         } catch (Exception e) {
-            this.log.info(() -> String.format(
-                    "Checked exception: \"%s\" @%s.", e.getMessage(), name));
-            throw e;
+            throw info(name, e);
         }
+    }
+
+    private Exception sever(String name, Exception e) {
+        this.log.log(Level.SEVERE, e, () -> String.format(
+                "Unchecked exception @%s.", name));
+        return e;
+    }
+
+    private Exception info(String name, Exception e) {
+        this.log.info(() -> String.format(
+                "Checked exception: \"%s\" @%s.", e.getMessage(), name));
+        return e;
     }
 }
