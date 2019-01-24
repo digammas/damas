@@ -8,6 +8,7 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.session.SecureToken
 import solutions.digamma.damas.jcr.session.SessionBookkeeper
 import solutions.digamma.damas.jcr.session.SessionWrapper
+import solutions.digamma.damas.logging.Logged
 import java.util.logging.Logger
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,6 +34,7 @@ internal class JcrLoginManager : LoginManager {
     @Inject
     private lateinit var bookkeeper: SessionBookkeeper
 
+    @Logged
     @Throws(WorkspaceException::class)
     override fun login(username: String, password: String) = Exceptions.wrap {
         val credentials = SimpleCredentials(
@@ -46,6 +48,7 @@ internal class JcrLoginManager : LoginManager {
         token
     }
 
+    @Logged
     @Throws(WorkspaceException::class)
     override fun logout(token: Token) = this.bookkeeper.unregister(token)
 }
