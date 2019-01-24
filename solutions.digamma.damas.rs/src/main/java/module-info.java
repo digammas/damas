@@ -6,6 +6,7 @@ module solutions.digamma.damas.rs {
     requires javax.inject;
     requires java.logging;
     requires java.xml.bind;
+    requires java.json.bind;
 
     requires solutions.digamma.damas.api;
 }

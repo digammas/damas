@@ -14,6 +14,7 @@ public class LogFeature implements Feature {
     public boolean configure(FeatureContext featureContext) {
         featureContext.register(LogRequestFilter.class);
         featureContext.register(LogResponseFilter.class);
+        featureContext.register(ErrorLogResponseFilter.class);
         return true;
     }
 }
