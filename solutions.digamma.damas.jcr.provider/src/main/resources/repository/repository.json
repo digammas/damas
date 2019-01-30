@@ -22,11 +22,13 @@
     }
   },
   "security" : {
-    "anonymous" : {
-      "roles" : ["readonly","readwrite","admin"],
-      "username" : "<anonymous>",
-      "useOnFailedLogin" : true
-    }
+    "providers" : [{
+      "classname" : "JAAS",
+      "policyName" : "damas-system"
+    }, {
+      "classname" : "JAAS",
+      "policyName" : "damas-user"
+    }]
   },
   "node-types" : ["repository/cdn/damas.cdn"]
 }
