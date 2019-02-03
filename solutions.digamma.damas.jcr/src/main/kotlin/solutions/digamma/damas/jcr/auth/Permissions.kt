@@ -2,10 +2,9 @@ package solutions.digamma.damas.jcr.auth
 
 import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.UnsupportedActionException
-import solutions.digamma.damas.jaas.NamedPrincipal
 import solutions.digamma.damas.jcr.sys.SystemRole
-import java.util.Arrays
-import java.util.Collections
+import java.security.Principal
+import java.util.*
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -120,7 +119,7 @@ internal object Permissions {
             else -> Collections.emptyList()
         }.toTypedArray()
         if (!privileges.isEmpty()) {
-            val principal = NamedPrincipal(subject)
+            val principal = Principal { subject }
             policy.addAccessControlEntry(principal, privileges)
         }
         acm.setPolicy(node.path, policy)

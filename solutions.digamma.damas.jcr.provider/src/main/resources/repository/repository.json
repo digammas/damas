@@ -23,11 +23,13 @@
   },
   "security" : {
     "providers" : [{
-      "classname" : "JAAS",
-      "policyName" : "damas-system"
+      "name" : "System Authentication Provider",
+      "classname" : "solutions.digamma.damas.jcr.providers.CustomSecurityProvider",
+      "policy" : "damas-system"
     }, {
-      "classname" : "JAAS",
-      "policyName" : "damas-user"
+      "name" : "User Authentication Provider",
+      "classname" : "solutions.digamma.damas.jcr.providers.CustomSecurityProvider",
+      "policy" : "damas-user"
     }]
   },
   "node-types" : ["repository/cdn/damas.cdn"]

@@ -39,11 +39,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.modeshape/modeshape-jcr -->
         <dependency>
-            <groupId>org.modeshape</groupId>
-            <artifactId>modeshape-jcr</artifactId>
-            <version>5.4.1.Final</version>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.jcr.provider</artifactId>
         </dependency>
 
         <!-- Test dependencies -->

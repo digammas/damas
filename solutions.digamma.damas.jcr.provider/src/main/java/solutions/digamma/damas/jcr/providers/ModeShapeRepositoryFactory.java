@@ -39,14 +39,19 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
     private Logbook logger;
 
     @PostConstruct
-    public void setUp() throws IOException {
-        Files.createDirectories(Paths.get("repository/cdn/"));
-        extractResource(
-                "/repository/repository.json",
-                "repository/repository.json");
-        extractResource(
-                "/repository/cdn/damas.cdn",
-                "repository/cdn/damas.cdn");
+    public void setUp() {
+        try {
+            Files.createDirectories(Paths.get("repository/cdn/"));
+            extractResource(
+                    "/repository/repository.json",
+                    "repository/repository.json");
+            extractResource(
+                    "/repository/cdn/damas.cdn",
+                    "repository/cdn/damas.cdn");
+        } catch (IOException e) {
+            throw new IllegalStateException(
+                    "Unable to create CDN file for repository", e);
+        }
     }
 
     @PreDestroy

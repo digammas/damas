@@ -56,10 +56,9 @@ public abstract class AbstractLoginModule implements LoginModule {
         if (!success) {
             return false;
         }
-        NamedGroup group = new NamedGroup("Roles", this.roles);
-        NamedPrincipal principal = new NamedPrincipal(this.login);
+        Principal principal = () -> this.login;
         this.subject.getPrincipals().add(principal);
-        this.subject.getPrincipals().add(group);
+        this.subject.getPrincipals().addAll(this.roles);
         return true;
     }
 
