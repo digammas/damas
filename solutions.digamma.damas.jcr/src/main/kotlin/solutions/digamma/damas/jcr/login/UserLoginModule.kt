@@ -19,7 +19,7 @@ import javax.security.auth.login.LoginException
 /**
  * @author Ahmad Shahwan
  */
-open internal class UserLoginModule : AbstractLoginModule() {
+internal open class UserLoginModule : AbstractLoginModule() {
 
     @Throws(LoginException::class)
     override fun doLogin(): Boolean {
@@ -66,7 +66,7 @@ open internal class UserLoginModule : AbstractLoginModule() {
 
         var system: SystemSessions? = null
 
-        internal val ADMIN_USERNAME = "admin"
-        private val ADMIN_PASSWORD = "admin"
+        internal const val ADMIN_USERNAME = "admin"
+        private const val ADMIN_PASSWORD = "admin"
     }
 }

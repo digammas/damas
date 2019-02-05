@@ -35,7 +35,7 @@ public class RestTest extends JerseyTest {
 
     private static WeldContainer container;
 
-    private MediaType ct;
+    private final MediaType ct;
 
     public RestTest(MediaType parameter) {
         super();

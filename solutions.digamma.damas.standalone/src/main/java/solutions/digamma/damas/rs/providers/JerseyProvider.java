@@ -15,7 +15,6 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Optional;
 
 /**
  * Jersey JAX-RS implementation provider, with Grizzly HTTP server.

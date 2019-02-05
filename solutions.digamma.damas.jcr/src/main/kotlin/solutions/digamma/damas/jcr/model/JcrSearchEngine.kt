@@ -68,6 +68,6 @@ internal interface JcrSearchEngine<T : Entity> : SessionConsumer, SearchEngine<T
         /**
          * Default result page size.
          */
-        val DEFAULT_PAGE_SIZE = 30
+        const val DEFAULT_PAGE_SIZE = 30
     }
 }

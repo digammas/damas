@@ -13,8 +13,6 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
-;
-
 /**
  * Search-enable CRUD REST resource. The same as CRUD REST resource with search
  * facilities.
@@ -50,7 +48,7 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
         for (E entity : page.getObjects()) {
             objects.add(wrap(entity));
         }
-        return new Page<S>() {
+        return new Page<>() {
             @Override
             public int getTotal() {
                 return page.getTotal();

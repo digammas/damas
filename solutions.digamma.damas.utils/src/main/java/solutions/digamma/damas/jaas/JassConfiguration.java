@@ -30,7 +30,7 @@ import java.util.Map;
 @Singleton
 public class JassConfiguration extends Configuration {
 
-    private Configuration delegate;
+    private final Configuration delegate;
     private Map<String, Configuration> configs;
 
     /**

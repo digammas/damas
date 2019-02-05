@@ -22,7 +22,7 @@ class JcrFolderTest : WeldTest() {
     @Throws(Exception::class)
     fun setUp() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
-        this.token = this.login!!.login("admin", "admin")
+        this.token = this.login.login("admin", "admin")
         var parentId = manager
                 .find(this.token!!).objects.iterator().next().id
         this.folder = manager.create(this.token!!,
@@ -41,7 +41,7 @@ class JcrFolderTest : WeldTest() {
     fun tearDown() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
         manager.delete(this.token!!, this.folder!!.id)
-        this.login!!.logout(this.token)
+        this.login.logout(this.token)
     }
 
     @Test

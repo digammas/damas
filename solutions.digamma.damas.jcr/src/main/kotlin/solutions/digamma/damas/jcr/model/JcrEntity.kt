@@ -204,7 +204,7 @@ internal interface JcrEntity : Entity {
 
     companion object {
 
-        val SQL2_SELECT_CHILDREN =
+        const val SQL2_SELECT_CHILDREN =
                 "SELECT * FROM [%s] AS c WHERE ISCHILDNODE(c, %s)"
     }
 }

@@ -93,7 +93,7 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
      *
      * @return
      */
-    private Map<String, Object> getParameters(Map params) {
+    private Map<Object, Object> getParameters(Map<Object, Object> params) {
         /* One mandatory parameter */
         if (!params.containsKey(JCR_URL)) {
             String url = new File(

@@ -53,8 +53,8 @@ constructor(private val repository: Repository) {
 
     companion object {
 
-        val SU_USERNAME = "sys:superuser"
-        val RO_USERNAME = "sys:readonly"
+        const val SU_USERNAME = "sys:superuser"
+        const val RO_USERNAME = "sys:readonly"
         val SU_PASSWORD = generateRandomPassword()
         val RO_PASSWORD = generateRandomPassword()
 

@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 
 /**
@@ -34,7 +33,7 @@ public class LoggedInterceptor {
      */
     @AroundInvoke
     public Object invoke(InvocationContext context) throws Exception {
-        String name = "%s::%s".format(
+        String name = String.format("%s::%s",
                 context.getClass().getName(),
                 context.getMethod().getName());
         try {

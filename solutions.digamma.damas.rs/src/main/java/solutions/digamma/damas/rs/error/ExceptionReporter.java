@@ -11,7 +11,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 public class ExceptionReporter<E extends Throwable>
         implements ExceptionMapper<E> {
 
-    private Response.Status status;
+    private final Response.Status status;
 
     ExceptionReporter(Response.Status status) {
         this.status = status;

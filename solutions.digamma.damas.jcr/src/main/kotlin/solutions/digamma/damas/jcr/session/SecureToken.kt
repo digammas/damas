@@ -32,6 +32,10 @@ internal class SecureToken : Token {
     override fun equals(other: Any?): Boolean =
         other is Token && this.secret == other.secret
 
+    override fun hashCode(): Int {
+        return this.secret.hashCode()
+    }
+
     companion object {
 
         private val RANDOM = SecureRandom()

@@ -45,7 +45,7 @@ internal class SessionBookkeeper {
                 this.logger.warning("Token $token already exists.")
                 throw ConflictException("Token already exists.")
             }
-            this.sessions.put(token.secret, session)
+            this.sessions[token.secret] = session
             this.logger.info { "Token %s successfully stored.".format(token) }
         }
     }

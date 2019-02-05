@@ -18,12 +18,12 @@ import javax.security.auth.login.Configuration
 @Realm(UserJaasConfiguration.REALM)
 internal class UserJaasConfiguration : Configuration() {
 
-    private val entries =  Array(1, {
+    private val entries = Array(1) {
         AppConfigurationEntry(
                 UserLoginModule::class.java.name,
                 LoginModuleControlFlag.SUFFICIENT,
                 Collections.emptyMap<String, Any>())
-    })
+    }
 
     override fun getAppConfigurationEntry(name: String):
             Array<AppConfigurationEntry> {
