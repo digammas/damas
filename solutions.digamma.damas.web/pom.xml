@@ -12,6 +12,10 @@
     <artifactId>damas.web</artifactId>
     <packaging>war</packaging>
 
+    <properties>
+        <archive.name>dms</archive.name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>solutions.digamma</groupId>
@@ -32,7 +36,7 @@
     </dependencies>
 
     <build>
-        <finalName>damas</finalName>
+        <finalName>${archive.name}</finalName>
     </build>
 
 
