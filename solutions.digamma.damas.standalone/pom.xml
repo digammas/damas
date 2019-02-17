@@ -14,6 +14,9 @@
     <properties>
         <jersey.version>2.27</jersey.version>
         <weld.version>3.0.5.Final</weld.version>
+        <lib.dir>libs/</lib.dir>
+        <lib.path>${project.build.directory}/${lib.dir}</lib.path>
+        <entry.class>solutions.digamma.damas.cdi.providers.WeldProvider</entry.class>
     </properties>
 
     <dependencies>
@@ -37,7 +40,6 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
@@ -72,7 +74,7 @@
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>${jersey.version}</version>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
         <!-- Allow JSON serialization with JSONB -->
         <dependency>
@@ -93,5 +95,31 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${entry.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
