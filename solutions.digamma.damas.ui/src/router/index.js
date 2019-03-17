@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -17,7 +18,7 @@ router.beforeEach((to, from, next) => {
         document.title = titled.meta.title
     }
 
-    if (!to.matched.some(record => record.meta.public)) {
+    if (!to.matched.some(record => record.meta.public) && !store.state.auth.token) {
         next({path: '/login', query: { redirect: to.fullPath }})
     }
     next()

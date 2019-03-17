@@ -1,6 +1,9 @@
 <template>
     <div>
         <h1>User login</h1>
+        <div v-if="error">
+            <p>{{ error }}</p>
+        </div>
         <form>
             <div class="container">
                 <label for="username"><b>Username</b></label>
@@ -19,18 +22,33 @@
 </template>
 
 <script>
+    import auth from "@/service/auth"
+    import router from "@/router"
+
     export default {
         name: "Login",
         data() {
             return {
                 username: "",
-                password: ""
+                password: "",
+                error: false
             }
         },
         methods: {
             submit() {
-                this.username = "toto"
-                this.password = "otot"
+                this.error = false
+                auth.authenticate(
+                    this.username,
+                    this.password
+                ).then(token => {
+                    if (token) {
+                        router.push("/")
+                    } else {
+                        this.error = "Bad username or password"
+                    }
+                }).catch(reason => {
+                    this.error = reason.message
+                })
             }
         }
     }
