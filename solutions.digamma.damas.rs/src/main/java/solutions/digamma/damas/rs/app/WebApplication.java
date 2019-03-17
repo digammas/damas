@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs;
+package solutions.digamma.damas.rs.app;
 
 import solutions.digamma.damas.rs.auth.AuthResource;
 import solutions.digamma.damas.rs.content.CommentResource;
@@ -29,6 +29,7 @@ public class WebApplication extends Application {
         classes.add(DocumentResource.class);
         classes.add(FolderResource.class);
         classes.add(CommentResource.class);
+        classes.add(CorsFilter.class);
         classes.add(LogFeature.class);
         classes.add(ExceptionReportFeature.class);
         return classes;
