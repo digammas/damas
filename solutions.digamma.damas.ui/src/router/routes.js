@@ -1,6 +1,5 @@
 const routes = [{
         path: '/',
-        name: 'user',
         component: () => import("@/components/user.vue"),
         meta: {
             title: "Home"
