@@ -42,7 +42,7 @@
                     this.password
                 ).then(token => {
                     if (token) {
-                        this.$router.push({name: "home"})
+                        this.$router.push(redirect || {name: "home"})
                     } else {
                         this.error = "Bad username or password"
                     }
