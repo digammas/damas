@@ -1,10 +1,16 @@
 const routes = [{
         path: '/',
-        name: 'home',
-        component: () => import("@/components/home.vue"),
+        name: 'user',
+        component: () => import("@/components/user.vue"),
         meta: {
             title: "Home"
-        }
+        },
+        children: [{
+                path: "",
+                name: "home",
+                component: () => import("@/components/home.vue")
+            },
+        ]
     }, {
         path: '/about',
         name: 'about',
