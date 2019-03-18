@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
-import store from '@/store'
 
 Vue.use(Router)
 
@@ -14,14 +13,17 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     const titled = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
 
+    const auth = router.app.$options.store.state.auth;
+
     if (titled) {
         document.title = titled.meta.title
     }
 
-    if (!to.matched.some(record => record.meta.public) && !store.state.auth.token) {
-        next({path: '/login', query: { redirect: to.fullPath }})
+    if (!to.matched.every(record => record.meta.public) && !auth.token) {
+        next({name: 'login', query: { redirect: to.fullPath }})
+    } else {
+        next()
     }
-    next()
 })
 
 export default router

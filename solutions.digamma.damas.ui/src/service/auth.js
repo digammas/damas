@@ -13,8 +13,7 @@ class AuthService {
                 store.dispatch("auth/update", {
                     username: username,
                     token: token
-                })
-                resolve(token)
+                }).then(() => resolve(token))
             }).catch(reason => {
                 if (!reason.response) {
                     reject(new Error("Unexpected client error"))

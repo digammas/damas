@@ -10,7 +10,7 @@ export default {
 
     mutations: {
         update(state, data) {
-            state = Object.assign({}, defaults, data)
+            state = Object.assign(state, defaults, data)
         },
         clear(state) {
             state = Object.assign(state, defaults)

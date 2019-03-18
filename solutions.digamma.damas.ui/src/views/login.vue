@@ -23,7 +23,6 @@
 
 <script>
     import auth from "@/service/auth"
-    import router from "@/router"
 
     export default {
         name: "Login",
@@ -37,12 +36,13 @@
         methods: {
             submit() {
                 this.error = false
+                let redirect = this.$route.query.redirect
                 auth.authenticate(
                     this.username,
                     this.password
                 ).then(token => {
                     if (token) {
-                        router.push("/")
+                        this.$router.push({name: "home"})
                     } else {
                         this.error = "Bad username or password"
                     }
