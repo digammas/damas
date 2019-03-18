@@ -1,8 +1,6 @@
 <template>
     <div class="home">
-        <div>
-            <p>Login successful</p>
-        </div>
+        <h1>Home page</h1>
     </div>
 </template>
 

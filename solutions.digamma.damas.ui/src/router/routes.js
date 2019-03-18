@@ -1,21 +1,21 @@
 const routes = [{
         path: '/',
         name: 'home',
-        component: () => import("@/views/home.vue"),
+        component: () => import("@/components/home.vue"),
         meta: {
             title: "Home"
         }
     }, {
         path: '/about',
         name: 'about',
-        component: () => import('@/views/about.vue'),
+        component: () => import('@/components/about.vue'),
         meta: {
             title: "About"
         }
     }, {
         path: '/login',
         name: 'login',
-        component: () => import('@/views/login.vue'),
+        component: () => import('@/components/login.vue'),
         meta: {
             title: "Login",
             public: true
