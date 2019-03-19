@@ -63,7 +63,7 @@ public class FolderResource
     }
 
     @GET
-    @Path("path/{path}")
+    @Path("at/{path}")
     public FolderSerialization find(
             @PathParam("path") String path)
             throws WorkspaceException {
@@ -71,7 +71,7 @@ public class FolderResource
     }
 
     @GET
-    @Path("path")
+    @Path("at")
     public FolderSerialization find()
             throws WorkspaceException {
         return wrap(this.manager.find(this.getToken(), "."));

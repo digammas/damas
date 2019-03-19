@@ -87,7 +87,7 @@ public class ContentTest {
     @SuppressWarnings("unchecked")
     private String getRootId() {
         Map<String, Object> answer = target
-                .path("folders/path/")
+                .path("folders/at/")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .get()
