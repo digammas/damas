@@ -245,4 +245,52 @@ public class ContentTest {
                 .delete()
                 .getStatus() / 100 == 2;
     }
+
+    @Test
+    public void testRetrieveFolderByPath() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name1 = "test_folder";
+        String name2 = "test_subfolder";
+        body.put("parentId", this.rootId);
+        body.put("name", name1);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(Entity.json(body))
+                .readEntity(Map.class);
+        String id1 = (String) answer.get("id");
+        body.put("parentId", id1);
+        body.put("name", name2);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(Entity.json(body))
+                .readEntity(Map.class);
+        String id2 = (String) answer.get("id");
+        String path = String.format("folders/at/%s/%s", name1, name2);
+        answer = target
+                .path(path)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert id2.equals(answer.get("id"));
+        assert target
+                .path("folders")
+                .path(id2)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+        assert target
+                .path("folders")
+                .path(id1)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
 }

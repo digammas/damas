@@ -63,7 +63,7 @@ public class FolderResource
     }
 
     @GET
-    @Path("at/{path}")
+    @Path("at/{path: .+}")
     public FolderSerialization find(
             @PathParam("path") String path)
             throws WorkspaceException {
