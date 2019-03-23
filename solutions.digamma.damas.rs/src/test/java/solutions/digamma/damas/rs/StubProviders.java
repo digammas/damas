@@ -3,14 +3,21 @@ package solutions.digamma.damas.rs;
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.CommentManager;
-import solutions.digamma.damas.login.LoginManager;
-import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
+import solutions.digamma.damas.entity.CrudManager;
+import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.entity.EntityManager;
+import solutions.digamma.damas.login.LoginManager;
+import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
 import solutions.digamma.damas.rs.content.MetadataSerialization;
+import solutions.digamma.damas.rs.user.GroupSerialization;
+import solutions.digamma.damas.rs.user.UserSerialization;
+import solutions.digamma.damas.user.GroupManager;
+import solutions.digamma.damas.user.UserManager;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -21,16 +28,20 @@ import java.util.logging.Logger;
 /**
  * @author Ahmad Shahwan
  */
-public class StubProviders extends Mockito {
+public class StubProviders {
 
     static final String DOCUMENT_ID = UUID.randomUUID().toString();
     static final String FOLDER_ID = UUID.randomUUID().toString();
     static final String COMMENT_ID = UUID.randomUUID().toString();
+    static final String USER_ID = UUID.randomUUID().toString();
+    static final String GROUP_ID = UUID.randomUUID().toString();
     static final String TOKEN = UUID.randomUUID().toString();
 
     private DocumentSerialization document = new DocumentSerialization();
     private FolderSerialization folder = new FolderSerialization();
     private CommentSerialization comment = new CommentSerialization();
+    private UserSerialization user = new UserSerialization();
+    private GroupSerialization group = new GroupSerialization();
 
 
     @Inject
@@ -47,47 +58,47 @@ public class StubProviders extends Mockito {
     @Produces @Singleton
     public LoginManager getLoginManager() throws WorkspaceException {
         this.log.info("Acquiring mock login manager.");
-        LoginManager manager = mock(LoginManager.class);
-        when(manager.login(any(), any())).thenReturn(new MockToken());
+        LoginManager manager = Mockito.mock(LoginManager.class);
+        Mockito.when(manager.login(Mockito.any(), Mockito.any())).thenReturn(new MockToken());
         return manager;
     }
 
     @Produces @Singleton
     public DocumentManager getDocumentManager() throws WorkspaceException {
-        this.log.info("Acquiring mock document manager.");
-        DocumentManager manager = mock(DocumentManager.class);
-        Mockito.when(manager.retrieve(any(), eq(DOCUMENT_ID)))
-                .thenReturn(this.document);
-        Mockito.when(manager.create(any(), any()))
-                .thenReturn(this.document);
-        Mockito.when(manager.update(any(), eq(DOCUMENT_ID), any()))
-                .thenReturn(this.document);
-        return manager;
+        return mock(DocumentManager.class, document, DOCUMENT_ID);
     }
 
     @Produces @Singleton
     public FolderManager getFolderManager() throws WorkspaceException {
-        this.log.info("Acquiring mock folder manager.");
-        FolderManager manager = mock(FolderManager.class);
-        Mockito.when(manager.retrieve(any(), eq(FOLDER_ID)))
-                .thenReturn(this.folder);
-        Mockito.when(manager.create(any(), any()))
-                .thenReturn(this.folder);
-        Mockito.when(manager.update(any(), eq(FOLDER_ID), any()))
-                .thenReturn(this.folder);
-        return manager;
+        return mock(FolderManager.class, folder, FOLDER_ID);
     }
 
     @Produces @Singleton
     public CommentManager getCommentManager() throws WorkspaceException {
-        this.log.info("Acquiring mock document manager.");
-        CommentManager manager = mock(CommentManager.class);
-        Mockito.when(manager.retrieve(any(), eq(COMMENT_ID)))
-                .thenReturn(this.comment);
-        Mockito.when(manager.create(any(), any()))
-                .thenReturn(this.comment);
-        Mockito.when(manager.update(any(), eq(COMMENT_ID), any()))
-                .thenReturn(this.comment);
+        return mock(CommentManager.class, this.comment, COMMENT_ID);
+    }
+
+    @Produces @Singleton
+    public UserManager getUserManager() throws WorkspaceException {
+        return mock(UserManager.class, this.user, USER_ID);
+    }
+
+    @Produces @Singleton
+    public GroupManager getGroupManager() throws WorkspaceException {
+        return mock(GroupManager.class, this.group, GROUP_ID);
+    }
+
+    private <E extends Entity, M extends CrudManager<E>> M mock(
+            Class<M> klass, E entity, String id)
+            throws WorkspaceException {
+        this.log.info(String.format("Acquiring mock %s manager.", klass.getSimpleName()));
+        M manager = Mockito.mock(klass);
+        Mockito.when(manager.retrieve(Mockito.any(), Mockito.eq(id)))
+                .thenReturn(entity);
+        Mockito.when(manager.create(Mockito.any(), Mockito.any()))
+                .thenReturn(entity);
+        Mockito.when(manager.update(Mockito.any(), Mockito.eq(id), Mockito.any()))
+                .thenReturn(entity);
         return manager;
     }
 

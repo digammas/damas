@@ -6,6 +6,8 @@ import solutions.digamma.damas.rs.content.DocumentResource;
 import solutions.digamma.damas.rs.content.FolderResource;
 import solutions.digamma.damas.rs.error.ExceptionReportFeature;
 import solutions.digamma.damas.rs.log.LogFeature;
+import solutions.digamma.damas.rs.user.GroupResource;
+import solutions.digamma.damas.rs.user.UserResource;
 
 import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
@@ -29,6 +31,8 @@ public class WebApplication extends Application {
         classes.add(DocumentResource.class);
         classes.add(FolderResource.class);
         classes.add(CommentResource.class);
+        classes.add(UserResource.class);
+        classes.add(GroupResource.class);
         classes.add(CorsFilter.class);
         classes.add(LogFeature.class);
         classes.add(ExceptionReportFeature.class);

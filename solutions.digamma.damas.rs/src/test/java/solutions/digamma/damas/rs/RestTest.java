@@ -20,6 +20,10 @@ import solutions.digamma.damas.rs.common.Authentication;
 import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
+import solutions.digamma.damas.rs.user.GroupSerialization;
+import solutions.digamma.damas.rs.user.UserSerialization;
+import solutions.digamma.damas.user.Group;
+import solutions.digamma.damas.user.User;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -176,7 +180,7 @@ public class RestTest extends JerseyTest {
         cmnt = target("comments")
                 .request()
                 .post(Entity.entity(cmnt, this.ct), CommentSerialization.class);
-        assert cmnt != null : "Error POSTing folder.";
+        assert cmnt != null : "Error POSTing comment.";
         cmnt = target("comments/%s", StubProviders.COMMENT_ID)
                 .request()
                 .put(Entity.entity(cmnt, this.ct), CommentSerialization.class);
@@ -185,6 +189,49 @@ public class RestTest extends JerseyTest {
                 .request()
                 .delete();
     }
+
+    @Test
+    public void testUser() {
+        User user;
+        user = target("users/%s", StubProviders.USER_ID)
+                .request()
+                .accept(this.ct)
+                .get(UserSerialization.class);
+        assert user != null : "Error GETting user.";
+        user = target("users")
+                .request()
+                .post(Entity.entity(user, this.ct), UserSerialization.class);
+        assert user != null : "Error POSTing user.";
+        user = target("users/%s", StubProviders.USER_ID)
+                .request()
+                .put(Entity.entity(user, this.ct), UserSerialization.class);
+        assert user != null : "Error PUTing user.";
+        target("users/%s", StubProviders.USER_ID)
+                .request()
+                .delete();
+    }
+
+    @Test
+    public void testGroup() {
+        Group group;
+        group = target("groups/%s", StubProviders.GROUP_ID)
+                .request()
+                .accept(this.ct)
+                .get(GroupSerialization.class);
+        assert group != null : "Error GETting group.";
+        group = target("groups")
+                .request()
+                .post(Entity.entity(group, this.ct), GroupSerialization.class);
+        assert group != null : "Error POSTing group.";
+        group = target("groups/%s", StubProviders.GROUP_ID)
+                .request()
+                .put(Entity.entity(group, this.ct), GroupSerialization.class);
+        assert group != null : "Error PUTing group.";
+        target("groups/%s", StubProviders.GROUP_ID)
+                .request()
+                .delete();
+    }
+
 
     private WebTarget target(String pattern, Object... args) {
         return target(String.format(pattern, args));
