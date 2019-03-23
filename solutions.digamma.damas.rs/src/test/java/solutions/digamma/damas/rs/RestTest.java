@@ -16,6 +16,7 @@ import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.auth.Credentials;
+import solutions.digamma.damas.rs.common.Authentication;
 import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;

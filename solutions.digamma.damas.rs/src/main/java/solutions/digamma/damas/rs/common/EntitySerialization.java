@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs.content;
+package solutions.digamma.damas.rs.common;
 
 import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.entity.Entity;

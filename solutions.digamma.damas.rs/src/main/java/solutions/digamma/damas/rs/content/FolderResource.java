@@ -3,7 +3,7 @@ package solutions.digamma.damas.rs.content;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
-import solutions.digamma.damas.rs.SearchEnabledCrudResource;
+import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

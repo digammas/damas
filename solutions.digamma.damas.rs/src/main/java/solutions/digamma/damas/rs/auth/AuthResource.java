@@ -3,7 +3,7 @@ package solutions.digamma.damas.rs.auth;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
-import solutions.digamma.damas.rs.BaseResource;
+import solutions.digamma.damas.rs.common.BaseResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

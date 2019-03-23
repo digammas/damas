@@ -4,6 +4,7 @@ import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.Metadata;
+import solutions.digamma.damas.rs.common.EntitySerialization;
 
 /**
  * File object serialization.
@@ -11,7 +12,7 @@ import solutions.digamma.damas.content.Metadata;
  * @author Ahmad Shahwan
  */
 abstract public class FileSerialization
-        extends  EntitySerialization
+        extends EntitySerialization
         implements File {
 
     private String name;

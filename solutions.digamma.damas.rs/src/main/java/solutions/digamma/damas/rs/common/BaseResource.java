@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs;
+package solutions.digamma.damas.rs.common;
 
 import solutions.digamma.damas.login.Token;
 

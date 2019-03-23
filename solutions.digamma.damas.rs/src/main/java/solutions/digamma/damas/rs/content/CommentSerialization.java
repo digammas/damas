@@ -3,6 +3,7 @@ package solutions.digamma.damas.rs.content;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
+import solutions.digamma.damas.rs.common.EntitySerialization;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;

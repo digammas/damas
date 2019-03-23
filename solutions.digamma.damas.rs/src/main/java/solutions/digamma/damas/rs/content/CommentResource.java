@@ -5,7 +5,7 @@ import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentManager;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.SearchEngine;
-import solutions.digamma.damas.rs.SearchEnabledCrudResource;
+import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
