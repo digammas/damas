@@ -52,9 +52,11 @@ private constructor(node: Node) : JcrSubject(node), Group {
 
         @Throws(WorkspaceException::class)
         fun from(session: Session, name: String) = Exceptions.wrap {
-            val root = session.getNode(JcrSubject.ROOT_PATH)
+            val node = session.getNode(JcrSubject.ROOT_PATH)
+                    .addNode(name, TypeNamespace.GROUP)
+                    .also { it.setProperty(ItemNamespace.ALIAS, name) }
             try {
-                of(root.addNode(name, TypeNamespace.GROUP))
+                of(node)
             } catch(e: ItemExistsException) {
                 throw SubjectExistsException(name, e)
             }

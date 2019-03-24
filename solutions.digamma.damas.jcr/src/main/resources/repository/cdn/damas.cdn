@@ -24,7 +24,7 @@
     - dms:surname (string)
 
 [dms:Group] > dms:Subject
-    - dms:alias (string)
+    - dms:alias (string) mandatory
 
 [dms:Directory] > nt:base
     + * (dms:Subject)
