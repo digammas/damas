@@ -31,7 +31,7 @@ public class UserTest extends IntegrationTest {
                 .path("users")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id = (String) answer.get("id");
         answer = target
@@ -63,7 +63,7 @@ public class UserTest extends IntegrationTest {
                 .path("groups")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id = (String) answer.get("id");
         if (id == null) {
@@ -100,7 +100,7 @@ public class UserTest extends IntegrationTest {
                 .path("groups")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class).get("id"));
         // Create group managers
         body.put("name", managers);
@@ -108,7 +108,7 @@ public class UserTest extends IntegrationTest {
                 .path("groups")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class).get("id"));
         // Create user jsmith
         body = new HashMap<>();
@@ -122,7 +122,7 @@ public class UserTest extends IntegrationTest {
                 .path("users")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String userId = (String) answer.get("id");
         // Add group clerks to jsmith
@@ -133,7 +133,7 @@ public class UserTest extends IntegrationTest {
                 .path(userId)
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .put(Entity.json(body))
+                .put(entity(body))
                 .getStatus() / 100 == 2;
         // Assert group added
         answer = target
@@ -154,7 +154,7 @@ public class UserTest extends IntegrationTest {
                 .path(userId)
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .put(Entity.json(body))
+                .put(entity(body))
                 .getStatus() / 100 == 2;
         // Assert group added, and old group gone
         answer = target

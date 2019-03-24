@@ -71,7 +71,7 @@ public abstract class IntegrationTest {
             Map<String, String> auth = target
                     .path("login")
                     .request(MEDIA_TYPE)
-                    .post(Entity.json(login))
+                    .post(entity(login))
                     .readEntity(HashMap.class);
             this.token = auth.get("secret");
         }
@@ -102,5 +102,9 @@ public abstract class IntegrationTest {
                 .delete()
                 .getStatus();
         assert status / 100 == 2;
+    }
+
+    protected <T> Entity entity(T object) {
+        return Entity.entity(object, MEDIA_TYPE);
     }
 }

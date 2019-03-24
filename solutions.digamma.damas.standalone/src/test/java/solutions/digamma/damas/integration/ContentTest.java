@@ -37,7 +37,7 @@ public class ContentTest extends IntegrationTest {
         int status = target
                 .path("login")
                 .request(MEDIA_TYPE)
-                .post(Entity.json(login))
+                .post(entity(login))
                 .getStatus();
         assert status == 401;
     }
@@ -64,7 +64,7 @@ public class ContentTest extends IntegrationTest {
                 .path("folders")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id = (String) answer.get("id");
         assert id != null;
@@ -84,7 +84,7 @@ public class ContentTest extends IntegrationTest {
                 .path(id)
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .put(Entity.json(body))
+                .put(entity(body))
                 .getStatus() / 100 == 2;
         answer = target
                 .path("folders")
@@ -115,7 +115,7 @@ public class ContentTest extends IntegrationTest {
                 .path("folders")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id = (String) answer.get("id");
         assert id != null;
@@ -134,7 +134,7 @@ public class ContentTest extends IntegrationTest {
                 .path("folders")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class).get("id");
         body.clear();
         body.put("parentId", tempId);
@@ -143,7 +143,7 @@ public class ContentTest extends IntegrationTest {
                 .path(id)
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .put(Entity.json(body))
+                .put(entity(body))
                 .getStatus() / 100 == 2;
         answer = target
                 .path("folders")
@@ -174,7 +174,7 @@ public class ContentTest extends IntegrationTest {
                 .path("folders")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id1 = (String) answer.get("id");
         body.put("parentId", id1);
@@ -183,7 +183,7 @@ public class ContentTest extends IntegrationTest {
                 .path("folders")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
-                .post(Entity.json(body))
+                .post(entity(body))
                 .readEntity(Map.class);
         String id2 = (String) answer.get("id");
         String path = String.format("folders/at/%s/%s", name1, name2);
