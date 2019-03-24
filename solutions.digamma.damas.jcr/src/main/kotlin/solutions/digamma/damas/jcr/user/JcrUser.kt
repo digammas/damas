@@ -70,9 +70,9 @@ private constructor(node: Node) : JcrSubject(node), User {
 
     @Throws(WorkspaceException::class)
     override fun getMemberships(): List<String> = try {
-        this.getStrings(ItemNamespace.GROUPS).map {
+        this.getStrings(ItemNamespace.GROUPS)?.map {
             this.node.session.getNodeByIdentifier(it).name
-        }
+        } ?: emptyList()
     } catch (_: NotFoundException) {
         Collections.emptyList()
     }

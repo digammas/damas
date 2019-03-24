@@ -70,10 +70,8 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun getStrings(name: String): List<String> = Exceptions.wrap {
-        Arrays.stream(this.getProperty(name)?.values ?: arrayOf<Value>())
-                .map { it.string }
-                .collect(Collectors.toList())
+    fun getStrings(name: String): List<String>? = Exceptions.wrap {
+        this.getProperty(name)?.values?.map { it.string }?.toList()
     }
 
     /**
@@ -87,7 +85,7 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun setStrings(name: String, values: List<String>) {
+    fun setStrings(name: String, values: List<String>?) {
         Exceptions.wrap {
             this.node.setProperty(name, values?.toTypedArray())
         }
