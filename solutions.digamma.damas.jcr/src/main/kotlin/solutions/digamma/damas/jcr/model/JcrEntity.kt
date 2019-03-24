@@ -5,11 +5,13 @@ import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.jcr.common.Exceptions
 import java.time.ZonedDateTime
 import java.util.Arrays
+import java.util.Collections
 import java.util.GregorianCalendar
 import java.util.stream.Collectors
 import javax.jcr.Node
 import javax.jcr.NodeIterator
 import javax.jcr.RepositoryException
+import javax.jcr.Value
 import javax.jcr.query.Query
 
 /**
@@ -38,8 +40,8 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun getString(name: String): String = Exceptions.wrap {
-        this.node.getProperty(name).string
+    fun getString(name: String): String? = Exceptions.wrap {
+        this.node.getProperty(name)?.string
     }
 
     /**
@@ -54,7 +56,7 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun setString(name: String, value: String) {
+    fun setString(name: String, value: String?) {
         Exceptions.wrap { this.node.setProperty(name, value) }
     }
 
@@ -67,14 +69,16 @@ internal interface JcrEntity : Entity {
      */
     @Throws(WorkspaceException::class)
     fun getStrings(name: String): List<String> = Exceptions.wrap {
-        Arrays.stream(this.node.getProperty(name).values)
+        Arrays.stream(this.node.getProperty(name)?.values ?: arrayOf<Value>())
                 .map { it.string }
                 .collect(Collectors.toList())
     }
 
     /**
-     * Set the list of string values of a property, creating the property if it
-     * didn't exist.
+     * Set the list of string values of a property.
+     *
+     * If list is null, property will be removed. Otherwise a property will be
+     * created if it didn't exist.
      *
      * @param name property name
      * @param values property string values
@@ -83,7 +87,7 @@ internal interface JcrEntity : Entity {
     @Throws(WorkspaceException::class)
     fun setStrings(name: String, values: List<String>) {
         Exceptions.wrap {
-            this.node.setProperty(name, values.toTypedArray())
+            this.node.setProperty(name, values?.toTypedArray())
         }
     }
 
@@ -95,9 +99,9 @@ internal interface JcrEntity : Entity {
      * @throws WorkspaceException
      */
     @Throws(WorkspaceException::class)
-    fun getDate(name: String): ZonedDateTime = Exceptions.wrap {
-        val cal = this.node.getProperty(name).date
-        cal.toInstant().atZone(cal.timeZone.toZoneId())
+    fun getDate(name: String): ZonedDateTime? = Exceptions.wrap {
+        val cal = this.node.getProperty(name)?.date
+        cal?.toInstant()?.atZone(cal.timeZone.toZoneId())
     }
 
     /**
@@ -125,8 +129,8 @@ internal interface JcrEntity : Entity {
      */
     
     @Throws(WorkspaceException::class)
-    fun getLong(name: String): Long = Exceptions.wrap {
-        this.node.getProperty(name).long
+    fun getLong(name: String): Long? = Exceptions.wrap {
+        this.node.getProperty(name)?.long
     }
 
     /**

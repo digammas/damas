@@ -33,7 +33,7 @@ private constructor(node: Node) :
 
     @Throws(WorkspaceException::class)
     override fun getText(): String {
-        return this.getString(Property.JCR_CONTENT)
+        return this.getString(Property.JCR_CONTENT) ?: ""
     }
 
     @Throws(WorkspaceException::class)

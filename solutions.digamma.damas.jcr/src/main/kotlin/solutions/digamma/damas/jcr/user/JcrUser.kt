@@ -45,7 +45,7 @@ private constructor(node: Node) : JcrSubject(node), User {
         this.getString(ItemNamespace.EMAIL)
 
     @Throws(WorkspaceException::class)
-    override fun setEmailAddress(value: String) {
+    override fun setEmailAddress(value: String?) {
         this.validateEmailAddress(value)
         this.setString(ItemNamespace.EMAIL, value)
     }
@@ -55,7 +55,7 @@ private constructor(node: Node) : JcrSubject(node), User {
         this.getString(ItemNamespace.NAME)
 
     @Throws(WorkspaceException::class)
-    override fun setFirstName(value: String) {
+    override fun setFirstName(value: String?) {
         this.setString(ItemNamespace.NAME, value)
     }
 
@@ -64,7 +64,7 @@ private constructor(node: Node) : JcrSubject(node), User {
         this.getString(ItemNamespace.SURNAME)
 
     @Throws(WorkspaceException::class)
-    override fun setLastName(value: String) {
+    override fun setLastName(value: String?) {
         this.setString(ItemNamespace.SURNAME, value)
     }
 
@@ -124,8 +124,8 @@ private constructor(node: Node) : JcrSubject(node), User {
     }
 
     @Throws(MisuseException::class)
-    private fun validateEmailAddress(value: String) {
-        EMAIL_ADDRESS_REGEX.matcher(value).matches() ||
+    private fun validateEmailAddress(value: String?) = value.let {
+        EMAIL_ADDRESS_REGEX.matcher(it).matches() ||
                 throw InvalidEmailAddressException()
     }
 

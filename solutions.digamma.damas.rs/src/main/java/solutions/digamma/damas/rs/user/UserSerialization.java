@@ -14,6 +14,7 @@ public class UserSerialization extends SubjectSerialization implements User {
     private String emailAddress;
     private String firstName;
     private String lastName;
+    private String login;
     private List<String> memberships = new ArrayList<>();
 
     public UserSerialization() {
@@ -29,7 +30,11 @@ public class UserSerialization extends SubjectSerialization implements User {
 
     @Override
     public String getLogin() {
-        return this.id;
+        return this.login;
+    }
+
+    public void setLogin(String value) {
+        this.login = value;
     }
 
     @Override

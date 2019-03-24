@@ -27,7 +27,7 @@ private constructor(node: Node) : JcrSubject(node), Group {
     override fun getId(): String = Exceptions.wrap { this.node.name }
 
     @Throws(WorkspaceException::class)
-    override fun getName(): String = try {
+    override fun getName(): String? = try {
         this.getString(ItemNamespace.ALIAS)
     } catch (_: NotFoundException) {
         this.id
