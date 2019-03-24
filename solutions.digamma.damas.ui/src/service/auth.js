@@ -17,8 +17,7 @@ class AuthService {
             }).catch(reason => {
                 if (!reason.response) {
                     reject(new Error("Unexpected client error"))
-                }
-                else if (reason.response.status === 401) {
+                } else if (reason.response.status === 401) {
                     store.dispatch("auth/clear")
                     resolve(null)
                 } else if (reason.response.data && reason.response.data.message){
