@@ -3,22 +3,10 @@ package solutions.digamma.damas.integration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import solutions.digamma.damas.cdi.ContainerRunner;
-import solutions.digamma.damas.config.Configuration;
-import solutions.digamma.damas.config.Fallback;
-import solutions.digamma.damas.rs.providers.JerseyProvider;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Content integration test.

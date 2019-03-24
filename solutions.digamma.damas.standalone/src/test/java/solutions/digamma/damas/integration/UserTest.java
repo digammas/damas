@@ -5,8 +5,12 @@ import org.junit.runner.RunWith;
 import solutions.digamma.damas.cdi.ContainerRunner;
 
 import javax.inject.Singleton;
-import javax.ws.rs.client.Entity;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Content integration test.
