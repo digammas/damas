@@ -23,7 +23,7 @@ protected constructor(node: Node) : JcrBaseEntity(node), Subject {
 
     @Throws(WorkspaceException::class)
     override fun isEnabled(): Boolean =
-            this.getBoolean(ItemNamespace.ENABLED)
+            this.getBoolean(ItemNamespace.ENABLED) ?: false
 
     @Throws(WorkspaceException::class)
     override fun setEnabled(value: Boolean?) {

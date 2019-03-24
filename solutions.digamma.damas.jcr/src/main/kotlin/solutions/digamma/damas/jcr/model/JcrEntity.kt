@@ -10,6 +10,8 @@ import java.util.GregorianCalendar
 import java.util.stream.Collectors
 import javax.jcr.Node
 import javax.jcr.NodeIterator
+import javax.jcr.PathNotFoundException
+import javax.jcr.Property
 import javax.jcr.RepositoryException
 import javax.jcr.Value
 import javax.jcr.query.Query
@@ -41,7 +43,7 @@ internal interface JcrEntity : Entity {
      */
     @Throws(WorkspaceException::class)
     fun getString(name: String): String? = Exceptions.wrap {
-        this.node.getProperty(name)?.string
+        this.getProperty(name)?.string
     }
 
     /**
@@ -69,7 +71,7 @@ internal interface JcrEntity : Entity {
      */
     @Throws(WorkspaceException::class)
     fun getStrings(name: String): List<String> = Exceptions.wrap {
-        Arrays.stream(this.node.getProperty(name)?.values ?: arrayOf<Value>())
+        Arrays.stream(this.getProperty(name)?.values ?: arrayOf<Value>())
                 .map { it.string }
                 .collect(Collectors.toList())
     }
@@ -100,7 +102,7 @@ internal interface JcrEntity : Entity {
      */
     @Throws(WorkspaceException::class)
     fun getDate(name: String): ZonedDateTime? = Exceptions.wrap {
-        val cal = this.node.getProperty(name)?.date
+        val cal = this.getProperty(name)?.date
         cal?.toInstant()?.atZone(cal.timeZone.toZoneId())
     }
 
@@ -130,7 +132,7 @@ internal interface JcrEntity : Entity {
     
     @Throws(WorkspaceException::class)
     fun getLong(name: String): Long? = Exceptions.wrap {
-        this.node.getProperty(name)?.long
+        this.getProperty(name)?.long
     }
 
     /**
@@ -148,7 +150,7 @@ internal interface JcrEntity : Entity {
     fun setLong(name: String, value: Long?) {
         Exceptions.wrap {
             when (value) {
-                null -> this.node.getProperty(name).remove()
+                null -> this.getProperty(name)?.remove()
                 else -> this.node.setProperty(name, value)
             }
         }
@@ -163,8 +165,8 @@ internal interface JcrEntity : Entity {
      */
 
     @Throws(WorkspaceException::class)
-    fun getBoolean(name: String): Boolean = Exceptions.wrap {
-        this.node.getProperty(name).boolean
+    fun getBoolean(name: String): Boolean? = Exceptions.wrap {
+        this.getProperty(name)?.boolean
     }
 
     /**
@@ -182,7 +184,7 @@ internal interface JcrEntity : Entity {
     fun setBoolean(name: String, value: Boolean?) {
         Exceptions.wrap {
             when (value) {
-                null -> this.node.getProperty(name).remove()
+                null -> this.getProperty(name)?.remove()
                 else -> this.node.setProperty(name, value)
             }
         }
@@ -205,6 +207,10 @@ internal interface JcrEntity : Entity {
         val result = query.execute()
         return result.nodes
     }
+
+    private fun getProperty(name: String): Property? = try {
+        this.node.getProperty(name)
+    } catch (_: PathNotFoundException) { null }
 
     companion object {
 
