@@ -25,6 +25,7 @@ public class UserSerialization extends SubjectSerialization implements User {
         this.emailAddress = clone.getEmailAddress();
         this.firstName = clone.getFirstName();
         this.lastName = clone.getLastName();
+        this.login = clone.getLogin();
         this.memberships = clone.getMemberships();
     }
 
@@ -70,6 +71,10 @@ public class UserSerialization extends SubjectSerialization implements User {
     @Override
     public List<String> getMemberships() {
         return this.memberships;
+    }
+
+    public void setMemberships(List<String> value) {
+        this.memberships = value;
     }
 
     public static UserSerialization from(User clone) throws WorkspaceException {
