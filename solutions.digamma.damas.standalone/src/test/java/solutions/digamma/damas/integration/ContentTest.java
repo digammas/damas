@@ -6,6 +6,7 @@ import solutions.digamma.damas.cdi.ContainerRunner;
 
 import javax.inject.Singleton;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -189,6 +190,53 @@ public class ContentTest extends IntegrationTest {
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .delete()
                 .getStatus() / 100 == 2;
+        assert target
+                .path("folders")
+                .path(id1)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void testRetrieveFoldersAtDepth() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name1 = "test_folder";
+        String name2 = "test_subfolder";
+        body.put("parentId", this.rootId);
+        body.put("name", name1);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id1 = (String) answer.get("id");
+        body.put("parentId", id1);
+        body.put("name", name2);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id2 = (String) answer.get("id");
+        answer = target
+                .path("folders")
+                .path(id1)
+                .queryParam("depth", 1)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        Object id3 = ((Map) ((List) ((Map) answer
+                .get("content"))
+                .get("folders"))
+                .get(0))
+                .get("id");
+        assert id2.equals(id3);
         assert target
                 .path("folders")
                 .path(id1)

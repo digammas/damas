@@ -1,8 +1,11 @@
 package solutions.digamma.damas.rs.content;
 
+import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Folder object serialization.
@@ -11,6 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Folder")
 public class FolderSerialization extends FileSerialization implements Folder {
+
+    private ContentSerialization content;
 
     /**
      * Default constructor.
@@ -26,6 +31,7 @@ public class FolderSerialization extends FileSerialization implements Folder {
      */
     private FolderSerialization(Folder copy, boolean full) {
         super(copy, full);
+        this.content = ContentSerialization.from(copy.getContent());
     }
 
     public FolderSerialization expand() {
@@ -41,8 +47,8 @@ public class FolderSerialization extends FileSerialization implements Folder {
     }
 
     @Override
-    public Content getContent() {
-        return null;
+    public ContentSerialization getContent() {
+        return this.content;
     }
 
     /**
@@ -62,5 +68,29 @@ public class FolderSerialization extends FileSerialization implements Folder {
      */
     public static FolderSerialization from(Folder p, boolean full) {
         return p == null ? null : new FolderSerialization(p, full);
+    }
+
+    /**
+     * Create serializable folder from another folder pattern.
+     *
+     * @param p     Document pattern.
+     * @return      Serializable copy.
+     */
+    public static FolderSerialization from(Folder p) {
+        return p == null ? null : new FolderSerialization(p, false);
+    }
+
+    /**
+     * Create serializable folders list from another folders list.
+     *
+     * @param list  Folders list.
+     * @return      Serializable copy of the list.
+     */
+    public static List<FolderSerialization> from(
+            List<? extends Folder> list) {
+        return list == null ? null : list
+                .stream()
+                .map(FolderSerialization::from)
+                .collect(Collectors.toList());
     }
 }

@@ -51,7 +51,7 @@ public class FolderResource
     @Override
     public FolderSerialization retrieve(String id)
             throws WorkspaceException {
-        FolderSerialization folder = wrap(super.retrieve(id));
+        Folder folder = this.manager.retrieve(this.getToken(), id);
         if (this.depth != null) {
             if (this.depth == 0) {
                 folder.expandContent();
@@ -59,7 +59,7 @@ public class FolderResource
                 folder.expandContent(this.depth);
             }
         }
-        return folder;
+        return wrap(folder);
     }
 
     @GET
