@@ -6,6 +6,7 @@ import solutions.digamma.damas.content.Version;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Document object serialization.
@@ -51,5 +52,29 @@ public class DocumentSerialization
      */
     public static DocumentSerialization from(Document p, boolean full) {
         return p == null ? null : new DocumentSerialization(p, full);
+    }
+
+    /**
+     * Create serializable document from another document pattern.
+     *
+     * @param p     Document pattern.
+     * @return      Serializable copy.
+     */
+    public static DocumentSerialization from(Document p) {
+        return DocumentSerialization.from(p, false);
+    }
+
+    /**
+     * Create serializable documents list from another documents list.
+     *
+     * @param list  Documents list.
+     * @return      Serializable copy of the list.
+     */
+    public static List<DocumentSerialization> from(
+            List<? extends Document> list) {
+        return list == null ? null : list
+                .stream()
+                .map(DocumentSerialization::from)
+                .collect(Collectors.toList());
     }
 }
