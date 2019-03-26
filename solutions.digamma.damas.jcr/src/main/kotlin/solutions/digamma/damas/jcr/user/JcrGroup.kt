@@ -23,17 +23,11 @@ internal class JcrGroup
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), Group {
 
-    @Throws(WorkspaceException::class)
-    override fun getId(): String = Exceptions.wrap { this.node.name }
+    override fun getId(): String = Exceptions.uncheck { this.node.name }
 
-    @Throws(WorkspaceException::class)
-    override fun getName(): String? = try {
-        this.getString(ItemNamespace.ALIAS)
-    } catch (_: NotFoundException) {
-        this.id
-    }
+    override fun getName(): String? =
+        this.getString(ItemNamespace.ALIAS) ?: this.id
 
-    @Throws(WorkspaceException::class)
     override fun setName(value: String?) {
         if (value != null && value != this.name) {
             this.setString(ItemNamespace.ALIAS, value)
@@ -51,7 +45,7 @@ private constructor(node: Node) : JcrSubject(node), Group {
         fun of(node: Node) = JcrGroup(node)
 
         @Throws(WorkspaceException::class)
-        fun from(session: Session, name: String) = Exceptions.wrap {
+        fun from(session: Session, name: String) = Exceptions.check {
             val node = session.getNode(JcrSubject.ROOT_PATH)
                     .addNode(name, TypeNamespace.GROUP)
                     .also { it.setProperty(ItemNamespace.ALIAS, name) }

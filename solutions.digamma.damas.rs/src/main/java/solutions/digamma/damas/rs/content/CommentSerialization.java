@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentReceiver;
 import solutions.digamma.damas.rs.common.EntitySerialization;
@@ -29,13 +28,12 @@ public class CommentSerialization
      * private copy constructor.
      *
      * @param pattern   A pattern to follow.
-     * @throws WorkspaceException
      */
-    private CommentSerialization(Comment pattern) throws WorkspaceException {
+    private CommentSerialization(Comment pattern) {
         this.text = pattern.getText();
         this.rank = pattern.getRank();
         this.receiverId = pattern.getReceiverId();
-        this.comments = copy(pattern.getComments());
+        this.comments = from(pattern.getComments());
     }
 
     @Override
@@ -77,10 +75,8 @@ public class CommentSerialization
      * Copy a comment into its serialized counterpart.
      * @param p A pattern to copy.
      * @return  A serialized version of the pattern.
-     * @throws WorkspaceException
      */
-    public static CommentSerialization copy(Comment p)
-            throws WorkspaceException {
+    public static CommentSerialization from(Comment p) {
         return p == null ? null : new CommentSerialization(p);
     }
 
@@ -90,40 +86,10 @@ public class CommentSerialization
      *
      * @param p A pattern to copy.
      * @return  A copied list
-     * @throws WorkspaceException
      */
-    public static List<CommentSerialization> copy(List<Comment> p)
-            throws WorkspaceException {
-        try {
-            return p == null ? null : p.stream()
-                    .map(CommentSerialization::copyOrKeep)
-                    .collect(Collectors.toList());
-        } catch (RuntimeException e) {
-            if (e.getCause() instanceof WorkspaceException) {
-                throw (WorkspaceException) e.getCause();
-            }
-            throw e;
-        }
-    }
-
-    /**
-     * Copy the comment if it is not of type {@link CommentSerialization}.
-     * Otherwise return the passed value as is.
-     *
-     * This method also wraps any {@link WorkspaceException} into an unchecked
-     * exception.
-     *
-     * @param p The pattern to copy.
-     * @return  A serialized version.
-     */
-    private static CommentSerialization copyOrKeep(Comment p) {
-        if (p instanceof CommentSerialization) {
-            return (CommentSerialization) p;
-        }
-        try {
-            return copy(p);
-        } catch (WorkspaceException e) {
-            throw new RuntimeException(e);
-        }
+    public static List<CommentSerialization> from(List<Comment> p) {
+        return p == null ? null : p.stream()
+                .map(CommentSerialization::from)
+                .collect(Collectors.toList());
     }
 }

@@ -54,7 +54,6 @@ protected constructor(node: Node) : JcrFile(node), Folder {
         }
     }
 
-    @Throws(WorkspaceException::class)
     override fun getContent(): Folder.Content? {
         if (this.contentDepth == 0) {
             this.content = null
@@ -65,7 +64,7 @@ protected constructor(node: Node) : JcrFile(node), Folder {
         }
         val documents = ArrayList<JcrDocument>()
         val folders = ArrayList<JcrFolder>()
-        Exceptions.wrap {
+        Exceptions.uncheck {
             val iterator = this.node.nodes
             while (iterator.hasNext()) {
                 val node = iterator.nextNode()
@@ -97,7 +96,7 @@ protected constructor(node: Node) : JcrFile(node), Folder {
 
         @Throws(WorkspaceException::class)
         fun from(session: Session, parentId: String, name: String) =
-                Exceptions.wrap {
+                Exceptions.check {
             val parent = session.getNodeByIdentifier(parentId)
             if (parent.hasNode(name)) {
                 throw FileExistsException(name)

@@ -1,7 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.util.List;
 
 /**
@@ -13,13 +11,13 @@ public interface Metadata {
 
     String getTitle();
 
-    void setTitle(final String value) throws WorkspaceException;
+    void setTitle(final String value);
 
-    String getDescription() throws WorkspaceException;
+    String getDescription();
 
-    void setDescription(final String value) throws WorkspaceException;
+    void setDescription(final String value);
 
-    List<String> getKeywords() throws WorkspaceException;
+    List<String> getKeywords();
 
-    void setKeywords(final List<String> value) throws WorkspaceException;
+    void setKeywords(final List<String> value);
 }

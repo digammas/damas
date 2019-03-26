@@ -1,7 +1,5 @@
 package solutions.digamma.damas.entity;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.time.ZonedDateTime;
 
 /**
@@ -13,16 +11,14 @@ public interface Created {
      * Creator ID.
      *
      * @return
-     * @throws WorkspaceException
      */
-    String getCreatedBy() throws WorkspaceException;
+    String getCreatedBy();
 
     /**
      * Creation timestamp.
      *
      * @return
-     * @throws WorkspaceException
      */
-    ZonedDateTime getCreationDate() throws WorkspaceException;
+    ZonedDateTime getCreationDate();
 }
 

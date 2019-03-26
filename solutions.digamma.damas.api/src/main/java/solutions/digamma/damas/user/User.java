@@ -1,8 +1,6 @@
 package solutions.digamma.damas.user;
 
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.util.List;
 
 /**
@@ -12,61 +10,54 @@ import java.util.List;
  */
 public interface User extends Subject {
 
-    String getLogin() throws WorkspaceException;
+    String getLogin();
 
     /**
      * User's email address.
      *
      * @return                      email address
-     * @throws WorkspaceException
      */
-    String getEmailAddress() throws WorkspaceException;
+    String getEmailAddress();
 
     /**
      * Set user's email address.
      *
      * @param value                 new email address.
-     * @throws WorkspaceException
      */
-    void setEmailAddress(String value) throws WorkspaceException;
+    void setEmailAddress(String value);
 
     /**
      * User's first name.
      *
      * @return                      first name
-     * @throws WorkspaceException
      */
-    String getFirstName() throws WorkspaceException;
+    String getFirstName();
 
     /**
      * Set user's last name.
      *
      * @param value                 first name
-     * @throws WorkspaceException
      */
-    void setFirstName(String value) throws WorkspaceException;
+    void setFirstName(String value);
 
     /**
      * User's last name.
      *
      * @return                      last name
-     * @throws WorkspaceException
      */
-    String getLastName() throws WorkspaceException;
+    String getLastName();
 
     /**
      * Set user's last name.
      *
      * @param value
-     * @throws WorkspaceException
      */
-    void setLastName(String value) throws WorkspaceException;
+    void setLastName(String value);
 
     /**
      * List all group names to which the user belongs.
      *
      * @return                      list of group names
-     * @throws WorkspaceException
      */
-    List<String> getMemberships() throws WorkspaceException;
+    List<String> getMemberships();
 }

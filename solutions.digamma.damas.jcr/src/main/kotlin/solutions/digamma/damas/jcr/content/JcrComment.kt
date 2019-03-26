@@ -31,28 +31,22 @@ private constructor(node: Node) :
         JcrCreated,
         JcrModifiable {
 
-    @Throws(WorkspaceException::class)
     override fun getText(): String {
         return this.getString(Property.JCR_CONTENT) ?: ""
     }
 
-    @Throws(WorkspaceException::class)
     override fun setText(value: String) {
         this.setString(Property.JCR_CONTENT, value)
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getReceiverId(): String = Exceptions.wrap {
+    override fun getReceiverId(): String = Exceptions.uncheck {
         this.node.parent.identifier
     }
 
-    @Throws(WorkspaceException::class)
     override fun getReceiver() = { this.node } as JcrCommentReceiver
 
-    @Throws(WorkspaceException::class)
     override fun getRank(): Long? = this.getLong(ItemNamespace.RANK)
 
-    @Throws(WorkspaceException::class)
     override fun setRank(value: Long?) = this.setLong(ItemNamespace.RANK, value)
 
     @Throws(InternalStateException::class)
@@ -75,7 +69,7 @@ private constructor(node: Node) :
 
 
         @Throws(WorkspaceException::class)
-        fun from(session: Session, receiverId: String) = Exceptions.wrap {
+        fun from(session: Session, receiverId: String) = Exceptions.check {
             val name = UUID.randomUUID().toString()
             val parent = session.getNodeByIdentifier(receiverId)
             if (!parent.isNodeType(TypeNamespace.COMMENT_RECEIVER)) {

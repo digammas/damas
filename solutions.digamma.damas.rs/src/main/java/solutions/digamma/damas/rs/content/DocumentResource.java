@@ -40,8 +40,7 @@ public class DocumentResource
     }
 
     @Override
-    protected DocumentSerialization wrap(Document entity)
-            throws WorkspaceException {
+    protected DocumentSerialization wrap(Document entity) {
         return DocumentSerialization.from(entity, this.full);
     }
 }

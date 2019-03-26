@@ -34,47 +34,40 @@ internal class JcrUser
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), User {
 
-    @Throws(WorkspaceException::class)
-    override fun getId(): String = Exceptions.wrap { this.login }
+    override fun getId(): String = this.login
 
-    @Throws(WorkspaceException::class)
-    override fun getLogin(): String = Exceptions.wrap { this.node.name }
+    override fun getLogin(): String = Exceptions.uncheck { this.node.name }
 
-    @Throws(WorkspaceException::class)
     override fun getEmailAddress() =
         this.getString(ItemNamespace.EMAIL)
 
-    @Throws(WorkspaceException::class)
     override fun setEmailAddress(value: String?) {
         this.validateEmailAddress(value)
         this.setString(ItemNamespace.EMAIL, value)
     }
 
-    @Throws(WorkspaceException::class)
     override fun getFirstName() =
         this.getString(ItemNamespace.NAME)
 
-    @Throws(WorkspaceException::class)
     override fun setFirstName(value: String?) {
         this.setString(ItemNamespace.NAME, value)
     }
 
-    @Throws(WorkspaceException::class)
     override fun getLastName() =
         this.getString(ItemNamespace.SURNAME)
 
-    @Throws(WorkspaceException::class)
     override fun setLastName(value: String?) {
         this.setString(ItemNamespace.SURNAME, value)
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getMemberships(): List<String> = try {
+    override fun getMemberships(): List<String> = Exceptions.uncheck {
         this.getStrings(ItemNamespace.GROUPS)?.map {
-            this.node.session.getNodeByIdentifier(it).name
+            try {
+                this.node.session.getNodeByIdentifier(it).name
+            } catch (_: NotFoundException) { "" }
+        }?.filter {
+            "" != it
         } ?: emptyList()
-    } catch (_: NotFoundException) {
-        Collections.emptyList()
     }
 
     @Throws(WorkspaceException::class)
@@ -123,7 +116,7 @@ private constructor(node: Node) : JcrSubject(node), User {
         return Arrays.equals(stored, digest)
     }
 
-    @Throws(MisuseException::class)
+    @Throws(IllegalArgumentException::class)
     private fun validateEmailAddress(value: String?) = value.let {
         EMAIL_ADDRESS_REGEX.matcher(it).matches() ||
                 throw InvalidEmailAddressException()
@@ -163,7 +156,7 @@ private constructor(node: Node) : JcrSubject(node), User {
         fun of(node: Node) = JcrUser(node)
 
         @Throws(WorkspaceException::class)
-        fun from(session: Session, login: String): JcrUser = Exceptions.wrap {
+        fun from(session: Session, login: String): JcrUser = Exceptions.check {
             val root = session.getNode(JcrSubject.ROOT_PATH)
             try {
                 of(root.addNode(login, TypeNamespace.USER))

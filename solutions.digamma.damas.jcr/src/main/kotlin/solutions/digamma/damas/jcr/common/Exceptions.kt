@@ -8,7 +8,6 @@ import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
 import solutions.digamma.damas.jcr.session.SessionWrapper
-
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
 import javax.jcr.LoginException
@@ -16,7 +15,6 @@ import javax.jcr.PathNotFoundException
 import javax.jcr.RepositoryException
 import javax.jcr.nodetype.ConstraintViolationException
 import javax.jcr.security.AccessControlException
-import java.util.logging.Level
 
 /**
  * Repository exception conversion utility.
@@ -46,7 +44,7 @@ internal object Exceptions {
     }
 
     /**
-     * Wraps a callable and convert any thrown exception.
+     * Wraps a callable and convert any thrown exception to a checked exception.
      *
      * If the callable throws a [RepositoryException] exception it is converted
      * into their [WorkspaceException] counterparts.
@@ -55,9 +53,18 @@ internal object Exceptions {
      * @return returned object by the callable, if any
      */
     @Throws(WorkspaceException::class)
-    internal fun <T> wrap(op: () -> T) = try {
+    internal fun <T> check(op: () -> T) = try {
         op()
-    } catch (e: RepositoryException) { throw convert(e) }
+    } catch (e: RepositoryException) {
+        throw convert(e)
+    } catch (e: RuntimeException) {
+        val cause = e.cause
+        throw when (cause) {
+            is RepositoryException -> convert(cause)
+            is WorkspaceException -> cause
+            else -> e
+        }
+    }
 
     /**
      * Wraps a session wrapper and convert thrown exception, using a resource.
@@ -68,19 +75,50 @@ internal object Exceptions {
      * An auto-closable session wrapper is used, and assured to be properly
      * closed.
      *
-     * @param res a session wrapper
-     * @param op a callable that potentially throws a [RepositoryException]
+     * @param session a session wrapper
+     * @param op a callable that potentially throws an exception
      * @return returned object by the callable, if any
      */
     @Throws(WorkspaceException::class)
-    fun <T> wrap(res: SessionWrapper, op: (res: SessionWrapper) -> T): T {
-        return res.use {
+    fun <T> wrap(session: SessionWrapper, op: (res: SessionWrapper) -> T): T {
+        return session.use {
             try {
-                op(it).also { res.commit() }
+                op(it).also { session.commit() }
             } catch (e: Exception) {
-                res.rollback()
-                throw if (e is RepositoryException) convert(e) else e
+                session.rollback()
+                val cause = e.cause
+                throw when {
+                    e is RepositoryException -> convert(e)
+                    cause is RepositoryException -> convert(cause)
+                    cause is WorkspaceException -> cause
+                    else -> e
+                }
             }
         }
+    }
+
+    /**
+     * Wraps a callable and convert any thrown exception to an unchecked
+     * exception.
+     *
+     * If the callable throws a [RepositoryException] exception it is converted
+     * into an [IllegalStateException] exception whose cause is the
+     * [WorkspaceException] counterparts of the original exception.
+     *
+     * If the callable throws a checked exception it is converted into an
+     * [IllegalStateException] exception whose cause is the original exception.
+
+     * @param op a callable that potentially throws an exception
+     * @return returned object by the callable, if any
+     */
+    internal fun <T> uncheck(op: () -> T) = try {
+        op()
+    } catch (e: RuntimeException) {
+        /* Prevent fallback */
+        throw e;
+    } catch (e: RepositoryException) {
+        throw IllegalStateException(convert(e))
+    } catch (e: Exception) {
+        throw IllegalStateException(e);
     }
 }

@@ -17,7 +17,6 @@ internal interface JcrModifiable : Modifiable, JcrEntity {
      *
      * @return
      */
-    @Throws(WorkspaceException::class)
     override fun getModifiedBy() =
             this.getString(Property.JCR_LAST_MODIFIED_BY)
 
@@ -26,7 +25,6 @@ internal interface JcrModifiable : Modifiable, JcrEntity {
      *
      * @return
      */
-    @Throws(WorkspaceException::class)
     override fun getModificationDate() =
             this.getDate(Property.JCR_LAST_MODIFIED)
 }

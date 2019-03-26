@@ -1,7 +1,5 @@
 package solutions.digamma.damas.entity;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.util.List;
 
 /**
@@ -18,5 +16,5 @@ public interface Page<T extends Entity> {
 
     int getOffset();
 
-    List<T> getObjects() throws WorkspaceException;
+    List<T> getObjects();
 }

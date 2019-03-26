@@ -18,14 +18,13 @@ internal interface JcrPathFinder<T : Entity> : SessionConsumer, PathFinder<T> {
 
     @Throws(WorkspaceException::class)
     override fun find(token: Token, path: String): T {
-        var path = path
         return Exceptions.wrap(openSession(token)) {
-            path = Paths.get(path).normalize().toString()
-            if (path.startsWith("../")) {
+            var p = Paths.get(path).normalize().toString()
+            if (p.startsWith("../")) {
                 throw MisuseException("Invalid relative path.")
             }
-            path = if (path == "") "." else path
-            this.find(it.getSession(), path)
+            p = if (p == "") "." else p
+            this.find(it.getSession(), p)
         }
     }
 

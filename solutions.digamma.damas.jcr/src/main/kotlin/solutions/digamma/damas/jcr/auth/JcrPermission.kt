@@ -28,8 +28,7 @@ private constructor(
         private val acl: List<AccessControlEntry>? = null
 ): Permission {
 
-    @Throws(WorkspaceException::class)
-    override fun getAccessRights(): AccessRight = Exceptions.wrap {
+    override fun getAccessRights(): AccessRight = Exceptions.uncheck {
         val acl = this.acl ?: Permissions
                 .getAppliedEntries(this.node, this.subject)
         val acm = this.node.session.accessControlManager
@@ -46,31 +45,26 @@ private constructor(
         }.reduce(::maxOf)
     }
 
-    @Throws(WorkspaceException::class)
-    override fun setAccessRights(value: AccessRight?) {
-        if (value == null) return
-        if (isProtected()) {
-            throw PermissionProtectedException(subjectId, node.path)
-        }
-        Exceptions.wrap {
+    override fun setAccessRights(value: AccessRight?) = Exceptions.uncheck {
+        if (value != null) {
+            if (isProtected()) {
+                throw PermissionProtectedException(subjectId, node.path)
+            }
             Permissions.writePrivileges(this.node, this.subject, value)
         }
     }
 
     override fun getSubjectId(): String = this.subject
 
-    @Throws(WorkspaceException::class)
-    override fun getObject(): File = JcrFile.of(this.node)
+    override fun getObject(): File =
+            Exceptions.uncheck { JcrFile.of(this.node) }
 
-    @Throws(WorkspaceException::class)
-    fun remove() {
+    fun remove() = Exceptions.uncheck {
         if (isProtected()) {
             throw PermissionProtectedException(subjectId, node.path)
         }
-        Exceptions.wrap {
-            Permissions.writePrivileges(
-                    this.node, this.subject, AccessRight.NONE)
-        }
+        Permissions.writePrivileges(
+                this.node, this.subject, AccessRight.NONE)
     }
 
     /**
@@ -92,7 +86,7 @@ private constructor(
 
         @Throws(WorkspaceException::class)
         fun of(session: Session, fileId: String, subjectId: String) =
-                Exceptions.wrap {
+                Exceptions.check {
             /* Retrieve object node, a file. */
             val node = session.getNodeByIdentifier(fileId)
             JcrPermission(node, subjectId)
@@ -103,7 +97,7 @@ private constructor(
          */
         @Throws(WorkspaceException::class)
         fun lisOf(session: Session, fileId: String):
-                List<JcrPermission> = Exceptions.wrap {
+                List<JcrPermission> = Exceptions.check {
             /* Retrieve object node, a file. */
             val node = session.getNodeByIdentifier(fileId)
             Permissions.getAppliedPolicy(node)?.accessControlEntries?.groupBy {

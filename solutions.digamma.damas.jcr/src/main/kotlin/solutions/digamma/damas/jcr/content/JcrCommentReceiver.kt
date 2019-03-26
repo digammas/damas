@@ -16,15 +16,12 @@ import java.util.Collections
  */
 internal interface JcrCommentReceiver : CommentReceiver, JcrEntity {
 
-    @Throws(WorkspaceException::class)
-    override fun getComments(): List<Comment> {
+    override fun getComments(): List<Comment> = Exceptions.uncheck {
         val comments = ArrayList<Comment>()
-        Exceptions.wrap {
-            val nodes = this.getChildNodes(TypeNamespace.COMMENT)
-            while (nodes.hasNext()) {
-                comments.add(JcrComment.of(nodes.nextNode()))
-            }
+        val nodes = this.getChildNodes(TypeNamespace.COMMENT)
+        while (nodes.hasNext()) {
+            comments.add(JcrComment.of(nodes.nextNode()))
         }
-        return Collections.unmodifiableList(comments)
+        Collections.unmodifiableList(comments)
     }
 }

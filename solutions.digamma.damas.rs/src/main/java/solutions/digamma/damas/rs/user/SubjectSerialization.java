@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.user.Subject;
 
 public abstract class SubjectSerialization implements Subject {
@@ -8,7 +7,7 @@ public abstract class SubjectSerialization implements Subject {
     public SubjectSerialization() {
     }
 
-    protected SubjectSerialization(Subject clone) throws WorkspaceException {
+    protected SubjectSerialization(Subject clone) {
         this.id = clone.getId();
         this.enabled = clone.isEnabled();
     }
@@ -27,7 +26,7 @@ public abstract class SubjectSerialization implements Subject {
     }
 
     @Override
-    public String getId() throws WorkspaceException {
+    public String getId() {
         return this.id;
     }
 }

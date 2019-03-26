@@ -11,9 +11,7 @@ import javax.jcr.Property
  */
 internal interface JcrCreated : Created, JcrEntity {
 
-    @Throws(WorkspaceException::class)
     override fun getCreationDate() = this.getDate(Property.JCR_CREATED)
 
-    @Throws(WorkspaceException::class)
     override fun getCreatedBy() = this.getString(Property.JCR_CREATED_BY)
 }

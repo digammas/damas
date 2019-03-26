@@ -1,7 +1,5 @@
 package solutions.digamma.damas.entity;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.time.ZonedDateTime;
 
 /**
@@ -13,15 +11,13 @@ public interface Modifiable {
      * Modifier ID.
      *
      * @return
-     * @throws WorkspaceException
      */
-    String getModifiedBy() throws WorkspaceException;
+    String getModifiedBy();
 
     /**
      * Modification timestamp.
      *
      * @return
-     * @throws WorkspaceException
      */
-    ZonedDateTime getModificationDate() throws WorkspaceException;
+    ZonedDateTime getModificationDate();
 }

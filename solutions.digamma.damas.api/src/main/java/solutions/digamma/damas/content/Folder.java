@@ -1,7 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.util.List;
 
 /**
@@ -16,12 +14,12 @@ public interface Folder extends File {
      *
      * @param depth
      */
-    void expandContent(int depth) throws WorkspaceException;
+    void expandContent(int depth);
 
     /**
      * Expand content down to the leaves.
      */
-    void expandContent() throws WorkspaceException;
+    void expandContent();
 
     /**
      * Retrieve all files in a folder, recursively to a the depth defined by
@@ -30,9 +28,8 @@ public interface Folder extends File {
      * This method returns {@code null} if content is hidden or collapsed.
      *
      * @return
-     * @throws WorkspaceException
      */
-    Content getContent() throws WorkspaceException;
+    Content getContent();
 
     /**
      * Folder's content object.

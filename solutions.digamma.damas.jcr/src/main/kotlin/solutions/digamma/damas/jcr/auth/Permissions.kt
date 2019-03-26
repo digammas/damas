@@ -4,7 +4,8 @@ import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.jcr.sys.SystemRole
 import java.security.Principal
-import java.util.*
+import java.util.Arrays
+import java.util.Collections
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session

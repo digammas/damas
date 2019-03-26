@@ -66,13 +66,13 @@ internal constructor(private val session: Session) : Closeable {
     @Throws(WorkspaceException::class)
     fun commit() {
         this.checkUsability()
-        Exceptions.wrap { this.session.save() }
+        Exceptions.check { this.session.save() }
     }
 
     @Throws(WorkspaceException::class)
     fun rollback() {
         this.checkUsability()
-        Exceptions.wrap { this.session.refresh(false) }
+        Exceptions.check { this.session.refresh(false) }
     }
 
     @Synchronized override fun close() {

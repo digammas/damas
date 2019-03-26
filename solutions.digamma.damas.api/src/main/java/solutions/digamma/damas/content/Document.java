@@ -1,7 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.util.List;
 
 /**
@@ -15,5 +13,5 @@ public interface Document extends File, CommentReceiver {
      * All versions of the document.
      * @return
      */
-    List<Version> getVersions() throws WorkspaceException;
+    List<Version> getVersions();
 }

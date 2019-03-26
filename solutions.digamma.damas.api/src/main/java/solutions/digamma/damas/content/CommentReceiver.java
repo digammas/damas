@@ -1,6 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public interface CommentReceiver extends Entity {
      * Can be empty, but not null.
      *
      * @return
-     * @throws WorkspaceException
      */
-    List<Comment> getComments() throws WorkspaceException;
+    List<Comment> getComments();
 }

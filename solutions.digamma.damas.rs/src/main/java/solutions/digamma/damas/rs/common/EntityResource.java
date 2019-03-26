@@ -45,5 +45,5 @@ public abstract class EntityResource<E extends Entity, S extends E>
         return wrap(this.getManager().retrieve(this.getToken(), id));
     }
 
-    abstract protected S wrap(E entity) throws WorkspaceException;
+    abstract protected S wrap(E entity);
 }

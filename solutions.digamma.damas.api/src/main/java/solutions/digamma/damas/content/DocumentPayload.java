@@ -1,7 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 import java.io.InputStream;
 
 /**
@@ -16,12 +14,12 @@ public interface DocumentPayload {
      *
      * @return
      */
-    long getSize() throws WorkspaceException;
+    long getSize();
 
     /**
      * Binary content as stream.
      *
      * @return
      */
-    InputStream getStream() throws WorkspaceException;
+    InputStream getStream();
 }

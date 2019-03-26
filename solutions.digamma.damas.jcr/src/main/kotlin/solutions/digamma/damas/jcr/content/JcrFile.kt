@@ -14,6 +14,7 @@ import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.model.JcrCreated
 import solutions.digamma.damas.jcr.model.JcrModifiable
 import solutions.digamma.damas.jcr.names.TypeNamespace
+import java.lang.UnsupportedOperationException
 import java.net.URI
 import javax.jcr.ItemExistsException
 import javax.jcr.Node
@@ -35,20 +36,18 @@ protected constructor(node: Node) : JcrBaseEntity(node),
     @Throws(InternalStateException::class)
     override fun checkCompatibility() {
         this.checkTypeCompatibility(TypeNamespace.FILE)
-        Exceptions.wrap {
+        Exceptions.check {
             this.node.path.startsWith(ROOT_PATH) ||
                 throw InternalStateException("Node not in content root.")
         }
     }
 
-    @Throws(WorkspaceException::class)
     override fun getName(): String {
-        return Exceptions.wrap { this.node.name }
+        return Exceptions.uncheck { this.node.name }
     }
 
-    @Throws(WorkspaceException::class)
     override fun setName(value: String) {
-        Exceptions.wrap {
+        Exceptions.uncheck {
             /* Use node's path since paths don't end with a slash.
              */
             val destination = URI
@@ -59,22 +58,18 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         }
     }
 
-    @Throws(WorkspaceException::class)
     override fun getParent(): Folder? =
-        Exceptions.wrap { this.node.parent }?.let { JcrFolder.of(it) }
+        Exceptions.uncheck { this.node.parent }?.let { JcrFolder.of(it) }
 
-    @Throws(WorkspaceException::class)
     override fun setParent(value: Folder) {
         this.parentId = value.id ?:
-                throw UnsupportedActionException("Parent ID is null.")
+                throw UnsupportedOperationException("Parent ID is null.")
     }
 
-    @Throws(WorkspaceException::class)
     override fun getParentId(): String =
-        Exceptions.wrap { this.node.parent.identifier }
+        Exceptions.uncheck { this.node.parent.identifier }
 
-    @Throws(WorkspaceException::class)
-    override fun setParentId(value: String) = Exceptions.wrap {
+    override fun setParentId(value: String) = Exceptions.uncheck {
         val path = this.session
                 .getNodeByIdentifier(value)
                 .path + "/"
@@ -85,16 +80,13 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         this.move(destination)
     }
 
-    @Throws(WorkspaceException::class)
-    override fun getPath(): String = Exceptions.wrap {
+    override fun getPath(): String = Exceptions.uncheck {
         URI.create(JcrFile.ROOT_PATH)
                 .relativize(URI.create(this.node.path)).path
     }
 
-    @Throws(WorkspaceException::class)
     override fun getMetadata(): Metadata? = null
 
-    @Throws(WorkspaceException::class)
     override fun setMetadata(metadata: Metadata) {}
 
     @Throws(RepositoryException::class)
@@ -138,7 +130,7 @@ protected constructor(node: Node) : JcrBaseEntity(node),
          * Retrieve file from JCR node.
          */
         @Throws(WorkspaceException::class)
-        fun of(node: Node) = Exceptions.wrap {
+        fun of(node: Node) = Exceptions.check {
             when {
                 node.isNodeType(NodeType.NT_FILE) -> JcrDocument.of(node)
                 node.isNodeType(NodeType.NT_FOLDER) -> JcrFolder.of(node)

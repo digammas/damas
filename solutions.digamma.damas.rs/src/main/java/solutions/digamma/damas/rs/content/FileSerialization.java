@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.Metadata;
@@ -31,10 +30,8 @@ abstract public class FileSerialization
      *
      * @param pattern   A copy to follow.
      * @param full      Whether to copy with full details.
-     * @throws WorkspaceException
      */
-    protected FileSerialization(File pattern, boolean full)
-            throws WorkspaceException {
+    protected FileSerialization(File pattern, boolean full) {
         this.id = pattern.getId();
         this.name = pattern.getName();
         this.parentId = pattern.getParentId();
@@ -84,7 +81,7 @@ abstract public class FileSerialization
     }
 
     @Override
-    public void setMetadata(Metadata metadata) throws WorkspaceException {
+    public void setMetadata(Metadata metadata) {
         this.metadata = MetadataSerialization.from(metadata);
     }
 

@@ -34,11 +34,9 @@ public class ContentTest {
     private FolderManager folderMgr;
 
     private Document newDocument(String parentId, String name) {
-        Document document = Mockito.mock(Document.class);
-        try {
-            Mockito.when(document.getParentId()).thenReturn(parentId);
-            Mockito.when(document.getName()).thenReturn(name);
-        } catch (WorkspaceException e) {}
+    Document document = Mockito.mock(Document.class);
+        Mockito.when(document.getParentId()).thenReturn(parentId);
+        Mockito.when(document.getName()).thenReturn(name);
         return document;
     }
 

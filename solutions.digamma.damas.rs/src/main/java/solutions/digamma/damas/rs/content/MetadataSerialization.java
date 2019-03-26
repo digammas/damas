@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Metadata;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,9 +25,8 @@ public class MetadataSerialization implements Metadata {
      * Copy constructor.
      *
      * @param pattern   A copy to mimic.
-     * @throws          WorkspaceException
      */
-    private MetadataSerialization(Metadata pattern) throws WorkspaceException {
+    private MetadataSerialization(Metadata pattern) {
         this.title = pattern.getTitle();
         this.description = pattern.getDescription();
         this.keywords = pattern.getKeywords();
@@ -69,10 +67,8 @@ public class MetadataSerialization implements Metadata {
      *
      * @param p     The pattern.
      * @return      Serializable copy.
-     * @throws WorkspaceException
      */
-    public static MetadataSerialization from(Metadata p)
-            throws WorkspaceException {
+    public static MetadataSerialization from(Metadata p) {
         return p == null ? null : new MetadataSerialization(p);
     }
 }

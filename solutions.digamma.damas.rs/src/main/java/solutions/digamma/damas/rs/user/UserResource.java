@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.rs.common.CrudResource;
 import solutions.digamma.damas.user.User;
@@ -21,7 +20,7 @@ public class UserResource extends CrudResource<User, UserSerialization> {
     }
 
     @Override
-    protected UserSerialization wrap(User entity) throws WorkspaceException {
+    protected UserSerialization wrap(User entity) {
         return UserSerialization.from(entity);
     }
 }

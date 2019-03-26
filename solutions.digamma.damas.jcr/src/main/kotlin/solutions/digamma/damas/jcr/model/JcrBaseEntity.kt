@@ -32,7 +32,7 @@ constructor(@Transient override val node: Node) : Entity, JcrEntity {
      */
     @Throws(WorkspaceException::class)
     fun remove() {
-        Exceptions.wrap { this.node.remove() }
+        Exceptions.check { this.node.remove() }
     }
 
     /**
@@ -44,7 +44,7 @@ constructor(@Transient override val node: Node) : Entity, JcrEntity {
      */
     @Throws(InternalStateException::class)
     protected fun checkTypeCompatibility(type: String) {
-        Exceptions.wrap {
+        Exceptions.check {
             if (!this.node.isNodeType(type)) {
                 throw InvalidNodeTypeException(this.node.path, type)
             }

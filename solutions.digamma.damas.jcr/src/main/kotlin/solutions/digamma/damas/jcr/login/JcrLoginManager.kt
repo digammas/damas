@@ -36,7 +36,7 @@ internal class JcrLoginManager : LoginManager {
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun login(username: String, password: String) = Exceptions.wrap {
+    override fun login(username: String, password: String) = Exceptions.check {
         val credentials = SimpleCredentials(
                 username, password.toCharArray())
         val jcrSession = this.repository.login(credentials)

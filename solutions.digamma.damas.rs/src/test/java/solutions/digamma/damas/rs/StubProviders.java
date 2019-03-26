@@ -7,7 +7,6 @@ import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.entity.EntityManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.content.CommentSerialization;

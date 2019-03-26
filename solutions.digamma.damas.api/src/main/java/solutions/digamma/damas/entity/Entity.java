@@ -1,7 +1,5 @@
 package solutions.digamma.damas.entity;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 /**
  * Generic persistent entity.
  *
@@ -21,5 +19,5 @@ public interface Entity {
      *
      * @return
      */
-    String getId() throws WorkspaceException;
+    String getId();
 }

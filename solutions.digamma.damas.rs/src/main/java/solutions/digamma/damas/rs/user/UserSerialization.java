@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.user.User;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,7 +19,7 @@ public class UserSerialization extends SubjectSerialization implements User {
     public UserSerialization() {
     }
 
-    protected UserSerialization(User clone) throws WorkspaceException {
+    protected UserSerialization(User clone) {
         super(clone);
         this.emailAddress = clone.getEmailAddress();
         this.firstName = clone.getFirstName();
@@ -77,7 +76,7 @@ public class UserSerialization extends SubjectSerialization implements User {
         this.memberships = value;
     }
 
-    public static UserSerialization from(User clone) throws WorkspaceException {
+    public static UserSerialization from(User clone) {
         return new UserSerialization(clone);
     }
 }

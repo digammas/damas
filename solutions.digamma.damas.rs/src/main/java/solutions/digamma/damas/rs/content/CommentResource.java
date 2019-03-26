@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.CommentManager;
 import solutions.digamma.damas.entity.CrudManager;
@@ -28,8 +27,7 @@ public class CommentResource
     }
 
     @Override
-    protected CommentSerialization wrap(Comment entity)
-            throws WorkspaceException {
-        return CommentSerialization.copy(entity);
+    protected CommentSerialization wrap(Comment entity) {
+        return CommentSerialization.from(entity);
     }
 }

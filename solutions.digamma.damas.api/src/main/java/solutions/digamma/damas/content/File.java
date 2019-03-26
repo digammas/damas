@@ -1,6 +1,5 @@
 package solutions.digamma.damas.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.entity.Modifiable;
@@ -22,14 +21,14 @@ public interface File extends Entity, Created, Modifiable {
      *
      * @return
      */
-    String getName() throws WorkspaceException;
+    String getName();
 
     /**
      * Set file's name.
      *
      * @param value
      */
-    void setName(String value) throws WorkspaceException;
+    void setName(String value);
 
     /**
      * Parent folder. When the current file is the root folder, this method
@@ -37,36 +36,35 @@ public interface File extends Entity, Created, Modifiable {
      *
      * @return
      */
-    Folder getParent() throws WorkspaceException;
+    Folder getParent();
 
     /**
      * Set file's parent folder.
      *
      * @param value
      */
-    void setParent(Folder value) throws WorkspaceException;
+    void setParent(Folder value);
 
     /**
      * Parent ID.
      *
      * @return
      */
-    String getParentId() throws WorkspaceException;
+    String getParentId();
 
     /**
      * Set parent ID.
      *
      * @param value
      */
-    void setParentId(String value) throws WorkspaceException;
+    void setParentId(String value);
 
     /**
      * File's metadata.
      *
      * @return
-     * @throws WorkspaceException
      */
-    Metadata getMetadata() throws WorkspaceException;
+    Metadata getMetadata();
 
     /**
      * Update file's metadata. If value is null, delete metadata. Only present
@@ -74,9 +72,8 @@ public interface File extends Entity, Created, Modifiable {
      * unchanged.
      *
      * @param metadata
-     * @throws WorkspaceException
      */
-    void setMetadata(Metadata metadata) throws WorkspaceException;
+    void setMetadata(Metadata metadata);
 
     /**
      * Parent path.
@@ -86,5 +83,5 @@ public interface File extends Entity, Created, Modifiable {
      *
      * @return
      */
-    String getPath() throws WorkspaceException;
+    String getPath();
 }

@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.content;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Comment;
 import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Version;
@@ -28,20 +27,18 @@ public class DocumentSerialization
      *
      * @param pattern   A pattern to Copy.
      * @param full      Whether to copy with full details.
-     * @throws WorkspaceException
      */
-    private DocumentSerialization(Document pattern, boolean full)
-            throws WorkspaceException {
+    private DocumentSerialization(Document pattern, boolean full) {
         super(pattern, full);
     }
 
     @Override
-    public List<Version> getVersions() throws WorkspaceException {
+    public List<Version> getVersions() {
         return null;
     }
 
     @Override
-    public List<Comment> getComments() throws WorkspaceException {
+    public List<Comment> getComments() {
         return null;
     }
 
@@ -51,10 +48,8 @@ public class DocumentSerialization
      * @param p     Document pattern.
      * @param full  Whether to copy with full details.
      * @return      Serializable copy.
-     * @throws WorkspaceException
      */
-    public static DocumentSerialization from(Document p, boolean full)
-            throws WorkspaceException {
+    public static DocumentSerialization from(Document p, boolean full) {
         return p == null ? null : new DocumentSerialization(p, full);
     }
 }

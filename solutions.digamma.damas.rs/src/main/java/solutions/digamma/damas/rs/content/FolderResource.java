@@ -78,8 +78,7 @@ public class FolderResource
     }
 
     @Override
-    protected FolderSerialization wrap(Folder entity)
-            throws WorkspaceException {
+    protected FolderSerialization wrap(Folder entity) {
         return FolderSerialization.from(entity, this.full);
     }
 }

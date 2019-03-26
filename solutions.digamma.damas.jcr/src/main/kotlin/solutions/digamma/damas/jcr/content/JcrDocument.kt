@@ -29,8 +29,7 @@ protected constructor(node: Node) : JcrFile(node),
         JcrCommentReceiver, Document {
 
     val content: DocumentPayload
-    @Throws(WorkspaceException::class)
-    get() = Exceptions.wrap {
+    get() = Exceptions.uncheck {
         val binary = this.node
                 .getNode(Node.JCR_CONTENT)
                 .getProperty(Property.JCR_DATA)
@@ -49,7 +48,7 @@ protected constructor(node: Node) : JcrFile(node),
 
     @Throws(WorkspaceException::class)
     internal fun updateContent(stream: InputStream) {
-        Exceptions.wrap {
+        Exceptions.check {
             val binary = this.session.valueFactory.createBinary(stream)
             this.node
                     .getNode(Property.JCR_CONTENT)
@@ -60,7 +59,7 @@ protected constructor(node: Node) : JcrFile(node),
     @Throws(InternalStateException::class)
     override fun checkCompatibility() {
         super.checkCompatibility()
-        Exceptions.wrap {
+        Exceptions.check {
             this.node.isNodeType(NodeType.NT_FILE) ||
                     throw InternalStateException("Node is not nt:file type.")
         }
@@ -73,7 +72,7 @@ protected constructor(node: Node) : JcrFile(node),
 
         @Throws(WorkspaceException::class)
         fun from(session: Session, parentId: String, name: String) =
-                Exceptions.wrap {
+                Exceptions.check {
             val parent = session.getNodeByIdentifier(parentId)
             if (!parent.isNodeType(TypeNamespace.FOLDER)) {
                 throw CompatibilityException("Parent is not a folder")

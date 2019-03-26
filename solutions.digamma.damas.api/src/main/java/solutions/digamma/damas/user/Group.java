@@ -1,7 +1,5 @@
 package solutions.digamma.damas.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
-
 /**
  * A group of users.
  *
@@ -14,15 +12,13 @@ public interface Group extends Subject {
      * identifier.
      *
      * @return                      group's name
-     * @throws WorkspaceException
      */
-    String getName() throws WorkspaceException;
+    String getName();
 
     /**
      * Set group's name.
      *
      * @param value                 group's new name
-     * @throws WorkspaceException
      */
-    void setName(String value) throws WorkspaceException;
+    void setName(String value);
 }

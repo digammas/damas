@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.user.Group;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +13,7 @@ public class GroupSerialization extends SubjectSerialization implements Group {
         super();
     }
 
-    protected GroupSerialization(Group clone) throws WorkspaceException {
+    protected GroupSerialization(Group clone) {
         super(clone);
         this.name = clone.getName();
     }
@@ -29,7 +28,7 @@ public class GroupSerialization extends SubjectSerialization implements Group {
         this.name = value;
     }
 
-    public static GroupSerialization from(Group clone) throws WorkspaceException {
+    public static GroupSerialization from(Group clone) {
         return new GroupSerialization(clone);
     }
 }

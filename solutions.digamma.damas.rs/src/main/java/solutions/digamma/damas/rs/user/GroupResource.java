@@ -1,6 +1,5 @@
 package solutions.digamma.damas.rs.user;
 
-import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.rs.common.CrudResource;
 import solutions.digamma.damas.user.Group;
@@ -21,7 +20,7 @@ public class GroupResource extends CrudResource<Group, GroupSerialization> {
     }
 
     @Override
-    protected GroupSerialization wrap(Group entity) throws WorkspaceException {
+    protected GroupSerialization wrap(Group entity) {
         return GroupSerialization.from(entity);
     }
 }
