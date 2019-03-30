@@ -17,25 +17,23 @@ public interface PermissionManager {
      * Retrieve a permission applied at a given file, for a given subject. If no
      * such permission exists, this method returns {@code null}.
      *
-     * @param token         access token
      * @param objectId        file id
      * @param subjectId     subject id
      * @return              permission applied at file for subject, or {@code
      *                      null} if no such permission
      * @throws WorkspaceException
      */
-    Permission retrieve(Token token, String objectId, String subjectId)
+    Permission retrieve(String objectId, String subjectId)
             throws WorkspaceException;
 
     /**
      * Retrieve all permissions applied to a given file.
      *
-     * @param token         access token
      * @param objectId        file id
      * @return              a list of all permissions at that file
      * @throws WorkspaceException
      */
-    List<Permission> retrieve(Token token, String objectId)
+    List<Permission> retrieve(String objectId)
             throws WorkspaceException;
 
     /**
@@ -48,23 +46,21 @@ public interface PermissionManager {
      * If the set of access rights passed throw the parameter {@code entity} is
      * {@code null}, the method does nothing.
      *
-     * @param token         access token
      * @param pattern       modification patern
      * @return              newly updated, may be created, permission
      * @throws WorkspaceException
      */
-    Permission update(Token token, Permission pattern)
+    Permission update(Permission pattern)
             throws WorkspaceException;
 
     /**
      * Update permissions at a given file.
      *
-     * @param token         access token
      * @param fileId        file ID
      * @param permissions   permission list
      * @throws WorkspaceException
      */
-    void update(Token token, String fileId, List<Permission> permissions)
+    void update(String fileId, List<Permission> permissions)
             throws WorkspaceException;
 
     /**
@@ -73,27 +69,21 @@ public interface PermissionManager {
      * If the file is a folder, and {@code recursive} is {@code true} update
      * is propagated to all sub-folder and documents.
      *
-     * @param token         access token
      * @param fileId        file ID
      * @param permissions   permission list
      * @param recursive     whether to update sub-folders and documents
      * @throws WorkspaceException
      */
-    void update(
-            Token token,
-            String fileId,
-            List<Permission> permissions,
-            boolean recursive)
+    void update(String fileId, List<Permission> permissions, boolean recursive)
             throws WorkspaceException;
 
     /**
      * Remove permission object at a given file, for a given subject.
      *
-     * @param token         access token
      * @param objectId      file ID
      * @param subjectId     subject ID
      * @throws WorkspaceException
      */
-    void delete(Token token, String objectId, String subjectId)
+    void delete(String objectId, String subjectId)
             throws WorkspaceException;
 }

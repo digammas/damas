@@ -34,10 +34,9 @@ public abstract class CrudResource<E extends Entity, S extends E>
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public S create(
-            S entity)
-            throws WorkspaceException {
-        return wrap(this.getManager().create(this.getToken(), entity));
+    @Authenticated
+    public S create(S entity) throws WorkspaceException {
+        return wrap(this.getManager().create(entity));
     }
 
     /**
@@ -52,11 +51,10 @@ public abstract class CrudResource<E extends Entity, S extends E>
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public S update(
-            @PathParam("id") String id,
-            S entity)
+    @Authenticated
+    public S update(@PathParam("id") String id, S entity)
             throws WorkspaceException {
-        return wrap(this.getManager().update(this.getToken(), id, entity));
+        return wrap(this.getManager().update(id, entity));
     }
 
     /**
@@ -68,9 +66,8 @@ public abstract class CrudResource<E extends Entity, S extends E>
     @DELETE
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void delete(
-            @PathParam("id") String id)
-            throws WorkspaceException {
-        this.getManager().delete(this.getToken(), id);
+    @Authenticated
+    public void delete(@PathParam("id") String id) throws WorkspaceException {
+        this.getManager().delete(id);
     }
 }

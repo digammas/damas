@@ -17,38 +17,28 @@ public interface DocumentManager
     /**
      * Create document with initial content.
      *
-     * @param token
      * @param entity
      * @param stream
      * @return
      * @throws WorkspaceException
      */
-    Document create(
-            Token token,
-            Document entity,
-            InputStream stream)
+    Document create(Document entity, InputStream stream)
             throws WorkspaceException;
 
     /**
      * Read document's content.
      *
-     * @param token
      * @param id
      * @return
      */
-    DocumentPayload download(Token token, String id)
+    DocumentPayload download(String id)
             throws WorkspaceException;
 
     /**
      * Write a stream to a document, replacing existing content.
      *
-     * @param token
      * @param id
      * @param stream
      */
-    void upload(
-            Token token,
-            String id,
-            InputStream stream)
-            throws WorkspaceException;
+    void upload(String id, InputStream stream) throws WorkspaceException;
 }

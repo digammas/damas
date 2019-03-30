@@ -4,7 +4,6 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.ResourceBusyException
 import solutions.digamma.damas.jcr.common.Exceptions
-import java.io.Closeable
 
 import javax.jcr.Session
 import java.util.concurrent.TimeUnit
@@ -17,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock
  * @author Ahmad Shahwan
  */
 internal class TransactionalSession
-internal constructor(private val session: Session) : Closeable {
+internal constructor(private val session: Session) {
 
     private val lock = ReentrantLock()
 
@@ -32,18 +31,21 @@ internal constructor(private val session: Session) : Closeable {
      * @throws WorkspaceException When thread is interrupted.
      */
     @Throws(WorkspaceException::class)
-    fun open(): TransactionalSession {
-        try {
-            return if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
+    fun acquire(): TransactionalSession {
+        return try {
+            if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
                 this
             } else {
-                throw ResourceBusyException(
-                        "Session in use by another thread.")
+                throw SessionInUseException()
             }
         } catch (e: InterruptedException) {
-            throw WorkspaceException("Thread interrupted.", e)
+            throw WorkspaceException(e)
         }
 
+    }
+
+    @Synchronized fun release() {
+        while (this.lock.isLocked) this.lock.unlock()
     }
 
     /**
@@ -75,18 +77,13 @@ internal constructor(private val session: Session) : Closeable {
         Exceptions.check { this.session.refresh(false) }
     }
 
-    @Synchronized override fun close() {
-        while (this.lock.isLocked) this.lock.unlock()
-    }
-
     @Throws(WorkspaceException::class)
     private fun checkUsability() {
         if (!this.lock.isLocked) {
-            throw InternalStateException("Session not open yet.")
+            throw SessionNotOpenException()
         }
         if (!this.lock.tryLock()) {
-            throw ResourceBusyException(
-                    "Session open and in use by another thread.")
+            throw SessionOpenAndInUseException()
         }
     }
 
@@ -96,3 +93,10 @@ internal constructor(private val session: Session) : Closeable {
     }
 
 }
+
+class SessionInUseException :
+        ResourceBusyException("Session in use by another thread.")
+class SessionNotOpenException :
+        InternalStateException("Session not open yet.")
+class SessionOpenAndInUseException :
+        ResourceBusyException("Session open and in use by another thread.")

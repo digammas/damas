@@ -16,7 +16,7 @@ import solutions.digamma.damas.content.Document;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.auth.Credentials;
-import solutions.digamma.damas.rs.common.Authentication;
+import solutions.digamma.damas.rs.common.AuthenticationToken;
 import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
@@ -79,7 +79,7 @@ public class RestTest extends JerseyTest {
         Credentials cred = new Credentials("admin", "admin");
         Token auth = target("login").request().post(
                 Entity.entity(cred, this.ct),
-                Authentication.class);
+                AuthenticationToken.class);
         String token = auth.getSecret();
         assert StubProviders.TOKEN.equals(token) :
                 "Different token from what expected.";

@@ -15,24 +15,20 @@ import solutions.digamma.damas.jcr.WeldTest
  */
 class JcrFolderTest : WeldTest() {
 
-    private var token: Token? = null
     private var folder: Folder? = null
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
-        this.token = this.login.login("admin", "admin")
-        var parentId = manager
-                .find(this.token!!).objects.iterator().next().id
-        this.folder = manager.create(this.token!!,
-                Mocks.folder(parentId, "test"))
+        this.login()
+        var parentId = manager.find().objects.iterator().next().id
+        this.folder = manager.create(Mocks.folder(parentId, "test"))
         var parent = this.folder
         for (i in 0..9) {
             parentId = parent!!.id
             val name = "test_$i"
-            parent = manager.create(this.token!!,
-                    Mocks.folder(parentId, name))
+            parent = manager.create(Mocks.folder(parentId, name))
         }
     }
 
@@ -40,8 +36,8 @@ class JcrFolderTest : WeldTest() {
     @Throws(Exception::class)
     fun tearDown() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
-        manager.delete(this.token!!, this.folder!!.id)
-        this.login.logout(this.token)
+        manager.delete(this.folder!!.id)
+        this.logout()
     }
 
     @Test

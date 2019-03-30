@@ -6,6 +6,8 @@ import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.entity.Page;
+import solutions.digamma.damas.login.Authentication;
+import solutions.digamma.damas.login.AuthenticationManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.cdi.ContainerRunner;
@@ -28,6 +30,9 @@ public class ContentTest {
     private LoginManager loginMgr;
 
     @Inject
+    private AuthenticationManager authMgr;
+
+    @Inject
     private DocumentManager documentMgr;
 
     @Inject
@@ -40,40 +45,36 @@ public class ContentTest {
         return document;
     }
 
-    private Document createDocument(Token token, String parentId, String name)
+    private Document createDocument(String parentId, String name)
         throws WorkspaceException {
-        return this.documentMgr.create(
-                token,
-                this.newDocument(
-                        parentId,
-                        name
-                )
-        );
+        return this.documentMgr.create(this.newDocument(parentId,name));
     }
 
     @Test
     public void testContent() throws WorkspaceException {
         Token adminToken = loginMgr.login("admin", "admin");
         assert adminToken != null;
-        Page<Folder> folderResult = this.folderMgr.find(adminToken);
+        Authentication auth = authMgr.authenticate(adminToken);
+        assert auth != null;
+        Page<Folder> folderResult = this.folderMgr.find();
         Folder rootFolder = folderResult.getObjects().get(0);
         final String testFileName = "test.txt";
         Document doc;
         doc = this.createDocument(
-                adminToken,
                 rootFolder.getId(),
                 testFileName
         );
         assert doc != null;
         String docId = doc.getId();
-        doc = this.documentMgr.retrieve(adminToken, docId);
+        doc = this.documentMgr.retrieve(docId);
         assert testFileName.equals(doc.getName());
-        this.documentMgr.delete(adminToken, docId);
+        this.documentMgr.delete(docId);
         try {
-            this.documentMgr.retrieve(adminToken, docId);
+            this.documentMgr.retrieve(docId);
             assert false;
         } catch (NotFoundException e) {
             assert true;
         }
+        auth.close();
     }
 }

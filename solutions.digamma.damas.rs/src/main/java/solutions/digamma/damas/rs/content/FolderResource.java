@@ -3,6 +3,7 @@ package solutions.digamma.damas.rs.content;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.FolderManager;
+import solutions.digamma.damas.rs.common.Authenticated;
 import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
@@ -48,10 +49,11 @@ public class FolderResource
         return this.manager;
     }
 
+    @Authenticated
     @Override
     public FolderSerialization retrieve(String id)
             throws WorkspaceException {
-        Folder folder = this.manager.retrieve(this.getToken(), id);
+        Folder folder = this.manager.retrieve(id);
         if (this.depth != null) {
             if (this.depth == 0) {
                 folder.expandContent();
@@ -64,17 +66,18 @@ public class FolderResource
 
     @GET
     @Path("at/{path: .+}")
-    public FolderSerialization find(
-            @PathParam("path") String path)
+    @Authenticated
+    public FolderSerialization find(@PathParam("path") String path)
             throws WorkspaceException {
-        return wrap(this.manager.find(this.getToken(), path));
+        return wrap(this.manager.find(path));
     }
 
     @GET
     @Path("at")
+    @Authenticated
     public FolderSerialization find()
             throws WorkspaceException {
-        return wrap(this.manager.find(this.getToken(), "."));
+        return wrap(this.manager.find("."));
     }
 
     @Override

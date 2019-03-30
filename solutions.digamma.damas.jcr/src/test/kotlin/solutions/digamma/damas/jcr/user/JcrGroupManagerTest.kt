@@ -13,16 +13,15 @@ import solutions.digamma.damas.user.Group
 class JcrGroupManagerTest: WeldTest() {
 
     private val manager = WeldTest.inject(JcrGroupManager::class.java)
-    private lateinit var token: Token
 
     @Before
     fun setUp() {
-        this.token = this.login.login("admin", "admin")
+        this.login()
     }
 
     @After
     fun tearDown() {
-        this.login.logout(this.token)
+        this.logout()
     }
 
 
@@ -30,41 +29,41 @@ class JcrGroupManagerTest: WeldTest() {
     fun create() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
-        val entity = this.manager.create(this.token, group)
+        val entity = this.manager.create(group)
         assert(group.name == entity.name)
-        this.manager.delete(this.token, entity.id)
+        this.manager.delete(entity.id)
     }
 
     @Test
     fun update() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
-        val id = this.manager.create(this.token, group).id
+        val id = this.manager.create(group).id
         Mockito.`when`(group.name).thenReturn("tasters")
-        this.manager.update(this.token, id, group)
-        val entity = this.manager.retrieve(this.token, id)
+        this.manager.update(id, group)
+        val entity = this.manager.retrieve(id)
         assert(group.name == entity.name)
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
     }
 
     @Test
     fun retrieve() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
-        val id = this.manager.create(this.token, group).id
-        val entity = this.manager.retrieve(this.token, id)
+        val id = this.manager.create(group).id
+        val entity = this.manager.retrieve(id)
         assert(group.name == entity.name)
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
     }
 
     @Test
     fun delete() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
-        val id = this.manager.create(this.token, group).id
-        this.manager.delete(this.token, id)
+        val id = this.manager.create(group).id
+        this.manager.delete(id)
         try {
-            this.manager.retrieve(this.token, id)
+            this.manager.retrieve(id)
             assert(false)
         } catch (_: NotFoundException) {
             assert(true)

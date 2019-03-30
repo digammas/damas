@@ -8,7 +8,6 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 import java.util.Collections
@@ -56,10 +55,10 @@ internal class JcrUserManager : JcrCrudManager<User>(),
             Page<User> = ResultPage(Collections.emptyList())
 
     @Throws(WorkspaceException::class)
-    override fun updatePassword(token: Token, id: String, value: String) {
+    override fun updatePassword(id: String, value: String) {
         pwRegex.matcher(value).matches() || throw InsecurePasswordException()
-        Exceptions.wrap(openSession(token)) {
-            val user = this.retrieve(it.getSession(), id)
+        Exceptions.check {
+            val user = this.retrieve(this.getSession(), id)
             user.setPassword(value)
         }
     }

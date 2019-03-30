@@ -34,10 +34,10 @@ public abstract class BaseResource {
             if (authHeader.toLowerCase().startsWith(SCHEME)){
                 String token = authHeader.substring(SCHEME.length()).trim();
                 if (token.length() != 0) {
-                    return new Authentication(token);
+                    return new AuthenticationToken(token);
                 }
             }
         }
-        return new Authentication();
+        return new AuthenticationToken();
     }
 }

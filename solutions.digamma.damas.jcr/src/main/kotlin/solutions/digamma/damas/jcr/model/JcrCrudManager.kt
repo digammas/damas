@@ -18,24 +18,21 @@ internal abstract class JcrCrudManager<T: Entity>: JcrReadManager<T>(), CrudMana
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun create(token: Token, entity: T): T =
-            Exceptions.wrap(openSession(token)) {
-        this.create(it.getSession(), entity)
+    override fun create(entity: T): T = Exceptions.check {
+        this.create(getSession(), entity)
     }
 
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun update(token: Token, id: String, entity: T): T =
-            Exceptions.wrap(openSession(token)) {
-        this.update(it.getSession(), id, entity)
+    override fun update(id: String, entity: T): T = Exceptions.check {
+        this.update(this.getSession(), id, entity)
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun delete(token: Token, id: String): Unit =
-            Exceptions.wrap(openSession(token)) {
-        this.delete(it.getSession(), id)
+    override fun delete(id: String): Unit = Exceptions.check {
+        this.delete(this.getSession(), id)
     }
 
     /**

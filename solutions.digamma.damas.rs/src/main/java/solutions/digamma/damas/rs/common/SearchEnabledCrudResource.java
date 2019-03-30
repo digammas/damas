@@ -35,12 +35,13 @@ abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Authenticated
     public Page<S> retrieve(
             @QueryParam("offset") @DefaultValue("0") int offset,
             @QueryParam("size") @DefaultValue("30") int size)
             throws WorkspaceException {
         return wrap(this.getSearchEngine()
-                .find(this.getToken(), offset, size, this.getQuery()));
+                .find(offset, size, this.getQuery()));
     }
 
     protected Page<S> wrap(Page<E> page) throws WorkspaceException {

@@ -9,4 +9,5 @@ module solutions.digamma.damas.rs {
     requires java.json.bind;
 
     requires solutions.digamma.damas.api;
+    requires javax.interceptor.api;
 }

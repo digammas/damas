@@ -22,7 +22,7 @@ public interface EntityManager<T extends Entity> {
      * @throws NotFoundException    When no such an entity exists.
      * @throws WorkspaceException
      */
-    T retrieve(Token token, String id)
+    T retrieve(String id)
             throws WorkspaceException;
 
 }

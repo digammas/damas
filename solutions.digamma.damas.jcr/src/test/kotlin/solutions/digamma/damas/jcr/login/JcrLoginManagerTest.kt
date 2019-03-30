@@ -5,14 +5,12 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import solutions.digamma.damas.jcr.WeldTest
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 
 class JcrLoginManagerTest : WeldTest() {
 
     private val userManager = WeldTest.inject(UserManager::class.java)
-    private lateinit var token: Token
     private lateinit var username: String
     private val password = "P@55w0rd"
     private lateinit var manager: JcrLoginManager
@@ -20,27 +18,28 @@ class JcrLoginManagerTest : WeldTest() {
     @Before
     fun setUp() {
         this.manager = inject(JcrLoginManager::class.java)
-        this.token = this.login.login("admin", "admin")
+        this.login()
         val user = Mockito.mock(User::class.java)
         Mockito.`when`(user.login).thenReturn("tester")
-        this.username = this.userManager.create(this.token, user).login
+        this.username = this.userManager.create(user).login
         this.userManager
-                .updatePassword(this.token, this.username, this.password)
+                .updatePassword(this.username, this.password)
+        this.commit()
     }
 
     @After
     fun tearDown() {
-        this.userManager.delete(this.token, this.username)
-        this.login.logout(this.token)
+        this.userManager.delete(this.username)
+        this.logout()
     }
 
     @Test
-    fun login() {
+    fun testLogin() {
         this.manager.login(this.username, this.password)
     }
 
     @Test
-    fun logout() {
+    fun testLogout() {
         val token = this.manager.login(this.username, this.password)
         this.manager.logout(token)
     }

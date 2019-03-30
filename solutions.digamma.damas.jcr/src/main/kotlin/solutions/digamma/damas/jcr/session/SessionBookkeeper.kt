@@ -35,15 +35,11 @@ internal class SessionBookkeeper {
      * @throws ConflictException
      */
     @Throws(ConflictException::class, CompatibilityException::class)
-    fun register(token: Token, session: TransactionalSession) {
-        if (token !is SecureToken) {
-            this.logger.warning("Unrecognizable token.")
-            throw CompatibilityException("Incompatible token.")
-        }
+    fun register(token: SecureToken, session: TransactionalSession) {
         synchronized(this.sessions) {
             if (this.sessions.containsKey(token.secret)) {
                 this.logger.warning("Token $token already exists.")
-                throw ConflictException("Token already exists.")
+                throw TokenAlreadyExistsException()
             }
             this.sessions[token.secret] = session
             this.logger.info { "Token %s successfully stored.".format(token) }
@@ -64,7 +60,7 @@ internal class SessionBookkeeper {
                 this.logger.warning {
                     "Token %s did not exist.".format(token)
                 }
-                throw NotFoundException("No session for the given token.")
+                throw NoSessionForTokenException()
             }
             this.sessions.remove(token.secret)
             this.logger.info {
@@ -85,13 +81,21 @@ internal class SessionBookkeeper {
     @Throws(NotFoundException::class)
     fun lookup(token: Token?): TransactionalSession {
         if (token == null) {
-            throw NotFoundException("Token is null.")
+            throw TokenIsNullException()
         }
         val session = this.sessions[token.secret]
         if (session == null) {
             this.logger.info { "Token not found %s.".format(token) }
-            throw NotFoundException("No session for the given token.")
+            throw NoSessionForTokenException()
         }
         return session
     }
 }
+
+class IncompatibleTokenException :
+        CompatibilityException("Incompatible token.")
+class TokenAlreadyExistsException :
+        ConflictException("Token already exists.")
+class NoSessionForTokenException :
+        NotFoundException("No session for the given token.")
+class TokenIsNullException : NotFoundException("Token is null.")

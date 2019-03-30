@@ -9,14 +9,14 @@ import java.io.Serializable;
  *
  * @author Ahmad Shahwan
  */
-public class Authentication implements Serializable, Token {
+public class AuthenticationToken implements Serializable, Token {
 
     private String secret;
 
     /**
      * Default constructor.
      */
-    public Authentication() {
+    public AuthenticationToken() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class Authentication implements Serializable, Token {
      *
      * @param token Authentication secret.
      */
-    public Authentication(String token) {
+    public AuthenticationToken(String token) {
         this.secret = token;
     }
 

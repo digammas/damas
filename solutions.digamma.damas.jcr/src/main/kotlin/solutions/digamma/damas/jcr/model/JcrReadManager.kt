@@ -19,9 +19,8 @@ internal abstract class JcrReadManager<T: Entity> : JcrManager(),
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun retrieve(token: Token, id: String): T =
-            Exceptions.wrap(openSession(token)) {
-        this.retrieve(it.getSession(), id)
+    override fun retrieve(id: String): T = Exceptions.check {
+        this.retrieve(this.getSession(), id)
     }
 
     /**

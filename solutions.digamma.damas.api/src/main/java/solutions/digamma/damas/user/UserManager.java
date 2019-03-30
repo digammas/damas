@@ -15,7 +15,6 @@ public interface UserManager extends CrudManager<User>, SearchEngine<User> {
     /**
      * Updates user's password.
      *
-     * @param token         session token
      * @param id            user's id
      * @param value      new password
      *
@@ -24,9 +23,5 @@ public interface UserManager extends CrudManager<User>, SearchEngine<User> {
      *                      requirements
      * @throws WorkspaceException
      */
-    void updatePassword(
-            Token token,
-            String id,
-            String value)
-            throws WorkspaceException;
+    void updatePassword(String id, String value) throws WorkspaceException;
 }

@@ -12,21 +12,20 @@ import solutions.digamma.damas.user.User
 class JcrUserTest: WeldTest() {
 
     private val manager = WeldTest.inject(JcrUserManager::class.java)
-    private lateinit var token: Token
     private lateinit var user: JcrUser
 
     @Before
     fun setUp() {
-        this.token = this.login.login("admin", "admin")
+        this.login()
         val user = Mockito.mock(User::class.java)
         Mockito.`when`(user.login).thenReturn("tester")
-        this.user = this.manager.create(this.token, user) as JcrUser
+        this.user = this.manager.create(user) as JcrUser
     }
 
     @After
     fun tearDown() {
-        this.manager.delete(this.token, this.user.id)
-        this.login.logout(this.token)
+        this.manager.delete(this.user.id)
+        this.logout()
     }
 
     @Test

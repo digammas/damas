@@ -16,16 +16,15 @@ import java.util.Arrays
 class JcrUserManagerTest: WeldTest() {
 
     private val manager = WeldTest.inject(JcrUserManager::class.java)
-    private lateinit var token: Token
 
     @Before
     fun setUp() {
-        this.token = this.login.login("admin", "admin")
+        this.login()
     }
 
     @After
     fun tearDown() {
-        this.login.logout(this.token)
+        this.logout()
     }
 
     @Test
@@ -34,11 +33,11 @@ class JcrUserManagerTest: WeldTest() {
         Mockito.`when`(user.login).thenReturn("tester")
         Mockito.`when`(user.firstName).thenReturn("Mister")
         Mockito.`when`(user.lastName).thenReturn("Tester")
-        val entity = this.manager.create(this.token, user)
+        val entity = this.manager.create(user)
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
-        this.manager.delete(this.token, entity.id)
+        this.manager.delete(entity.id)
     }
 
     @Test
@@ -47,15 +46,15 @@ class JcrUserManagerTest: WeldTest() {
         Mockito.`when`(user.login).thenReturn("tester")
         Mockito.`when`(user.firstName).thenReturn("Mister")
         Mockito.`when`(user.lastName).thenReturn("Tester")
-        val id = this.manager.create(this.token, user).id
+        val id = this.manager.create(user).id
         Mockito.`when`(user.firstName).thenReturn("Master")
         Mockito.`when`(user.lastName).thenReturn("Taster")
-        this.manager.update(this.token, id, user)
-        val entity = this.manager.retrieve(this.token, id)
+        this.manager.update(id, user)
+        val entity = this.manager.retrieve(id)
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
     }
 
     @Test
@@ -66,48 +65,44 @@ class JcrUserManagerTest: WeldTest() {
         val testers = "testers"
         val devops = "devops"
         Mockito.`when`(group.name).thenReturn(testers)
-        gm.create(this.token, group)
+        gm.create(group)
         Mockito.`when`(group.name).thenReturn(devops)
-        gm.create(this.token, group)
+        gm.create(group)
 
         /* Set up user */
         var user = Mockito.mock(User::class.java)
         Mockito.`when`(user.login).thenReturn("tester")
-        val id = this.manager.create(this.token, user).id
+        val id = this.manager.create(user).id
 
         /* Add */
         user = Mockito.mock(User::class.java)
         Mockito.`when`(user.memberships).thenReturn(
                 Arrays.asList(testers, devops)
         )
-        this.manager.update(this.token, id, user)
-        assert(this.manager.retrieve(this.token, id)
-                .memberships == user.memberships)
+        this.manager.update(id, user)
+        assert(this.manager.retrieve(id).memberships == user.memberships)
 
         /* Remove */
         user = Mockito.mock(User::class.java)
         Mockito.`when`(user.memberships).thenReturn(
                 Arrays.asList(testers)
         )
-        this.manager.update(this.token, id, user)
-        assert(this.manager.retrieve(this.token, id)
-                .memberships == user.memberships)
+        this.manager.update(id, user)
+        assert(this.manager.retrieve(id).memberships == user.memberships)
 
         /* Add back */
         user = Mockito.mock(User::class.java)
-        Mockito.`when`(user.memberships).thenReturn(
-                Arrays.asList(testers, devops)
-        )
-        this.manager.update(this.token, id, user)
-        assert(this.manager.retrieve(this.token, id)
-                .memberships == user.memberships)
+        Mockito.`when`(user.memberships)
+                .thenReturn(Arrays.asList(testers, devops))
+        this.manager.update(id, user)
+        assert(this.manager.retrieve(id).memberships == user.memberships)
 
         /* Tear down user */
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
 
         /* Tear down groups */
-        gm.delete(this.token, testers)
-        gm.delete(this.token, devops)
+        gm.delete(testers)
+        gm.delete(devops)
     }
 
     @Test
@@ -116,22 +111,22 @@ class JcrUserManagerTest: WeldTest() {
         Mockito.`when`(user.login).thenReturn("tester")
         Mockito.`when`(user.firstName).thenReturn("Mister")
         Mockito.`when`(user.lastName).thenReturn("Tester")
-        val id = this.manager.create(this.token, user).id
-        val entity = this.manager.retrieve(this.token, id)
+        val id = this.manager.create(user).id
+        val entity = this.manager.retrieve(id)
         assert(user.login == entity.login)
         assert(user.firstName == entity.firstName)
         assert(user.lastName == entity.lastName)
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
     }
 
     @Test
     fun delete() {
         val user = Mockito.mock(User::class.java)
         Mockito.`when`(user.login).thenReturn("tester")
-        val id = this.manager.create(this.token, user).id
-        this.manager.delete(this.token, id)
+        val id = this.manager.create(user).id
+        this.manager.delete(id)
         try {
-            this.manager.retrieve(this.token, id)
+            this.manager.retrieve(id)
             assert(false)
         } catch (_: NotFoundException) {
             assert(true)
@@ -146,15 +141,15 @@ class JcrUserManagerTest: WeldTest() {
     fun updatePassword() {
         val user = Mockito.mock(User::class.java)
         Mockito.`when`(user.login).thenReturn("tester")
-        val id = this.manager.create(this.token, user).id
-        this.manager.updatePassword(this.token, id, "P@55w0rd")
+        val id = this.manager.create(user).id
+        this.manager.updatePassword(id, "P@55w0rd")
         try {
             /** Password too short */
-            this.manager.updatePassword(this.token, id, "pass")
+            this.manager.updatePassword(id, "pass")
             assert(false)
         } catch (_: InvalidArgumentException) {
             assert(true)
         }
-        this.manager.delete(this.token, id)
+        this.manager.delete(id)
     }
 }

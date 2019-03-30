@@ -20,7 +20,6 @@ import solutions.digamma.damas.jcr.WeldTest
 class JcrCommentManagerTest : WeldTest() {
 
     private val manager = WeldTest.inject(JcrCommentManager::class.java)
-    private var token: Token? = null
     private var folder: Folder? = null
     private var document: Document? = null
 
@@ -29,13 +28,12 @@ class JcrCommentManagerTest : WeldTest() {
     fun setUp() {
         val fm = WeldTest.inject(JcrFolderManager::class.java)
         val dm = WeldTest.inject(DocumentManager::class.java)
-        this.token = this.login.login("admin", "admin")
+        this.login();
         var parentId = fm
-                .find(this.token!!).objects.iterator().next().id
-        this.folder = fm.create(this.token!!, Mocks.folder(parentId, "test"))
+                .find().objects.iterator().next().id
+        this.folder = fm.create(Mocks.folder(parentId, "test"))
         parentId = this.folder!!.id
-        this.document = dm
-                .create(this.token, Mocks.document(parentId, "file.tst"))
+        this.document = dm.create(Mocks.document(parentId, "file.tst"))
     }
 
     @After
@@ -43,23 +41,21 @@ class JcrCommentManagerTest : WeldTest() {
     fun tearDown() {
         val fm = WeldTest.inject(JcrFolderManager::class.java)
         val dm = WeldTest.inject(DocumentManager::class.java)
-        dm.delete(this.token!!, this.document!!.id)
-        fm.delete(this.token!!, this.folder!!.id)
-        this.login.logout(this.token)
+        dm.delete(this.document!!.id)
+        fm.delete(this.folder!!.id)
+        this.logout()
     }
 
     @Test
     @Throws(Exception::class)
     fun retrieve() {
         val text = "Hello Comment"
-        val id = manager.create(
-                this.token!!,
-                Mocks.comment(this.document!!.id, text, 1L)
+        val id = manager.create(Mocks.comment(this.document!!.id, text, 1L)
         ).id
-        val comment = manager.retrieve(this.token!!, id)
+        val comment = manager.retrieve(id)
         assert(text == comment.text)
         assert(comment.rank == 1L)
-        manager.delete(this.token!!, id)
+        manager.delete(id)
     }
 
     @Test
@@ -67,52 +63,44 @@ class JcrCommentManagerTest : WeldTest() {
     fun create() {
         val text = "Hello Comment"
         val comment = manager.create(
-                this.token!!,
                 Mocks.comment(this.document!!.id, text, 1L))
         assert(text == comment.text)
         assert(comment.rank == 1L)
-        manager.delete(this.token!!, comment.id)
+        manager.delete(comment.id)
     }
 
     @Test(expected = CompatibilityException::class)
     @Throws(Exception::class)
     fun createWithError() {
         val id = manager.create(
-                this.token!!,
                 Mocks.comment(this.folder!!.id, "Hello Comment", 1L)).id
-        manager.delete(this.token!!, id)
+        manager.delete(id)
     }
 
     @Test
     @Throws(Exception::class)
     fun update() {
         var text = "Hello Comment"
-        val id = manager.create(
-                this.token!!,
-                Mocks.comment(this.document!!.id, text, 1L)
+        val id = manager.create(Mocks.comment(this.document!!.id, text, 1L)
         ).id
         text = "Salut commentaire"
-        manager.update(
-                this.token!!,
-                id,
-                Mocks.comment(this.document!!.id, text, 0L))
-        val comment = manager.retrieve(this.token!!, id)
+        manager.update(id, Mocks.comment(this.document!!.id, text, 0L))
+        val comment = manager.retrieve(id)
         assert(text == comment.text)
         assert(comment.rank == 0L)
-        manager.delete(this.token!!, id)
+        manager.delete(id)
     }
 
     @Test
     @Throws(Exception::class)
     fun delete() {
         val text = "Hello Comment"
-        val id = manager.create(
-                this.token!!,
-                Mocks.comment(this.document!!.id, text, 1L)
+        val id = manager.create(Mocks.comment(this.document!!.id, text, 1L)
         ).id
-        manager.delete(this.token!!, id)
+        this.commit()
+        manager.delete(id)
         try {
-            manager.retrieve(this.token!!, id)
+            manager.retrieve(id)
             assert(false)
         } catch (e: NotFoundException) { }
     }

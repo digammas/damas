@@ -19,6 +19,6 @@ public interface PathFinder<T extends Entity> {
      * @return          The entity whose path is {@code path}.
      * @throws WorkspaceException    If not such path exists, or other errors.
      */
-    T find(Token token, String path)
+    T find(String path)
             throws WorkspaceException;
 }

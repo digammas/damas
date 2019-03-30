@@ -22,57 +22,54 @@ internal class JcrPermissionManager: JcrManager(), PermissionManager {
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun retrieve(token: Token, objectId: String, subjectId: String):
-            Permission {
-        return Exceptions.wrap(openSession(token)) {
-            retrieve(it.getSession(), objectId, subjectId)
+    override fun retrieve(objectId: String, subjectId: String): Permission {
+        return Exceptions.check {
+            retrieve(this.getSession(), objectId, subjectId)
         }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun retrieve(token: Token, fileId: String): List<Permission> {
-        return Exceptions.wrap(openSession(token)) {
-            retrieve(it.getSession(), fileId)
+    override fun retrieve(fileId: String): List<Permission> {
+        return Exceptions.check {
+            retrieve(this.getSession(), fileId)
         }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun update(token: Token, pattern: Permission): Permission {
-        return Exceptions.wrap(openSession(token)) {
-            update(it.getSession(), pattern )
+    override fun update(pattern: Permission): Permission {
+        return Exceptions.check {
+            update(this.getSession(), pattern )
         }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
     override fun update(
-            token: Token,
             fileId: String,
             permissions: List<Permission>) {
-        return Exceptions.wrap(openSession(token)) {
-            update(it.getSession(), fileId, permissions)
+        return Exceptions.check {
+            update(this.getSession(), fileId, permissions)
         }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
     override fun update(
-            token: Token,
             fileId: String,
             permissions: List<Permission>,
             recursive: Boolean) {
-        return Exceptions.wrap(openSession(token)) {
-            update(it.getSession(), fileId, permissions, recursive)
+        return Exceptions.check {
+            update(this.getSession(), fileId, permissions, recursive)
         }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun delete(token: Token, objectId: String, subjectId: String) {
-        return Exceptions.wrap(openSession(token)) {
-            delete(it.getSession(), objectId, subjectId)
+    override fun delete(objectId: String, subjectId: String) {
+        return Exceptions.check {
+            delete(this.getSession(), objectId, subjectId)
         }
     }
 

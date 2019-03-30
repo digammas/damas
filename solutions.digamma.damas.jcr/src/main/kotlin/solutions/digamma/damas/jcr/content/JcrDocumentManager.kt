@@ -24,24 +24,24 @@ internal class JcrDocumentManager :
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun create(token: Token, entity: Document, stream: InputStream) =
-            Exceptions.wrap(this.openSession(token)) {
-        this.create(it.getSession(), entity).also { it.updateContent(stream) }
+    override fun create(entity: Document, stream: InputStream) =
+            Exceptions.check {
+        this.create(this.getSession(), entity).also { it.updateContent(stream) }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun download(token: Token, id: String) =
-            Exceptions.wrap(this.openSession(token)) {
-        val document = this.retrieve(it.getSession(), id)
+    override fun download(id: String) =
+            Exceptions.check {
+        val document = this.retrieve(getSession(), id)
         document.content
     }
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun upload(token: Token, id: String, stream: InputStream) =
-            Exceptions.wrap(this.openSession(token)) {
-        this.retrieve(it.getSession(), id).updateContent(stream)
+    override fun upload(id: String, stream: InputStream) =
+            Exceptions.check {
+        this.retrieve(this.getSession(), id).updateContent(stream)
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)

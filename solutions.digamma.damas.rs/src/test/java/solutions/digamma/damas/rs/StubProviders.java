@@ -7,6 +7,8 @@ import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.Entity;
+import solutions.digamma.damas.login.Authentication;
+import solutions.digamma.damas.login.AuthenticationManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.content.CommentSerialization;
@@ -58,7 +60,21 @@ public class StubProviders {
     public LoginManager getLoginManager() throws WorkspaceException {
         this.log.info("Acquiring mock login manager.");
         LoginManager manager = Mockito.mock(LoginManager.class);
-        Mockito.when(manager.login(Mockito.any(), Mockito.any())).thenReturn(new MockToken());
+        Mockito
+            .when(manager.login(Mockito.any(), Mockito.any()))
+            .thenReturn(new MockToken());
+        return manager;
+    }
+
+    @Produces @Singleton
+    public AuthenticationManager getAuthenticationManager()
+            throws WorkspaceException {
+        this.log.info("Acquiring mock authentication manager.");
+        AuthenticationManager manager =
+                Mockito.mock(AuthenticationManager.class);
+        Authentication auth = Mockito.mock(Authentication.class);
+        Mockito.when(manager.authenticate(Mockito.any()))
+                .thenReturn(auth);
         return manager;
     }
 
@@ -92,11 +108,11 @@ public class StubProviders {
             throws WorkspaceException {
         this.log.info(String.format("Acquiring mock %s manager.", klass.getSimpleName()));
         M manager = Mockito.mock(klass);
-        Mockito.when(manager.retrieve(Mockito.any(), Mockito.eq(id)))
+        Mockito.when(manager.retrieve(Mockito.eq(id)))
                 .thenReturn(entity);
-        Mockito.when(manager.create(Mockito.any(), Mockito.any()))
+        Mockito.when(manager.create(Mockito.any()))
                 .thenReturn(entity);
-        Mockito.when(manager.update(Mockito.any(), Mockito.eq(id), Mockito.any()))
+        Mockito.when(manager.update(Mockito.eq(id), Mockito.any()))
                 .thenReturn(entity);
         return manager;
     }

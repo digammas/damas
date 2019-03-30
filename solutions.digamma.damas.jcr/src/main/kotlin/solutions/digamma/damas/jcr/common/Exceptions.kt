@@ -7,6 +7,7 @@ import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
+import solutions.digamma.damas.jcr.login.UserAuthentication
 import solutions.digamma.damas.jcr.session.TransactionalSession
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
@@ -56,44 +57,15 @@ internal object Exceptions {
     internal fun <T> check(op: () -> T) = try {
         op()
     } catch (e: RepositoryException) {
+        rollback()
         throw convert(e)
     } catch (e: RuntimeException) {
+        rollback()
         val cause = e.cause
         throw when (cause) {
             is RepositoryException -> convert(cause)
             is WorkspaceException -> cause
             else -> e
-        }
-    }
-
-    /**
-     * Wraps a session wrapper and convert thrown exception, using a resource.
-     *
-     * If the callable throws a [RepositoryException] exception it is converted
-     * into their [WorkspaceException] counterparts.
-     *
-     * An auto-closable session wrapper is used, and assured to be properly
-     * closed.
-     *
-     * @param session a session wrapper
-     * @param op a callable that potentially throws an exception
-     * @return returned object by the callable, if any
-     */
-    @Throws(WorkspaceException::class)
-    fun <T> wrap(session: TransactionalSession, op: (res: TransactionalSession) -> T): T {
-        return session.use {
-            try {
-                op(it).also { session.commit() }
-            } catch (e: Exception) {
-                session.rollback()
-                val cause = e.cause
-                throw when {
-                    e is RepositoryException -> convert(e)
-                    cause is RepositoryException -> convert(cause)
-                    cause is WorkspaceException -> cause
-                    else -> e
-                }
-            }
         }
     }
 
@@ -120,5 +92,11 @@ internal object Exceptions {
         throw IllegalStateException(convert(e))
     } catch (e: Exception) {
         throw IllegalStateException(e);
+    }
+
+    private fun rollback() {
+        try {
+            UserAuthentication.get().rollback()
+        } catch(_: NotFoundException) {}
     }
 }

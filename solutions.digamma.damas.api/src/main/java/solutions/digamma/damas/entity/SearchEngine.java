@@ -15,33 +15,29 @@ public interface SearchEngine<T extends Entity> {
     /**
      * Find all entities.
      *
-     * @param token Authentication taken.
      * @return A page of all known entities.
      */
-    Page<T> find(Token token) throws WorkspaceException;
+    Page<T> find() throws WorkspaceException;
 
     /**
      * Find entities starting from a given offset, up to certain size.
      *
-     * @param token Authentication taken.
      * @param offset Search offset.
      * @param size   Maximum result size.
      * @return A page of entities.
      */
-    Page<T> find(Token token, int offset, int size)
+    Page<T> find(int offset, int size)
             throws WorkspaceException;
 
     /**
      * Find entities satisfying a query starting from a given offset, and up to
      * certain size.
      *
-     * @param token Authentication taken.
      * @param offset Search offset.
      * @param size   Maximum result size.
      * @param query  Search query. If null, no filtering is done.
      * @return A page of entities.
      */
-    Page<T> find(
-            Token token, int offset, int size, Object query)
+    Page<T> find(int offset, int size, Object query)
             throws WorkspaceException;
 }
