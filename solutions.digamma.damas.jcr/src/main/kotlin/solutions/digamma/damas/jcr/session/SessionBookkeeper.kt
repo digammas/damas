@@ -19,7 +19,7 @@ internal class SessionBookkeeper {
     @Inject
     private lateinit var logger: Logger
 
-    private val sessions: MutableMap<String, SessionWrapper>
+    private val sessions: MutableMap<String, TransactionalSession>
 
     init {
         this.sessions = HashMap()
@@ -35,7 +35,7 @@ internal class SessionBookkeeper {
      * @throws ConflictException
      */
     @Throws(ConflictException::class, CompatibilityException::class)
-    fun register(token: Token, session: SessionWrapper) {
+    fun register(token: Token, session: TransactionalSession) {
         if (token !is SecureToken) {
             this.logger.warning("Unrecognizable token.")
             throw CompatibilityException("Incompatible token.")
@@ -83,7 +83,7 @@ internal class SessionBookkeeper {
      * @throws NotFoundException
      */
     @Throws(NotFoundException::class)
-    fun lookup(token: Token?): SessionWrapper {
+    fun lookup(token: Token?): TransactionalSession {
         if (token == null) {
             throw NotFoundException("Token is null.")
         }

@@ -7,7 +7,7 @@ import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
-import solutions.digamma.damas.jcr.session.SessionWrapper
+import solutions.digamma.damas.jcr.session.TransactionalSession
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
 import javax.jcr.LoginException
@@ -80,7 +80,7 @@ internal object Exceptions {
      * @return returned object by the callable, if any
      */
     @Throws(WorkspaceException::class)
-    fun <T> wrap(session: SessionWrapper, op: (res: SessionWrapper) -> T): T {
+    fun <T> wrap(session: TransactionalSession, op: (res: TransactionalSession) -> T): T {
         return session.use {
             try {
                 op(it).also { session.commit() }

@@ -7,7 +7,7 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.session.SecureToken
 import solutions.digamma.damas.jcr.session.SessionBookkeeper
-import solutions.digamma.damas.jcr.session.SessionWrapper
+import solutions.digamma.damas.jcr.session.TransactionalSession
 import solutions.digamma.damas.logging.Logged
 import java.util.logging.Logger
 import javax.inject.Inject
@@ -42,7 +42,7 @@ internal class JcrLoginManager : LoginManager {
         val jcrSession = this.repository.login(credentials)
         this.logger.info("Login successful.")
         val token = SecureToken()
-        val session = SessionWrapper(jcrSession)
+        val session = TransactionalSession(jcrSession)
         this.bookkeeper.register(token, session)
         this.logger.info("Session registered.")
         token

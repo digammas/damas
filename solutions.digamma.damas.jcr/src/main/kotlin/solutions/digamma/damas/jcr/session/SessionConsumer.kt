@@ -21,7 +21,7 @@ internal interface SessionConsumer {
      * token.
      */
     @Throws(AuthenticationException::class)
-    fun getSession(token: Token): SessionWrapper
+    fun getSession(token: Token): TransactionalSession
 
     /**
      * Obtain a session wrapper that contains a valid and already open session.

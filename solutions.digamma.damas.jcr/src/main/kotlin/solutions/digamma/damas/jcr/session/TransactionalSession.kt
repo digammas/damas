@@ -11,12 +11,12 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
 /**
- * JCR session box.
+ * JCR session wrapper, with transactional behavior.
  *
  * @param session JCR session.
  * @author Ahmad Shahwan
  */
-internal class SessionWrapper
+internal class TransactionalSession
 internal constructor(private val session: Session) : Closeable {
 
     private val lock = ReentrantLock()
@@ -32,7 +32,7 @@ internal constructor(private val session: Session) : Closeable {
      * @throws WorkspaceException When thread is interrupted.
      */
     @Throws(WorkspaceException::class)
-    fun open(): SessionWrapper {
+    fun open(): TransactionalSession {
         try {
             return if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
                 this
