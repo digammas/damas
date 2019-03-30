@@ -72,17 +72,18 @@ protected constructor(node: Node) : JcrBaseEntity(node),
     override fun setParentId(value: String) = Exceptions.uncheck {
         val path = this.session
                 .getNodeByIdentifier(value)
-                .path + "/"
+                .path
         val destination = URI
-                .create(path)
+                .create("$path/")
                 .resolve(this.node.name)
                 .path
         this.move(destination)
     }
 
     override fun getPath(): String = Exceptions.uncheck {
-        URI.create(JcrFile.ROOT_PATH)
+        val path = URI.create(JcrFile.ROOT_PATH)
                 .relativize(URI.create(this.node.path)).path
+        "/$path"
     }
 
     override fun getMetadata(): Metadata? = null
