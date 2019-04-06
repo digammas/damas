@@ -15,18 +15,29 @@ internal class JcrTransaction : Transaction {
     constructor(session: TransactionalSession) {
         this.session = session
         this.session.acquire()
-        SESSION.get().push(this.session)
+        JcrTransaction.SESSION.get().push(this.session)
     }
 
+    @Throws(WorkspaceException::class)
+    override fun commit() {
+        this.session.commit()
+    }
+
+    @Throws(WorkspaceException::class)
+    override fun rollback() {
+        this.session.rollback()
+    }
+
+    @Throws(WorkspaceException::class)
     override fun close() {
         synchronized(this.closed) {
             if (this.closed) {
                 throw AlreadyClosedException()
             }
             this.closed = true
-            SESSION.get().pop()
-            session.commit()
-            session.release()
+            JcrTransaction.SESSION.get().pop()
+            this.session.commit()
+            this.session.release()
         }
     }
 

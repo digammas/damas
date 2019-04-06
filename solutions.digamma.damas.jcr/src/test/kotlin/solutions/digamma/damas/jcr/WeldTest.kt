@@ -43,8 +43,7 @@ open class WeldTest {
     }
 
     protected fun commit() {
-        this.transaction?.close()
-        this.transaction = authenticator.begin(this.token)
+        this.transaction?.commit()
     }
 
     companion object {

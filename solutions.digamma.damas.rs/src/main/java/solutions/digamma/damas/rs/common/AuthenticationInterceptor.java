@@ -17,7 +17,7 @@ public class AuthenticationInterceptor {
     @Inject
     private TransactionManager manager;
 
-    private Transaction with(Token token) throws WorkspaceException {
+    private Transaction begin(Token token) throws WorkspaceException {
         return this.manager.begin(token);
     }
 
@@ -28,8 +28,10 @@ public class AuthenticationInterceptor {
             return context.proceed();
         }
         BaseResource resource = (BaseResource) context.getTarget();
-        try (Transaction ignored = with(resource.getToken())) {
-            return context.proceed();
+        try (Transaction transaction = begin(resource.getToken())) {
+            Object returned = context.proceed();
+            transaction.commit();
+            return returned;
         }
     }
 }
