@@ -175,7 +175,7 @@ class JcrPermissionManagerTest: WeldTest() {
     }
 
     private fun <R> use(token: Token, block: () -> R): R? {
-        this.authenticator.authenticate(token).use {
+        this.authenticator.begin(token).use {
             try {
                 return block()
             } catch (_: WorkspaceException) {

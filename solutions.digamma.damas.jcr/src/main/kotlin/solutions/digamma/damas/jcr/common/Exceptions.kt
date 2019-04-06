@@ -7,8 +7,7 @@ import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
-import solutions.digamma.damas.jcr.login.UserAuthentication
-import solutions.digamma.damas.jcr.session.TransactionalSession
+import solutions.digamma.damas.jcr.session.JcrTransaction
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
 import javax.jcr.LoginException
@@ -96,7 +95,7 @@ internal object Exceptions {
 
     private fun rollback() {
         try {
-            UserAuthentication.get().rollback()
+            JcrTransaction.get().rollback()
         } catch(_: NotFoundException) {}
     }
 }

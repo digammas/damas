@@ -1,13 +1,12 @@
-package solutions.digamma.damas.jcr.login
+package solutions.digamma.damas.jcr.session
 
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.jcr.session.TransactionalSession
-import solutions.digamma.damas.login.Authentication
+import solutions.digamma.damas.session.Transaction
 import java.util.EmptyStackException
 import java.util.Stack
 
-internal class UserAuthentication : Authentication {
+internal class JcrTransaction : Transaction {
 
     val session: TransactionalSession
     var closed = false

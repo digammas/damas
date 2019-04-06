@@ -6,8 +6,8 @@ import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
 import solutions.digamma.damas.entity.Page;
-import solutions.digamma.damas.login.Authentication;
-import solutions.digamma.damas.login.AuthenticationManager;
+import solutions.digamma.damas.session.Transaction;
+import solutions.digamma.damas.session.TransactionManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.cdi.ContainerRunner;
@@ -30,7 +30,7 @@ public class ContentTest {
     private LoginManager loginMgr;
 
     @Inject
-    private AuthenticationManager authMgr;
+    private TransactionManager transactionMgr;
 
     @Inject
     private DocumentManager documentMgr;
@@ -54,27 +54,27 @@ public class ContentTest {
     public void testContent() throws WorkspaceException {
         Token adminToken = loginMgr.login("admin", "admin");
         assert adminToken != null;
-        Authentication auth = authMgr.authenticate(adminToken);
-        assert auth != null;
-        Page<Folder> folderResult = this.folderMgr.find();
-        Folder rootFolder = folderResult.getObjects().get(0);
-        final String testFileName = "test.txt";
-        Document doc;
-        doc = this.createDocument(
-                rootFolder.getId(),
-                testFileName
-        );
-        assert doc != null;
-        String docId = doc.getId();
-        doc = this.documentMgr.retrieve(docId);
-        assert testFileName.equals(doc.getName());
-        this.documentMgr.delete(docId);
-        try {
-            this.documentMgr.retrieve(docId);
-            assert false;
-        } catch (NotFoundException e) {
-            assert true;
+        try (Transaction transaction = transactionMgr.begin(adminToken)) {
+            assert transaction != null;
+            Page<Folder> folderResult = this.folderMgr.find();
+            Folder rootFolder = folderResult.getObjects().get(0);
+            final String testFileName = "test.txt";
+            Document doc;
+            doc = this.createDocument(
+                    rootFolder.getId(),
+                    testFileName
+            );
+            assert doc != null;
+            String docId = doc.getId();
+            doc = this.documentMgr.retrieve(docId);
+            assert testFileName.equals(doc.getName());
+            this.documentMgr.delete(docId);
+            try {
+                this.documentMgr.retrieve(docId);
+                assert false;
+            } catch (NotFoundException e) {
+                assert true;
+            }
         }
-        auth.close();
     }
 }

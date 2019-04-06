@@ -3,8 +3,8 @@ package solutions.digamma.damas.jcr
 import org.junit.After
 import org.junit.Before
 import org.junit.ClassRule
-import solutions.digamma.damas.login.Authentication
-import solutions.digamma.damas.login.AuthenticationManager
+import solutions.digamma.damas.session.Transaction
+import solutions.digamma.damas.session.TransactionManager
 import solutions.digamma.damas.login.LoginManager
 import solutions.digamma.damas.login.Token
 
@@ -14,17 +14,17 @@ import solutions.digamma.damas.login.Token
 open class WeldTest {
 
     protected lateinit var login: LoginManager
-    protected lateinit var authenticator: AuthenticationManager
+    protected lateinit var authenticator: TransactionManager
 
     private var token: Token? = null
-    protected var auth: Authentication? = null
+    protected var transaction: Transaction? = null
 
 
     @Before
     @Throws(Exception::class)
     fun setUpWeld() {
         this.login = inject(LoginManager::class.java)
-        this.authenticator = inject(AuthenticationManager::class.java)
+        this.authenticator = inject(TransactionManager::class.java)
     }
 
     @After
@@ -34,17 +34,17 @@ open class WeldTest {
 
     protected fun login() {
         this.token = this.login.login("admin", "admin")
-        this.auth = authenticator.authenticate(this.token)
+        this.transaction = authenticator.begin(this.token)
     }
 
     protected fun logout() {
         this.login.logout(this.token)
-        this.auth?.close()
+        this.transaction?.close()
     }
 
     protected fun commit() {
-        this.auth?.close()
-        this.auth = authenticator.authenticate(this.token)
+        this.transaction?.close()
+        this.transaction = authenticator.begin(this.token)
     }
 
     companion object {

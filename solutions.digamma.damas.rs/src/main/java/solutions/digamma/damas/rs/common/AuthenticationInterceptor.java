@@ -1,8 +1,8 @@
 package solutions.digamma.damas.rs.common;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.login.Authentication;
-import solutions.digamma.damas.login.AuthenticationManager;
+import solutions.digamma.damas.session.Transaction;
+import solutions.digamma.damas.session.TransactionManager;
 import solutions.digamma.damas.login.Token;
 
 import javax.inject.Inject;
@@ -15,10 +15,10 @@ import javax.interceptor.InvocationContext;
 public class AuthenticationInterceptor {
 
     @Inject
-    private AuthenticationManager manager;
+    private TransactionManager manager;
 
-    private Authentication auth(Token token) throws WorkspaceException {
-        return this.manager.authenticate(token);
+    private Transaction with(Token token) throws WorkspaceException {
+        return this.manager.begin(token);
     }
 
     @AroundInvoke
@@ -28,7 +28,7 @@ public class AuthenticationInterceptor {
             return context.proceed();
         }
         BaseResource resource = (BaseResource) context.getTarget();
-        try (Authentication ignored = auth(resource.getToken())) {
+        try (Transaction ignored = with(resource.getToken())) {
             return context.proceed();
         }
     }
