@@ -30,7 +30,6 @@ class JcrDocumentManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun setUp() {
         this.login()
-
     }
 
     @After
