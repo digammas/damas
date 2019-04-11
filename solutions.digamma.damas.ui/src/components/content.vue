@@ -1,43 +1,57 @@
 <template>
-    <div class="home">
+    <div v-if="folder" class="home">
         <h1>Content Home</h1>
-        <p>Current folder ID {{currentId}}</p>
-        <p>Current folder Path {{path}}</p>
+        <div>Current folder ID {{id}}</div>
+        <div>Current folder Path {{folder.path}}</div>
+        <div>
+            <h2>List of subfolders</h2>
+            <ul v-for="subfolder in folder.content.folders">
+                <li><router-link :to="subfolder.id">{{subfolder.name}}</router-link></li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapState } from 'vuex'
     import content from '@/service/content'
 
     export default {
         name: 'content',
         data() {
             return {
+                id: null,
                 folder: null
             }
         },
         components: {
         },
-        computed: {
-            ...mapState({
-                currentId: (state) => state.content.currentFolderId
-            }),
-            path() {
-                return this.folder ? this.folder.path : "?"
-            }
-        },
         mounted() {
-            content.load()
+            this.load(this.$route.params.id)
         },
         watch: {
-            currentId() {
-                content.retrieve(this.currentId).then(data => {
+            id() {
+                if (!this.id) {
+                    this.folder = null
+                    return
+                }
+                content.retrieve(this.id, 1, true).then(data => {
                     this.folder = data
                 })
             },
             '$store.state.auth.token' () {
                 content.load()
+            },
+            '$route' (to, from) {
+                this.load(to.params.id)
+            }
+        },
+        methods: {
+            load(id) {
+                if (id) {
+                    this.id = id
+                } else {
+                    content.retrieveAt("/").then(folder => this.id = folder.id)
+                }
             }
         }
     }

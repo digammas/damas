@@ -11,10 +11,11 @@ class ContentService {
         })
     }
 
-    retrieve(id, full = true) {
+    retrieve(id, depth = null, full = false) {
         return new Promise((resolve, reject) => {
             http.get(`/folders/${id}`, {
-                full: full
+                full: full,
+                depth: depth
             }).then(response => {
                 resolve(response.data)
             }).catch(reason => {

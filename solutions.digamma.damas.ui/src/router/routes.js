@@ -5,7 +5,7 @@ const routes = [{
             title: "Home"
         },
         children: [{
-                path: "",
+                path: ":id?",
                 name: "content",
                 component: () => import("@/components/content.vue")
             },
