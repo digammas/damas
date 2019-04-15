@@ -8,32 +8,32 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import user from '@/service/user'
+import { mapState } from 'vuex'
+import user from '@/service/user'
 
-    export default {
-        name: 'user',
-        data() {
-            return {}
+export default {
+    name: 'user',
+    data() {
+        return {}
+    },
+    components: {},
+    computed: {
+        ...mapState({
+            username: (state) => state.auth.username,
+            firstName: (state) => state.user.firstName,
+            lastName: (state) => state.user.lastName
+        }),
+        commonName() {
+            return this.firstName || this.username
         },
-        components: {},
-        computed: {
-            ...mapState({
-                username: (state) => state.auth.username,
-                firstName: (state) => state.user.firstName,
-                lastName: (state) => state.user.lastName
-            }),
-            commonName() {
-                return this.firstName || this.username
-            },
-        },
-        mounted() {
+    },
+    mounted() {
+        user.load()
+    },
+    watch: {
+        '$store.state.auth.token' () {
             user.load()
-        },
-        watch: {
-            '$store.state.auth.token' () {
-                user.load()
-            }
         }
     }
+}
 </script>

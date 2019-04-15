@@ -13,46 +13,46 @@
 </template>
 
 <script>
-    import content from '@/service/content'
+import content from '@/service/content'
 
-    export default {
-        name: 'content',
-        data() {
-            return {
-                id: null,
-                folder: null
+export default {
+    name: 'content',
+    data() {
+        return {
+            id: null,
+            folder: null
+        }
+    },
+    components: {
+    },
+    mounted() {
+        this.load(this.$route.params.id)
+    },
+    watch: {
+        id() {
+            if (!this.id) {
+                this.folder = null
+                return
             }
+            content.retrieve(this.id, 1, true).then(data => {
+                this.folder = data
+            })
         },
-        components: {
+        '$store.state.auth.token' () {
+            content.load()
         },
-        mounted() {
-            this.load(this.$route.params.id)
-        },
-        watch: {
-            id() {
-                if (!this.id) {
-                    this.folder = null
-                    return
-                }
-                content.retrieve(this.id, 1, true).then(data => {
-                    this.folder = data
-                })
-            },
-            '$store.state.auth.token' () {
-                content.load()
-            },
-            '$route' (to, from) {
-                this.load(to.params.id)
-            }
-        },
-        methods: {
-            load(id) {
-                if (id) {
-                    this.id = id
-                } else {
-                    content.retrieveAt("/").then(folder => this.id = folder.id)
-                }
+        '$route' (to, from) {
+            this.load(to.params.id)
+        }
+    },
+    methods: {
+        load(id) {
+            if (id) {
+                this.id = id
+            } else {
+                content.retrieveAt("/").then(folder => this.id = folder.id)
             }
         }
     }
+}
 </script>

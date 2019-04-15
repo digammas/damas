@@ -22,36 +22,36 @@
 </template>
 
 <script>
-    import auth from "@/service/auth"
+import auth from "@/service/auth"
 
-    export default {
-        name: "Login",
-        data() {
-            return {
-                username: "",
-                password: "",
-                error: false
-            }
-        },
-        methods: {
-            submit() {
-                this.error = false
-                let redirect = this.$route.query.redirect
-                auth.authenticate(
-                    this.username,
-                    this.password
-                ).then(token => {
-                    if (token) {
-                        this.$router.push(redirect || {name: "content"})
-                    } else {
-                        this.error = "Bad username or password"
-                    }
-                }).catch(reason => {
-                    this.error = reason.message
-                })
-            }
+export default {
+    name: "Login",
+    data() {
+        return {
+            username: "",
+            password: "",
+            error: false
+        }
+    },
+    methods: {
+        submit() {
+            this.error = false
+            let redirect = this.$route.query.redirect
+            auth.authenticate(
+                this.username,
+                this.password
+            ).then(token => {
+                if (token) {
+                    this.$router.push(redirect || {name: "content"})
+                } else {
+                    this.error = "Bad username or password"
+                }
+            }).catch(reason => {
+                this.error = reason.message
+            })
         }
     }
+}
 </script>
 
 <style scoped>
