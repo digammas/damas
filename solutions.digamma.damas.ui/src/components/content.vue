@@ -3,7 +3,7 @@
         <h1>Content Home</h1>
         <div>Current folder ID {{id}}</div>
         <div>Current folder Path {{folder.path}}</div>
-        <div>
+        <div v-if="folder.content.folders.length != 0">
             <h2>List of subfolders</h2>
             <ul v-for="subfolder in folder.content.folders">
                 <li><router-link :to="subfolder.id">{{subfolder.name}}</router-link></li>
