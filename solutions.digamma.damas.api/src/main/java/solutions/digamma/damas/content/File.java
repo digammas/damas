@@ -32,7 +32,7 @@ public interface File extends Entity, Created, Modifiable {
 
     /**
      * Parent folder. When the current file is the root folder, this method
-     * return {@code null}.
+     * returns {@code null}.
      *
      * @return
      */
@@ -46,7 +46,8 @@ public interface File extends Entity, Created, Modifiable {
     void setParent(Folder value);
 
     /**
-     * Parent ID.
+     * Parent ID. When the current file is the root folder, this method returns
+     * {@code null}.
      *
      * @return
      */

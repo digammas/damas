@@ -62,12 +62,12 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         Exceptions.uncheck { this.node.parent }?.let { JcrFolder.of(it) }
 
     override fun setParent(value: Folder) {
-        this.parentId = value.id ?:
-                throw UnsupportedOperationException("Parent ID is null.")
+        this.setParentId(value.id)
     }
 
-    override fun getParentId(): String =
-        Exceptions.uncheck { this.node.parent.identifier }
+    override fun getParentId(): String? = Exceptions.uncheck {
+        if (ROOT_PATH == this.node.path) null else this.node.parent.identifier
+    }
 
     override fun setParentId(value: String) = Exceptions.uncheck {
         val path = this.session
@@ -108,7 +108,7 @@ protected constructor(node: Node) : JcrBaseEntity(node),
     @Throws(WorkspaceException::class)
     fun update(other: File) {
         other.name?.let { this.name = it }
-        other.parentId?.let { this.parentId = it }
+        other.parentId?.let { this.setParentId(it) }
         other.metadata?.let { this.setMetadata(it) }
     }
 
