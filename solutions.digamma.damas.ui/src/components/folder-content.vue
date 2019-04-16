@@ -22,7 +22,7 @@
 import content from '@/service/content'
 
 export default {
-    name: 'content',
+    name: 'FolderContent',
     data() {
         return {
             id: null,

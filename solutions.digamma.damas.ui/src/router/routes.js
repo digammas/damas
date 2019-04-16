@@ -1,13 +1,13 @@
 const routes = [{
         path: '/',
-        component: () => import("@/components/user.vue"),
+        component: () => import("@/components/the-user-panel.vue"),
         meta: {
             title: "Home"
         },
         children: [{
                 path: ":id?",
                 name: "content",
-                component: () => import("@/components/content.vue")
+                component: () => import("@/components/folder-content.vue")
             },
         ]
     }, {
@@ -20,7 +20,7 @@ const routes = [{
     }, {
         path: '/login',
         name: 'login',
-        component: () => import('@/components/login.vue'),
+        component: () => import('@/components/login-form.vue'),
         meta: {
             title: "Login",
             public: true

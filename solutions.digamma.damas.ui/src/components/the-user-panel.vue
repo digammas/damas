@@ -12,7 +12,7 @@ import { mapState } from 'vuex'
 import user from '@/service/user'
 
 export default {
-    name: 'user',
+    name: 'TheUserPanel',
     data() {
         return {}
     },

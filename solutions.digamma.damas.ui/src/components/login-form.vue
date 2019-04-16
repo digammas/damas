@@ -25,7 +25,7 @@
 import auth from "@/service/auth"
 
 export default {
-    name: "Login",
+    name: "LoginForm",
     data() {
         return {
             username: "",
