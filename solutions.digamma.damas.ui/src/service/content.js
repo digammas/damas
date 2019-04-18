@@ -22,7 +22,7 @@ class ContentService {
                 if (!reason.response) {
                     reject(new Error("Unexpected client error"))
                 } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(response.data.message))
+                    reject(new Error(reason.response.data.message))
                 } else {
                     reject(new Error(`Unexpected server error: ${reason.response.status}.`))
                 }
@@ -38,7 +38,7 @@ class ContentService {
                 if (!reason.response) {
                     reject(new Error("Unexpected client error"))
                 } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(response.data.message))
+                    reject(new Error(reason.response.data.message))
                 } else {
                     reject(new Error(`Unexpected server error: ${reason.response.status}.`))
                 }

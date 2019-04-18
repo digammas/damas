@@ -21,9 +21,9 @@ class AuthService {
                     store.dispatch("auth/clear")
                     resolve(null)
                 } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(response.data.message))
+                    reject(new Error(reason.response.data.message))
                 } else {
-                    reject(new Error(`Unexpected server error: ${reason.response.status}.`))
+                    reject(new Error(`Unexpected server error: ${reason.reason.response.status}.`))
                 }
             })
         })
