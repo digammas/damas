@@ -1,20 +1,21 @@
 <template>
-    <div class="mdl-textfield mdl-js-textfield mdl-grid">
-        <label
-                :for="id"
-                class="mdl-textfield__label">
-            Password
-        </label>
-        <input
-                :type="type"
-                :placeholder="placeholder"
-                :name="nameOrId"
-                :id="id"
-                :required="required"
-                :value="value"
-                @input="$emit('input', $event.target.value)"
-                class="mdl-textfield__input"
-                v-bind="$attrs"/>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <div class="mdl-cell--12-col">
+            <label
+                    :for="id"
+                    class="mdl-textfield__label">
+                {{label}}
+            </label>
+            <input
+                    :type="type"
+                    :name="nameOrId"
+                    :id="id"
+                    :required="required"
+                    :value="value"
+                    @input="$emit('input', $event.target.value)"
+                    class="mdl-textfield__input"
+                    v-bind="$attrs"/>
+        </div>
     </div>
 </template>
 
@@ -23,7 +24,6 @@
         name: "AppTextInput",
         inheritAttrs: false,
         props: {
-            placeholder: String,
             id: {
                 type: String,
                 required: true
@@ -51,5 +51,7 @@
 </script>
 
 <style scoped>
-
+.mdl-textfield {
+    display: inline-block;
+}
 </style>

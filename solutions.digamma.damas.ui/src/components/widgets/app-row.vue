@@ -1,5 +1,5 @@
 <template>
-    <div class="mdl-grid">
+    <div class="mdl-grid" :class="gutterClass">
         <div
                 v-if="isCentered"
                 class="mdl-layout-spacer"></div>
@@ -12,16 +12,23 @@
 
 <script>
     export default {
-        name: "AppContainer",
+        name: "AppRow",
         props: {
             align: {
                 type: "default" | "center",
                 default: "default"
+            },
+            gutter: {
+                type: "on" | "off",
+                default: "off"
             }
         },
         computed: {
             isCentered() {
                 return this.align === 'center'
+            },
+            gutterClass() {
+                return this.gutter !== "on" && "mdl-grid--no-spacing"
             }
         }
     }

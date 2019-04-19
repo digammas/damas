@@ -5,27 +5,27 @@
             <p>{{error}}</p>
         </div>
         <div>
-            <app-text-input
-                    id="username"
-                    label="username"
-                    required="required"
-                    placeholder="Enter username"
-                    v-model="username" />
-
-            <app-text-input
-                    id="password"
-                    label="password"
-                    required="required"
-                    type="password"
-                    placeholder="Enter password"
-                    v-model="password" />
-            <app-container align="center">
-                <app-button text="Submit" @click="submit"/>
-            </app-container>
-            <app-container align="center">
+            <app-row align="center">
+                <app-text-input
+                        id="username"
+                        label="Username"
+                        required="required"
+                        v-model="username" />
+            </app-row>
+            <app-row align="center">
+                <app-text-input
+                        id="password"
+                        label="Password"
+                        required="required"
+                        type="password"
+                        v-model="password" />
+            </app-row>
+            <app-row align="center" gutter="on">
                 <app-checkbox id="remember" text="Remember me" />
-            </app-container>
-
+            </app-row>
+            <app-row align="center">
+                <app-button text="Submit" @click="submit"/>
+            </app-row>
         </div>
     </div>
 </template>
@@ -34,12 +34,12 @@
 import auth from "@/service/auth"
 import AppTextInput from "./widgets/app-text-input";
 import AppButton from "./widgets/app-button"
-import AppContainer from "./widgets/app-container";
+import AppRow from "./widgets/app-row";
 import AppCheckbox from "./widgets/app-checkbox";
 
 export default {
     name: "LoginForm",
-    components: {AppCheckbox, AppContainer, AppButton, AppTextInput},
+    components: {AppCheckbox, AppRow, AppButton, AppTextInput},
     data() {
         return {
             username: "",
