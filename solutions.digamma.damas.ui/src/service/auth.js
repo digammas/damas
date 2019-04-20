@@ -15,15 +15,11 @@ class AuthService {
                     token: token
                 }).then(() => resolve(token))
             }).catch(reason => {
-                if (!reason.response) {
-                    reject(new Error("Unexpected client error"))
-                } else if (reason.response.status === 401) {
+                if (reason.statusCode === 401) {
                     store.dispatch("auth/clear")
                     resolve(null)
-                } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(reason.response.data.message))
                 } else {
-                    reject(new Error(`Unexpected server error: ${reason.reason.response.status}.`))
+                    reject(reason)
                 }
             })
         })

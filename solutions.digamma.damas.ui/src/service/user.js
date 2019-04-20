@@ -17,14 +17,10 @@ class UserService {
                     valid: true
                 }, response.data)).then(() => resolve(response.data))
             }).catch(reason => {
-                if (!reason.response) {
-                    reject(new Error("Unexpected client error"))
-                } else if (reason.response.status === 404) {
+                if (reason.response.status === 404) {
                     store.dispatch("user/clear").then(() => resolve(null))
-                } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(reason.response.data.message))
                 } else {
-                    reject(new Error(`Unexpected server error: ${reason.response.status}.`))
+                    reject(reason)
                 }
             })
         })

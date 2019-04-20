@@ -18,15 +18,7 @@ class ContentService {
                 depth: depth
             }).then(response => {
                 resolve(response.data)
-            }).catch(reason => {
-                if (!reason.response) {
-                    reject(new Error("Unexpected client error"))
-                } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(reason.response.data.message))
-                } else {
-                    reject(new Error(`Unexpected server error: ${reason.response.status}.`))
-                }
-            })
+            }).catch(reject)
         })
     }
 
@@ -34,15 +26,7 @@ class ContentService {
         return new Promise((resolve, reject) => {
             http.get(`/folders/at${path}`).then(response => {
                 resolve(response.data)
-            }).catch(reason => {
-                if (!reason.response) {
-                    reject(new Error("Unexpected client error"))
-                } else if (reason.response.data && reason.response.data.message){
-                    reject(new Error(reason.response.data.message))
-                } else {
-                    reject(new Error(`Unexpected server error: ${reason.response.status}.`))
-                }
-            })
+            }).catch(reject)
         })
     }
 }
