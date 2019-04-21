@@ -10,7 +10,7 @@ export default {
     name: "AppFlashMessage",
     data() {
         return {
-            message,
+            message: null,
             timeout: 2750
         }
     },
