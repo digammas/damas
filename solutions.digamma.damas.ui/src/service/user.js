@@ -17,7 +17,7 @@ class UserService {
                     valid: true
                 }, response.data)).then(() => resolve(response.data))
             }).catch(reason => {
-                if (reason.response.status === 404) {
+                if (reason.statusCode === 404) {
                     store.dispatch("user/clear").then(() => resolve(null))
                 } else {
                     reject(reason)
