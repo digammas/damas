@@ -1,5 +1,5 @@
 <template>
-    <app-layout layout="standard">
+    <app-layout profile="standard">
         <div v-if="folder" class="home">
             <h1>Content Home</h1>
             <div>Current folder ID {{id}}</div>

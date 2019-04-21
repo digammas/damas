@@ -3,13 +3,13 @@ import Vue from "vue"
 export default {
     name: 'AppLayout',
     props: {
-        layout: {
+        profile: {
             type: "standard" | "empty",
             required: true
         }
     },
     created() {
-        let component = components[this.layout]
+        let component = components[this.profile]
         if (!Vue.options.components[component.name]) {
             Vue.component(
                 component.name,

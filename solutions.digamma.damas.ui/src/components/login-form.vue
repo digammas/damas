@@ -1,5 +1,5 @@
 <template>
-    <app-layout layout="empty">
+    <app-layout profile="empty">
         <div>
             <h2>User Login</h2>
             <app-flash-message ref="errorMessage" />
