@@ -3,18 +3,12 @@ const routes = [
         path: '/',
         redirect: "/content"
     }, {
-        component: () => import("@/components/the-user-panel.vue"),
-        path: '',
+        name: "content",
+        path: "/content/:id?",
         meta: {
             title: "Home"
         },
-        children: [
-            {
-                path: "/content/:id?",
-                name: "content",
-                component: () => import("@/components/folder-content.vue")
-            }
-        ]
+        component: () => import("@/components/folder-content.vue")
     }, {
         path: '/about',
         name: 'about',

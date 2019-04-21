@@ -1,5 +1,5 @@
 <template>
-    <app-layout component="LayoutEmpty">
+    <app-layout layout="empty">
         <div>
             <h2>User Login</h2>
             <app-flash-message ref="errorMessage" />
@@ -38,7 +38,6 @@ import AppRow from "./widgets/app-row";
 import AppCheckbox from "./widgets/app-checkbox";
 import AppFlashMessage from "./widgets/app-flash-message";
 import AppLayout from "./layouts/app-layout"
-import LayoutEmpty from "./layouts/layout-empty"
 
 export default {
     name: "LoginForm",

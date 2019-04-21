@@ -1,5 +1,5 @@
 <template>
-    <app-layout component="LayoutDefault">
+    <app-layout layout="standard">
         <div v-if="folder" class="home">
             <h1>Content Home</h1>
             <div>Current folder ID {{id}}</div>
@@ -23,7 +23,6 @@
 <script>
 import content from '@/service/content'
 import AppLayout from "./layouts/app-layout";
-import LayoutDefault from "./layouts/layout-default";
 
 export default {
     name: 'FolderContent',
