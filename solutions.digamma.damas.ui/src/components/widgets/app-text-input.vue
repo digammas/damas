@@ -20,34 +20,34 @@
 </template>
 
 <script>
-    export default {
-        name: "AppTextInput",
-        inheritAttrs: false,
-        props: {
-            id: {
-                type: String,
-                required: true
-            },
-            name: {
-                type: String
-            },
-            label: String,
-            type: {
-                type: "text" | "password",
-                default: "text"
-            },
-            required: {
-                type: Boolean,
-                default: false
-            },
-            value: String
+export default {
+    name: "AppTextInput",
+    inheritAttrs: false,
+    props: {
+        id: {
+            type: String,
+            required: true
         },
-        computed: {
-            nameOrId() {
-                return this.name || this.id
-            }
+        name: {
+            type: String
+        },
+        label: String,
+        type: {
+            type: "text" | "password",
+            default: "text"
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        value: String
+    },
+    computed: {
+        nameOrId() {
+            return this.name || this.id
         }
     }
+}
 </script>
 
 <style scoped>

@@ -8,12 +8,12 @@
 </template>
 
 <script>
-    export default {
-        name: "AppButton",
-        props: {
-            text: String
-        }
+export default {
+    name: "AppButton",
+    props: {
+        text: String
     }
+}
 </script>
 
 <style scoped>

@@ -11,27 +11,27 @@
 </template>
 
 <script>
-    export default {
-        name: "AppRow",
-        props: {
-            align: {
-                type: "default" | "center",
-                default: "default"
-            },
-            gutter: {
-                type: "on" | "off",
-                default: "off"
-            }
+export default {
+    name: "AppRow",
+    props: {
+        align: {
+            type: "default" | "center",
+            default: "default"
         },
-        computed: {
-            isCentered() {
-                return this.align === 'center'
-            },
-            gutterClass() {
-                return this.gutter !== "on" && "mdl-grid--no-spacing"
-            }
+        gutter: {
+            type: "on" | "off",
+            default: "off"
+        }
+    },
+    computed: {
+        isCentered() {
+            return this.align === 'center'
+        },
+        gutterClass() {
+            return this.gutter !== "on" && "mdl-grid--no-spacing"
         }
     }
+}
 </script>
 
 <style scoped>

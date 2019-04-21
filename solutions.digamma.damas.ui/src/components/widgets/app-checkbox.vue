@@ -18,28 +18,28 @@
 </template>
 
 <script>
-    export default {
-        name: "AppCheckbox",
-        inheritAttrs: false,
-        props: {
-            id: {
-                type: String,
-                required: true
-            },
-            name: String,
-            text: String,
-            checked: {
-                type: Boolean,
-                default: false
-            },
-            value: Boolean
+export default {
+    name: "AppCheckbox",
+    inheritAttrs: false,
+    props: {
+        id: {
+            type: String,
+            required: true
         },
-        computed: {
-            nameOrId() {
-                return this.name || this.id
-            }
+        name: String,
+        text: String,
+        checked: {
+            type: Boolean,
+            default: false
+        },
+        value: Boolean
+    },
+    computed: {
+        nameOrId() {
+            return this.name || this.id
         }
     }
+}
 </script>
 
 <style scoped>

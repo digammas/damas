@@ -10,18 +10,18 @@
 </template>
 
 <script>
-    export default {
-        name: "app-dialog",
-        props: {
-            title: String
+export default {
+    name: "app-dialog",
+    props: {
+        title: String
+    },
+    methods: {
+        show() {
+            this.$refs.dialog.showModal()
         },
-        methods: {
-            show() {
-                this.$refs.dialog.showModal()
-            },
-            hide() {
-                this.$refs.dialog.close()
-            }
+        hide() {
+            this.$refs.dialog.close()
         }
     }
+}
 </script>

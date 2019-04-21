@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    export default {
-        name: "AppDialogContent"
-    }
+export default {
+    name: "AppDialogContent"
+}
 </script>
