@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Welcome {{commonName}}</h1>
+        <h6>Welcome {{commonName}}</h6>
         <div>
             <slot/>
         </div>

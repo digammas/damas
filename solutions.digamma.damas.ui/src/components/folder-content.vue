@@ -1,7 +1,7 @@
 <template>
     <app-layout profile="standard">
         <div v-if="folder" class="home">
-            <h1>Content Home</h1>
+            <h3>Content Home</h3>
             <div>Current folder ID {{id}}</div>
             <div>Current folder Path {{folder.path}}</div>
             <div v-if="folder.parentId" key="has-parent">
@@ -16,6 +16,7 @@
             <div v-else key="has-subfolders">
                 <span>No subfolfers in this directory</span>
             </div>
+            <app-button text="New folder" @click="create()"/>
         </div>
     </app-layout>
 </template>
@@ -23,6 +24,7 @@
 <script>
 import content from '@/service/content'
 import AppLayout from "./layouts/app-layout";
+import AppButton from "./widgets/app-button";
 
 export default {
     name: 'FolderContent',
@@ -35,6 +37,7 @@ export default {
     computed: {
     },
     components: {
+        AppButton,
         AppLayout
     },
     mounted() {
