@@ -4,7 +4,7 @@ const routes = [
         redirect: "/content"
     }, {
         component: () => import("@/components/the-user-panel.vue"),
-        path: '/user',
+        path: '',
         meta: {
             title: "Home"
         },
