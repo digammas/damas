@@ -1,8 +1,19 @@
 <template>
-    <div id="app">
-        <router-view />
-    </div>
+    <component id="app" :is="layout">
+        <router-view :layout.sync="layout" />
+    </component>
 </template>
+<script>
+import LayoutDefault from "./components/layouts/layout-default";
+import LayoutEmpty from "./components/layouts/layout-empty";
 
-<style>
-</style>
+export default {
+    name: "App",
+    components: {LayoutEmpty, LayoutDefault},
+    data() {
+        return {
+            layout: "div"
+        }
+    }
+}
+</script>
