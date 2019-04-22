@@ -1,12 +1,15 @@
 <template>
-    <div class="mdl-grid" :class="gutterClass">
-        <div
-                v-if="isCentered"
-                class="mdl-layout-spacer"></div>
-        <slot></slot>
-        <div
-                v-if="isCentered"
-                class="mdl-layout-spacer"></div>
+    <div>
+        <div class="mdl-cell--12-col mdl-grid--no-spacing"></div>
+        <div class="mdl-grid" :class="gutterClass">
+            <div
+                    v-if="isCentered"
+                    class="mdl-layout-spacer"></div>
+            <slot></slot>
+            <div
+                    v-if="isCentered"
+                    class="mdl-layout-spacer"></div>
+        </div>
     </div>
 </template>
 

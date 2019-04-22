@@ -29,6 +29,15 @@ class ContentService {
             }).catch(reject)
         })
     }
+
+    create(parentId, name) {
+        let data = { parentId, name }
+        return new Promise((resolve, reject) => {
+            http.post("/folders", data).then(response => {
+                resolve(response.data)
+            }).catch(reject)
+        })
+    }
 }
 
 export default new ContentService()

@@ -7,15 +7,19 @@
             <div v-if="folder.parentId" key="has-parent">
                 <router-link :to="folder.parentId">Parent Directory</router-link>
             </div>
-            <div v-if="folder.content.folders.length != 0" key="has-subfolders">
-                <h2>List of subfolders</h2>
-                <ul v-for="subfolder in folder.content.folders" :key="subfolder.id">
-                    <li><router-link :to="subfolder.id">{{subfolder.name}}</router-link></li>
-                </ul>
-            </div>
-            <div v-else key="has-subfolders">
+            <app-row v-if="folder.content.folders.length != 0" key="has-subfolders">
+                <app-cell tag="h4" :span="12">List of subfolders</app-cell>
+                <app-cell :span="12">
+                    <app-row>
+                        <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
+                            <router-link :to="subfolder.id">{{subfolder.name}}</router-link>
+                        </app-cell>
+                    </app-row>
+                </app-cell>
+            </app-row>
+            <app-row v-else key="has-subfolders">
                 <span>No subfolfers in this directory</span>
-            </div>
+            </app-row>
             <app-button
                     text="New folder"
                     @click="showNewFolderDialog"/>
@@ -25,14 +29,15 @@
                 <app-dialog-content>
                     <app-text-input
                             id="folder-name"
-                            ref="folderName"
                             required="required"
-                            label="Folder's name"/>
+                            label="Folder's name"
+                            v-model="newFolderName"/>
                 </app-dialog-content>
                 <app-dialog-actions>
                     <button
                             type="button"
-                            class="mdl-button">
+                            class="mdl-button"
+                            @click="create">
                         Create
                     </button>
                     <button
@@ -55,18 +60,23 @@ import AppTextInput from "./widgets/app-text-input";
 import AppDialog from "./widgets/app-dialog";
 import AppDialogContent from "./widgets/app-dialog-content";
 import AppDialogActions from "./widgets/app-dialog-actions";
+import AppRow from "./widgets/app-row";
+import AppCell from "./widgets/app-cell";
 
 export default {
     name: 'FolderContent',
     data() {
         return {
             id: null,
-            folder: null
+            folder: null,
+            newFolderName: null
         }
     },
     computed: {
     },
     components: {
+        AppCell,
+        AppRow,
         AppDialogActions,
         AppDialogContent,
         AppDialog,
@@ -108,6 +118,9 @@ export default {
         },
         hideNewFolderDialog() {
             this.$refs.dialogBox.hide()
+        },
+        create() {
+            content.create(this.id, this.newFolderName)
         }
     }
 }
