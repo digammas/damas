@@ -36,7 +36,6 @@ export default {
             addClassForDevice(classes, this.desktopSpan, "desktop")
             addClassForDevice(classes, this.tabletSpan, "tablet")
             addClassForDevice(classes, this.mobileSpan, "mobile")
-            console.log("CLASSES" + classes)
             return classes
         }
     }
