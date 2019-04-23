@@ -122,7 +122,7 @@ export default {
         '$store.state.auth.token' () {
             content.load()
         },
-        '$route' (to, from) {
+        '$route' (to) {
             this.load(to.params.id)
         }
     },
