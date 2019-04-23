@@ -4,8 +4,9 @@ export default {
     name: 'AppLayout',
     props: {
         profile: {
-            type: "standard" | "empty",
-            required: true
+            type: String,
+            required: true,
+            validator: [].includes.bind(["standard", "empty"])
         }
     },
     created() {

@@ -18,12 +18,14 @@ export default {
     name: "AppRow",
     props: {
         align: {
-            type: "default" | "center",
-            default: "default"
+            type: String,
+            default: "default",
+            validator: [].includes.bind(["default", "center"])
         },
         gutter: {
-            type: "on" | "off",
-            default: "off"
+            type: String,
+            default: "off",
+            validator: [].includes.bind(["on", "off"])
         }
     },
     computed: {

@@ -33,8 +33,9 @@ export default {
         },
         label: String,
         type: {
-            type: "text" | "password",
-            default: "text"
+            type: String,
+            default: "text",
+            validator: [].includes.bind(["text", "password"])
         },
         required: {
             type: Boolean,
