@@ -9,7 +9,7 @@
                     <app-row>
                         <app-cell :span="2" v-if="folder.parentId" key="has-parent">
                             <app-row align="center">
-                                <app-icon size="big" theme="dark" symbol="present_to_all"/>
+                                <app-icon size="big" theme="dark" symbol="arrow-up" solid />
                             </app-row>
                             <app-row align="center">
                                 <router-link :to="folder.parentId">
@@ -26,7 +26,7 @@
                     <app-row>
                         <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
                             <app-row align="center">
-                                <app-icon size="big" theme="dark" symbol="folder_open" />
+                                <app-icon size="big" theme="dark" symbol="folder" />
                             </app-row>
                             <app-row align="center">
                                 <router-link :to="subfolder.id">

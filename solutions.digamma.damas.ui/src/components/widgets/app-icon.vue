@@ -1,18 +1,18 @@
 <template>
-    <i class="material-icons" :class="classes">{{symbol}}</i>
+    <i :class="classes"></i>
 </template>
 
 <script>
 let sizes = {
-    small: "md-18",
-    normal: "md-24",
-    big: "md-36",
-    huge: "md-48"
+    small: "fa-lg",
+    normal: "fa-3x",
+    big: "fa-4x",
+    huge: "fa-5x"
 }
 
 let themes = {
-    dark: "md-dark",
-    light: "md-light"
+    dark: "dark",
+    light: "light"
 }
 
 export default {
@@ -32,17 +32,24 @@ export default {
             default: "dark",
             validator: v => v in themes
         },
-        inactive: {
-            type: Boolean,
-            default: false
-        }
+        inactive: Boolean,
+        solid: Boolean
     },
     computed: {
         classes() {
-            return [
+            console.log("Classes: " + [
+                this.solid ? "fas" : "far",
+                `fa-${this.symbol}`,
                 sizes[this.size],
                 themes[this.theme],
-                this.inactive ? "md-inactive" : ""
+                this.inactive ? "inactive" : ""
+            ])
+            return [
+                this.solid ? "fas" : "far",
+                `fa-${this.symbol}`,
+                sizes[this.size],
+                themes[this.theme],
+                this.inactive ? "inactive" : ""
             ]
 
         }
@@ -51,14 +58,9 @@ export default {
 </script>
 
 <style scoped>
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.dark { color: rgba(0, 0, 0, 0.54); }
+.dark.inactive { color: rgba(0, 0, 0, 0.26); }
 
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.light { color: rgba(255, 255, 255, 1); }
+.light.inactive { color: rgba(255, 255, 255, 0.3); }
 </style>
