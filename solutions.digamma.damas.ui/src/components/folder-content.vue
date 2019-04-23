@@ -4,9 +4,22 @@
             <h3>Content Home</h3>
             <div>Current folder ID {{id}}</div>
             <div>Current folder Path {{folder.path}}</div>
-            <div v-if="folder.parentId" key="has-parent">
-                <router-link :to="folder.parentId">Parent Directory</router-link>
-            </div>
+            <app-row>
+                <app-cell :span="12">
+                    <app-row>
+                        <app-cell :span="2" v-if="folder.parentId" key="has-parent">
+                            <app-row align="center">
+                                <app-icon size="big" theme="dark" symbol="present_to_all"/>
+                            </app-row>
+                            <app-row align="center">
+                                <router-link :to="folder.parentId">
+                                    Parent Folder
+                                </router-link>
+                            </app-row>
+                        </app-cell>
+                    </app-row>
+                </app-cell>
+            </app-row>
             <app-row v-if="folder.content.folders.length != 0" key="has-subfolders">
                 <app-cell tag="h4" :span="12">List of subfolders</app-cell>
                 <app-cell :span="12">
