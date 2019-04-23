@@ -12,7 +12,14 @@
                 <app-cell :span="12">
                     <app-row>
                         <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
-                            <router-link :to="subfolder.id">{{subfolder.name}}</router-link>
+                            <app-row align="center">
+                                <app-icon size="big" theme="dark" symbol="folder_open" />
+                            </app-row>
+                            <app-row align="center">
+                                <router-link :to="subfolder.id">
+                                    {{subfolder.name}}
+                                </router-link>
+                            </app-row>
                         </app-cell>
                     </app-row>
                 </app-cell>
@@ -62,6 +69,7 @@ import AppDialogContent from "./widgets/app-dialog-content";
 import AppDialogActions from "./widgets/app-dialog-actions";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
+import AppIcon from "./widgets/app-icon";
 
 export default {
     name: 'FolderContent',
@@ -75,6 +83,7 @@ export default {
     computed: {
     },
     components: {
+        AppIcon,
         AppCell,
         AppRow,
         AppDialogActions,
