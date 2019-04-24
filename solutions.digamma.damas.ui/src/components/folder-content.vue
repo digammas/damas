@@ -2,8 +2,12 @@
     <app-layout profile="standard">
         <div v-if="folder" class="home">
             <h3>Content Home</h3>
-            <div>Current folder ID {{id}}</div>
-            <div>Current folder Path {{folder.path}}</div>
+            <app-tag icon="folder-open">
+                <app-icon symbol="chevron-right" solid /> root
+                <span v-for="element in pathElements">
+                    <app-icon symbol="chevron-right" solid /> {{element}}
+                </span>
+            </app-tag>
             <app-row>
                 <app-cell :span="12">
                     <app-row>
@@ -83,6 +87,7 @@ import AppDialogActions from "./widgets/app-dialog-actions";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
+import AppTag from "./widgets/app-tag";
 
 export default {
     name: 'FolderContent',
@@ -94,8 +99,12 @@ export default {
         }
     },
     computed: {
+        pathElements() {
+            return this.folder ? this.folder.path.split("/").slice(1) : []
+        }
     },
     components: {
+        AppTag,
         AppIcon,
         AppCell,
         AppRow,
