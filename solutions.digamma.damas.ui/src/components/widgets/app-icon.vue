@@ -4,8 +4,8 @@
 
 <script>
 let sizes = {
-    small: "fa-lg",
-    normal: "fa-3x",
+    small: "fa-sm",
+    normal: "fa-lg",
     big: "fa-4x",
     huge: "fa-5x"
 }

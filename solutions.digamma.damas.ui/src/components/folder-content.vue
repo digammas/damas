@@ -40,7 +40,9 @@
             <app-row v-else key="has-subfolders">
                 <span>No subfolfers in this directory</span>
             </app-row>
-            <app-button @click="showNewFolderDialog">New folder</app-button>
+            <app-button @click="showNewFolderDialog" floating>
+                <app-icon symbol="plus" solid />
+            </app-button>
             <app-dialog
                     ref="dialogBox"
                     title="New folder">
