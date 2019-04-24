@@ -37,13 +37,6 @@ export default {
     },
     computed: {
         classes() {
-            console.log("Classes: " + [
-                this.solid ? "fas" : "far",
-                `fa-${this.symbol}`,
-                sizes[this.size],
-                themes[this.theme],
-                this.inactive ? "inactive" : ""
-            ])
             return [
                 this.solid ? "fas" : "far",
                 `fa-${this.symbol}`,
