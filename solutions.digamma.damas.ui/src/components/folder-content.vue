@@ -9,7 +9,7 @@
                     <app-row>
                         <app-cell :span="2" v-if="folder.parentId" key="has-parent">
                             <app-row align="center">
-                                <app-icon size="big" theme="dark" symbol="arrow-up" solid />
+                                <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
                             </app-row>
                             <app-row align="center">
                                 <router-link :to="folder.parentId">
