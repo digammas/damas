@@ -3,16 +3,13 @@
             type="button"
             @click="$emit('click', $event)"
             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        {{text}}
+        <slot/>
     </button>
 </template>
 
 <script>
 export default {
-    name: "AppButton",
-    props: {
-        text: String
-    }
+    name: "AppButton"
 }
 </script>
 

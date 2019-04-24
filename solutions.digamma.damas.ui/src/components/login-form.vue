@@ -23,7 +23,7 @@
                     <app-checkbox id="remember" text="Remember me" />
                 </app-row>
                 <app-row align="center">
-                    <app-button text="Submit" @click="submit"/>
+                    <app-button @click="submit">Submit</app-button>
                 </app-row>
             </div>
         </div>
