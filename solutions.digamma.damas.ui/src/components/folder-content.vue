@@ -115,9 +115,7 @@ export default {
                 this.folder = null
                 return
             }
-            content.retrieve(this.id, 1, true).then(data => {
-                this.folder = data
-            })
+            this.retrieve();
         },
         '$store.state.auth.token' () {
             content.load()
@@ -135,6 +133,11 @@ export default {
                 content.retrieveAt("/").then(folder => this.id = folder.id)
             }
         },
+        retrieve() {
+            content.retrieve(this.id, 1, true).then(data => {
+                this.folder = data
+            })
+        },
         showNewFolderDialog() {
             this.$refs.dialogBox.show()
         },
@@ -143,6 +146,11 @@ export default {
         },
         create() {
             content.create(this.id, this.newFolderName)
+                .then(() => {
+                    this.retrieve()
+                    this.newFolderName = null
+                    this.hideNewFolderDialog()
+                })
         }
     }
 }
