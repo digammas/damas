@@ -1,3 +1,5 @@
+import {CLEAR, UPDATE} from "./common";
+
 const defaults = {
     token: null,
     username: null
@@ -9,20 +11,20 @@ export default {
     state: Object.assign({}, defaults),
 
     mutations: {
-        update(state, data) {
+        [UPDATE] (state, data) {
             Object.assign(state, defaults, data)
         },
-        clear(state) {
+        [CLEAR] (state) {
             Object.assign(state, defaults)
         }
     },
 
     actions: {
         clear(context) {
-            context.commit('clear')
+            context.commit(CLEAR)
         },
         update(context, data) {
-            context.commit('update', data)
+            context.commit(UPDATE, data)
         }
     }
 }
