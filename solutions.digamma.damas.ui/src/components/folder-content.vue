@@ -4,7 +4,7 @@
             <h3>Content Home</h3>
             <app-tag icon="folder-open">
                 <app-icon symbol="chevron-right" solid /> root
-                <span v-for="element in pathElements">
+                <span v-for="(element, index) in pathElements" :key="index">
                     <app-icon symbol="chevron-right" solid /> {{element}}
                 </span>
             </app-tag>
