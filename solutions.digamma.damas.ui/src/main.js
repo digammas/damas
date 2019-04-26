@@ -4,6 +4,7 @@ import router from '@/router'
 import store from '@/store'
 
 import 'material-design-lite/material.min.css'
+import 'material-design-lite/material'
 import '@fortawesome/fontawesome-free/js/all'
 
 Vue.config.productionTip = false

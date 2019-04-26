@@ -1,5 +1,5 @@
 <template>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield">
         <div class="mdl-cell--12-col">
             <label
                     :for="id"
@@ -47,6 +47,9 @@ export default {
         nameOrId() {
             return this.name || this.id
         }
+    },
+    mounted() {
+        componentHandler.upgradeElement(this.$refs.textfield)
     }
 }
 </script>
