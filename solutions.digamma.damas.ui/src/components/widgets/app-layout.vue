@@ -7,16 +7,16 @@
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title">{{title}}</span>
                 <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation mdl-layout--large-screen-only" ref="links">
+                <app-navigation>
                     <slot name="links"></slot>
-                </nav>
+                </app-navigation>
             </div>
         </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">{{shortTitle || title}}</span>
-            <nav class="mdl-navigation" ref="navigation">
+            <app-navigation>
                 <slot name="navigation"></slot>
-            </nav>
+            </app-navigation>
         </div>
         <main class="mdl-layout__content">
             <slot></slot>
@@ -26,22 +26,16 @@
 
 <script>
 import AppIcon from "./app-icon";
+import AppNavigation from "./app-navigation";
 
 export default {
     name: "AppLayout",
-    components: {AppIcon},
+    components: {AppNavigation, AppIcon},
     props: {
         title: String,
         shortTitle: String
     },
     mounted() {
-        let addNavLinkClass = item => {
-            for (let el of item.querySelectorAll("a")) {
-                el.classList.add("mdl-navigation__link")
-            }
-        }
-        addNavLinkClass(this.$refs.links)
-        addNavLinkClass(this.$refs.navigation)
         componentHandler.upgradeElement(this.$refs.layout)
     }
 }
