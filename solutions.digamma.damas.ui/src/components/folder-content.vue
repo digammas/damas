@@ -86,7 +86,7 @@ export default {
     },
     computed: {
         pathElements() {
-            return this.folder ? this.folder.path.split("/").slice(1) : []
+            return this.folder ? this.folder.path.split("/").filter(Boolean) : []
         }
     },
     components: {
