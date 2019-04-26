@@ -1,49 +1,36 @@
 <template>
     <app-layout profile="standard">
-        <div v-if="folder" class="home">
-            <h3>Content Home</h3>
-            <app-tag icon="folder-open">
-                <app-icon symbol="chevron-right" solid /> root
-                <span v-for="(element, index) in pathElements" :key="index">
-                    <app-icon symbol="chevron-right" solid /> {{element}}
-                </span>
-            </app-tag>
-            <app-row>
-                <app-cell :span="12">
-                    <app-row>
-                        <app-cell :span="2" v-if="folder.parentId" key="has-parent">
-                            <app-row align="center">
-                                <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
-                            </app-row>
-                            <app-row align="center">
-                                <router-link :to="folder.parentId">
-                                    Parent Folder
-                                </router-link>
-                            </app-row>
-                        </app-cell>
+        <div v-if="folder">
+            <app-box shadow>
+                <app-tag icon="folder-open">
+                    <app-icon symbol="chevron-right" solid /> root
+                    <span v-for="(element, index) in pathElements" :key="index">
+                        <app-icon symbol="chevron-right" solid /> {{element}}
+                    </span>
+                </app-tag>
+            </app-box>
+            <app-box shadow>
+                <app-cell :span="2" v-if="folder.parentId" key="has-parent">
+                    <app-row align="center">
+                        <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
+                    </app-row>
+                    <app-row align="center">
+                        <router-link :to="folder.parentId">
+                            parent
+                        </router-link>
                     </app-row>
                 </app-cell>
-            </app-row>
-            <app-row v-if="folder.content.folders.length != 0" key="has-subfolders">
-                <app-cell tag="h4" :span="12">List of subfolders</app-cell>
-                <app-cell :span="12">
-                    <app-row>
-                        <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
-                            <app-row align="center">
-                                <app-icon size="big" theme="dark" symbol="folder" />
-                            </app-row>
-                            <app-row align="center">
-                                <router-link :to="subfolder.id">
-                                    {{subfolder.name}}
-                                </router-link>
-                            </app-row>
-                        </app-cell>
-                    </app-row>
-                </app-cell>
-            </app-row>
-            <app-row v-else key="has-subfolders">
-                <span>No subfolfers in this directory</span>
-            </app-row>
+                <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
+                        <app-row align="center">
+                            <app-icon size="big" theme="dark" symbol="folder" />
+                        </app-row>
+                        <app-row align="center">
+                            <router-link :to="subfolder.id">
+                                {{subfolder.name}}
+                            </router-link>
+                        </app-row>
+                    </app-cell>
+            </app-box>
             <app-button @click="showNewFolderDialog" floating>
                 <app-icon symbol="plus" solid />
             </app-button>
@@ -86,6 +73,7 @@ import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
 import AppTag from "./widgets/app-tag";
+import AppBox from "./widgets/app-box";
 
 export default {
     name: 'FolderContent',
@@ -109,7 +97,8 @@ export default {
         AppDialog,
         AppTextInput,
         AppButton,
-        AppLayout
+        AppLayout,
+        AppBox
     },
     mounted() {
         this.load(this.$route.params.id)
