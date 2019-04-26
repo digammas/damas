@@ -7,16 +7,12 @@
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title">{{title}}</span>
                 <div class="mdl-layout-spacer"></div>
-                <app-navigation>
-                    <slot name="links"></slot>
-                </app-navigation>
+                <slot name="header"></slot>
             </div>
         </header>
-        <div class="mdl-layout__drawer">
+        <div class="mdl-layout__drawer" v-if="hasSidebar">
             <span class="mdl-layout-title">{{shortTitle || title}}</span>
-            <app-navigation>
-                <slot name="navigation"></slot>
-            </app-navigation>
+            <slot name="sidebar"></slot>
         </div>
         <main class="mdl-layout__content">
             <slot></slot>
@@ -32,8 +28,16 @@ export default {
     name: "AppLayout",
     components: {AppNavigation, AppIcon},
     props: {
-        title: String,
+        title: {
+            type: String,
+            required: true
+        },
         shortTitle: String
+    },
+    computed: {
+        hasSidebar() {
+            return this.$slots.sidebar
+        }
     },
     mounted() {
         componentHandler.upgradeElement(this.$refs.layout)

@@ -1,12 +1,16 @@
 <template>
     <app-layout title="Damas DMS" short-title="Damas">
-        <template #links>
-            <a href="https://github.com/digammas/damas">GitHub</a>
-            <a href="https://digamma.co">Digamma Solution</a>
+        <template #header>
+            <app-navigation>
+                <a href="https://github.com/digammas/damas">GitHub</a>
+                <a href="https://digamma.co">Digamma Solution</a>
+            </app-navigation>
         </template>
-        <template #navigation>
-            <router-link :to="{name: 'content'}" href="">Content</router-link>
-            <router-link :to="{name: 'users'}" href="">Users</router-link>
+        <template #sidebar>
+            <app-navigation>
+                <router-link :to="{name: 'content'}" href="">Content</router-link>
+                <router-link :to="{name: 'users'}" href="">Users</router-link>
+            </app-navigation>
         </template>
         <template>
             <slot></slot>
@@ -18,13 +22,14 @@
 import { mapState } from 'vuex'
 import user from '@/service/user'
 import AppLayout from "../widgets/app-layout";
+import AppNavigation from "../widgets/app-navigation";
 
 export default {
     name: 'LayoutStandard',
     data() {
         return {}
     },
-    components: {AppLayout},
+    components: {AppNavigation, AppLayout},
     computed: {
         ...mapState({
             username: (state) => state.auth.username,
