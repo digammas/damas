@@ -19,7 +19,7 @@
                             type="password"
                             v-model="password" />
                 </app-row>
-                <app-row align="center" gutter="on">
+                <app-row align="center" gutter>
                     <app-checkbox id="remember" text="Remember me" />
                 </app-row>
                 <app-row align="center">

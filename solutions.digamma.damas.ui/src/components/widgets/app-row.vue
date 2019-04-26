@@ -1,15 +1,12 @@
 <template>
-    <div>
-        <div class="mdl-cell--12-col mdl-grid--no-spacing"></div>
-        <div class="mdl-grid" :class="gutterClass">
-            <div
-                    v-if="isCentered"
-                    class="mdl-layout-spacer"></div>
-            <slot></slot>
-            <div
-                    v-if="isCentered"
-                    class="mdl-layout-spacer"></div>
-        </div>
+    <div class="mdl-grid" :class="classes">
+        <div
+                v-if="isCentered"
+                class="mdl-layout-spacer"></div>
+        <slot></slot>
+        <div
+                v-if="isCentered"
+                class="mdl-layout-spacer"></div>
     </div>
 </template>
 
@@ -22,18 +19,16 @@ export default {
             default: "default",
             validator: [].includes.bind(["default", "center"])
         },
-        gutter: {
-            type: String,
-            default: "off",
-            validator: [].includes.bind(["on", "off"])
-        }
+        gutter: Boolean
     },
     computed: {
         isCentered() {
             return this.align === 'center'
         },
-        gutterClass() {
-            return this.gutter !== "on" && "mdl-grid--no-spacing"
+        classes() {
+            return {
+                'mdl-grid--no-spacing': !this.gutter
+            }
         }
     }
 }
