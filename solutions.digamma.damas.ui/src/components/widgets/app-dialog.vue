@@ -5,7 +5,12 @@
                 class="mdl-dialog__title">
             {{title}}
         </h6>
-        <slot/>
+        <div class="mdl-dialog__content">
+            <slot></slot>
+        </div>
+        <div class="mdl-dialog__actions">
+            <slot name="actions"></slot>
+        </div>
     </dialog>
 </template>
 

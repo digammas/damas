@@ -50,14 +50,14 @@
             <app-dialog
                     ref="dialogBox"
                     title="New folder">
-                <app-dialog-content>
+                <template>
                     <app-text-input
                             id="folder-name"
                             required="required"
                             label="Folder's name"
                             v-model="newFolderName"/>
-                </app-dialog-content>
-                <app-dialog-actions>
+                </template>
+                <template #actions>
                     <button
                             type="button"
                             class="mdl-button"
@@ -70,7 +70,7 @@
                             @click="hideNewFolderDialog">
                         Cancel
                     </button>
-                </app-dialog-actions>
+                </template>
             </app-dialog>
         </div>
     </app-layout>
@@ -82,8 +82,6 @@ import AppLayout from "./layouts/app-layout";
 import AppButton from "./widgets/app-button";
 import AppTextInput from "./widgets/app-text-input";
 import AppDialog from "./widgets/app-dialog";
-import AppDialogContent from "./widgets/app-dialog-content";
-import AppDialogActions from "./widgets/app-dialog-actions";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
@@ -108,8 +106,6 @@ export default {
         AppIcon,
         AppCell,
         AppRow,
-        AppDialogActions,
-        AppDialogContent,
         AppDialog,
         AppTextInput,
         AppButton,
