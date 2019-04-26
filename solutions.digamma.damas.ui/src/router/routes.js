@@ -6,7 +6,7 @@ const routes = [
         name: "content",
         path: "/content/:id?",
         meta: {
-            title: "Home"
+            title: "Content"
         },
         component: () => import("@/components/folder-content.vue")
     }, {

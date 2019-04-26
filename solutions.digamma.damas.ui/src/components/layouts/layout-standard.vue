@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Damas DMS" short-title="Damas">
+    <app-layout :title="title" short-title="Damas DMS">
         <template #header>
             <app-navigation>
                 <a href="https://github.com/digammas/damas">GitHub</a>
@@ -34,11 +34,9 @@ export default {
         ...mapState({
             username: (state) => state.auth.username,
             firstName: (state) => state.user.firstName,
-            lastName: (state) => state.user.lastName
-        }),
-        commonName() {
-            return this.firstName || this.username
-        },
+            lastName: (state) => state.user.lastName,
+            title: (state) => state.common.title
+        })
     },
     mounted() {
         user.load()
