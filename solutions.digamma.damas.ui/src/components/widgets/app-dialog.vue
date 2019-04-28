@@ -30,3 +30,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.mdl-dialog__title {
+    font-size: 1.5em;
+}
+</style>
