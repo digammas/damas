@@ -34,12 +34,6 @@ public class DocumentResource
     }
 
     @Override
-    public DocumentSerialization retrieve(String id)
-            throws WorkspaceException {
-        return wrap(super.retrieve(id));
-    }
-
-    @Override
     protected DocumentSerialization wrap(Document entity) {
         return DocumentSerialization.from(entity, this.full);
     }
