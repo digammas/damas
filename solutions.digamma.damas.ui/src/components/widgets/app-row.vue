@@ -1,11 +1,11 @@
 <template>
     <div class="mdl-grid" :class="classes">
         <div
-                v-if="isCentered"
+                v-if="leftSpacer"
                 class="mdl-layout-spacer"></div>
         <slot></slot>
         <div
-                v-if="isCentered"
+                v-if="rightSpacer"
                 class="mdl-layout-spacer"></div>
     </div>
 </template>
@@ -17,13 +17,16 @@ export default {
         align: {
             type: String,
             default: "default",
-            validator: [].includes.bind(["default", "center"])
+            validator: [].includes.bind(["default", "center", "left", "right"])
         },
         gutter: Boolean
     },
     computed: {
-        isCentered() {
-            return this.align === 'center'
+        leftSpacer() {
+            return ["center", "right"].includes(this.align)
+        },
+        rightSpacer() {
+            return ["center", "left"].includes(this.align)
         },
         classes() {
             return {

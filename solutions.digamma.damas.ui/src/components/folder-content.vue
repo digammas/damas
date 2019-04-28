@@ -8,6 +8,12 @@
                         <app-icon symbol="chevron-right" solid /> {{element}}
                     </span>
                 </app-tag>
+                <app-spacer />
+                <app-more-list>
+                    <a class="mdl-menu__item">Add Folder</a>
+                    <a class="mdl-menu__item">Add File</a>
+                    <a class="mdl-menu__item">Add Annotation</a>
+                </app-more-list>
             </app-box>
             <app-box shadow>
                 <app-cell :span="2" v-if="folder.parentId" key="has-parent">
@@ -21,19 +27,21 @@
                     </app-row>
                 </app-cell>
                 <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
-                        <app-row align="center">
-                            <app-icon size="big" theme="dark" symbol="folder" />
-                        </app-row>
-                        <app-row align="center">
-                            <router-link :to="subfolder.id">
-                                {{subfolder.name}}
-                            </router-link>
-                        </app-row>
-                    </app-cell>
+                    <app-row align="center">
+                        <app-icon size="big" theme="dark" symbol="folder" />
+                    </app-row>
+                    <app-row align="center">
+                        <router-link :to="subfolder.id">
+                            {{subfolder.name}}
+                        </router-link>
+                    </app-row>
+                </app-cell>
             </app-box>
-            <app-button @click="showNewFolderDialog" floating>
-                <app-icon symbol="plus" solid />
-            </app-button>
+            <app-row align="right" gutter>
+                <app-button @click="showNewFolderDialog" floating>
+                    <app-icon symbol="plus" solid />
+                </app-button>
+            </app-row>
             <app-dialog
                     ref="dialogBox"
                     title="New folder">
@@ -74,6 +82,8 @@ import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
 import AppTag from "./widgets/app-tag";
 import AppBox from "./widgets/app-box";
+import AppMoreList from "./widgets/app-more-list";
+import AppSpacer from "./widgets/app-spacer";
 
 export default {
     name: 'FolderContent',
@@ -90,6 +100,8 @@ export default {
         }
     },
     components: {
+        AppSpacer,
+        AppMoreList,
         AppTag,
         AppIcon,
         AppCell,
