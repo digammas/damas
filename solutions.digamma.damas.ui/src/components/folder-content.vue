@@ -44,20 +44,26 @@
             </app-row>
             <app-dialog
                     ref="dialogBox"
-                    title="New folder">
+                    title="New file">
                 <template>
-                    <app-text-input
-                            id="folder-name"
-                            required="required"
-                            label="Folder's name"
-                            v-model="newFolderName"/>
+                    <app-tab-container>
+                        <app-tab-item id="create-folder" title="Folder" selected>
+                            <app-text-input
+                                    id="folder-name"
+                                    required="required"
+                                    label="Folder's name"
+                                    v-model="newFolderName"/>
+                        </app-tab-item>
+                        <app-tab-item id="upload-file" title="Document">
+                        </app-tab-item>
+                    </app-tab-container>
                 </template>
                 <template #actions>
                     <button
                             type="button"
                             class="mdl-button"
                             @click="create">
-                        Create
+                        OK
                     </button>
                     <button
                             type="button"
@@ -84,6 +90,8 @@ import AppTag from "./widgets/app-tag";
 import AppBox from "./widgets/app-box";
 import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
+import AppTabContainer from "./widgets/app-tab-container";
+import AppTabItem from "./widgets/app-tab-item";
 
 export default {
     name: 'FolderContent',
@@ -100,6 +108,8 @@ export default {
         }
     },
     components: {
+        AppTabItem,
+        AppTabContainer,
         AppSpacer,
         AppMoreList,
         AppTag,
