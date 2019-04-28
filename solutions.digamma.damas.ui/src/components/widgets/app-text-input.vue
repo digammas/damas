@@ -26,7 +26,9 @@ export default {
     props: {
         id: {
             type: String,
-            required: true
+            default() {
+                this.$utils.randomId("text-input-")
+            }
         },
         name: {
             type: String

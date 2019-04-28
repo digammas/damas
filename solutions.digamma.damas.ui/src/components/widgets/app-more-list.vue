@@ -22,7 +22,9 @@ export default {
     props: {
         id: {
             type: String,
-            default: () => `more-list-${Math.random().toString(36).substr(2, 10)}`
+            default() {
+                this.$utils.randomId("more-list-")
+            }
         },
         symbol: String,
         solid: Boolean,

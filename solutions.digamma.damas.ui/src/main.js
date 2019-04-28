@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from '@/app.vue'
 import router from '@/router'
 import store from '@/store'
+import Utils from "@/plugins/utils"
 
 import 'material-design-lite/material.min.css'
 import 'material-design-lite/material'
@@ -9,6 +10,8 @@ import '@fortawesome/fontawesome-free/js/all'
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
+
+Vue.use(Utils)
 
 new Vue({
     router,
