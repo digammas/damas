@@ -55,6 +55,8 @@
                                     v-model="newFolderName"/>
                         </app-tab-item>
                         <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
+                            <app-text-input label="File Name" ref="fileNameTextInput"/>
+                            <app-file-upload label="File" @change="fileChanged" />
                         </app-tab-item>
                     </app-tab-container>
                 </template>
@@ -92,6 +94,7 @@ import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
 import AppTabContainer from "./widgets/app-tab-container";
 import AppTabItem from "./widgets/app-tab-item";
+import AppFileUpload from "./widgets/app-file-upload";
 
 export default {
     name: 'FolderContent',
@@ -108,6 +111,7 @@ export default {
         }
     },
     components: {
+        AppFileUpload,
         AppTabItem,
         AppTabContainer,
         AppSpacer,
@@ -168,6 +172,9 @@ export default {
                 })
             }
             this.hideNewFolderDialog()
+        },
+        fileChanged(name) {
+            this.$refs.fileNameTextInput.setText(name)
         }
     }
 }

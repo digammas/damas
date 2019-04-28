@@ -11,7 +11,7 @@
                     :name="nameOrId"
                     :id="id"
                     :required="required"
-                    :value="value"
+                    :value="text || value"
                     @input="$emit('input', $event.target.value)"
                     class="mdl-textfield__input"
                     v-bind="$attrs"/>
@@ -23,6 +23,11 @@
 export default {
     name: "AppTextInput",
     inheritAttrs: false,
+    data() {
+        return {
+            text: null
+        }
+    },
     props: {
         id: {
             type: String,
@@ -52,6 +57,11 @@ export default {
     },
     mounted() {
         componentHandler.upgradeElement(this.$refs.textfield)
+    },
+    methods: {
+        setText(text) {
+            this.text = text
+        }
     }
 }
 </script>
