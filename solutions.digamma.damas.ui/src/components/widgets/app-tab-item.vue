@@ -23,6 +23,11 @@ export default {
     },
     created() {
         this.addTabItem(this.id, this.title)
+    },
+    methods: {
+        isSelected() {
+            return this.$refs.panel.classList.contains("is-active")
+        }
     }
 }
 </script>

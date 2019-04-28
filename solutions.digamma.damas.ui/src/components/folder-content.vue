@@ -47,14 +47,14 @@
                     title="New file">
                 <template>
                     <app-tab-container>
-                        <app-tab-item id="create-folder" title="Folder" selected>
+                        <app-tab-item id="create-folder" title="Folder" selected ref="createFolderTab">
                             <app-text-input
                                     id="folder-name"
                                     required="required"
                                     label="Folder's name"
                                     v-model="newFolderName"/>
                         </app-tab-item>
-                        <app-tab-item id="upload-file" title="Document">
+                        <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
                         </app-tab-item>
                     </app-tab-container>
                 </template>
@@ -161,12 +161,13 @@ export default {
             this.$refs.dialogBox.hide()
         },
         create() {
-            content.create(this.id, this.newFolderName)
-                .then(() => {
+            if (this.$refs.createFolderTab.isSelected()) {
+                content.create(this.id, this.newFolderName).then(() => {
                     this.retrieve()
                     this.newFolderName = null
-                    this.hideNewFolderDialog()
                 })
+            }
+            this.hideNewFolderDialog()
         }
     }
 }
