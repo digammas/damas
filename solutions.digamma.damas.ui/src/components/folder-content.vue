@@ -126,16 +126,16 @@ export default {
         AppLayout,
         AppBox
     },
-    mounted() {
+    created() {
         this.load(this.$route.params.id)
     },
     watch: {
         id() {
             if (!this.id) {
                 this.folder = null
-                return
+            } else {
+                this.retrieve();
             }
-            this.retrieve();
         },
         '$store.state.auth.token' () {
             content.load()
@@ -146,12 +146,17 @@ export default {
     },
     methods: {
         load(id) {
-            if (id) {
-                this.id = id
-            } else {
+            if (!id) {
                 /* No folder ID provided, fetch ID for root */
-                content.retrieveAt("/").then(folder => this.id = folder.id)
+                this.redirect()
+            } else {
+                this.id = id
             }
+        },
+        redirect(path = "/") {
+            content.retrieveAt(path).then(f => {
+                this.$router.push({name: "content", params: {id: f.id }})
+            })
         },
         retrieve() {
             content.retrieve(this.id, 1, true).then(data => {
