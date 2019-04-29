@@ -2,12 +2,7 @@
     <app-layout profile="standard">
         <div v-if="folder">
             <app-box shadow>
-                <app-tag icon="folder-open">
-                    <app-icon symbol="chevron-right" solid /> root
-                    <span v-for="(element, index) in pathElements" :key="index">
-                        <app-icon symbol="chevron-right" solid /> {{element}}
-                    </span>
-                </app-tag>
+                <path-breadcrumb :path="folder && folder.path" />
                 <app-spacer />
                 <app-more-list>
                     <a class="mdl-menu__item">Add Folder</a>
@@ -62,6 +57,8 @@
 </template>
 
 <script>
+import folderService from '@/service/folder'
+
 import AppLayout from "./layouts/app-layout";
 import AppButton from "./widgets/app-button";
 import AppRow from "./widgets/app-row";
@@ -72,8 +69,7 @@ import AppBox from "./widgets/app-box";
 import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
 import AddContentDialog from "./add-content-dialog";
-
-import folderService from '@/service/folder'
+import PathBreadcrumb from "./path-breadcrumb";
 
 export default {
     name: 'FolderContent',
@@ -83,12 +79,8 @@ export default {
             folder: null
         }
     },
-    computed: {
-        pathElements() {
-            return this.folder ? this.folder.path.split("/").filter(Boolean) : []
-        }
-    },
     components: {
+        PathBreadcrumb,
         AddContentDialog,
         AppSpacer,
         AppMoreList,
