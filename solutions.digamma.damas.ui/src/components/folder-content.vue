@@ -53,8 +53,6 @@
 <script>
 import AppLayout from "./layouts/app-layout";
 import AppButton from "./widgets/app-button";
-import AppTextInput from "./widgets/app-text-input";
-import AppDialog from "./widgets/app-dialog";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
@@ -62,9 +60,6 @@ import AppTag from "./widgets/app-tag";
 import AppBox from "./widgets/app-box";
 import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
-import AppTabContainer from "./widgets/app-tab-container";
-import AppTabItem from "./widgets/app-tab-item";
-import AppFileUpload from "./widgets/app-file-upload";
 import AddContentDialog from "./add-content-dialog";
 
 import folderService from '@/service/folder'
@@ -84,17 +79,12 @@ export default {
     },
     components: {
         AddContentDialog,
-        AppFileUpload,
-        AppTabItem,
-        AppTabContainer,
         AppSpacer,
         AppMoreList,
         AppTag,
         AppIcon,
         AppCell,
         AppRow,
-        AppDialog,
-        AppTextInput,
         AppButton,
         AppLayout,
         AppBox
