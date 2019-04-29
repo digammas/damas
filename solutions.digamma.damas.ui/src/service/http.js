@@ -25,6 +25,17 @@ class HttpClient {
             data: data
         })
     }
+
+    put(path, data) {
+        return http({
+            method: "put",
+            url: path,
+            baseURL: BASE_URL,
+            responseType: 'json',
+            headers: headers(),
+            data: data
+        })
+    }
 }
 
 function http() {
