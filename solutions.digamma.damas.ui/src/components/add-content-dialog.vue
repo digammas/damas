@@ -13,7 +13,7 @@
                 </app-tab-item>
                 <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
                     <app-text-input label="File Name" ref="fileNameTextInput"/>
-                    <app-file-upload label="File" @change="fileChanged" />
+                    <app-file-upload label="File" @change="fileChanged" ref="upload"/>
                 </app-tab-item>
             </app-tab-container>
         </template>
@@ -35,12 +35,13 @@
 </template>
 
 <script>
+import content from '@/service/content'
+import document from '@/service/document'
+
 import AppTabContainer from "./widgets/app-tab-container";
 import AppTabItem from "./widgets/app-tab-item";
 import AppTextInput from "./widgets/app-text-input";
 import AppFileUpload from "./widgets/app-file-upload";
-
-import content from '@/service/content'
 import AppDialog from "./widgets/app-dialog";
 
 export default {
@@ -67,14 +68,26 @@ export default {
         create() {
             if (this.$refs.createFolderTab.isSelected()) {
                 content.create(this.parentId, this.folderName).then(folder => {
-                    this.$emit('change', folder)
+                    this.fireChange(folder)
                     this.folderName = null
                 })
+                this.hide()
+            } else if (this.$refs.uploadDocumentTab.isSelected()) {
+                if (this.$refs.upload) {
+                    document.create(this.parentId, this.$refs.fileNameTextInput.getText()).then(doc => {
+                        this.fireChange(doc)
+                        this.$refs.upload.binaryPayload().then(payload => {
+                            document.upload(doc.id, payload)
+                        })
+                    })
+                }
             }
-            this.hide()
         },
         fileChanged(name) {
             this.$refs.fileNameTextInput.setText(name)
+        },
+        fireChange(file) {
+            this.$emit('change', file)
         }
     }
 }

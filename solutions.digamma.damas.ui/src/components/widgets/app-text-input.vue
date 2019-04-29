@@ -14,6 +14,7 @@
                     :value="text || value"
                     @input="$emit('input', $event.target.value)"
                     class="mdl-textfield__input"
+                    ref="input"
                     v-bind="$attrs"/>
         </div>
     </div>
@@ -61,6 +62,9 @@ export default {
     methods: {
         setText(text) {
             this.text = text
+        },
+        getText() {
+            return this.$refs.input.value
         }
     }
 }
