@@ -10,20 +10,19 @@ class UserService {
         }
     }
 
-    retrieve(username) {
-        return new Promise((resolve, reject) => {
-            http.get(`/users/${username}`).then(response => {
-                store.dispatch("user/update", Object.assign({
-                    valid: true
-                }, response.data)).then(() => resolve(response.data))
-            }).catch(reason => {
-                if (reason.statusCode === 404) {
-                    store.dispatch("user/clear").then(() => resolve(null))
-                } else {
-                    reject(reason)
-                }
-            })
-        })
+    async retrieve(username) {
+        try {
+            let response = await http.get(`/users/${username}`)
+            await store.dispatch("user/update", {...response.data, valid: true})
+            return response.data
+        } catch (e) {
+            if (e.statusCode === 404) {
+                store.dispatch("user/clear")
+                return null
+            } else {
+                throw e
+            }
+        }
     }
 }
 

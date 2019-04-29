@@ -3,26 +3,20 @@ import store from '@/store'
 
 class AuthService {
 
-    authenticate(username, password) {
-        return new Promise((resolve, reject) => {
-            http.post("/login", {
-                username: username,
-                password: password }
-            ).then(response => {
-                let token = response.data.secret
-                store.dispatch("auth/update", {
-                    username: username,
-                    token: token
-                }).then(() => resolve(token))
-            }).catch(reason => {
-                if (reason.statusCode === 401) {
-                    store.dispatch("auth/clear")
-                    resolve(null)
-                } else {
-                    reject(reason)
-                }
-            })
-        })
+    async authenticate(username, password) {
+        try {
+            let response = await http.post("/login", {username, password})
+            let token = response.data.secret
+            await store.dispatch("auth/update", {username, token})
+            return token
+        } catch (e) {
+            if (e.statusCode === 401) {
+                store.dispatch("auth/clear")
+                return null
+            } else {
+                throw e
+            }
+        }
     }
 }
 

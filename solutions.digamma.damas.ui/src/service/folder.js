@@ -3,40 +3,21 @@ import store from '@/store'
 
 class ContentService {
 
-    load() {
-        this.retrieveAt("/").then((data) => {
-            store.dispatch("content/update", {
-                currentFolderId: data.id
-            })
-        })
+    async load() {
+        let currentFolderId = (await this.retrieveAt("/")).id
+        store.dispatch("content/update", { currentFolderId })
     }
 
-    retrieve(id, depth = null, full = false) {
-        return new Promise((resolve, reject) => {
-            http.get(`/folders/${id}`, {
-                full: full,
-                depth: depth
-            }).then(response => {
-                resolve(response.data)
-            }).catch(reject)
-        })
+    async retrieve(id, depth = null, full = false) {
+        return (await http.get(`/folders/${id}`, { full, depth })).data
     }
 
-    retrieveAt(path) {
-        return new Promise((resolve, reject) => {
-            http.get(`/folders/at${path}`).then(response => {
-                resolve(response.data)
-            }).catch(reject)
-        })
+    async retrieveAt(path) {
+        return (await http.get(`/folders/at${path}`)).data
     }
 
-    create(parentId, name) {
-        let data = { parentId, name }
-        return new Promise((resolve, reject) => {
-            http.post("/folders", data).then(response => {
-                resolve(response.data)
-            }).catch(reject)
-        })
+    async create(parentId, name) {
+        return (await http.post("/folders", { parentId, name })).data
     }
 }
 
