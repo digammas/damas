@@ -48,7 +48,22 @@ export default {
             this.$emit("change", this.file.name)
         },
         getName() {
-            return this.file
+            return this.file ? this.file.name : null
+        },
+        getMimeType() {
+            return this.file ? this.file.type : null
+        },
+        binaryPayload() {
+            const reader = new FileReader();
+            return new Promise((resolve, reject) => {
+                try {
+                    reader.onload = function (evt) {
+                        resolve(evt.target.result)
+                    }
+                    reader.readAsBinaryString(file)
+                } catch(e) { reject(e) }
+            })
+
         }
     }
 }
