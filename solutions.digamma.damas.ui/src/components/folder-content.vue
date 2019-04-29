@@ -36,6 +36,17 @@
                         </router-link>
                     </app-row>
                 </app-cell>
+                <app-cell :span="12" />
+                <app-cell :span="2" v-for="document in folder.content.documents" :key="document.id">
+                    <app-row align="center">
+                        <app-icon size="big" theme="dark" symbol="file" />
+                    </app-row>
+                    <app-row align="center">
+                        <router-link to="#">
+                            {{document.name}}
+                        </router-link>
+                    </app-row>
+                </app-cell>
             </app-box>
             <app-row align="right" gutter>
                 <app-button @click="openAddContentDialog" floating>
