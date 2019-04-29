@@ -38,49 +38,19 @@
                 </app-cell>
             </app-box>
             <app-row align="right" gutter>
-                <app-button @click="showNewFolderDialog" floating>
+                <app-button @click="openAddContentDialog" floating>
                     <app-icon symbol="plus" solid />
                 </app-button>
             </app-row>
-            <app-dialog
-                    ref="dialogBox"
-                    title="New file">
-                <template>
-                    <app-tab-container>
-                        <app-tab-item id="create-folder" title="Folder" selected ref="createFolderTab">
-                            <app-text-input
-                                    id="folder-name"
-                                    required="required"
-                                    label="Folder's name"
-                                    v-model="newFolderName"/>
-                        </app-tab-item>
-                        <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
-                            <app-text-input label="File Name" ref="fileNameTextInput"/>
-                            <app-file-upload label="File" @change="fileChanged" />
-                        </app-tab-item>
-                    </app-tab-container>
-                </template>
-                <template #actions>
-                    <button
-                            type="button"
-                            class="mdl-button"
-                            @click="create">
-                        OK
-                    </button>
-                    <button
-                            type="button"
-                            class="mdl-button"
-                            @click="hideNewFolderDialog">
-                        Cancel
-                    </button>
-                </template>
-            </app-dialog>
+            <add-content-dialog
+                    ref="addContentDialog"
+                    :parentId="id"
+                    @change="retrieve"/>
         </div>
     </app-layout>
 </template>
 
 <script>
-import content from '@/service/content'
 import AppLayout from "./layouts/app-layout";
 import AppButton from "./widgets/app-button";
 import AppTextInput from "./widgets/app-text-input";
@@ -95,14 +65,16 @@ import AppSpacer from "./widgets/app-spacer";
 import AppTabContainer from "./widgets/app-tab-container";
 import AppTabItem from "./widgets/app-tab-item";
 import AppFileUpload from "./widgets/app-file-upload";
+import AddContentDialog from "./add-content-dialog";
+
+import content from '@/service/content'
 
 export default {
     name: 'FolderContent',
     data() {
         return {
             id: null,
-            folder: null,
-            newFolderName: null
+            folder: null
         }
     },
     computed: {
@@ -111,6 +83,7 @@ export default {
         }
     },
     components: {
+        AddContentDialog,
         AppFileUpload,
         AppTabItem,
         AppTabContainer,
@@ -163,23 +136,8 @@ export default {
                 this.folder = data
             })
         },
-        showNewFolderDialog() {
-            this.$refs.dialogBox.show()
-        },
-        hideNewFolderDialog() {
-            this.$refs.dialogBox.hide()
-        },
-        create() {
-            if (this.$refs.createFolderTab.isSelected()) {
-                content.create(this.id, this.newFolderName).then(() => {
-                    this.retrieve()
-                    this.newFolderName = null
-                })
-            }
-            this.hideNewFolderDialog()
-        },
-        fileChanged(name) {
-            this.$refs.fileNameTextInput.setText(name)
+        openAddContentDialog() {
+            this.$refs.addContentDialog.show()
         }
     }
 }
