@@ -10,6 +10,13 @@ const routes = [
         },
         component: () => import("@/components/folder-content.vue")
     }, {
+        name: "document",
+        path: "/document/:id",
+        meta: {
+            title: "Document"
+        },
+        component: () => import("@/components/document-content.vue")
+    }, {
         path: '/about',
         name: 'about',
         component: () => import('@/components/about.vue'),

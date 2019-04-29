@@ -37,7 +37,7 @@
                         <app-icon size="big" theme="dark" symbol="file" />
                     </app-row>
                     <app-row align="center">
-                        <router-link to="#">
+                        <router-link :to="{name: 'document', params: {id: document.id}}">
                             {{document.name}}
                         </router-link>
                     </app-row>
