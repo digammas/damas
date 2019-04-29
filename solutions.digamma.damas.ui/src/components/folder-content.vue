@@ -67,7 +67,7 @@ import AppTabItem from "./widgets/app-tab-item";
 import AppFileUpload from "./widgets/app-file-upload";
 import AddContentDialog from "./add-content-dialog";
 
-import content from '@/service/content'
+import folderService from '@/service/folder'
 
 export default {
     name: 'FolderContent',
@@ -111,7 +111,7 @@ export default {
             }
         },
         '$store.state.auth.token' () {
-            content.load()
+            folderService.load()
         },
         '$route' (to) {
             this.load(to.params.id)
@@ -127,12 +127,12 @@ export default {
             }
         },
         redirect(path = "/") {
-            content.retrieveAt(path).then(f => {
+            folderService.retrieveAt(path).then(f => {
                 this.$router.push({name: "content", params: {id: f.id }})
             })
         },
         retrieve() {
-            content.retrieve(this.id, 1, true).then(data => {
+            folderService.retrieve(this.id, 1, true).then(data => {
                 this.folder = data
             })
         },

@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import content from '@/service/content'
-import document from '@/service/document'
+import folderService from '@/service/folder'
+import documentService from '@/service/document'
 
 import AppTabContainer from "./widgets/app-tab-container";
 import AppTabItem from "./widgets/app-tab-item";
@@ -67,17 +67,17 @@ export default {
         },
         create() {
             if (this.$refs.createFolderTab.isSelected()) {
-                content.create(this.parentId, this.folderName).then(folder => {
+                folderService.create(this.parentId, this.folderName).then(folder => {
                     this.fireChange(folder)
                     this.folderName = null
                 })
                 this.hide()
             } else if (this.$refs.uploadDocumentTab.isSelected()) {
                 if (this.$refs.upload) {
-                    document.create(this.parentId, this.$refs.fileNameTextInput.getText()).then(doc => {
+                    documentService.create(this.parentId, this.$refs.fileNameTextInput.getText()).then(doc => {
                         this.fireChange(doc)
                         this.$refs.upload.binaryPayload().then(payload => {
-                            document.upload(doc.id, payload)
+                            documentService.upload(doc.id, payload)
                         })
                     })
                 }
