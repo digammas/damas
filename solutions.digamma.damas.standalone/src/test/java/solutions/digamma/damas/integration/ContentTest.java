@@ -5,9 +5,16 @@ import org.junit.runner.RunWith;
 import solutions.digamma.damas.cdi.ContainerRunner;
 
 import javax.inject.Singleton;
+import javax.ws.rs.core.MediaType;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Content integration test.
@@ -42,9 +49,8 @@ public class ContentTest extends IntegrationTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testRenameFolder() {
-        Map<String, Object> answer;
+        Map answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -93,9 +99,8 @@ public class ContentTest extends IntegrationTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testMoveFolder() {
-        Map<String, Object> answer;
+        Map answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -244,5 +249,144 @@ public class ContentTest extends IntegrationTest {
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .delete()
                 .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void testRenameDocument() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "test_document.txt";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
+        answer = target
+                .path("documents")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        assert id != null;
+        answer = target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert name.equals(answer.get("name"));
+        name = "document_test.txt";
+        body.clear();
+        body.put("name", name);
+        assert target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .put(entity(body))
+                .getStatus() / 100 == 2;
+        answer = target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert name.equals(answer.get("name"));
+        assert target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void uploadDocument() {
+        String id = null;
+        try {
+            Map answer;
+            Map<String, Object> body = new HashMap<>();
+            String name = "test_doc.txt";
+            body.put("parentId", this.rootId);
+            body.put("name", name);
+            answer = target
+                    .path("documents")
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .post(entity(body))
+                    .readEntity(Map.class);
+            id = (String) answer.get("id");
+            assert id != null;
+            String text = "Hello";
+            ByteArrayInputStream toUpload = new ByteArrayInputStream(
+                    text.getBytes(StandardCharsets.UTF_8));
+            assert target
+                    .path("documents")
+                    .path(id)
+                    .path("upload")
+                    .request()
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .put(entity(toUpload, MediaType.APPLICATION_OCTET_STREAM_TYPE))
+                    .getStatus() / 100 == 2;
+        } finally {
+            assert id == null || target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .delete()
+                    .getStatus() / 100 == 2;
+        }
+    }
+
+    @Test
+    public void downloadDocument() {
+        String id = null;
+        try {
+            Map answer;
+            Map<String, Object> body = new HashMap<>();
+            String name = "test_doc.txt";
+            body.put("parentId", this.rootId);
+            body.put("name", name);
+            answer = target
+                    .path("documents")
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .post(entity(body))
+                    .readEntity(Map.class);
+            id = (String) answer.get("id");
+            assert id != null;
+            String text = "Hello";
+            ByteArrayInputStream toUpload = new ByteArrayInputStream(
+                    text.getBytes(StandardCharsets.UTF_8));
+            target
+                    .path("documents")
+                    .path(id)
+                    .path("upload")
+                    .request()
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .put(entity(toUpload, MediaType.APPLICATION_OCTET_STREAM_TYPE))
+                    .getStatus();
+            InputStream downloaded = target
+                    .path("documents")
+                    .path(id)
+                    .path("download")
+                    .request()
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .get()
+                    .readEntity(InputStream.class);
+            assert text.equals(new BufferedReader(new InputStreamReader(downloaded))
+                    .lines()
+                    .collect(Collectors.joining("\n")));
+        } finally {
+            assert id == null || target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .delete()
+                    .getStatus() / 100 == 2;
+        }
     }
 }

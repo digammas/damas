@@ -62,26 +62,24 @@ public abstract class IntegrationTest {
         this.disconnect();
     }
 
-    @SuppressWarnings("unchecked")
     private String authenticate() {
         if (this. token == null) {
             Map<String, Object> login = new HashMap<>(2);
             login.put("username", USERNAME);
             login.put("password", PASSWORD);
-            Map<String, String> auth = target
+            Map auth = target
                     .path("login")
                     .request(MEDIA_TYPE)
                     .post(entity(login))
                     .readEntity(HashMap.class);
-            this.token = auth.get("secret");
+            this.token = (String) auth.get("secret");
         }
         assert this.token != null;
         return this.token;
     }
 
-    @SuppressWarnings("unchecked")
     private String getRootId() {
-        Map<String, Object> answer = target
+        Map answer = target
                 .path("folders/at/")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
@@ -106,5 +104,9 @@ public abstract class IntegrationTest {
 
     protected <T> Entity entity(T object) {
         return Entity.entity(object, MEDIA_TYPE);
+    }
+
+    protected <T> Entity entity(T object, MediaType mediaType) {
+        return Entity.entity(object, mediaType);
     }
 }
