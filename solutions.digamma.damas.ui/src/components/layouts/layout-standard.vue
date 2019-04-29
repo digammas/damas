@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import user from '@/service/user'
+import userService from '@/service/user'
 import AppLayout from "../widgets/app-layout";
 import AppNavigation from "../widgets/app-navigation";
 
@@ -39,11 +39,11 @@ export default {
         })
     },
     mounted() {
-        user.load()
+        userService.load()
     },
     watch: {
         '$store.state.auth.token' () {
-            user.load()
+            userService.load()
         }
     }
 }

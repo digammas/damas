@@ -4,9 +4,9 @@ import store from '@/store'
 class UserService {
 
 
-    load() {
+    async load() {
         if (!store.state.user.valid) {
-            this.retrieve(store.state.auth.username)
+            await this.retrieve(store.state.auth.username)
         }
     }
 
