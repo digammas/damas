@@ -50,7 +50,6 @@ public class DocumentResource
      */
     @PUT
     @Path("/{id}/upload")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Authenticated
     public void upload(
             @PathParam("id") String id,
@@ -61,7 +60,6 @@ public class DocumentResource
 
     @GET
     @Path("/{id}/download")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Authenticated
     public InputStream download(
             @PathParam("id") String id,
