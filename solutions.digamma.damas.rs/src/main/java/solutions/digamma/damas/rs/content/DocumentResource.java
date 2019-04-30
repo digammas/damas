@@ -15,7 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.util.Optional;
 
 /**
  * Document REST endpoint.
@@ -61,11 +63,15 @@ public class DocumentResource
     @GET
     @Path("/{id}/download")
     @Authenticated
-    public InputStream download(
+    public Response download(
             @PathParam("id") String id,
             InputStream content)
             throws WorkspaceException {
-        return this.manager.download(id).getStream();
+        Document document = this.manager.retrieve(id);
+        InputStream is = this.manager.download(id).getStream();
+        String type = Optional.ofNullable(document.getMimeType())
+                .orElse(MediaType.APPLICATION_OCTET_STREAM);
+        return Response.ok(is, type).build();
     }
 
     @Override
