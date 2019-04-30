@@ -389,4 +389,59 @@ public class ContentTest extends IntegrationTest {
                     .getStatus() / 100 == 2;
         }
     }
+
+    @Test
+    public void testUpdateDocument() {
+        String id = null;
+        try {
+            Map answer;
+            Map<String, Object> body = new HashMap<>();
+            String mtTextPlain = "text/plain";
+            String mtTextHtml = "text/html";
+            body.put("parentId", this.rootId);
+            body.put("name", "test_document.txt");
+            body.put("mimeType", mtTextPlain);
+            answer = target
+                    .path("documents")
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .post(entity(body))
+                    .readEntity(Map.class);
+            id = (String) answer.get("id");
+            assert id != null;
+            answer = target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .get()
+                    .readEntity(Map.class);
+            assert mtTextPlain.equals(answer.get("mimeType"));
+            body.clear();
+            body.put("mimeType", mtTextHtml);
+            assert target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .put(entity(body))
+                    .getStatus() / 100 == 2;
+            answer = target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .get()
+                    .readEntity(Map.class);
+            assert mtTextHtml.equals(answer.get("mimeType"));
+        } finally {
+            assert id == null || target
+                    .path("documents")
+                    .path(id)
+                    .request(MEDIA_TYPE)
+                    .header(AUTH_HEADER, this.getAuthHeaderValue())
+                    .delete()
+                    .getStatus() / 100 == 2;
+        }
+    }
 }

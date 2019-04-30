@@ -33,6 +33,7 @@ public class DocumentSerialization
      */
     private DocumentSerialization(Document pattern, boolean full) {
         super(pattern, full);
+        this.mimeType = pattern.getMimeType();
     }
 
     @Override

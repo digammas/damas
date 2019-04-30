@@ -60,10 +60,10 @@ protected constructor(node: Node) : JcrFile(node),
 
     @Throws(WorkspaceException::class)
     override fun getMimeType(): String? = Exceptions.check {
-        this.node
-                .getNode(Node.JCR_CONTENT)
-                .getProperty(Property.JCR_MIMETYPE)
-                .string
+        var content = this.node.getNode(Node.JCR_CONTENT)
+        if (content.hasProperty(Property.JCR_MIMETYPE)) {
+            content.getProperty(Property.JCR_MIMETYPE).string
+        } else null
     }
 
     @Throws(WorkspaceException::class)
