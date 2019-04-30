@@ -10,6 +10,7 @@
 [dms:File] mixin
 
 [dms:Document] > nt:file, dms:CommentReceiver, dms:File
+    + jcr:content (nt:resource) mandatory
 
 [dms:Folder] > nt:folder, dms:File
 
