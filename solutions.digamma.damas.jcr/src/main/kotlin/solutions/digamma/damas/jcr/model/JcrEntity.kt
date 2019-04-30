@@ -191,9 +191,11 @@ internal interface JcrEntity : Entity {
         return result.nodes
     }
 
-    private fun getProperty(name: String): Property? = try {
-        this.node.getProperty(name)
-    } catch (_: PathNotFoundException) { null }
+    private fun getProperty(name: String): Property? {
+        return if (this.node.hasProperty(name)) {
+            this.node.getProperty(name)
+        } else null
+    }
 
     companion object {
 
