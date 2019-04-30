@@ -1,10 +1,12 @@
 package solutions.digamma.damas.jcr.content
 
+import org.apache.tika.mime.MimeType
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentPayload
+import solutions.digamma.damas.content.File
 import solutions.digamma.damas.content.Version
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
@@ -54,6 +56,29 @@ protected constructor(node: Node) : JcrFile(node),
                     .getNode(Property.JCR_CONTENT)
                     .setProperty(Property.JCR_DATA, binary)
         }
+    }
+
+    @Throws(WorkspaceException::class)
+    override fun getMimeType(): String? = Exceptions.check {
+        this.node
+                .getNode(Node.JCR_CONTENT)
+                .getProperty(Property.JCR_MIMETYPE)
+                .string
+    }
+
+    @Throws(WorkspaceException::class)
+    override fun setMimeType(value: String?) {
+        Exceptions.check {
+            this.node
+                    .getNode(Node.JCR_CONTENT)
+                    .setProperty(Property.JCR_MIMETYPE, value)
+        }
+    }
+
+    @Throws(WorkspaceException::class)
+    fun update(other: Document) {
+        super.update(other)
+        other.mimeType?.let { this.mimeType = it }
     }
 
     @Throws(InternalStateException::class)

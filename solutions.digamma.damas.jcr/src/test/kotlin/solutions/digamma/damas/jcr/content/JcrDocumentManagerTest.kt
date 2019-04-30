@@ -154,6 +154,27 @@ class JcrDocumentManagerTest : WeldTest() {
 
     @Test
     @Throws(Exception::class)
+    fun updateMimeType() {
+        val rootId = this.folderManager.find().objects.iterator().next().id
+        val mock = Mocks.document(rootId, "test.txt")
+        val mtTextPlain = "text/plain"
+        Mocks.on(mock.mimeType, mtTextPlain)
+        val id = manager.create(mock).id
+        assert(manager.retrieve(id).mimeType == mtTextPlain) {
+            "Wrong mime-type on creation."
+        }
+        val mtTextHtml = "text/html"
+        val updater = Mocks.document()
+        Mocks.on(updater.mimeType, mtTextHtml)
+        manager.update(id, updater)
+        assert(manager.retrieve(id).mimeType == mtTextHtml) {
+            "Wrong mime-type on modification."
+        }
+        manager.delete(id)
+    }
+
+    @Test
+    @Throws(Exception::class)
     fun delete() {
         val name = "test.txt"
         val rootId = this.folderManager.find().objects.iterator().next().id

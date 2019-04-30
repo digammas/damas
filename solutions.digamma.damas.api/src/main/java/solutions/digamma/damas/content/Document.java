@@ -9,6 +9,10 @@ import java.util.List;
  */
 public interface Document extends File, CommentReceiver {
 
+    String getMimeType();
+
+    void setMimeType(String value);
+
     /**
      * All versions of the document.
      * @return

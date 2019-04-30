@@ -14,7 +14,7 @@ import solutions.digamma.damas.user.User
  */
 object Mocks {
 
-    fun document(parentId: String?, name: String?): Document {
+    fun document(parentId: String? = null, name: String? = null): Document {
         val document = Mockito.mock(Document::class.java)
         Mockito.`when`(document.parentId).thenReturn(parentId)
         Mockito.`when`(document.name).thenReturn(name)
@@ -54,5 +54,9 @@ object Mocks {
         Mockito.`when`(it.subjectId).thenReturn(subjectId)
         Mockito.`when`(it.objectId).thenReturn(objectId)
         Mockito.`when`(it.accessRights).thenReturn(accessRights)
+    }
+
+    fun <T> on(getter: T, value: T) {
+        Mockito.`when`(getter).thenReturn(value)
     }
 }

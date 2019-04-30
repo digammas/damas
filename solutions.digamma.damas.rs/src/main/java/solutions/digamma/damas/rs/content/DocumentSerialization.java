@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 public class DocumentSerialization
         extends FileSerialization implements Document {
 
+    private String mimeType;
+
     /**
      * Default constructor.
      */
@@ -31,6 +33,18 @@ public class DocumentSerialization
      */
     private DocumentSerialization(Document pattern, boolean full) {
         super(pattern, full);
+    }
+
+    @Override
+    public String getMimeType() {
+        return this.mimeType;
+    }
+
+    @Override
+    public void setMimeType(String value) {
+        if (value != null) {
+            this.mimeType = value;
+        }
     }
 
     @Override

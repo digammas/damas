@@ -49,8 +49,11 @@ internal class JcrDocumentManager :
             JcrDocument.of(session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun create(session: Session, pattern: Document) =
-        JcrDocument.from(session, pattern.parentId, pattern.name)
+    override fun create(session: Session, pattern: Document): JcrDocument {
+        return JcrDocument.from(session, pattern.parentId, pattern.name).also {
+            it.mimeType = pattern.mimeType
+        }
+    }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun update(session: Session, id: String, pattern: Document) =
