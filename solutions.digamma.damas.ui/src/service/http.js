@@ -5,12 +5,13 @@ export const BASE_URL = "http://localhost:8080/dms/rest/"
 
 class HttpClient {
 
-    get(path, params = {}) {
+    get(path, params = {}, responseType = 'json') {
         return http({
             method: "GET",
             url: path,
             baseURL: BASE_URL,
-            params: params,
+            params,
+            responseType,
             headers: headers()
         })
     }
@@ -39,7 +40,7 @@ class HttpClient {
 }
 
 function http() {
-    return wrapPromise(axios.apply(null, arguments))
+    return wrapPromise(axios(...arguments))
 }
 
 function wrapPromise(promise) {
@@ -60,14 +61,9 @@ function wrapError(reason) {
 
 function headers() {
     let token = store.state.auth.token
-    let headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    let headers = {}
     if (token) {
-        Object.assign(headers, {
-            "Authorization": `bearer ${token}`
-        })
+        headers["Authorization"] = `bearer ${token}`
     }
     return headers
 }
