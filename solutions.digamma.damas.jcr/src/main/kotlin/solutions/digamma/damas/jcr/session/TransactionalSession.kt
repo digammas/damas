@@ -45,7 +45,7 @@ internal constructor(private val session: Session) {
     }
 
     @Synchronized fun release() {
-        while (this.lock.isLocked) this.lock.unlock()
+        if (this.lock.isLocked) this.lock.unlock()
     }
 
     /**
@@ -82,7 +82,7 @@ internal constructor(private val session: Session) {
         if (!this.lock.isLocked) {
             throw SessionNotOpenException()
         }
-        if (!this.lock.tryLock()) {
+        if (!this.lock.isHeldByCurrentThread) {
             throw SessionOpenAndInUseException()
         }
     }
