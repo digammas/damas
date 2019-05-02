@@ -74,7 +74,10 @@ export default {
                 this.hide()
             } else if (this.$refs.uploadDocumentTab.isSelected()) {
                 if (this.$refs.upload) {
-                    documentService.create(this.parentId, this.$refs.fileNameTextInput.getText()).then(doc => {
+                    documentService.create(
+                            this.parentId,
+                            this.$refs.fileNameTextInput.getText(),
+                            this.$refs.upload.getMimeType()).then(doc => {
                         this.fireChange(doc)
                         this.$refs.upload.binaryPayload().then(payload => {
                             documentService.upload(doc.id, payload)
