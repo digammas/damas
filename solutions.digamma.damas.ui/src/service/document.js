@@ -6,12 +6,16 @@ class DocumentService {
         return (await http.get(`/documents/${id}`, { full })).data
     }
 
-    async create(parentId, name) {
-        return (await http.post("/documents", { parentId, name })).data
+    async create(parentId, name, mimeType) {
+        return (await http.post("/documents", { parentId, name, mimeType })).data
     }
 
     async upload(id, binary) {
-        await http.put("/documents", data)
+        await http.put(`/documents/${id}/upload`, binary, {}, 'blob')
+    }
+
+    async download(id) {
+        return (await http.get(`/documents/${id}/download`, {}, 'blob')).data
     }
 }
 
