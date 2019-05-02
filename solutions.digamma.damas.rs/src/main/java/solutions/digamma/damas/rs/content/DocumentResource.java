@@ -7,17 +7,14 @@ import solutions.digamma.damas.rs.common.Authenticated;
 import solutions.digamma.damas.rs.common.CrudResource;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
-import java.util.Optional;
 
 /**
  * Document REST endpoint.
@@ -28,6 +25,11 @@ import java.util.Optional;
 @Path("documents")
 public class DocumentResource
         extends CrudResource<Document, DocumentSerialization> {
+
+    /**
+     * Wild-card media type.
+     */
+    private final static MediaType WILDCARD_MEDIA_TYPE = new MediaType();
 
     @Inject
     protected DocumentManager manager;
@@ -69,13 +71,23 @@ public class DocumentResource
             throws WorkspaceException {
         Document document = this.manager.retrieve(id);
         InputStream is = this.manager.download(id).getStream();
-        String type = Optional.ofNullable(document.getMimeType())
-                .orElse(MediaType.APPLICATION_OCTET_STREAM);
+        MediaType type = toMediaType(document.getMimeType());
         return Response.ok(is, type).build();
     }
 
     @Override
     protected DocumentSerialization wrap(Document entity) {
         return DocumentSerialization.from(entity, this.full);
+    }
+
+    private MediaType toMediaType(String value) {
+        if (value == null) {
+            return WILDCARD_MEDIA_TYPE;
+        }
+        try {
+            return MediaType.valueOf(value);
+        } catch (IllegalArgumentException e) {
+            return WILDCARD_MEDIA_TYPE;
+        }
     }
 }
