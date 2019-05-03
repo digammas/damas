@@ -1,5 +1,5 @@
 <template>
-    <app-layout profile="empty">
+    <app-page layout="empty">
         <div>
             <h2>User Login</h2>
             <app-flash-message ref="errorMessage" />
@@ -27,7 +27,7 @@
                 </app-row>
             </div>
         </div>
-    </app-layout>
+    </app-page>
 </template>
 
 <script>
@@ -37,11 +37,11 @@ import AppButton from "./widgets/app-button"
 import AppRow from "./widgets/app-row";
 import AppCheckbox from "./widgets/app-checkbox";
 import AppFlashMessage from "./widgets/app-flash-message";
-import AppLayout from "./layouts/app-layout"
+import AppPage from "./layouts/app-page"
 
 export default {
     name: "LoginForm",
-    components: {AppLayout, AppFlashMessage, AppCheckbox, AppRow, AppButton, AppTextInput},
+    components: {AppPage, AppFlashMessage, AppCheckbox, AppRow, AppButton, AppTextInput},
     data() {
         return {
             username: "",

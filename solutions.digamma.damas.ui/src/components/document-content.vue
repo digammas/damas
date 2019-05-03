@@ -1,5 +1,5 @@
 <template>
-    <app-layout profile="standard">
+    <app-page layout="standard">
         <div v-if="document">
             <app-box shadow>
                 <path-breadcrumb :path="document && document.path" />
@@ -28,13 +28,13 @@
                 </app-cell>
             </app-box>
         </div>
-    </app-layout>
+    </app-page>
 </template>
 
 <script>
 import documentService from '@/service/document'
 
-import AppLayout from "./layouts/app-layout";
+import AppPage from "./layouts/app-page";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
@@ -54,7 +54,7 @@ export default {
         AppIcon,
         AppCell,
         AppRow,
-        AppLayout,
+        AppPage,
         AppBox
     },
     created() {

@@ -1,5 +1,5 @@
 <template>
-    <app-layout profile="standard">
+    <app-page layout="standard">
         <div v-if="folder">
             <app-box shadow>
                 <path-breadcrumb :path="folder && folder.path" />
@@ -53,13 +53,13 @@
                     :parentId="id"
                     @change="retrieve"/>
         </div>
-    </app-layout>
+    </app-page>
 </template>
 
 <script>
 import folderService from '@/service/folder'
 
-import AppLayout from "./layouts/app-layout";
+import AppPage from "./layouts/app-page";
 import AppButton from "./widgets/app-button";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
@@ -87,7 +87,7 @@ export default {
         AppCell,
         AppRow,
         AppButton,
-        AppLayout,
+        AppPage,
         AppBox
     },
     created() {

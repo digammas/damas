@@ -1,16 +1,16 @@
 import Vue from "vue"
 
 export default {
-    name: 'AppLayout',
+    name: 'AppPage',
     props: {
-        profile: {
+        layout: {
             type: String,
             required: true,
             validator: [].includes.bind(["standard", "empty"])
         }
     },
     created() {
-        let component = components[this.profile]
+        let component = components[this.layout]
         if (!Vue.options.components[component.name]) {
             Vue.component(
                 component.name,
