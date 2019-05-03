@@ -2,7 +2,6 @@ package solutions.digamma.damas.jcr.content
 
 import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.InternalStateException
-import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
 import solutions.digamma.damas.content.Folder
@@ -14,8 +13,6 @@ import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.model.JcrCreated
 import solutions.digamma.damas.jcr.model.JcrModifiable
 import solutions.digamma.damas.jcr.names.TypeNamespace
-import java.lang.UnsupportedOperationException
-import java.net.URI
 import javax.jcr.ItemExistsException
 import javax.jcr.Node
 import javax.jcr.RepositoryException
@@ -50,11 +47,7 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         Exceptions.uncheck {
             /* Use node's path since paths don't end with a slash.
              */
-            val destination = URI
-                    .create(this.node.path)
-                    .resolve(value)
-                    .path
-            this.move(destination)
+            this.move("${this.node.parent.path}/$value")
         }
     }
 
@@ -70,20 +63,12 @@ protected constructor(node: Node) : JcrBaseEntity(node),
     }
 
     override fun setParentId(value: String) = Exceptions.uncheck {
-        val path = this.session
-                .getNodeByIdentifier(value)
-                .path
-        val destination = URI
-                .create("$path/")
-                .resolve(this.node.name)
-                .path
-        this.move(destination)
+        val path = this.session.getNodeByIdentifier(value).path
+        this.move("$path/${this.node.name}")
     }
 
     override fun getPath(): String = Exceptions.uncheck {
-        val path = URI.create(JcrFile.ROOT_PATH)
-                .relativize(URI.create(this.node.path)).path
-        "/$path"
+        this.relativizePath(this.node.path)
     }
 
     override fun getMetadata(): Metadata? = null
@@ -118,6 +103,10 @@ protected constructor(node: Node) : JcrBaseEntity(node),
      */
     protected fun initPermissions() {
         Permissions.selfGrant(this.node, AccessRight.MAINTAIN)
+    }
+
+    protected fun relativizePath(path: String): String {
+        return path.substring(ROOT_PATH.length)
     }
 
     companion object {
