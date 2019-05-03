@@ -64,7 +64,6 @@ import AppButton from "./widgets/app-button";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
-import AppTag from "./widgets/app-tag";
 import AppBox from "./widgets/app-box";
 import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
@@ -84,7 +83,6 @@ export default {
         AddContentDialog,
         AppSpacer,
         AppMoreList,
-        AppTag,
         AppIcon,
         AppCell,
         AppRow,

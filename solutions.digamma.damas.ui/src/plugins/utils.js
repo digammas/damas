@@ -5,7 +5,7 @@ class Utils {
 }
 
 export default {
-    install(Vue, options) {
+    install(Vue) {
         Vue.prototype.$utils = new Utils()
     }
 }

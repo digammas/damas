@@ -22,11 +22,10 @@
 
 <script>
 import AppIcon from "./app-icon";
-import AppNavigation from "./app-navigation";
 
 export default {
     name: "AppLayout",
-    components: {AppNavigation, AppIcon},
+    components: {AppIcon},
     props: {
         title: {
             type: String,

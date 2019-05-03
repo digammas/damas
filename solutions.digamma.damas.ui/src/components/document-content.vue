@@ -35,13 +35,10 @@
 import documentService from '@/service/document'
 
 import AppLayout from "./layouts/app-layout";
-import AppButton from "./widgets/app-button";
 import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
 import AppBox from "./widgets/app-box";
-import AppMoreList from "./widgets/app-more-list";
-import AppSpacer from "./widgets/app-spacer";
 import PathBreadcrumb from "./path-breadcrumb";
 
 export default {
@@ -54,12 +51,9 @@ export default {
     },
     components: {
         PathBreadcrumb,
-        AppSpacer,
-        AppMoreList,
         AppIcon,
         AppCell,
         AppRow,
-        AppButton,
         AppLayout,
         AppBox
     },
