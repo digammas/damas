@@ -52,6 +52,17 @@ class JcrDocumentManagerTest : WeldTest() {
 
     @Test
     @Throws(Exception::class)
+    fun createWithWhiteSpace() {
+        val name = "test file.txt"
+        val rootId = this.folderManager.find().objects.iterator().next().id
+        val document = manager.create(Mocks.document(rootId, name))
+        assert(name == document.name) { "Document name mismatch" }
+        assert(rootId == document.parentId) { "Document ID mismatch" }
+        manager.delete(document.id)
+    }
+
+    @Test
+    @Throws(Exception::class)
     fun download() {
         val name = "test.txt"
         val rootId = this.folderManager
@@ -105,6 +116,23 @@ class JcrDocumentManagerTest : WeldTest() {
         val rootId = this.folderManager.find().objects.iterator().next().id
         val id = manager.create(Mocks.document(rootId, name)).id
         name = "new.txt"
+        manager.update(id, Mocks.document(null, name))
+        val document = manager.retrieve(id)
+        assert(id == document.id) { "Updated document ID mismatch." }
+        assert(name == document.name) { "Updated document name mismatch." }
+        assert(rootId == document.parentId) {
+            "Updated document parent ID mismatch."
+        }
+        manager.delete(id)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun updateNameWithWhiteSpace() {
+        var name = "test.txt"
+        val rootId = this.folderManager.find().objects.iterator().next().id
+        val id = manager.create(Mocks.document(rootId, name)).id
+        name = "new name.txt"
         manager.update(id, Mocks.document(null, name))
         val document = manager.retrieve(id)
         assert(id == document.id) { "Updated document ID mismatch." }

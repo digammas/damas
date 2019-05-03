@@ -55,11 +55,39 @@ class JcrFolderManagerTest : WeldTest() {
 
     @Test
     @Throws(Exception::class)
+    fun createWithWhiteSpace() {
+        val name = "test folder"
+        val rootId = this.manager.find().objects.iterator().next().id
+        val folder = manager.create(Mocks.folder(rootId, name))
+        assert(name == folder.name) { "Folder name mismatch" }
+        assert(rootId == folder.parentId) { "Folder ID mismatch" }
+        manager.delete(folder.id)
+    }
+
+    @Test
+    @Throws(Exception::class)
     fun updateName() {
         var name = "test"
         val rootId = this.manager.find().objects.iterator().next().id
         val id = manager.create(Mocks.folder(rootId, name)).id
         name = "new.txt"
+        manager.update(id, Mocks.folder(null, name))
+        val folder = manager.retrieve(id)
+        assert(id == folder.id) { "Updated folder ID mismatch." }
+        assert(name == folder.name) { "Updated folder name mismatch." }
+        assert(rootId == folder.parentId) {
+            "Updated folder parent ID mismatch."
+        }
+        manager.delete(id)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun updateNameWithWhiteSpace() {
+        var name = "test"
+        val rootId = this.manager.find().objects.iterator().next().id
+        val id = manager.create(Mocks.folder(rootId, name)).id
+        name = "new folder.txt"
         manager.update(id, Mocks.folder(null, name))
         val folder = manager.retrieve(id)
         assert(id == folder.id) { "Updated folder ID mismatch." }
