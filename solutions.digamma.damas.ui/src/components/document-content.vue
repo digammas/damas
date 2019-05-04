@@ -75,7 +75,8 @@ export default {
         async retrieve() {
             this.document = await documentService.retrieve(this.id, true)
         },
-        async download() {
+        async download(event) {
+            event.preventDefault()
             if (this.document) {
                 let id = this.document.id
                 let name = this.document.name
