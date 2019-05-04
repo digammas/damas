@@ -1,10 +1,12 @@
 <template>
-    <app-cell :span="2">
+    <app-cell :span="2" class="icon-cell">
         <app-row align="center">
             <app-icon size="big" :theme="theme" :symbol="symbol" :solid="solid"/>
         </app-row>
         <app-row align="center">
-            <router-link :to="link || '#'" @click.native="$emit('click', $event)">
+            <router-link
+                    :to="link || '#'" @click.native="$emit('click', $event)"
+                    class="icon-text">
                 {{text}}
             </router-link>
         </app-row>
@@ -31,3 +33,15 @@ export default {
     components: {AppIcon, AppRow, AppCell}
 }
 </script>
+
+<style scoped>
+.icon-cell {
+    overflow: hidden;
+}
+
+.icon-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
