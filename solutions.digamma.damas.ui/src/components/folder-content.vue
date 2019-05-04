@@ -2,7 +2,7 @@
     <app-page layout="standard">
         <div v-if="folder">
             <app-box shadow>
-                <path-breadcrumb :path="folder && folder.path" />
+                <path-breadcrumb :path="folder && folder.path" :link="folder.parentId"/>
                 <app-spacer />
                 <app-more-list>
                     <a class="mdl-menu__item">Add Folder</a>

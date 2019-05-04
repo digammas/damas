@@ -2,7 +2,7 @@
     <app-page layout="standard">
         <div v-if="document">
             <app-box shadow>
-                <path-breadcrumb :path="document && document.path" />
+                <path-breadcrumb :path="document && document.path" :link="{name: 'content', params: {id: document.parentId}}"/>
             </app-box>
             <app-box shadow>
                 <file-icon
