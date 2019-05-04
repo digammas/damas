@@ -60,7 +60,7 @@ export default {
                     reader.onload = function (evt) {
                         resolve(evt.target.result)
                     }
-                    reader.readAsBinaryString(this.file)
+                    reader.readAsArrayBuffer(this.file)
                 } catch(e) { reject(e) }
             })
 
