@@ -1,6 +1,15 @@
 <template>
     <component class="mdl-cell" :class="classes" :is="tag">
-        <slot/>
+        <div :id="hintedId">
+            <slot></slot>
+        </div>
+        <div
+                ref="hint"
+                v-if="hint"
+                class="mdl-tooltip mdl-tooltip--large hint-box"
+                :for="hintedId">
+            {{hint}}
+        </div>
     </component>
 </template>
 
@@ -28,7 +37,8 @@ export default {
         tag: {
             type: String,
             default: "div"
-        }
+        },
+        hint: String
     },
     computed: {
         classes() {
@@ -37,6 +47,14 @@ export default {
             addClassForDevice(classes, this.tabletSpan, "tablet")
             addClassForDevice(classes, this.mobileSpan, "mobile")
             return classes
+        },
+        hintedId() {
+            return this.$utils.randomId("inner-cell-")
+        }
+    },
+    mounted() {
+        if (this.hint) {
+            componentHandler.upgradeElement(this.$refs.hint)
         }
     }
 }
@@ -53,5 +71,9 @@ function validate(value) {
 </script>
 
 <style scoped>
+
+.hint-box {
+    max-width: inherit;
+}
 
 </style>

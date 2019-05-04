@@ -1,7 +1,14 @@
 <template>
-    <app-cell :span="2" class="icon-cell">
+    <app-cell
+            :span="2"
+            class="icon-cell"
+            :hint="text">
         <app-row align="center">
-            <app-icon size="big" :theme="theme" :symbol="symbol" :solid="solid"/>
+            <app-icon
+                    size="big"
+                    :theme="theme"
+                    :symbol="symbol"
+                    :solid="solid"/>
         </app-row>
         <app-row align="center">
             <router-link
