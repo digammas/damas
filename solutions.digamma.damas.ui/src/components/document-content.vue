@@ -10,7 +10,7 @@
                         <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
                     </app-row>
                     <app-row align="center">
-                        <router-link :to="{name: 'content', id: document.parentId}">
+                        <router-link :to="{ name: 'content', params: { id: document.parentId } }">
                             parent
                         </router-link>
                     </app-row>
