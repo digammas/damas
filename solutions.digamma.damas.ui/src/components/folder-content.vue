@@ -11,37 +11,29 @@
                 </app-more-list>
             </app-box>
             <app-box shadow>
-                <app-cell :span="2" v-if="folder.parentId" key="has-parent">
-                    <app-row align="center">
-                        <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
-                    </app-row>
-                    <app-row align="center">
-                        <router-link :to="folder.parentId">
-                            parent
-                        </router-link>
-                    </app-row>
-                </app-cell>
-                <app-cell :span="2" v-for="subfolder in folder.content.folders" :key="subfolder.id">
-                    <app-row align="center">
-                        <app-icon size="big" theme="dark" symbol="folder" />
-                    </app-row>
-                    <app-row align="center">
-                        <router-link :to="subfolder.id">
-                            {{subfolder.name}}
-                        </router-link>
-                    </app-row>
-                </app-cell>
+                <file-icon
+                        v-if="folder.parentId"
+                        key="has-parent"
+                        text="parent"
+                        theme="dark"
+                        symbol="arrow-alt-circle-up"
+                        :link="folder.parentId" />
+                <file-icon
+                        v-for="subfolder in folder.content.folders"
+                        :key="subfolder.id"
+                        theme="dark"
+                        symbol="folder"
+                        :text="subfolder.name"
+                        :link="subfolder.id" />
                 <app-cell :span="12" />
-                <app-cell :span="2" v-for="document in folder.content.documents" :key="document.id">
-                    <app-row align="center">
-                        <app-icon size="big" theme="dark" symbol="file" />
-                    </app-row>
-                    <app-row align="center">
-                        <router-link :to="{name: 'document', params: {id: document.id}}">
-                            {{document.name}}
-                        </router-link>
-                    </app-row>
-                </app-cell>
+
+                <file-icon
+                        v-for="document in folder.content.documents"
+                        :key="document.id"
+                        theme="dark"
+                        symbol="file"
+                        :text="document.name"
+                        :link="{name: 'document', params: {id: document.id}}" />
             </app-box>
             <app-row align="right" gutter>
                 <app-button @click="openAddContentDialog" floating>
@@ -69,6 +61,7 @@ import AppMoreList from "./widgets/app-more-list";
 import AppSpacer from "./widgets/app-spacer";
 import AddContentDialog from "./add-content-dialog";
 import PathBreadcrumb from "./path-breadcrumb";
+import FileIcon from "./file-icon";
 
 export default {
     name: 'FolderContent',
@@ -79,6 +72,7 @@ export default {
         }
     },
     components: {
+        FileIcon,
         PathBreadcrumb,
         AddContentDialog,
         AppSpacer,

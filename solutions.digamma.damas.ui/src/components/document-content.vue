@@ -5,27 +5,17 @@
                 <path-breadcrumb :path="document && document.path" />
             </app-box>
             <app-box shadow>
-                <app-cell :span="2">
-                    <app-row align="center">
-                        <app-icon size="big" theme="dark" symbol="arrow-alt-circle-up" />
-                    </app-row>
-                    <app-row align="center">
-                        <router-link :to="{ name: 'content', params: { id: document.parentId } }">
-                            parent
-                        </router-link>
-                    </app-row>
-                </app-cell>
-                <app-cell :span="2">
-                    <app-row align="center">
-                        <app-icon size="big" theme="dark" symbol="download" solid />
-                    </app-row>
-                    <app-row align="center">
-                        <a href="#" @click="download">
-                            download
-                        </a>
-                    </app-row>
-
-                </app-cell>
+                <file-icon
+                        theme="dark"
+                        symbol="arrow-alt-circle-up"
+                        :link="{name: 'content', params: {id: document.parentId}}"
+                        text="parent" />
+                <file-icon
+                        theme="dark"
+                        symbol="download"
+                        solid
+                        @click="download"
+                        text="download" />
             </app-box>
         </div>
     </app-page>
@@ -36,10 +26,9 @@ import documentService from '@/service/document'
 
 import AppPage from "./layouts/app-page";
 import AppRow from "./widgets/app-row";
-import AppCell from "./widgets/app-cell";
-import AppIcon from "./widgets/app-icon";
 import AppBox from "./widgets/app-box";
 import PathBreadcrumb from "./path-breadcrumb";
+import FileIcon from "./file-icon";
 
 export default {
     name: 'DocumentContent',
@@ -50,9 +39,8 @@ export default {
         }
     },
     components: {
+        FileIcon,
         PathBreadcrumb,
-        AppIcon,
-        AppCell,
         AppRow,
         AppPage,
         AppBox
