@@ -4,19 +4,11 @@
             <app-box shadow>
                 <path-breadcrumb :path="document && document.path" :link="{name: 'content', params: {id: document.parentId}}"/>
             </app-box>
-            <app-box shadow>
-                <file-icon
-                        theme="dark"
-                        symbol="arrow-alt-circle-up"
-                        :link="{name: 'content', params: {id: document.parentId}}"
-                        text="parent" />
-                <file-icon
-                        theme="dark"
-                        symbol="download"
-                        solid
-                        @click="download"
-                        text="download" />
-            </app-box>
+            <app-row align="right" gutter>
+                <app-button @click="download" floating>
+                    <app-icon symbol="download" solid />
+                </app-button>
+            </app-row>
         </div>
     </app-page>
 </template>
@@ -29,6 +21,8 @@ import AppRow from "./widgets/app-row";
 import AppBox from "./widgets/app-box";
 import PathBreadcrumb from "./path-breadcrumb";
 import FileIcon from "./file-icon";
+import AppButton from "./widgets/app-button";
+import AppIcon from "./widgets/app-icon";
 
 export default {
     name: 'DocumentContent',
@@ -39,6 +33,8 @@ export default {
         }
     },
     components: {
+        AppIcon,
+        AppButton,
         FileIcon,
         PathBreadcrumb,
         AppRow,
