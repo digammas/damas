@@ -1,12 +1,11 @@
 <template>
     <div>
-        <button
-                class="mdl-button mdl-js-button mdl-js-ripple-effect"
-                :class="classes"
+        <app-button
                 :id="id"
-                ref="button">
+                :toolbar="!floating"
+                flat>
             <app-icon symbol="ellipsis-h" solid size="small" />
-        </button>
+        </app-button>
         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" :for="id" ref="list">
             <slot></slot>
         </ul>
@@ -15,15 +14,16 @@
 
 <script>
 import AppIcon from "./app-icon";
+import AppButton from "./app-button";
 
 export default {
     name: "AppMoreList",
-    components: {AppIcon},
+    components: {AppButton, AppIcon},
     props: {
         id: {
             type: String,
             default() {
-                this.$utils.randomId("more-list-")
+                return this.$utils.randomId("more-list-")
             }
         },
         symbol: String,
@@ -35,7 +35,6 @@ export default {
             return {
                 'mdl-button--icon': !this.floating,
                 'mdl-button--fab': this.floating
-
             }
         }
     },
@@ -43,7 +42,6 @@ export default {
         for (let el of this.$refs.list.querySelectorAll("a")) {
             el.classList.add("mdl-menu__item")
         }
-        componentHandler.upgradeElement(this.$refs.button)
         componentHandler.upgradeElement(this.$refs.list)
     }
 }
