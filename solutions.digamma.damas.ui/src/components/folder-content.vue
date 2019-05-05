@@ -2,8 +2,14 @@
     <app-page layout="standard">
         <div v-if="folder">
             <app-box shadow>
-                <path-breadcrumb :path="folder && folder.path" :link="folder.parentId"/>
+                <path-breadcrumb :path="folder && folder.path"/>
                 <app-spacer />
+                <app-button
+                        toolbar
+                        flat
+                        @click="goToParent">
+                    <app-icon symbol="arrow-up" solid size="small"/>
+                </app-button>
                 <app-more-list>
                     <a class="mdl-menu__item">Add Folder</a>
                     <a class="mdl-menu__item">Add File</a>
@@ -123,6 +129,9 @@ export default {
         },
         openAddContentDialog() {
             this.$refs.addContentDialog.show()
+        },
+        goToParent() {
+            this.folder && this.$router.push({name: 'content', params: {id: this.folder.parentId}})
         }
     }
 }

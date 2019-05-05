@@ -1,8 +1,6 @@
 <template>
     <app-tag
-            icon="folder-open"
-            action="arrow-alt-circle-up solid"
-            @click="goToLink">
+            icon="folder-open">
         <app-icon symbol="chevron-right" solid /> root
         <span v-for="(element, index) in pathElements" :key="index">
             <app-icon symbol="chevron-right" solid /> {{element}}
@@ -13,6 +11,7 @@
 <script>
 import AppTag from "./widgets/app-tag";
 import AppIcon from "./widgets/app-icon";
+
 export default {
     name: "PathBreadcrumb",
     components: {AppIcon, AppTag},
@@ -23,11 +22,6 @@ export default {
     computed: {
         pathElements() {
             return this.path ? this.path.split("/").filter(Boolean) : []
-        }
-    },
-    methods: {
-        goToLink() {
-            this.link && this.$router.push(this.link)
         }
     }
 }
