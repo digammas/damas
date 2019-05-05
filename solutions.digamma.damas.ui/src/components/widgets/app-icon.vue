@@ -18,6 +18,11 @@ let themes = {
 export default {
     name: "AppIcon",
     props: {
+        /**
+         * A string of the following form:
+         * icon-symbol [solid|regular [inactive]]
+         * where solid, regular and inactive are keywords.
+         */
         symbol: {
             type: String,
             required: true
@@ -39,12 +44,23 @@ export default {
         classes() {
             return [
                 this.solid ? "fas" : "far",
-                `fa-${this.symbol}`,
+                `fa-${this.getSymbol()}`,
                 sizes[this.size],
                 themes[this.theme],
                 this.inactive ? "inactive" : ""
             ]
 
+        }
+    },
+    methods: {
+        getSymbol() {
+            return this.symbol && this.symbol.split(" ")[0]
+        },
+        isSolid() {
+            return this.solid || (this.symbol && this.symbol.split(" ")[1] === "solid")
+        },
+        isInactive() {
+            return this.inactive || (this.symbol && this.symbol.split(" ")[2] == "inactive")
         }
     }
 }
