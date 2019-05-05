@@ -2,7 +2,7 @@
     <button
             type="button"
             @click="$emit('click', $event)"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+            class="mdl-button mdl-js-button mdl-js-ripple-effect"
             :class="classes">
         <slot/>
     </button>
@@ -12,12 +12,16 @@
 export default {
     name: "AppButton",
     props: {
-        floating: Boolean
+        floating: Boolean,
+        toolbar: Boolean,
+        flat: Boolean
     },
     computed: {
         classes() {
             return {
-                'mdl-button--fab': this.floating
+                'mdl-button--fab': this.floating,
+                'mdl-button--icon': this.toolbar,
+                'mdl-button--raised': !this.flat
             }
         }
     }
