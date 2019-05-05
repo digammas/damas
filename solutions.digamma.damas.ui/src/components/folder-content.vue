@@ -1,56 +1,48 @@
 <template>
     <app-page layout="standard">
-        <div v-if="folder">
-            <app-box shadow>
-                <path-breadcrumb :path="folder && folder.path"/>
-                <app-spacer />
-                <app-button
-                        toolbar
-                        flat
-                        @click="goToParent">
-                    <app-icon symbol="arrow-up" solid size="small"/>
-                </app-button>
-                <app-more-list>
-                    <a class="mdl-menu__item">Add Folder</a>
-                    <a class="mdl-menu__item">Add File</a>
-                    <a class="mdl-menu__item">Add Annotation</a>
-                </app-more-list>
-            </app-box>
-            <app-box shadow>
-                <file-icon
-                        v-if="folder.parentId"
-                        key="has-parent"
-                        text="parent"
-                        theme="dark"
-                        symbol="arrow-alt-circle-up"
-                        :link="folder.parentId" />
-                <file-icon
-                        v-for="subfolder in folder.content.folders"
-                        :key="subfolder.id"
-                        theme="dark"
-                        symbol="folder"
-                        :text="subfolder.name"
-                        :link="subfolder.id" />
-                <app-cell :span="12" />
+        <file-content v-if="folder" :file="folder">
+            <template #options>
+                <a class="mdl-menu__item">Add Folder</a>
+                <a class="mdl-menu__item">Add File</a>
+                <a class="mdl-menu__item">Add Annotation</a>
+            </template>
+            <template>
+                <app-box shadow>
+                    <file-icon
+                            v-if="folder.parentId"
+                            key="has-parent"
+                            text="parent"
+                            theme="dark"
+                            symbol="arrow-alt-circle-up"
+                            :link="folder.parentId" />
+                    <file-icon
+                            v-for="subfolder in folder.content.folders"
+                            :key="subfolder.id"
+                            theme="dark"
+                            symbol="folder"
+                            :text="subfolder.name"
+                            :link="subfolder.id" />
+                    <app-cell :span="12" />
 
-                <file-icon
-                        v-for="document in folder.content.documents"
-                        :key="document.id"
-                        theme="dark"
-                        symbol="file"
-                        :text="document.name"
-                        :link="{name: 'document', params: {id: document.id}}" />
-            </app-box>
-            <app-row align="right" gutter>
-                <app-button @click="openAddContentDialog" floating>
-                    <app-icon symbol="plus" solid />
-                </app-button>
-            </app-row>
-            <add-content-dialog
-                    ref="addContentDialog"
-                    :parentId="id"
-                    @change="retrieve"/>
-        </div>
+                    <file-icon
+                            v-for="document in folder.content.documents"
+                            :key="document.id"
+                            theme="dark"
+                            symbol="file"
+                            :text="document.name"
+                            :link="{name: 'document', params: {id: document.id}}" />
+                </app-box>
+                <app-row align="right" gutter>
+                    <app-button @click="openAddContentDialog" floating>
+                        <app-icon symbol="plus" solid />
+                    </app-button>
+                </app-row>
+                <add-content-dialog
+                        ref="addContentDialog"
+                        :parentId="id"
+                        @change="retrieve"/>
+            </template>
+        </file-content>
     </app-page>
 </template>
 
@@ -63,11 +55,9 @@ import AppRow from "./widgets/app-row";
 import AppCell from "./widgets/app-cell";
 import AppIcon from "./widgets/app-icon";
 import AppBox from "./widgets/app-box";
-import AppMoreList from "./widgets/app-more-list";
-import AppSpacer from "./widgets/app-spacer";
 import AddContentDialog from "./add-content-dialog";
-import PathBreadcrumb from "./path-breadcrumb";
 import FileIcon from "./file-icon";
+import FileContent from "./file-content";
 
 export default {
     name: 'FolderContent',
@@ -78,11 +68,9 @@ export default {
         }
     },
     components: {
+        FileContent,
         FileIcon,
-        PathBreadcrumb,
         AddContentDialog,
-        AppSpacer,
-        AppMoreList,
         AppIcon,
         AppCell,
         AppRow,
@@ -129,9 +117,6 @@ export default {
         },
         openAddContentDialog() {
             this.$refs.addContentDialog.show()
-        },
-        goToParent() {
-            this.folder && this.$router.push({name: 'content', params: {id: this.folder.parentId}})
         }
     }
 }

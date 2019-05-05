@@ -1,29 +1,19 @@
 <template>
     <app-page layout="standard">
-        <div v-if="document">
-            <app-box shadow>
-                <path-breadcrumb
-                        :path="document && document.path"
-                        :link="{name: 'content', params: {id: document.parentId}}"/>
-                <app-spacer />
-                <app-button
-                        toolbar
-                        flat
-                        @click="goToParent">
-                    <app-icon symbol="arrow-up" solid size="small"/>
-                </app-button>
-                <app-more-list>
-                    <a class="mdl-menu__item">Add Folder</a>
-                    <a class="mdl-menu__item">Add File</a>
-                    <a class="mdl-menu__item">Add Annotation</a>
-                </app-more-list>
-            </app-box>
-            <app-row align="right" gutter>
-                <app-button @click="download" floating>
-                    <app-icon symbol="download" solid />
-                </app-button>
-            </app-row>
-        </div>
+        <file-content v-if="document" :file="document">
+            <template #options>
+                <a class="mdl-menu__item">Add Folder</a>
+                <a class="mdl-menu__item">Add File</a>
+                <a class="mdl-menu__item">Add Annotation</a>
+            </template>
+            <template>
+                <app-row align="right" gutter>
+                    <app-button @click="download" floating>
+                        <app-icon symbol="download" solid />
+                    </app-button>
+                </app-row>
+            </template>
+        </file-content>
     </app-page>
 </template>
 
@@ -33,12 +23,9 @@ import documentService from '@/service/document'
 import AppPage from "./layouts/app-page";
 import AppRow from "./widgets/app-row";
 import AppBox from "./widgets/app-box";
-import PathBreadcrumb from "./path-breadcrumb";
-import FileIcon from "./file-icon";
 import AppButton from "./widgets/app-button";
 import AppIcon from "./widgets/app-icon";
-import AppSpacer from "./widgets/app-spacer";
-import AppMoreList from "./widgets/app-more-list";
+import FileContent from "./file-content";
 
 export default {
     name: 'DocumentContent',
@@ -49,12 +36,9 @@ export default {
         }
     },
     components: {
-        AppMoreList,
-        AppSpacer,
+        FileContent,
         AppIcon,
         AppButton,
-        FileIcon,
-        PathBreadcrumb,
         AppRow,
         AppPage,
         AppBox
@@ -89,9 +73,6 @@ export default {
                 link.download = name
                 link.click()
             }
-        },
-        goToParent() {
-            this.document && this.$router.push({name: 'content', params: {id: this.document.parentId}})
         }
     }
 }
