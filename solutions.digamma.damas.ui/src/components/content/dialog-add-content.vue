@@ -39,14 +39,14 @@
 import folderService from '@/service/folder'
 import documentService from '@/service/document'
 
-import AppTabContainer from "./widgets/app-tab-container";
-import AppTabItem from "./widgets/app-tab-item";
-import AppTextInput from "./widgets/app-text-input";
-import AppFileUpload from "./widgets/app-file-upload";
-import AppDialog from "./widgets/app-dialog";
+import AppTabContainer from "@/components/widgets/app-tab-container";
+import AppTabItem from "@/components/widgets/app-tab-item";
+import AppTextInput from "@/components/widgets/app-text-input";
+import AppFileUpload from "@/components/widgets/app-file-upload";
+import AppDialog from "@/components/widgets/app-dialog";
 
 export default {
-    name: "AddContentDialog",
+    name: "DialogAddContent",
     components: {AppDialog, AppFileUpload, AppTextInput, AppTabItem, AppTabContainer},
     props: {
         parentId: {

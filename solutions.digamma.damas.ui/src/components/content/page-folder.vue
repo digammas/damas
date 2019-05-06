@@ -1,6 +1,6 @@
 <template>
     <app-page layout="standard">
-        <file-content v-if="folder" :file="folder">
+        <layout-file v-if="folder" :file="folder">
             <template #options>
                 <a class="mdl-menu__item">Add Folder</a>
                 <a class="mdl-menu__item">Add File</a>
@@ -8,14 +8,14 @@
             </template>
             <template>
                 <app-box shadow>
-                    <file-icon
+                    <icon-file
                             v-if="folder.parentId"
                             key="has-parent"
                             text="parent"
                             theme="dark"
                             symbol="arrow-alt-circle-up"
                             :link="folder.parentId" />
-                    <file-icon
+                    <icon-file
                             v-for="subfolder in folder.content.folders"
                             :key="subfolder.id"
                             theme="dark"
@@ -23,8 +23,7 @@
                             :text="subfolder.name"
                             :link="subfolder.id" />
                     <app-cell :span="12" />
-
-                    <file-icon
+                    <icon-file
                             v-for="document in folder.content.documents"
                             :key="document.id"
                             theme="dark"
@@ -42,25 +41,25 @@
                         :parentId="id"
                         @change="retrieve"/>
             </template>
-        </file-content>
+        </layout-file>
     </app-page>
 </template>
 
 <script>
 import folderService from '@/service/folder'
 
-import AppPage from "./layouts/app-page";
-import AppButton from "./widgets/app-button";
-import AppRow from "./widgets/app-row";
-import AppCell from "./widgets/app-cell";
-import AppIcon from "./widgets/app-icon";
-import AppBox from "./widgets/app-box";
-import AddContentDialog from "./add-content-dialog";
-import FileIcon from "./file-icon";
-import FileContent from "./file-content";
+import AppPage from "@/components/layouts/app-page";
+import AppButton from "@/components/widgets/app-button";
+import AppRow from "@/components/widgets/app-row";
+import AppCell from "@/components/widgets/app-cell";
+import AppIcon from "@/components/widgets/app-icon";
+import AppBox from "@/components/widgets/app-box";
+import AddContentDialog from "@/components/content/dialog-add-content";
+import IconFile from "@/components/content/icon-file";
+import LayoutFile from "@/components/content/layout-file";
 
 export default {
-    name: 'FolderContent',
+    name: 'PageFolder',
     data() {
         return {
             id: null,
@@ -68,8 +67,8 @@ export default {
         }
     },
     components: {
-        FileContent,
-        FileIcon,
+        LayoutFile,
+        IconFile,
         AddContentDialog,
         AppIcon,
         AppCell,

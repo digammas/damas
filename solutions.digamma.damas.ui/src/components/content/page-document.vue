@@ -1,6 +1,6 @@
 <template>
     <app-page layout="standard">
-        <file-content v-if="document" :file="document">
+        <layout-file v-if="document" :file="document">
             <template #options>
                 <a class="mdl-menu__item">Add Folder</a>
                 <a class="mdl-menu__item">Add File</a>
@@ -13,19 +13,19 @@
                     </app-button>
                 </app-row>
             </template>
-        </file-content>
+        </layout-file>
     </app-page>
 </template>
 
 <script>
 import documentService from '@/service/document'
 
-import AppPage from "./layouts/app-page";
-import AppRow from "./widgets/app-row";
-import AppBox from "./widgets/app-box";
-import AppButton from "./widgets/app-button";
-import AppIcon from "./widgets/app-icon";
-import FileContent from "./file-content";
+import AppPage from "@/components/layouts/app-page";
+import AppRow from "@/components/widgets/app-row";
+import AppBox from "@/components/widgets/app-box";
+import AppButton from "@/components/widgets/app-button";
+import AppIcon from "@/components/widgets/app-icon";
+import LayoutFile from "@/components/content/layout-file";
 
 export default {
     name: 'DocumentContent',
@@ -36,7 +36,7 @@ export default {
         }
     },
     components: {
-        FileContent,
+        LayoutFile,
         AppIcon,
         AppButton,
         AppRow,

@@ -8,25 +8,18 @@ const routes = [
         meta: {
             title: "Content"
         },
-        component: () => import("@/components/folder-content.vue")
+        component: () => import("@/components/content/page-folder.vue")
     }, {
         name: "document",
         path: "/document/:id",
         meta: {
             title: "Document"
         },
-        component: () => import("@/components/document-content.vue")
-    }, {
-        path: '/about',
-        name: 'about',
-        component: () => import('@/components/about.vue'),
-        meta: {
-            title: "About"
-        }
+        component: () => import("@/components/content/page-document.vue")
     }, {
         path: '/login',
         name: 'login',
-        component: () => import('@/components/login-form.vue'),
+        component: () => import('@/components/session/page-login.vue'),
         meta: {
             title: "Login",
             public: true

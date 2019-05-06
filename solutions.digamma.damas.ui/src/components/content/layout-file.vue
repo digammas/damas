@@ -18,15 +18,16 @@
 </template>
 
 <script>
-import AppPage from "./layouts/app-page";
-import AppBox from "./widgets/app-box";
-import PathBreadcrumb from "./path-breadcrumb";
-import AppSpacer from "./widgets/app-spacer";
-import AppButton from "./widgets/app-button";
-import AppIcon from "./widgets/app-icon";
-import AppMoreList from "./widgets/app-more-list";
+import AppPage from "@/components/layouts/app-page";
+import AppBox from "@/components/widgets/app-box";
+import PathBreadcrumb from "./tag-breadcrumb";
+import AppSpacer from "@/components/widgets/app-spacer";
+import AppButton from "@/components/widgets/app-button";
+import AppIcon from "@/components/widgets/app-icon";
+import AppMoreList from "@/components/widgets/app-more-list";
+
 export default {
-    name: "file-content",
+    name: "LayoutFile",
     components: {AppMoreList, AppIcon, AppButton, AppSpacer, PathBreadcrumb, AppBox, AppPage},
     props: {
         file: Object

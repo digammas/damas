@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import AppCell from "./widgets/app-cell";
-import AppRow from "./widgets/app-row";
-import AppIcon from "./widgets/app-icon";
+import AppCell from "@/components/widgets/app-cell";
+import AppRow from "@/components/widgets/app-row";
+import AppIcon from "@/components/widgets/app-icon";
 
 export default {
-    name: "FileIcon",
+    name: "IconFile",
     props: {
         text: {
             type: String,
