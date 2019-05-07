@@ -8,6 +8,12 @@
                         @click="openRenameDialog($event)">
                     Rename Folder
                 </a>
+                <a
+                        class="mdl-menu__item"
+                        href
+                        @click="openDeleteDialog($event)">
+                    Delete Folder
+                </a>
             </template>
             <template>
                 <app-box shadow>
@@ -47,6 +53,9 @@
                         ref="renameFileDialog"
                         :file="folder"
                         @change="retrieve"/>
+                <dialog-delete-file
+                        ref="deleteFileDialog"
+                        :file="folder"/>
             </template>
         </layout-file>
     </app-page>
@@ -63,6 +72,7 @@ import AppIcon from "@/components/widgets/app-icon";
 import AppBox from "@/components/widgets/app-box";
 import DialogAddContent from "@/components/content/dialog-add-content";
 import DialogRenameFile from "@/components/content/dialog-rename-file";
+import DialogDeleteFile from "@/components/content/dialog-delete-file";
 import IconFile from "@/components/content/icon-file";
 import LayoutFile from "@/components/content/layout-file";
 
@@ -79,6 +89,7 @@ export default {
         IconFile,
         DialogAddContent,
         DialogRenameFile,
+        DialogDeleteFile,
         AppIcon,
         AppCell,
         AppRow,
@@ -128,6 +139,10 @@ export default {
         },
         openRenameDialog(event) {
             this.$refs.renameFileDialog.show()
+            event.preventDefault()
+        },
+        openDeleteDialog(event) {
+            this.$refs.deleteFileDialog.show()
             event.preventDefault()
         }
     }

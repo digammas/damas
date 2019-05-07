@@ -37,6 +37,16 @@ class HttpClient {
             data: data
         })
     }
+
+    delete(path) {
+        return http({
+            method: "delete",
+            url: path,
+            baseURL: BASE_URL,
+            responseType: 'json',
+            headers: headers()
+        })
+    }
 }
 
 function http() {

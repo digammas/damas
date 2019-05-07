@@ -23,6 +23,10 @@ class ContentService {
     async rename(id, name) {
         return (await http.put(`/folders/${id}`, { name })).data
     }
+
+    async remove(id, name) {
+        return (await http.delete(`/folders/${id}`, { name })).data
+    }
 }
 
 export default new ContentService()

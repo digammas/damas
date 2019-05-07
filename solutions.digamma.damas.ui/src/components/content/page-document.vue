@@ -8,6 +8,12 @@
                         @click="openRenameDialog($event)">
                     Rename Document
                 </a>
+                <a
+                        class="mdl-menu__item"
+                        href
+                        @click="openDeleteDialog($event)">
+                    Delete Document
+                </a>
             </template>
             <template>
                 <app-row align="right" gutter>
@@ -19,6 +25,9 @@
                         ref="renameFileDialog"
                         :file="document"
                         @change="retrieve"/>
+                <dialog-delete-file
+                        ref="deleteFileDialog"
+                        :file="document"/>
             </template>
         </layout-file>
     </app-page>
@@ -34,6 +43,7 @@ import AppButton from "@/components/widgets/app-button";
 import AppIcon from "@/components/widgets/app-icon";
 import LayoutFile from "@/components/content/layout-file";
 import DialogRenameFile from "@/components/content/dialog-rename-file";
+import DialogDeleteFile from "@/components/content/dialog-delete-file";
 
 export default {
     name: 'DocumentContent',
@@ -44,6 +54,7 @@ export default {
         }
     },
     components: {
+        DialogDeleteFile,
         LayoutFile,
         AppIcon,
         AppButton,
@@ -85,6 +96,10 @@ export default {
         },
         openRenameDialog(event) {
             this.$refs.renameFileDialog.show()
+            event.preventDefault()
+        },
+        openDeleteDialog(event) {
+            this.$refs.deleteFileDialog.show()
             event.preventDefault()
         }
     }

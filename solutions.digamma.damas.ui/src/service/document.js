@@ -21,6 +21,10 @@ class DocumentService {
     async rename(id, name) {
         return (await http.put(`/documents/${id}`, { name })).data
     }
+
+    async remove(id, name) {
+        return (await http.delete(`/documents/${id}`, { name })).data
+    }
 }
 
 export default new DocumentService()
