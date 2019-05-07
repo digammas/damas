@@ -2,9 +2,12 @@
     <app-page layout="standard">
         <layout-file v-if="document" :file="document">
             <template #options>
-                <a class="mdl-menu__item">Add Folder</a>
-                <a class="mdl-menu__item">Add File</a>
-                <a class="mdl-menu__item">Add Annotation</a>
+                <a
+                        class="mdl-menu__item"
+                        href
+                        @click="openRenameDialog($event)">
+                    Rename Document
+                </a>
             </template>
             <template>
                 <app-row align="right" gutter>
@@ -12,6 +15,10 @@
                         <app-icon symbol="download" solid />
                     </app-button>
                 </app-row>
+                <dialog-rename-file
+                        ref="renameFileDialog"
+                        :file="document"
+                        @change="retrieve"/>
             </template>
         </layout-file>
     </app-page>
@@ -26,6 +33,7 @@ import AppBox from "@/components/widgets/app-box";
 import AppButton from "@/components/widgets/app-button";
 import AppIcon from "@/components/widgets/app-icon";
 import LayoutFile from "@/components/content/layout-file";
+import DialogRenameFile from "@/components/content/dialog-rename-file";
 
 export default {
     name: 'DocumentContent',
@@ -41,7 +49,8 @@ export default {
         AppButton,
         AppRow,
         AppPage,
-        AppBox
+        AppBox,
+        DialogRenameFile
     },
     created() {
         this.load(this.$route.params.id)
@@ -73,6 +82,10 @@ export default {
                 link.download = name
                 link.click()
             }
+        },
+        openRenameDialog(event) {
+            this.$refs.renameFileDialog.show()
+            event.preventDefault()
         }
     }
 }
