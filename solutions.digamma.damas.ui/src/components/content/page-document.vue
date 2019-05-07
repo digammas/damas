@@ -3,13 +3,11 @@
         <layout-file v-if="document" :file="document">
             <template #options>
                 <a
-                        class="mdl-menu__item"
                         href
                         @click="openRenameDialog($event)">
                     Rename Document
                 </a>
                 <a
-                        class="mdl-menu__item"
                         href
                         @click="openDeleteDialog($event)">
                     Delete Document

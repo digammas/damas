@@ -3,13 +3,11 @@
         <layout-file v-if="folder" :file="folder">
             <template #options>
                 <a
-                        class="mdl-menu__item"
                         href
                         @click="openRenameDialog($event)">
                     Rename Folder
                 </a>
                 <a
-                        class="mdl-menu__item"
                         href
                         @click="openDeleteDialog($event)">
                     Delete Folder
