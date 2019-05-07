@@ -38,7 +38,7 @@ import AppFileUpload from "@/components/widgets/app-file-upload";
 import AppDialog from "@/components/widgets/app-dialog";
 
 export default {
-    name: "DialogAddContent",
+    name: "DialogRenameFile",
     components: {AppDialog, AppFileUpload, AppTextInput, AppTabItem, AppTabContainer},
     props: {
         file: {
