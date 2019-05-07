@@ -36,7 +36,7 @@
                         <app-icon symbol="plus" solid />
                     </app-button>
                 </app-row>
-                <add-content-dialog
+                <dialog-add-content
                         ref="addContentDialog"
                         :parentId="id"
                         @change="retrieve"/>
@@ -54,7 +54,7 @@ import AppRow from "@/components/widgets/app-row";
 import AppCell from "@/components/widgets/app-cell";
 import AppIcon from "@/components/widgets/app-icon";
 import AppBox from "@/components/widgets/app-box";
-import AddContentDialog from "@/components/content/dialog-add-content";
+import DialogAddContent from "@/components/content/dialog-add-content";
 import IconFile from "@/components/content/icon-file";
 import LayoutFile from "@/components/content/layout-file";
 
@@ -69,7 +69,7 @@ export default {
     components: {
         LayoutFile,
         IconFile,
-        AddContentDialog,
+        DialogAddContent,
         AppIcon,
         AppCell,
         AppRow,
