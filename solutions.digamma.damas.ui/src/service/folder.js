@@ -19,6 +19,10 @@ class ContentService {
     async create(parentId, name) {
         return (await http.post("/folders", { parentId, name })).data
     }
+
+    async rename(id, name) {
+        return (await http.put(`/folders/${id}`, { name })).data
+    }
 }
 
 export default new ContentService()

@@ -2,9 +2,12 @@
     <app-page layout="standard">
         <layout-file v-if="folder" :file="folder">
             <template #options>
-                <a class="mdl-menu__item">Add Folder</a>
-                <a class="mdl-menu__item">Add File</a>
-                <a class="mdl-menu__item">Add Annotation</a>
+                <a
+                        class="mdl-menu__item"
+                        href
+                        @click="openRenameDialog($event)">
+                    Rename Folder
+                </a>
             </template>
             <template>
                 <app-box shadow>
@@ -40,6 +43,10 @@
                         ref="addContentDialog"
                         :parentId="id"
                         @change="retrieve"/>
+                <dialog-rename-file
+                        ref="renameFileDialog"
+                        :file="folder"
+                        @change="retrieve"/>
             </template>
         </layout-file>
     </app-page>
@@ -55,6 +62,7 @@ import AppCell from "@/components/widgets/app-cell";
 import AppIcon from "@/components/widgets/app-icon";
 import AppBox from "@/components/widgets/app-box";
 import DialogAddContent from "@/components/content/dialog-add-content";
+import DialogRenameFile from "@/components/content/dialog-rename-file";
 import IconFile from "@/components/content/icon-file";
 import LayoutFile from "@/components/content/layout-file";
 
@@ -70,6 +78,7 @@ export default {
         LayoutFile,
         IconFile,
         DialogAddContent,
+        DialogRenameFile,
         AppIcon,
         AppCell,
         AppRow,
@@ -116,6 +125,10 @@ export default {
         },
         openAddContentDialog() {
             this.$refs.addContentDialog.show()
+        },
+        openRenameDialog(event) {
+            this.$refs.renameFileDialog.show()
+            event.preventDefault()
         }
     }
 }

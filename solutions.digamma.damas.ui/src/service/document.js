@@ -17,6 +17,10 @@ class DocumentService {
     async download(id) {
         return (await http.get(`/documents/${id}/download`, {}, 'blob')).data
     }
+
+    async rename(id, name) {
+        return (await http.put(`/documents/${id}`, { name })).data
+    }
 }
 
 export default new DocumentService()
