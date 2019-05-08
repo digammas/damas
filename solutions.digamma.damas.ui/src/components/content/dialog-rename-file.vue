@@ -3,7 +3,6 @@
             ref="dialogBox"
             title="Rename File">
         <template>
-            <div v-if="fileErrorMessage">{{fileErrorMessage}}</div>
             <app-text-input
                     id="file-name"
                     required="required"
@@ -48,8 +47,7 @@ export default {
     },
     data() {
         return {
-            name: null,
-            fileErrorMessage: null
+            name: null
         }
     },
     methods: {
@@ -68,7 +66,7 @@ export default {
                 })
                 this.hide()
             } else {
-                this.fileErrorMessage = "Name is the same as old name!"
+                this.$bus$emit('error', "Name is the same as old name!")
             }
         },
         fireChange(file) {

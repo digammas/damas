@@ -43,8 +43,7 @@ export default {
     },
     data() {
         return {
-            name: null,
-            fileErrorMessage: null
+            name: null
         }
     },
     computed: {

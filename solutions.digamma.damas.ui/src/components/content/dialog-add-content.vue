@@ -12,7 +12,6 @@
                             v-model="folderName"/>
                 </app-tab-item>
                 <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
-                    <div v-if="fileErrorMessage">{{fileErrorMessage}}</div>
                     <app-text-input label="File Name" ref="fileNameTextInput"/>
                     <app-file-upload label="File" @change="fileChanged" ref="upload"/>
                 </app-tab-item>
@@ -56,8 +55,7 @@ export default {
     },
     data() {
         return {
-            folderName: null,
-            fileErrorMessage: null
+            folderName: null
         }
     },
     methods: {
@@ -87,12 +85,11 @@ export default {
                     })
                     this.hide()
                 } else {
-                    this.fileErrorMessage = "Please select a file to upload."
+                    this.$bus$emit('error', "Please select a file to upload.")
                 }
             }
         },
         fileChanged(name) {
-            this.fileErrorMessage = null
             this.$refs.fileNameTextInput.setText(name)
         },
         fireChange(file) {
