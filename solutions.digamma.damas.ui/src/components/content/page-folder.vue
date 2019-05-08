@@ -1,18 +1,6 @@
 <template>
     <app-page layout="standard">
         <layout-file v-if="folder" :file="folder">
-            <template #options>
-                <a
-                        href
-                        @click="openRenameDialog($event)">
-                    Rename Folder
-                </a>
-                <a
-                        href
-                        @click="openDeleteDialog($event)">
-                    Delete Folder
-                </a>
-            </template>
             <template>
                 <app-box shadow>
                     <icon-file
@@ -47,13 +35,7 @@
                         ref="addContentDialog"
                         :parentId="id"
                         @change="retrieve"/>
-                <dialog-rename-file
-                        ref="renameFileDialog"
-                        :file="folder"
-                        @change="retrieve"/>
-                <dialog-delete-file
-                        ref="deleteFileDialog"
-                        :file="folder"/>
+                <message-clipboard />
             </template>
         </layout-file>
     </app-page>
@@ -69,10 +51,9 @@ import AppCell from "@/components/widgets/app-cell";
 import AppIcon from "@/components/widgets/app-icon";
 import AppBox from "@/components/widgets/app-box";
 import DialogAddContent from "@/components/content/dialog-add-content";
-import DialogRenameFile from "@/components/content/dialog-rename-file";
-import DialogDeleteFile from "@/components/content/dialog-delete-file";
 import IconFile from "@/components/content/icon-file";
 import LayoutFile from "@/components/content/layout-file";
+import MessageClipboard from "./message-clipboard";
 
 export default {
     name: 'PageFolder',
@@ -83,11 +64,10 @@ export default {
         }
     },
     components: {
+        MessageClipboard,
         LayoutFile,
         IconFile,
         DialogAddContent,
-        DialogRenameFile,
-        DialogDeleteFile,
         AppIcon,
         AppCell,
         AppRow,
@@ -134,14 +114,6 @@ export default {
         },
         openAddContentDialog() {
             this.$refs.addContentDialog.show()
-        },
-        openRenameDialog(event) {
-            this.$refs.renameFileDialog.show()
-            event.preventDefault()
-        },
-        openDeleteDialog(event) {
-            this.$refs.deleteFileDialog.show()
-            event.preventDefault()
         }
     }
 }

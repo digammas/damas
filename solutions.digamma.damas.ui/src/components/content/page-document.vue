@@ -1,31 +1,12 @@
 <template>
     <app-page layout="standard">
         <layout-file v-if="document" :file="document">
-            <template #options>
-                <a
-                        href
-                        @click="openRenameDialog($event)">
-                    Rename Document
-                </a>
-                <a
-                        href
-                        @click="openDeleteDialog($event)">
-                    Delete Document
-                </a>
-            </template>
             <template>
                 <app-row align="right" gutter>
                     <app-button @click="download" floating>
                         <app-icon symbol="download" solid />
                     </app-button>
                 </app-row>
-                <dialog-rename-file
-                        ref="renameFileDialog"
-                        :file="document"
-                        @change="retrieve"/>
-                <dialog-delete-file
-                        ref="deleteFileDialog"
-                        :file="document"/>
             </template>
         </layout-file>
     </app-page>
@@ -40,8 +21,6 @@ import AppBox from "@/components/widgets/app-box";
 import AppButton from "@/components/widgets/app-button";
 import AppIcon from "@/components/widgets/app-icon";
 import LayoutFile from "@/components/content/layout-file";
-import DialogRenameFile from "@/components/content/dialog-rename-file";
-import DialogDeleteFile from "@/components/content/dialog-delete-file";
 
 export default {
     name: 'DocumentContent',
@@ -52,14 +31,12 @@ export default {
         }
     },
     components: {
-        DialogDeleteFile,
         LayoutFile,
         AppIcon,
         AppButton,
         AppRow,
         AppPage,
-        AppBox,
-        DialogRenameFile
+        AppBox
     },
     created() {
         this.load(this.$route.params.id)
