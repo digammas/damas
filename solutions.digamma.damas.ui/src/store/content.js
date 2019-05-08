@@ -1,8 +1,7 @@
 import {CLEAR, UPDATE} from "./common";
 
 const defaults = {
-    currentFolderId: null,
-    currentFolderPath: null
+    clipboard: null
 }
 
 export default {

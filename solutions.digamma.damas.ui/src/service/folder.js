@@ -5,7 +5,6 @@ class ContentService {
 
     async load() {
         let currentFolderId = (await this.retrieveAt("/")).id
-        store.dispatch("content/update", { currentFolderId })
     }
 
     async retrieve(id, depth = null, full = false) {
