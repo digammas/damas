@@ -8,11 +8,23 @@
 <script>
 export default {
     name: "AppFlashMessage",
-    data() {
-        return {
-            message: null,
-            timeout: 2750
+    props: {
+        message: {
+            type: String,
+            default: null
+        },
+        timeout: {
+            type: Number,
+            default: 2750
         }
+    },
+    watch: {
+        message() {
+            this.show()
+        }
+    },
+    mounted() {
+        componentHandler.upgradeElement(this.$refs.container)
     },
     methods: {
         show(message, timeout) {
