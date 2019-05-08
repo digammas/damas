@@ -1,11 +1,6 @@
 import http from '@/service/http'
-import store from '@/store'
 
 class ContentService {
-
-    async load() {
-        let currentFolderId = (await this.retrieveAt("/")).id
-    }
 
     async retrieve(id, depth = null, full = false) {
         return (await http.get(`/folders/${id}`, { full, depth })).data

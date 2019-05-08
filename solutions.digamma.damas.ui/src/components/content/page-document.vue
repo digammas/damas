@@ -1,6 +1,6 @@
 <template>
     <app-page layout="standard">
-        <layout-file v-if="document" :file="document">
+        <main-content-file v-if="document" :file="document">
             <template>
                 <app-row align="right" gutter>
                     <app-button @click="download" floating>
@@ -8,7 +8,7 @@
                     </app-button>
                 </app-row>
             </template>
-        </layout-file>
+        </main-content-file>
     </app-page>
 </template>
 
@@ -17,13 +17,12 @@ import documentService from '@/service/document'
 
 import AppPage from "@/components/layouts/app-page";
 import AppRow from "@/components/widgets/app-row";
-import AppBox from "@/components/widgets/app-box";
 import AppButton from "@/components/widgets/app-button";
 import AppIcon from "@/components/widgets/app-icon";
-import LayoutFile from "@/components/content/layout-file";
+import MainContentFile from "./main-content-file";
 
 export default {
-    name: 'DocumentContent',
+    name: 'PageDocument',
     data() {
         return {
             id: null,
@@ -31,12 +30,11 @@ export default {
         }
     },
     components: {
-        LayoutFile,
+        MainContentFile,
         AppIcon,
         AppButton,
         AppRow,
-        AppPage,
-        AppBox
+        AppPage
     },
     created() {
         this.load(this.$route.params.id)

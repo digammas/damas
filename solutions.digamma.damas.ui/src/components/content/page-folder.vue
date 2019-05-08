@@ -1,6 +1,6 @@
 <template>
     <app-page layout="standard">
-        <layout-file v-if="folder" :file="folder">
+        <main-content-file v-if="folder" :file="folder">
             <template>
                 <app-box shadow>
                     <icon-file
@@ -35,9 +35,9 @@
                         ref="addContentDialog"
                         :parentId="id"
                         @change="retrieve"/>
-                <message-clipboard />
+                <message-clipboard/>
             </template>
-        </layout-file>
+        </main-content-file>
     </app-page>
 </template>
 
@@ -52,8 +52,8 @@ import AppIcon from "@/components/widgets/app-icon";
 import AppBox from "@/components/widgets/app-box";
 import DialogAddContent from "@/components/content/dialog-add-content";
 import IconFile from "@/components/content/icon-file";
-import LayoutFile from "@/components/content/layout-file";
 import MessageClipboard from "./message-clipboard";
+import MainContentFile from "./main-content-file";
 
 export default {
     name: 'PageFolder',
@@ -65,7 +65,7 @@ export default {
     },
     components: {
         MessageClipboard,
-        LayoutFile,
+        MainContentFile,
         IconFile,
         DialogAddContent,
         AppIcon,
@@ -85,9 +85,6 @@ export default {
             } else {
                 this.retrieve();
             }
-        },
-        '$store.state.auth.token' () {
-            folderService.load()
         },
         '$route' (to) {
             this.load(to.params.id)

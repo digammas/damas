@@ -29,16 +29,16 @@
 <script>
 import folderService from '@/service/folder'
 import documentService from '@/service/document'
-
-import AppTabContainer from "@/components/widgets/app-tab-container";
-import AppTabItem from "@/components/widgets/app-tab-item";
 import AppTextInput from "@/components/widgets/app-text-input";
-import AppFileUpload from "@/components/widgets/app-file-upload";
+
 import AppDialog from "@/components/widgets/app-dialog";
 
 export default {
     name: "DialogRenameFile",
-    components: {AppDialog, AppFileUpload, AppTextInput, AppTabItem, AppTabContainer},
+    components: {
+        AppDialog,
+        AppTextInput
+    },
     props: {
         file: {
             type: Object,

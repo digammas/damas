@@ -45,18 +45,17 @@
 </template>
 
 <script>
-import AppPage from "@/components/layouts/app-page";
 import AppBox from "@/components/widgets/app-box";
-import PathBreadcrumb from "./tag-breadcrumb";
 import AppSpacer from "@/components/widgets/app-spacer";
 import AppButton from "@/components/widgets/app-button";
 import AppIcon from "@/components/widgets/app-icon";
 import AppMoreList from "@/components/widgets/app-more-list";
 import DialogRenameFile from "./dialog-rename-file";
+import PathBreadcrumb from "./tag-breadcrumb";
 import DialogDeleteFile from "./dialog-delete-file";
 
 export default {
-    name: "LayoutFile",
+    name: "MainContentFile",
     components: {
         DialogDeleteFile,
         DialogRenameFile,
@@ -65,8 +64,7 @@ export default {
         AppButton,
         AppSpacer,
         PathBreadcrumb,
-        AppBox,
-        AppPage
+        AppBox
     },
     props: {
         file: Object

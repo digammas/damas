@@ -22,12 +22,9 @@
 </template>
 
 <script>
-import AppButton from "./app-button";
-import AppIcon from "./app-icon";
 
 export default {
     name: "AppFloatingMessage",
-    components: {AppIcon, AppButton},
     props: {
         closable: Boolean,
         active: Boolean

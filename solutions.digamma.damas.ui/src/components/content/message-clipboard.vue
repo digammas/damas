@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import AppFloatingMessage from "../widgets/app-floating-message";
+import AppFloatingMessage from "@/components/widgets/app-floating-message";
 
 export default {
-    name: "message-clipboard",
+    name: "MessageClipboard",
     components: {AppFloatingMessage},
     computed: {
         clipboard() {
@@ -29,7 +29,7 @@ export default {
         }
     },
     methods: {
-        $_clearClipboard(event) {
+        $_clearClipboard() {
             this.$store.dispatch("content/update", { clipboard: null })
         }
     }
