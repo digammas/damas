@@ -35,7 +35,7 @@
                         ref="addContentDialog"
                         :parentId="id"
                         @change="retrieve"/>
-                <message-clipboard/>
+                <message-clipboard :destination="folder" />
             </template>
         </main-content-file>
     </app-page>
