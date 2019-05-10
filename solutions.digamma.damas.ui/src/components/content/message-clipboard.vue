@@ -1,8 +1,8 @@
 <template>
     <div v-if="!!clipboard">
-        <app-floating-message :active="!!clipboard" closable @action="$_clearClipboard">
+        <app-floating-message :active="!!clipboard" closable @action="$_onCancel">
             <span v-if="validAction" key="validAction">
-                <a href>{{actionVerb}}</a>&nbsp;<strong>{{fileName}}</strong> here?
+                <a href @click="$_onClick">{{actionVerb}}</a>&nbsp;<strong>{{fileName}}</strong> here?
             </span>
             <span v-else key="invalidAction">
                 Cannot {{actionVerb.toLowerCase()}} <strong>{{fileName}}</strong> here.
@@ -13,6 +13,9 @@
 
 <script>
 import AppFloatingMessage from "@/components/widgets/app-floating-message";
+
+import folderService from '@/service/folder'
+import documentService from '@/service/document'
 
 export default {
     name: "MessageClipboard",
@@ -43,8 +46,18 @@ export default {
         }
     },
     methods: {
-        $_clearClipboard() {
+        $_onCancel() {
             this.$store.dispatch("content/update", { clipboard: null })
+        },
+        async $_onClick(event) {
+            event.preventDefault()
+            let service = this.clipboard.file.content ? folderService : documentService
+            if (this.clipboard.type == 'move') {
+                await service.move(this.clipboard.file.id, this.destination.id)
+                this.$store.dispatch("content/update", { clipboard: null })
+                this.$emit('change')
+                this.$bus$emit('success', "Moved successfully")
+            }
         }
     }
 }

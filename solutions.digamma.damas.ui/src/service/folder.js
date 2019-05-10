@@ -21,6 +21,10 @@ class ContentService {
     async remove(id, name) {
         return (await http.delete(`/folders/${id}`, { name })).data
     }
+
+    async move(id, parentId) {
+        return (await http.put(`/folders/${id}`, { parentId })).data
+    }
 }
 
 export default new ContentService()
