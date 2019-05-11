@@ -3,7 +3,9 @@
         <template #header>
             <app-navigation>
                 <a href="https://github.com/digammas/damas">GitHub</a>
-                <a href="https://digamma.co">Digamma Solution</a>
+                <app-cell />
+                <app-icon symbol="user" theme="light"/>
+                <a href>{{username}}</a>
             </app-navigation>
         </template>
         <template #sidebar>
@@ -20,11 +22,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import userService from '@/service/user'
 import AppLayout from "@/components/widgets/app-layout";
 import AppNavigation from "@/components/widgets/app-navigation";
 import AppFlashMessage from "@/components/widgets/app-flash-message";
+import AppIcon from "../widgets/app-icon";
+import AppCell from "../widgets/app-cell";
 
 export default {
     name: 'LayoutStandard',
@@ -33,14 +36,20 @@ export default {
             errorMessage: null
         }
     },
-    components: {AppFlashMessage, AppNavigation, AppLayout},
+    components: {
+        AppCell,
+        AppIcon,
+        AppFlashMessage,
+        AppNavigation,
+        AppLayout
+    },
     computed: {
-        ...mapState({
-            username: (state) => state.auth.username,
-            firstName: (state) => state.user.firstName,
-            lastName: (state) => state.user.lastName,
-            title: (state) => state.common.title
-        })
+        title() {
+            return this.$store.state.common.title
+        },
+        username() {
+            return this.$store.state.auth.username
+        }
     },
     created() {
         this.$bus$on('error', message => {
