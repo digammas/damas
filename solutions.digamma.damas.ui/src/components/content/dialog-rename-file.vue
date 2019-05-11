@@ -1,7 +1,7 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="Rename File">
+            title="Rename">
         <template>
             <app-text-input
                     id="file-name"

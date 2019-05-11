@@ -1,7 +1,7 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="New file">
+            title="Add">
         <template>
             <app-tab-container>
                 <app-tab-item id="create-folder" title="Folder" selected ref="createFolderTab">
