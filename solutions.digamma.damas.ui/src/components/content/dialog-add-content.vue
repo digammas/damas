@@ -1,19 +1,23 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="Add">
+            title="Add Content">
         <template>
             <app-tab-container>
                 <app-tab-item id="create-folder" title="Folder" selected ref="createFolderTab">
                     <app-text-input
                             id="folder-name"
-                            required="required"
                             label="Folder's name"
                             v-model="folderName"/>
                 </app-tab-item>
                 <app-tab-item id="upload-file" title="Document" ref="uploadDocumentTab">
-                    <app-text-input label="File Name" ref="fileNameTextInput"/>
-                    <app-file-upload label="File" @change="fileChanged" ref="upload"/>
+                    <app-text-input
+                            label="File Name"
+                            ref="fileNameTextInput"/>
+                    <app-file-upload
+                            label="File"
+                            @change="fileChanged"
+                            ref="upload"/>
                 </app-tab-item>
             </app-tab-container>
         </template>

@@ -1,7 +1,7 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="Rename">
+            :title="`Rename ${fileType}`">
         <template>
             <app-text-input
                     id="file-name"
@@ -48,6 +48,11 @@ export default {
     data() {
         return {
             name: null
+        }
+    },
+    computed: {
+        fileType() {
+            return this.file.content ? "folder" : "document"
         }
     },
     methods: {

@@ -1,7 +1,7 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="Delete">
+            :title="`Delete ${fileType}`">
         <template>
                 Are you sure you want to permanently delete {{fileType}} and all its content?
         </template>
