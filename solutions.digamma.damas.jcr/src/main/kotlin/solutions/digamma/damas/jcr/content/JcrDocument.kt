@@ -1,22 +1,19 @@
 package solutions.digamma.damas.jcr.content
 
-import org.apache.tika.mime.MimeType
 import solutions.digamma.damas.common.CompatibilityException
-import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
+import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentPayload
-import solutions.digamma.damas.content.File
 import solutions.digamma.damas.content.Version
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.TypeNamespace
-
-import javax.jcr.Node
-import javax.jcr.Property
-import javax.jcr.nodetype.NodeType
 import java.io.InputStream
 import java.util.ArrayList
+import javax.jcr.Node
+import javax.jcr.Property
 import javax.jcr.Session
+import javax.jcr.nodetype.NodeType
 
 /**
  * JCR-based implementation convert document.
@@ -46,6 +43,19 @@ protected constructor(node: Node) : JcrFile(node),
 
     override fun getVersions(): List<Version> {
         return ArrayList(0)
+    }
+
+    /**
+     * Make a copy of the current document under the folder identified by the
+     * given parent ID.
+     *
+     * @param parentId      the copy's parent ID
+     * @return              newly created document
+     * @exception WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun duplicate(parentId: String): JcrDocument {
+        return JcrDocument.of(session.getNode(copyUnder(parentId)))
     }
 
     @Throws(WorkspaceException::class)

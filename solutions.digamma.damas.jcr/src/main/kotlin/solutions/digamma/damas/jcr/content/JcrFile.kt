@@ -13,9 +13,7 @@ import solutions.digamma.damas.jcr.model.JcrBaseEntity
 import solutions.digamma.damas.jcr.model.JcrCreated
 import solutions.digamma.damas.jcr.model.JcrModifiable
 import solutions.digamma.damas.jcr.names.TypeNamespace
-import javax.jcr.ItemExistsException
 import javax.jcr.Node
-import javax.jcr.RepositoryException
 import javax.jcr.nodetype.NodeType
 
 /**
@@ -75,13 +73,26 @@ protected constructor(node: Node) : JcrBaseEntity(node),
 
     override fun setMetadata(metadata: Metadata) {}
 
-    @Throws(RepositoryException::class)
+    @Throws(WorkspaceException::class)
     private fun move(path: String) {
-        try {
+        Exceptions.check {
             this.node.session.move(this.node.path, path)
-        } catch (e: ItemExistsException) {
-            throw FileExistsException(path, e)
         }
+    }
+
+    @Throws(WorkspaceException::class)
+    private fun copy(path: String) {
+        Exceptions.check {
+            this.node.session.workspace.copy(this.node.path, path)
+        }
+    }
+
+    @Throws(WorkspaceException::class)
+    protected fun copyUnder(parentId: String): String = Exceptions.check {
+        var path = this.session.getNodeByIdentifier(parentId).path
+        path = "$path/${this.node.name}"
+        this.copy(path)
+        path
     }
 
     /**

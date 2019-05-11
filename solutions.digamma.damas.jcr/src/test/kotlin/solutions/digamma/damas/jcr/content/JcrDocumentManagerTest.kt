@@ -4,8 +4,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.login.Token
-import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
@@ -199,6 +197,51 @@ class JcrDocumentManagerTest : WeldTest() {
             "Wrong mime-type on modification."
         }
         manager.delete(id)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun copy() {
+        val documentName = "test.txt"
+        val folderName = "subfolder"
+        val rootId = this.folderManager.find().objects.iterator().next().id
+        var document = this.manager.create(Mocks.document(rootId, documentName))
+        val sourceId = document.id
+        val folderId = this.folderManager.create(Mocks.folder(rootId, folderName)).id
+        this.commit()
+        this.manager.copy(sourceId, folderId)
+        val folder = this.folderManager.retrieve(folderId)
+        folder.expandContent(1)
+        document = folder.content.documents[0]
+        assert(documentName == document.name) { "Document name mismatch" }
+        assert(folderId == document.parentId) { "Document ID mismatch" }
+        manager.delete(sourceId)
+        folderManager.delete(folderId)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun copyAndDownload() {
+        val name = "test.txt"
+        val folderName = "subfolder"
+        val rootId = this.folderManager
+                .find().objects.iterator().next().id
+        val document = manager.create(Mocks.document(rootId, name))
+        val id = document.id
+        val text = "Hello"
+        val upload = ByteArrayInputStream(
+                text.toByteArray(StandardCharsets.UTF_8))
+        manager.upload(id, upload)
+        val folderId = this.folderManager.create(Mocks.folder(rootId, folderName)).id
+        this.commit()
+        val copyId = this.manager.copy(id, folderId).id
+        val download = manager.download(copyId).stream
+        val readText = BufferedReader(InputStreamReader(download))
+                .lines()
+                .collect(Collectors.joining("\n"))
+        assert(text == readText) { "Downloaded vs uploaded text mismatch." }
+        manager.delete(id)
+        folderManager.delete(folderId)
     }
 
     @Test

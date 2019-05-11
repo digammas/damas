@@ -135,6 +135,22 @@ class JcrFolderManagerTest : WeldTest() {
         manager.delete(parentId)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun copy() {
+        val name = "test"
+        val rootId = this.manager.find().objects.iterator().next().id
+        val id = manager.create(Mocks.folder(rootId, name)).id
+        val parentId = manager.create(Mocks.folder(rootId, "parent")).id
+        this.commit()
+        val copyId = manager.copy(id, parentId).id
+        val folder = manager.retrieve(copyId)
+        assert(parentId == folder.parentId) { "Copied folder parent mismatch." }
+        assert(name == folder.name) { "Copied folder name mismatch." }
+        manager.delete(id)
+        manager.delete(parentId)
+    }
+
 
     @Test
     @Throws(Exception::class)

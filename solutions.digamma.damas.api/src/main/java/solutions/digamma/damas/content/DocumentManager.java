@@ -26,6 +26,17 @@ public interface DocumentManager
             throws WorkspaceException;
 
     /**
+     * Copy a document to a destination folder.
+     *
+     * @param sourceId          source document's ID
+     * @param destinationId     destination folder's ID
+     * @return                  new created document
+     * @throws WorkspaceException
+     */
+    Document copy(String sourceId, String destinationId)
+            throws WorkspaceException;
+
+    /**
      * Read document's content.
      *
      * @param id

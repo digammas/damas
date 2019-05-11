@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.content
 
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
@@ -42,6 +41,12 @@ internal class JcrDocumentManager :
     override fun upload(id: String, stream: InputStream) =
             Exceptions.check {
         this.retrieve(this.getSession(), id).updateContent(stream)
+    }
+
+    @Logged
+    @Throws(WorkspaceException::class)
+    override fun copy(sourceId: String, destinationId: String): Document {
+        return this.retrieve(getSession(), sourceId).duplicate(destinationId)
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)

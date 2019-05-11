@@ -8,6 +8,7 @@ import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrPathFinder
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
+import solutions.digamma.damas.logging.Logged
 import java.util.Collections
 import javax.inject.Singleton
 import javax.jcr.RepositoryException
@@ -24,6 +25,12 @@ internal class JcrFolderManager :
         JcrPathFinder<Folder>,
         JcrSearchEngine<Folder>,
         FolderManager {
+
+    @Logged
+    @Throws(WorkspaceException::class)
+    override fun copy(sourceId: String, destinationId: String): Folder {
+        return this.retrieve(getSession(), sourceId).duplicate(destinationId)
+    }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun retrieve(session: Session, id: String) =

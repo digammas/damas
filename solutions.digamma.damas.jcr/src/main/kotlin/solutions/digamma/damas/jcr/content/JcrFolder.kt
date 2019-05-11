@@ -40,6 +40,19 @@ protected constructor(node: Node) : JcrFile(node), Folder {
         this.checkTypeCompatibility(TypeNamespace.FOLDER)
     }
 
+    /**
+     * Make a copy of the current document under the folder identified by the
+     * given parent ID.
+     *
+     * @param parentId      the copy's parent ID
+     * @return              newly created document
+     * @exception WorkspaceException
+     */
+    @Throws(WorkspaceException::class)
+    fun duplicate(parentId: String): JcrFolder {
+        return JcrFolder.of(session.getNode(copyUnder(parentId)))
+    }
+
     override fun expandContent(depth: Int) {
         if (depth != this.contentDepth) {
             this.content = null
