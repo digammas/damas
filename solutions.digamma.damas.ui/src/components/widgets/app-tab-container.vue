@@ -1,7 +1,18 @@
 <template>
-    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ref="container">
-        <div class="mdl-tabs__tab-bar" ref="bar">
-            <a v-for="item of items" :href="'#'.concat(item.id)" class="mdl-tabs__tab" :key="item.id">{{item.title}}</a>
+    <div
+            class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect"
+            ref="container">
+        <div
+                class="mdl-tabs__tab-bar"
+                ref="bar">
+            <a
+                    v-for="item of items"
+                    :href="`#${item.id}`"
+                    class="mdl-tabs__tab"
+                    :class="{'is-active': item.selected}"
+                    :key="item.id">
+                {{item.title}}
+            </a>
         </div>
         <slot></slot>
     </div>
@@ -26,8 +37,8 @@ export default {
         componentHandler.upgradeElement(this.$refs.container)
     },
     methods: {
-        addTabItem(id, title) {
-            this.items.push({ id, title })
+        addTabItem(id, title, selected) {
+            this.items.push({ id, title, selected })
         }
     }
 }

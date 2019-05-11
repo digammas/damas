@@ -1,5 +1,9 @@
 <template>
-    <div class="mdl-tabs__panel" :class="{'is-active' : selected}" :id="id" ref="panel">
+    <div
+            class="mdl-tabs__panel"
+            :class="{'is-active' : selected}"
+            :id="id"
+            ref="panel">
         <slot></slot>
     </div>
 </template>
@@ -22,7 +26,7 @@ export default {
         selected: Boolean
     },
     created() {
-        this.addTabItem(this.id, this.title)
+        this.addTabItem(this.id, this.title, this.selected)
     },
     methods: {
         isSelected() {
