@@ -8,6 +8,7 @@ import solutions.digamma.damas.rs.common.CrudResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -43,6 +44,23 @@ public class DocumentResource
     @Override
     protected DocumentManager getManager() {
         return this.manager;
+    }
+
+    /**
+     * Copy an existing document under a given folder
+     *
+     * @param id        source document ID
+     * @param entity    model entity containing new parent ID
+     * @throws WorkspaceException
+     */
+    @POST
+    @Path("/{id}/copy")
+    @Authenticated
+    public DocumentSerialization copy(
+            @PathParam("id") String id,
+            DocumentSerialization entity)
+            throws WorkspaceException {
+        return wrap(this.manager.copy(id, entity.getParentId()));
     }
 
     /**

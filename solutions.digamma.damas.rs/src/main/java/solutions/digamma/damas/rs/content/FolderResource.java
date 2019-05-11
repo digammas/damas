@@ -8,6 +8,7 @@ import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -62,6 +63,24 @@ public class FolderResource
             }
         }
         return wrap(folder);
+    }
+
+
+    /**
+     * Copy an existing folder under a given folder
+     *
+     * @param id        source folder ID
+     * @param entity    model entity containing new parent ID
+     * @throws WorkspaceException
+     */
+    @POST
+    @Path("/{id}/copy")
+    @Authenticated
+    public FolderSerialization copy(
+            @PathParam("id") String id,
+            DocumentSerialization entity)
+            throws WorkspaceException {
+        return wrap(this.manager.copy(id, entity.getParentId()));
     }
 
     @GET

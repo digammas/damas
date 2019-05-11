@@ -444,4 +444,139 @@ public class ContentTest extends IntegrationTest {
                     .getStatus() / 100 == 2;
         }
     }
+
+    @Test
+    public void testCopyFolder() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "test_folder";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
+        answer = target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        assert id != null;
+        body.clear();
+        body.put("name", "temp");
+        body.put("parentId", this.rootId);
+        String tempId = (String) target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class).get("id");
+        body.clear();
+        body.put("parentId", tempId);
+        String copyId = (String) target
+                .path("folders")
+                .path(id)
+                .path("copy")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class).get("id");
+        answer = target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert rootId.equals(answer.get("parentId")) : "Source folder parent changed";
+        answer = target
+                .path("folders")
+                .path(copyId)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert tempId.equals(answer.get("parentId")) : "Destination folder parent mismatch";
+
+        assert target
+                .path("folders")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+        assert target
+                .path("folders")
+                .path(tempId)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+
+    @Test
+    public void testCopyDocument() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "test_folder";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
+        answer = target
+                .path("documents")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        assert id != null;
+        body.clear();
+        body.put("name", "temp");
+        body.put("parentId", this.rootId);
+        String tempId = (String) target
+                .path("folders")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class).get("id");
+        body.clear();
+        body.put("parentId", tempId);
+        String copyId = (String) target
+                .path("documents")
+                .path(id)
+                .path("copy")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class).get("id");
+        answer = target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert rootId.equals(answer.get("parentId")) : "Source document parent changed";
+        answer = target
+                .path("documents")
+                .path(copyId)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        assert tempId.equals(answer.get("parentId")) : "Destination documents parent mismatch";
+
+        assert target
+                .path("documents")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+        assert target
+                .path("folders")
+                .path(tempId)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
 }
