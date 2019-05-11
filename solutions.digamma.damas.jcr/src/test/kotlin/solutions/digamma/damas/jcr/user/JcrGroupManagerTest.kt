@@ -72,5 +72,16 @@ class JcrGroupManagerTest: WeldTest() {
 
     @Test
     fun find() {
+        val group = Mockito.mock(Group::class.java)
+        Mockito.`when`(group.name).thenReturn("testers")
+        val id = this.manager.create(group).id
+        this.commit()
+        val page = this.manager.find()
+        assert(page.total == 1)
+        assert(page.size == 1)
+        assert(page.objects.size == 1)
+        val entity = page.objects.iterator().next()
+        assert(group.name == entity.name)
+        this.manager.delete(id)
     }
 }

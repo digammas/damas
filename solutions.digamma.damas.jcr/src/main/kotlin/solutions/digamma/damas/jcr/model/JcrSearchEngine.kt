@@ -5,10 +5,13 @@ import solutions.digamma.damas.entity.Entity
 import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.entity.SearchEngine
 import solutions.digamma.damas.jcr.common.Exceptions
+import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.session.JcrSessionConsumer
 import solutions.digamma.damas.logging.Logged
+import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
+import javax.jcr.query.Query
 
 /**
  * @author Ahmad Shahwan
@@ -60,6 +63,27 @@ internal interface JcrSearchEngine<T : Entity>
             offset: Int,
             size: Int,
             query: Any?): Page<T>
+
+    fun query(
+            session: Session,
+            sql2: String,
+            offset: Int,
+            size: Int,
+            of: (node: Node) -> T): Page<T> {
+        val result = session
+                .workspace
+                .queryManager
+                .createQuery(sql2, Query.JCR_SQL2)
+                .execute()
+                .nodes
+        result.skip(offset.toLong())
+        var count = 0
+        val list: MutableList<T> = ArrayList(size)
+        while (result.hasNext() && count++ < size) {
+            list.add(of(result.nextNode()))
+        }
+        return ResultPage(list, result.size.toInt())
+    }
 
     companion object {
 

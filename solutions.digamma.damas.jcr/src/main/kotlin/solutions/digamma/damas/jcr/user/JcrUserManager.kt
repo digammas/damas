@@ -5,16 +5,16 @@ import solutions.digamma.damas.config.Configuration
 import solutions.digamma.damas.config.Fallback
 import solutions.digamma.damas.entity.Page
 import solutions.digamma.damas.jcr.common.Exceptions
-import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
+import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
-import java.util.Collections
 import java.util.regex.Pattern
 import javax.annotation.PostConstruct
 import javax.inject.Inject
 import javax.inject.Singleton
+import javax.jcr.Property
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -52,7 +52,14 @@ internal class JcrUserManager : JcrCrudManager<User>(),
 
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun find(session: Session, offset: Int, size: Int, query: Any?):
-            Page<User> = ResultPage(Collections.emptyList())
+            Page<User> {
+        val sql2 = """
+           SELECT * FROM [${TypeNamespace.USER}] AS user
+           WHERE ISDESCENDANTNODE(user, '${JcrSubject.ROOT_PATH}')
+           ORDER BY user.[${Property.JCR_CREATED}]
+        """
+        return this.query(session, sql2, offset, size, JcrUser.Companion::of)
+    }
 
     @Throws(WorkspaceException::class)
     override fun updatePassword(id: String, value: String) {

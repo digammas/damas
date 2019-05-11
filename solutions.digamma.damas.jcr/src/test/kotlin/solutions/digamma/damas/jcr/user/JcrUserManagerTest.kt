@@ -135,6 +135,17 @@ class JcrUserManagerTest: WeldTest() {
 
     @Test
     fun find() {
+        val user = Mockito.mock(User::class.java)
+        Mockito.`when`(user.login).thenReturn("tester")
+        val id = this.manager.create(user).id
+        this.commit()
+        val page = this.manager.find()
+        assert(page.total == 1)
+        assert(page.size == 1)
+        assert(page.objects.size == 1)
+        val entity = page.objects.iterator().next()
+        assert(user.login == entity.login)
+        this.manager.delete(id)
     }
 
     @Test

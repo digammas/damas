@@ -16,6 +16,7 @@ internal class ResultPage<T : Entity> (
         private val offset: Int, private val total: Int) : Page<T> {
 
     constructor(content: List<T>) : this(content, 0, content.size)
+    constructor(content: List<T>, total: Int) : this(content, total, content.size)
 
     override fun getTotal(): Int {
         return this.total
