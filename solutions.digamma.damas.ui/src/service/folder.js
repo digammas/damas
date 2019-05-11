@@ -25,6 +25,10 @@ class ContentService {
     async move(id, parentId) {
         return (await http.put(`/folders/${id}`, { parentId })).data
     }
+
+    async copy(id, parentId) {
+        return (await http.post(`/folders/${id}/copy`, { parentId })).data
+    }
 }
 
 export default new ContentService()

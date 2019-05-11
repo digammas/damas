@@ -54,10 +54,13 @@ export default {
             let service = this.clipboard.file.content ? folderService : documentService
             if (this.clipboard.type == 'move') {
                 await service.move(this.clipboard.file.id, this.destination.id)
-                this.$store.dispatch("content/update", { clipboard: null })
-                this.$emit('change')
                 this.$bus$emit('success', "Moved successfully")
+            } else {
+                await service.copy(this.clipboard.file.id, this.destination.id)
+                this.$bus$emit('success', "Copied successfully")
             }
+            this.$store.dispatch("content/update", { clipboard: null })
+            this.$emit('change')
         }
     }
 }

@@ -29,6 +29,10 @@ class DocumentService {
     async move(id, parentId) {
         return (await http.put(`/documents/${id}`, { parentId })).data
     }
+
+    async copy(id, parentId) {
+        return (await http.post(`/documents/${id}/copy`, { parentId })).data
+    }
 }
 
 export default new DocumentService()
