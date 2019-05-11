@@ -1,5 +1,8 @@
 <template>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="textfield">
+    <div
+            class="mdl-textfield mdl-textfield--floating-label"
+            :class="classes"
+            ref="textfield">
         <div class="mdl-cell--12-col">
             <label
                     :for="id"
@@ -8,7 +11,7 @@
             </label>
             <input
                     :type="type"
-                    :name="nameOrId"
+                    :name="name || id"
                     :id="id"
                     :required="required"
                     :value="text || value"
@@ -49,15 +52,28 @@ export default {
             type: Boolean,
             default: false
         },
-        value: String
+        value: String,
+        floating: Boolean
     },
     computed: {
-        nameOrId() {
-            return this.name || this.id
+        classes() {
+            return {
+                'is-dirty': !this.floating,
+                'mdl-js-textfield': this.floating
+            }
         }
     },
     mounted() {
-        componentHandler.upgradeElement(this.$refs.textfield)
+        if (this.floating) {
+            componentHandler.upgradeElement(this.$refs.textfield)
+        }
+    },
+    watch: {
+        floating(value) {
+            if (value) {
+                componentHandler.upgradeElement(this.$refs.textfield)
+            }
+        }
     },
     methods: {
         setText(text) {
