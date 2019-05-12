@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import solutions.digamma.damas.cdi.ContainerRunner;
 
 import javax.inject.Singleton;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -189,5 +190,71 @@ public class UserTest extends IntegrationTest {
                     .delete()
                     .getStatus() / 100 == 2;
         }
+    }
+
+    @Test
+    public void testListUser() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String login = "jsmith";
+        body.put("login", login);
+        answer = target
+                .path("users")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        answer = target
+                .path("users")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        BigDecimal one = new BigDecimal(1);
+        assert one.equals(answer.get("total")) : "User list total mismatch";
+        assert one.equals(answer.get("size")) : "User list size mismatch";
+        Map user = (Map) ((List) answer.get("objects")).get(0);
+        assert login.equals(user.get("login")) : "User list result mismatch";
+        assert target
+                .path("users")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void testListGroup() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "clerks";
+        body.put("name", name);
+        answer = target
+                .path("groups")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        answer = target
+                .path("groups")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        BigDecimal one = new BigDecimal(1);
+        assert one.equals(answer.get("total")) : "Group list total mismatch";
+        assert one.equals(answer.get("size")) : "Group list size mismatch";
+        Map user = (Map) ((List) answer.get("objects")).get(0);
+        assert name.equals(user.get("name")) : "Group list result mismatch";
+        assert target
+                .path("groups")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
     }
 }
