@@ -23,6 +23,14 @@ class UserService {
     async retrieve(username) {
         return (await http.get(`${BASE_URL}/${username}`)).data
     }
+
+    async list(offset) {
+        return (await http.get(`${BASE_URL}`, { offset })).data.objects
+    }
+
+    async create(user) {
+        return (await http.post(`${BASE_URL}`, user)).data
+    }
 }
 
 export default new UserService()
