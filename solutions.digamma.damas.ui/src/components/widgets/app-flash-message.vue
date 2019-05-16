@@ -24,7 +24,7 @@ export default {
         }
     },
     mounted() {
-        componentHandler.upgradeElement(this.$refs.container)
+        window.componentHandler.upgradeElement(this.$refs.container)
     },
     methods: {
         show(message, timeout) {

@@ -36,7 +36,7 @@ export default {
         }
     },
     mounted() {
-        componentHandler.upgradeElement(this.$refs.layout)
+        window.componentHandler.upgradeElement(this.$refs.layout)
     }
 }
 </script>

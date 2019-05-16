@@ -33,7 +33,7 @@ export default {
     },
     updated() {
         this.$refs.container.dataset.upgraded = null
-        componentHandler.upgradeElement(this.$refs.container)
+        window.componentHandler.upgradeElement(this.$refs.container)
     },
     methods: {
         addTabItem(id, title, selected) {

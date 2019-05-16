@@ -22,7 +22,7 @@ export default {
         }
     },
     mounted() {
-        componentHandler.upgradeElement(this.$refs.table)
+        window.componentHandler.upgradeElement(this.$refs.table)
     }
 }
 </script>

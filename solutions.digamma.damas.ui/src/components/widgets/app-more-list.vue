@@ -38,7 +38,7 @@ export default {
         for (let el of this.$refs.list.querySelectorAll("a")) {
             el.classList.add("mdl-menu__item")
         }
-        componentHandler.upgradeElement(this.$refs.list)
+        window.componentHandler.upgradeElement(this.$refs.list)
     }
 }
 </script>

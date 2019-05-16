@@ -54,7 +54,7 @@ export default {
     },
     mounted() {
         if (this.hint) {
-            componentHandler.upgradeElement(this.$refs.hint)
+            window.componentHandler.upgradeElement(this.$refs.hint)
         }
     }
 }

@@ -65,13 +65,13 @@ export default {
     },
     mounted() {
         if (this.floating) {
-            componentHandler.upgradeElement(this.$refs.textfield)
+            window.componentHandler.upgradeElement(this.$refs.textfield)
         }
     },
     watch: {
         floating(value) {
             if (value) {
-                componentHandler.upgradeElement(this.$refs.textfield)
+                window.componentHandler.upgradeElement(this.$refs.textfield)
             }
         }
     },
