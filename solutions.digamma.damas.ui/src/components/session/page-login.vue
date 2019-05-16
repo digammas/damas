@@ -32,16 +32,9 @@
 
 <script>
 import auth from "@/service/auth"
-import AppTextInput from "@/components/widgets/app-text-input";
-import AppButton from "@/components/widgets/app-button"
-import AppRow from "@/components/widgets/app-row";
-import AppCheckbox from "@/components/widgets/app-checkbox";
-import AppFlashMessage from "@/components/widgets/app-flash-message";
-import AppPage from "@/components/layouts/app-page"
 
 export default {
     name: "PageLogin",
-    components: {AppPage, AppFlashMessage, AppCheckbox, AppRow, AppButton, AppTextInput},
     data() {
         return {
             username: "",
@@ -76,6 +69,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-</style>

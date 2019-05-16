@@ -23,11 +23,6 @@
 
 <script>
 import userService from '@/service/user'
-import AppLayout from "@/components/widgets/app-layout";
-import AppNavigation from "@/components/widgets/app-navigation";
-import AppFlashMessage from "@/components/widgets/app-flash-message";
-import AppIcon from "../widgets/app-icon";
-import AppCell from "../widgets/app-cell";
 
 export default {
     name: 'LayoutStandard',
@@ -35,13 +30,6 @@ export default {
         return {
             errorMessage: null
         }
-    },
-    components: {
-        AppCell,
-        AppIcon,
-        AppFlashMessage,
-        AppNavigation,
-        AppLayout
     },
     computed: {
         title() {

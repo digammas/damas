@@ -43,17 +43,10 @@
 
 <script>
 import folderService from '@/service/folder'
-
-import AppPage from "@/components/layouts/app-page";
-import AppButton from "@/components/widgets/app-button";
-import AppRow from "@/components/widgets/app-row";
-import AppCell from "@/components/widgets/app-cell";
-import AppIcon from "@/components/widgets/app-icon";
-import AppBox from "@/components/widgets/app-box";
-import DialogAddContent from "@/components/content/dialog-add-content";
-import IconFile from "@/components/content/icon-file";
-import MessageClipboard from "./message-clipboard";
-import MainContentFile from "./main-content-file";
+import DialogAddContent from './dialog-add-content'
+import IconFile from './icon-file'
+import MessageClipboard from './message-clipboard'
+import MainContentFile from './main-content-file'
 
 export default {
     name: 'PageFolder',
@@ -67,13 +60,7 @@ export default {
         MessageClipboard,
         MainContentFile,
         IconFile,
-        DialogAddContent,
-        AppIcon,
-        AppCell,
-        AppRow,
-        AppButton,
-        AppPage,
-        AppBox
+        DialogAddContent
     },
     created() {
         this.load(this.$route.params.id)

@@ -21,11 +21,8 @@
 </template>
 
 <script>
-import AppIcon from "./app-icon";
-
 export default {
     name: "AppLayout",
-    components: {AppIcon},
     props: {
         title: {
             type: String,

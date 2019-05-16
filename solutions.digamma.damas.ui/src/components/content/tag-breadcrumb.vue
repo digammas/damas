@@ -9,12 +9,8 @@
 </template>
 
 <script>
-import AppTag from "@/components/widgets/app-tag";
-import AppIcon from "@/components/widgets/app-icon";
-
 export default {
     name: "TagBreadcrumb",
-    components: {AppIcon, AppTag},
     props: {
         path: String,
         link: [String, Object]

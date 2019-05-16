@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import AppFloatingMessage from "@/components/widgets/app-floating-message";
-
 import folderService from '@/service/folder'
 import documentService from '@/service/document'
 
@@ -25,7 +23,6 @@ export default {
             required: true
         }
     },
-    components: {AppFloatingMessage},
     computed: {
         clipboard() {
             return this.$store.state.content.clipboard

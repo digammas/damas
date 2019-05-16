@@ -37,16 +37,8 @@
 </template>
 
 <script>
-import AppTabContainer from "@/components/widgets/app-tab-container";
-import AppTabItem from "@/components/widgets/app-tab-item";
-import service from "@/service/user";
-import DialogAddSubject from "./dialog-add-subject";
-import AppPage from "../layouts/app-page";
-import AppRow from "../widgets/app-row";
-import AppButton from "../widgets/app-button";
-import AppIcon from "../widgets/app-icon";
-import AppTable from "../widgets/app-table";
-import AppCell from "../widgets/app-cell";
+import service from '@/service/user'
+import DialogAddSubject from './dialog-add-subject'
 
 export default {
     name: 'PageUsers',
@@ -56,15 +48,7 @@ export default {
         }
     },
     components: {
-        AppCell,
-        AppTable,
-        AppIcon,
-        AppButton,
-        AppRow,
-        AppPage,
-        DialogAddSubject,
-        AppTabItem,
-        AppTabContainer
+        DialogAddSubject
     },
     mounted() {
         this.$_load()

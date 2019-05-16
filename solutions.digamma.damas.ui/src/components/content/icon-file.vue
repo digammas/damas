@@ -21,10 +21,6 @@
 </template>
 
 <script>
-import AppCell from "@/components/widgets/app-cell";
-import AppRow from "@/components/widgets/app-row";
-import AppIcon from "@/components/widgets/app-icon";
-
 export default {
     name: "IconFile",
     props: {
@@ -36,8 +32,7 @@ export default {
         symbol: String,
         theme: String,
         solid: Boolean
-    },
-    components: {AppIcon, AppRow, AppCell}
+    }
 }
 </script>
 

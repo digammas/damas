@@ -36,15 +36,8 @@
 <script>
 import service from '@/service/user'
 
-import AppTabContainer from "@/components/widgets/app-tab-container";
-import AppTabItem from "@/components/widgets/app-tab-item";
-import AppTextInput from "@/components/widgets/app-text-input";
-import AppFileUpload from "@/components/widgets/app-file-upload";
-import AppDialog from "@/components/widgets/app-dialog";
-
 export default {
     name: "DialogAddSubject",
-    components: {AppDialog, AppFileUpload, AppTextInput, AppTabItem, AppTabContainer},
     props: {
     },
     data() {

@@ -14,12 +14,7 @@
 
 <script>
 import documentService from '@/service/document'
-
-import AppPage from "@/components/layouts/app-page";
-import AppRow from "@/components/widgets/app-row";
-import AppButton from "@/components/widgets/app-button";
-import AppIcon from "@/components/widgets/app-icon";
-import MainContentFile from "./main-content-file";
+import MainContentFile from './main-content-file'
 
 export default {
     name: 'PageDocument',
@@ -30,11 +25,7 @@ export default {
         }
     },
     components: {
-        MainContentFile,
-        AppIcon,
-        AppButton,
-        AppRow,
-        AppPage
+        MainContentFile
     },
     created() {
         this.load(this.$route.params.id)

@@ -29,16 +29,9 @@
 <script>
 import folderService from '@/service/folder'
 import documentService from '@/service/document'
-import AppTextInput from "@/components/widgets/app-text-input";
-
-import AppDialog from "@/components/widgets/app-dialog";
 
 export default {
     name: "DialogRenameFile",
-    components: {
-        AppDialog,
-        AppTextInput
-    },
     props: {
         file: {
             type: Object,

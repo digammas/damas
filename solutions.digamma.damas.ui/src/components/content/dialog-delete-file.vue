@@ -26,13 +26,8 @@
 import folderService from '@/service/folder'
 import documentService from '@/service/document'
 
-import AppDialog from "@/components/widgets/app-dialog";
-
 export default {
     name: "DialogDeleteFile",
-    components: {
-        AppDialog
-    },
     props: {
         file: {
             type: Object,

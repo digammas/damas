@@ -21,10 +21,8 @@
 </template>
 
 <script>
-import AppIcon from "./app-icon";
 export default {
     name: "AppFileUpload",
-    components: {AppIcon},
     props: {
         id: {
             type: String,

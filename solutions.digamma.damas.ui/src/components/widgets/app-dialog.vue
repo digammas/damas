@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: "app-dialog",
+    name: "AppDialog",
     props: {
         title: String
     },

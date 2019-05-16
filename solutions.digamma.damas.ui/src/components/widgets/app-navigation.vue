@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "app-navigation",
+    name: "AppNavigation",
     mounted() {
         this.update()
     },

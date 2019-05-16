@@ -1,4 +1,4 @@
-import {CLEAR, UPDATE} from "./common";
+import {CLEAR, UPDATE} from './common'
 
 const defaults = {
     token: null,
