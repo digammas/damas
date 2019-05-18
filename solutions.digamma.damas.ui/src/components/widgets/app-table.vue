@@ -29,6 +29,14 @@ export default {
 
 <style scoped>
 
+.mdl-data-table {
+    width: 100%;
+}
+
+.mdl-data-table th {
+    text-align: inherit;
+}
+
 .mdl-data-table td {
     text-align: inherit;
 }
