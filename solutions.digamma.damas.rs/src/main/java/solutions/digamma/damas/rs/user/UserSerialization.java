@@ -14,6 +14,7 @@ public class UserSerialization extends SubjectSerialization implements User {
     private String firstName;
     private String lastName;
     private String login;
+    private String passowrd;
     private List<String> memberships = new ArrayList<>();
 
     public UserSerialization() {
@@ -78,5 +79,13 @@ public class UserSerialization extends SubjectSerialization implements User {
 
     public static UserSerialization from(User clone) {
         return new UserSerialization(clone);
+    }
+
+    public String getPassword() {
+        return this.passowrd;
+    }
+
+    public void setPassword(String value) {
+        this.passowrd = value;
     }
 }

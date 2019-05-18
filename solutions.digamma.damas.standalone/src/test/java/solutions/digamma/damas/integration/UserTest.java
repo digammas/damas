@@ -59,6 +59,83 @@ public class UserTest extends IntegrationTest {
     }
 
     @Test
+    public void testCreateWithPassword() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String login = "jsmith";
+        String password = "P@a55w0rd";
+        body.put("login", login);
+        body.put("password", password);
+        answer = target
+                .path("users")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        body.clear();
+        body.put("username", login);
+        body.put("password", password);
+        Map auth = target
+                .path("login")
+                .request(MEDIA_TYPE)
+                .post(entity(body))
+                .readEntity(HashMap.class);
+        assert auth.get("secret") instanceof String :
+            "Cannot use created password to log in.";
+        assert target
+                .path("users")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void testUpdatePassword() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String login = "jsmith";
+        String password = "P@a55w0rd";
+        body.put("login", login);
+        answer = target
+                .path("users")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        body.clear();
+        body.put("password", password);
+        assert  target
+                .path("users")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .put(entity(body))
+                .getStatus() / 100 == 2 :
+            "Bad response when trying to update password.";
+        body.clear();
+        body.put("username", login);
+        body.put("password", password);
+        Map auth = target
+                .path("login")
+                .request(MEDIA_TYPE)
+                .post(entity(body))
+                .readEntity(HashMap.class);
+        assert auth.get("secret") instanceof String :
+            "Cannot use updated password to log in.";
+        assert target
+                .path("users")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
     public void testCreateRetrieveDeleteGroup() {
         Map answer;
         Map<String, Object> body = new HashMap<>();
