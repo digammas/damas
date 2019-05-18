@@ -31,6 +31,10 @@ class UserService {
     async create(user) {
         return (await http.post(`${BASE_URL}`, user)).data
     }
+
+    async remove(id) {
+        return (await http.delete(`${BASE_URL}/${id}`)).data
+    }
 }
 
 export default new UserService()

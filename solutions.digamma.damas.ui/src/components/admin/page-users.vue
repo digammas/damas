@@ -1,44 +1,75 @@
 <template>
     <app-page layout="standard">
-        <app-tab-container>
-            <app-tab-item title="Users" id="tab-users" selected>
-                <app-row align="center" gutter>
-                    <app-table selectable shadow>
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in users" :key="item.login">
-                                <td>{{item.login}}</td>
-                                <td>{{item.firstName}}</td>
-                                <td>{{item.lastName}}</td>
-                            </tr>
-                        </tbody>
-                    </app-table>
-                </app-row>
-            </app-tab-item>
-            <app-row align="right" gutter>
-                <app-button @click="$_openAddSubjectDialog" floating>
-                    <app-icon symbol="plus" solid />
-                </app-button>
-            </app-row>
-            <dialog-add-subject
-                    ref="addUserDialog"
-                    @change="$_load"/>
-            <app-tab-item title="Groups" id="tab-groups">
+        <app-row align="center" gutter>
+            <app-cell :span="10">
+                <app-tab-container>
+                    <app-tab-item title="Users" id="tab-users" selected>
+                        <app-table selectable shadow>
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in users" :key="item.login">
+                                    <td>{{item.login}}</td>
+                                    <td>{{item.firstName}}</td>
+                                    <td>{{item.lastName}}</td>
+                                    <td>
+                                        <app-row>
+                                            <app-cell
+                                                :span="4"
+                                                hint="delete">
+                                                <app-button
+                                                        toolbar
+                                                        flat
+                                                        @click="$_openDeleteDialog(item)">
+                                                    <app-icon symbol="trash" solid size="small"/>
+                                                </app-button>
+                                            </app-cell>
+                                            <app-cell
+                                                    :span="4"
+                                                    hint="edit">
+                                                <app-button
+                                                        toolbar
+                                                        flat
+                                                        @click="$_openEditDialog(item)">
+                                                    <app-icon symbol="pen" solid size="small"/>
+                                                </app-button>
+                                            </app-cell>
+                                        </app-row>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </app-table>
+                        <app-row align="right" gutter>
+                            <app-button @click="$_openAddSubjectDialog" floating>
+                                <app-icon symbol="plus" solid />
+                            </app-button>
+                        </app-row>
+                    </app-tab-item>
+                    <dialog-add-subject
+                            ref="addUserDialog"
+                            @change="$_load"/>
+                    <app-tab-item title="Groups" id="tab-groups">
+                    </app-tab-item>
+                </app-tab-container>
+                <dialog-delete-subject
+                        ref="deleteSubjectDialog"
+                        @change="$_load"/>
 
-            </app-tab-item>
-        </app-tab-container>
+            </app-cell>
+        </app-row>
     </app-page>
 </template>
 
 <script>
 import service from '@/service/user'
 import DialogAddSubject from './dialog-add-subject'
+import DialogDeleteSubject from './dialog-delete-subject';
 
 export default {
     name: 'PageUsers',
@@ -48,6 +79,7 @@ export default {
         }
     },
     components: {
+        DialogDeleteSubject,
         DialogAddSubject
     },
     mounted() {
@@ -59,6 +91,11 @@ export default {
         },
         $_openAddSubjectDialog() {
             this.$refs.addUserDialog.show()
+        },
+        $_openDeleteDialog(item) {
+            this.$refs.deleteSubjectDialog.show(item)
+        },
+        $_openEditDialog(item) {
         }
     }
 }
