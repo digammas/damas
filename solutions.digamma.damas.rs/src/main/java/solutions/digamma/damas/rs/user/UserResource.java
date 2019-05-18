@@ -25,7 +25,6 @@ public class UserResource extends SearchEnabledCrudResource<User, UserSerializat
         return this.manager;
     }
 
-
     @Override
     protected UserSerialization wrap(User entity) {
         return UserSerialization.from(entity);
