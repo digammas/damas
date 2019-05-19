@@ -1,20 +1,20 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="Add Subject">
+            title="title">
         <template>
             <app-text-input
                     id="username"
                     label="Username"
-                    v-model="username"/>
+                    v-model="user.login"/>
             <app-text-input
                     id="first-name"
                     label="First Name"
-                    v-model="firstName"/>
+                    v-model="user.firstName"/>
             <app-text-input
                     id="last-name"
                     label="Last Name"
-                    v-model="lastName"/>
+                    v-model="user.lastName"/>
         </template>
         <template #actions>
             <button
@@ -36,41 +36,49 @@
 <script>
 import service from '@/service/user'
 
+const DEFAULT_USER = {
+    login: "",
+    firstName: "",
+    lastName: ""
+}
+
 export default {
-    name: "DialogAddSubject",
-    props: {
-    },
+    name: "DialogUser",
     data() {
         return {
-            username: null,
-            firstName: null,
-            lastName: null
+            user: DEFAULT_USER
+        }
+    },
+    computed: {
+        title() {
+            return this.user.id ? "Edit User" : "Add User"
         }
     },
     methods: {
-        show() {
+        show(user) {
+            if (user) this.user = user
             this.$refs.dialogBox.show()
         },
         hide() {
-            this.username = this.firstName = this.lastName = ""
+            this.user = DEFAULT_USER
             this.$refs.dialogBox.hide()
         },
         create() {
-            let user = {
-                login: this.username,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                password: "p@55w0Rd"
-            }
-            service.create(user).then(user => {
-                this.fireChange(user)
-                this.username = null
-                this.$emit('change', user)
-            }).then(() => this.$bus$emit('success', "User created successfully."))
+            service.create({
+                password: "p@55w0Rd",
+                ...this.user
+            }).then(user => {
+                this.$emit('create', user)
+                this.$bus$emit('success', "User created successfully.")
+            })
             this.hide()
         },
-        fireChange(subject) {
-            this.$emit('change', subject)
+        update() {
+            service.update(this.user).then(user => {
+                this.$emit('update', user)
+                this.$bus$emit('success', "User updated successfully.")
+            })
+            this.hide()
         }
     }
 }

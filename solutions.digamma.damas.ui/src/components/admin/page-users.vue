@@ -51,9 +51,10 @@
                             </app-button>
                         </app-row>
                     </app-tab-item>
-                    <dialog-add-subject
+                    <dialog-user
                             ref="addUserDialog"
-                            @change="$_load"/>
+                            @update="$_load"
+                            @create="$_load"/>
                     <app-tab-item title="Groups" id="tab-groups">
                     </app-tab-item>
                 </app-tab-container>
@@ -68,7 +69,7 @@
 
 <script>
 import service from '@/service/user'
-import DialogAddSubject from './dialog-add-subject'
+import DialogUser from './dialog-user'
 import DialogDeleteSubject from './dialog-delete-subject';
 
 export default {
@@ -80,7 +81,7 @@ export default {
     },
     components: {
         DialogDeleteSubject,
-        DialogAddSubject
+        DialogUser
     },
     mounted() {
         this.$_load()
