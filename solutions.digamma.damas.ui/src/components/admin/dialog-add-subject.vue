@@ -52,19 +52,21 @@ export default {
             this.$refs.dialogBox.show()
         },
         hide() {
+            this.username = this.firstName = this.lastName = ""
             this.$refs.dialogBox.hide()
         },
         create() {
             let user = {
                 login: this.username,
                 firstName: this.firstName,
-                lastName: this.lastName
+                lastName: this.lastName,
+                password: "p@55w0Rd"
             }
             service.create(user).then(user => {
                 this.fireChange(user)
                 this.username = null
                 this.$emit('change', user)
-            })
+            }).then(() => this.$bus$emit('success', "User created successfully."))
             this.hide()
         },
         fireChange(subject) {
