@@ -20,7 +20,7 @@
             <button
                     type="button"
                     class="mdl-button"
-                    @click="create">
+                    @click="submit">
                 OK
             </button>
             <button
@@ -56,12 +56,19 @@ export default {
     },
     methods: {
         show(user) {
-            if (user) this.user = user
+            if (user) this.user = {...user}
             this.$refs.dialogBox.show()
         },
         hide() {
             this.user = DEFAULT_USER
             this.$refs.dialogBox.hide()
+        },
+        submit() {
+            if (this.user.id) {
+                this.update()
+            } else {
+                this.create()
+            }
         },
         create() {
             service.create({

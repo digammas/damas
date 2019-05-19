@@ -46,13 +46,13 @@
                             </tbody>
                         </app-table>
                         <app-row align="right" gutter>
-                            <app-button @click="$_openAddSubjectDialog" floating>
+                            <app-button @click="$_openAddDialog" floating>
                                 <app-icon symbol="plus" solid />
                             </app-button>
                         </app-row>
                     </app-tab-item>
                     <dialog-user
-                            ref="addUserDialog"
+                            ref="userDialog"
                             @update="$_load"
                             @create="$_load"/>
                     <app-tab-item title="Groups" id="tab-groups">
@@ -90,13 +90,14 @@ export default {
         async $_load() {
             this.users = await service.list()
         },
-        $_openAddSubjectDialog() {
-            this.$refs.addUserDialog.show()
+        $_openAddDialog() {
+            this.$refs.userDialog.show()
         },
         $_openDeleteDialog(item) {
             this.$refs.deleteSubjectDialog.show(item)
         },
         $_openEditDialog(item) {
+            this.$refs.userDialog.show(item)
         }
     }
 }
