@@ -105,8 +105,6 @@ export default {
 
 <style>
 
-.mdl-tabs__tab {
-    width: 100%;
-}
+
 
 </style>

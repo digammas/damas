@@ -42,3 +42,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+.mdl-tabs__tab {
+    width: 100%;
+}
+
+</style>
