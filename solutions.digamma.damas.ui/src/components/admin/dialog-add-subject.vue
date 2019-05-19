@@ -3,10 +3,10 @@
             ref="dialogBox"
             title="Add Subject">
         <template>
-                <app-text-input
-                        id="username"
-                        label="Username"
-                        v-model="username"/>
+            <app-text-input
+                    id="username"
+                    label="Username"
+                    v-model="username"/>
             <app-text-input
                     id="first-name"
                     label="First Name"
