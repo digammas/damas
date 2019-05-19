@@ -1,7 +1,7 @@
 <template>
     <app-dialog
             ref="dialogBox"
-            title="title">
+            :title="title">
         <template>
             <app-text-input
                     id="username"
@@ -15,6 +15,8 @@
                     id="last-name"
                     label="Last Name"
                     v-model="user.lastName"/>
+
+
         </template>
         <template #actions>
             <button
