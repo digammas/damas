@@ -3,23 +3,21 @@
             class="mdl-textfield mdl-textfield--floating-label"
             :class="classes"
             ref="textfield">
-        <div class="mdl-cell--12-col">
-            <label
-                    :for="id"
-                    class="mdl-textfield__label">
-                {{label}}
-            </label>
-            <input
-                    :type="type"
-                    :name="name || id"
-                    :id="id"
-                    :required="required"
-                    :value="text || value"
-                    @input="$emit('input', $event.target.value)"
-                    class="mdl-textfield__input"
-                    ref="input"
-                    v-bind="$attrs"/>
-        </div>
+        <label
+                :for="id"
+                class="mdl-textfield__label">
+            {{label}}
+        </label>
+        <input
+                :type="type"
+                :name="name || id"
+                :id="id"
+                :required="required"
+                :value="text || value"
+                @input="$emit('input', $event.target.value)"
+                class="mdl-textfield__input"
+                ref="input"
+                v-bind="$attrs"/>
     </div>
 </template>
 
