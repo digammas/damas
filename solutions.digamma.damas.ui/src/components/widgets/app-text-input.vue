@@ -16,8 +16,19 @@
                 :value="text || value"
                 @input="$emit('input', $event.target.value)"
                 class="mdl-textfield__input"
+                :class="{shrunk: action}"
                 ref="input"
                 v-bind="$attrs"/>
+        <app-button
+                v-if="action"
+                toolbar
+                flat
+                class="action-button"
+                @click="$emit('action', $event)">
+            <app-icon
+                    :symbol="action"
+                    size="small"/>
+        </app-button>
     </div>
 </template>
 
@@ -51,7 +62,8 @@ export default {
             default: false
         },
         value: String,
-        floating: Boolean
+        floating: Boolean,
+        action: String
     },
     computed: {
         classes() {
@@ -87,5 +99,14 @@ export default {
 <style scoped>
 .mdl-textfield {
     display: inline-block;
+}
+
+input.shrunk {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+}
+
+.action-button {
+    right: 0;
 }
 </style>
