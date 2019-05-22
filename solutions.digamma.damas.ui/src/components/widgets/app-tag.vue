@@ -10,7 +10,7 @@
                 v-if="action"
                 type="button"
                 class="mdl-chip__action"
-                @click="$emit('click', $event)">
+                @click="$emit('action', $event)">
             <app-icon
                     :symbol="action"
                     theme="dark"/>

@@ -23,7 +23,12 @@
                     @action="addToGroup"/>
             </app-row>
             <app-row>
-                <app-tag v-for="group in user.memberships">{{group}}</app-tag>
+                <app-tag
+                        v-for="group in user.memberships"
+                        action="times solid"
+                        @action="removeFromGroup(group)">
+                    {{group}}
+                </app-tag>
             </app-row>
         </template>
         <template #actions>
@@ -105,6 +110,9 @@ export default {
             } else {
                 this.$bus$emit('error', "Group name doesn't exist.")
             }
+        },
+        removeFromGroup(name) {
+            [name, ...this.user.memberships] = this.user.memberships
         }
     }
 }
