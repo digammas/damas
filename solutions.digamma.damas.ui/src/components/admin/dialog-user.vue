@@ -15,8 +15,16 @@
                     id="last-name"
                     label="Last Name"
                     v-model="user.lastName"/>
-
-
+            <app-row>
+                <app-text-input
+                    id="groups"
+                    label="Groups"
+                    action="plus solid"
+                    @action="addToGroup"/>
+            </app-row>
+            <app-row>
+                <app-tag v-for="group in user.memberships">{{group}}</app-tag>
+            </app-row>
         </template>
         <template #actions>
             <button
@@ -37,11 +45,13 @@
 
 <script>
 import service from '@/service/user'
+import groupService from '@/service/group'
 
 const DEFAULT_USER = {
     login: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    memberships: []
 }
 
 export default {
@@ -88,6 +98,13 @@ export default {
                 this.$bus$emit('success', "User updated successfully.")
             })
             this.hide()
+        },
+        async addToGroup(name) {
+            if ((await groupService.list()).map(g => g.name).includes(name)) {
+                this.user.memberships.push(name)
+            } else {
+                this.$bus$emit('error', "Group name doesn't exist.")
+            }
         }
     }
 }

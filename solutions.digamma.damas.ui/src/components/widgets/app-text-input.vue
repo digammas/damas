@@ -24,7 +24,7 @@
                 toolbar
                 flat
                 class="action-button"
-                @click="$emit('action', $event)">
+                @click="$emit('action', $refs.input.value)">
             <app-icon
                     :symbol="action"
                     size="small"/>
