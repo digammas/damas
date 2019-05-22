@@ -43,11 +43,11 @@ export default {
     computed: {
         classes() {
             return [
-                this.solid ? "fas" : "far",
+                this.isSolid() ? "fas" : "far",
                 `fa-${this.getSymbol()}`,
                 sizes[this.size],
                 themes[this.theme],
-                this.inactive ? "inactive" : ""
+                this.isInactive() ? "inactive" : ""
             ]
 
         }
