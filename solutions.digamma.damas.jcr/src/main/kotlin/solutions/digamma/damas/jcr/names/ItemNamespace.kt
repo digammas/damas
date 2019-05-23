@@ -15,6 +15,8 @@ internal object ItemNamespace {
 
     internal val ALIAS = Namespace.prefix("alias")
 
+    internal val LABEL = Namespace.prefix("label")
+
     internal val EMAIL = Namespace.prefix("mail")
 
     internal val NAME = Namespace.prefix("name")

@@ -13,7 +13,7 @@ import javax.jcr.Session
 /**
  * User group with JCR backbone.
  *
- * Groups are identified by their names. Group names cannot ne modified.
+ * Groups are identified by their names. Group names cannot be modified.
  *
  * @constructor private constructor with JCR node
  * @param node              JCR node
@@ -23,20 +23,24 @@ internal class JcrGroup
 @Throws(WorkspaceException::class)
 private constructor(node: Node) : JcrSubject(node), Group {
 
-    override fun getId(): String = Exceptions.uncheck { this.node.name }
+    override fun getId(): String = this.name
 
-    override fun getName(): String? =
-        this.getString(ItemNamespace.ALIAS) ?: this.id
+    override fun getName(): String =
+        this.getString(ItemNamespace.ALIAS)!!
 
-    override fun setName(value: String?) {
-        if (value != null && value != this.name) {
-            this.setString(ItemNamespace.ALIAS, value)
+    override fun getLabel(): String? {
+        return this.getString(ItemNamespace.LABEL)
+    }
+
+    override fun setLabel(value: String?) {
+        if (value != null) {
+            this.setString(ItemNamespace.LABEL, value)
         }
     }
 
     @Throws(WorkspaceException::class)
     fun update(other: Group) {
-        other.name?.let { this.name = it }
+        other.label?.let { this.label = it }
     }
 
     companion object {

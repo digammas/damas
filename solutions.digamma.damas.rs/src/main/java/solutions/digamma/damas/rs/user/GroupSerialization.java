@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class GroupSerialization extends SubjectSerialization implements Group {
 
     private String name;
+    private String label;
 
     public GroupSerialization() {
         super();
@@ -23,9 +24,18 @@ public class GroupSerialization extends SubjectSerialization implements Group {
         return this.name;
     }
 
-    @Override
     public void setName(String value) {
         this.name = value;
+    }
+
+    @Override
+    public String getLabel() {
+        return this.label;
+    }
+
+    @Override
+    public void setLabel(String value) {
+        this.label = value;
     }
 
     public static GroupSerialization from(Group clone) {

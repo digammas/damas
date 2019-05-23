@@ -8,7 +8,7 @@ package solutions.digamma.damas.user;
 public interface Group extends Subject {
 
     /**
-     * Group's unique name. Group name is mutable and different form its
+     * Group's unique name. Group name is immutable and constitutes its
      * identifier.
      *
      * @return                      group's name
@@ -16,9 +16,16 @@ public interface Group extends Subject {
     String getName();
 
     /**
-     * Set group's name.
+     * Group's descriptive label.
      *
-     * @param value                 group's new name
+     * @return                      group's label
      */
-    void setName(String value);
+    String getLabel();
+
+    /**
+     * Set group's label.
+     *
+     * @param value                 group's new label
+     */
+    void setLabel(String value);
 }

@@ -26,6 +26,7 @@
 
 [dms:Group] > dms:Subject
     - dms:alias (string) mandatory
+    - dms:label (string)
 
 [dms:Directory] > nt:base
     + * (dms:Subject)

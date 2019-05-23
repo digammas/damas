@@ -29,8 +29,10 @@ class JcrGroupManagerTest: WeldTest() {
     fun create() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
+        Mockito.`when`(group.label).thenReturn("The Testers")
         val entity = this.manager.create(group)
         assert(group.name == entity.name)
+        assert(group.label == entity.label)
         this.manager.delete(entity.id)
     }
 
@@ -39,10 +41,10 @@ class JcrGroupManagerTest: WeldTest() {
         val group = Mockito.mock(Group::class.java)
         Mockito.`when`(group.name).thenReturn("testers")
         val id = this.manager.create(group).id
-        Mockito.`when`(group.name).thenReturn("tasters")
+        Mockito.`when`(group.label).thenReturn("The Testers")
         this.manager.update(id, group)
         val entity = this.manager.retrieve(id)
-        assert(group.name == entity.name)
+        assert(group.label == entity.label)
         this.manager.delete(id)
     }
 
