@@ -73,7 +73,7 @@ import DialogUser from './dialog-user'
 import DialogDeleteSubject from './dialog-delete-subject';
 
 export default {
-    name: 'PageUsers',
+    name: 'PageUserManagement',
     data() {
         return {
             users: []

@@ -27,7 +27,7 @@ const routes = [
     }, {
         path: '/users',
         name: 'users',
-        component: () => import('@/components/admin/page-users.vue'),
+        component: () => import('@/components/admin/page-user-management.vue'),
         meta: {
             title: "Users"
         }
