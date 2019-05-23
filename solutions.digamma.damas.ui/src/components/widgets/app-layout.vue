@@ -10,7 +10,7 @@
                 <slot name="header"></slot>
             </div>
         </header>
-        <div class="mdl-layout__drawer" v-if="hasSidebar">
+        <div class="mdl-layout__drawer" v-if="hasSidebar" ref="sidebar">
             <span class="mdl-layout-title">{{shortTitle || title}}</span>
             <slot name="sidebar"></slot>
         </div>
@@ -37,6 +37,15 @@ export default {
     },
     mounted() {
         window.componentHandler.upgradeElement(this.$refs.layout)
+    },
+    watch: {
+        '$route' () {
+            if (this.hasSidebar && this.$refs.sidebar) {
+                if (this.$refs.sidebar.classList.contains("is-visible")) {
+                    this.$refs.layout.MaterialLayout.toggleDrawer()
+                }
+            }
+        }
     }
 }
 </script>
