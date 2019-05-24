@@ -21,7 +21,7 @@ class GroupService {
     }
 
     async update(group) {
-        return (await http.put(`${BASE_URL}/${group.id}`, group)).data
+        return (await http.put(`${BASE_URL}/${group.id}`, {label: group.label})).data
     }
 }
 

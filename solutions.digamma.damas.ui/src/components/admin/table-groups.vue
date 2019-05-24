@@ -3,17 +3,15 @@
         <app-table selectable shadow>
             <thead>
             <tr>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Group name</th>
+                <th>Group alias</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in users" :key="item.login">
-                <td>{{item.login}}</td>
-                <td>{{item.firstName}}</td>
-                <td>{{item.lastName}}</td>
+            <tr v-for="item in groups" :key="item.name">
+                <td>{{item.name}}</td>
+                <td>{{item.label}}</td>
                 <td>
                     <app-row>
                         <app-cell
@@ -46,7 +44,7 @@
                 <app-icon symbol="plus" solid />
             </app-button>
         </app-row>
-        <dialog-user
+        <dialog-group
                 ref="userDialog"
                 @update="$_load"
                 @create="$_load"/>
@@ -57,19 +55,19 @@
 </template>
 
 <script>
-import service from '@/service/user'
-import DialogUser from './dialog-user'
+import service from '@/service/group'
+import DialogGroup from './dialog-group'
 import DialogDeleteSubject from './dialog-delete-subject'
 
 export default {
-    name: "TableUsers",
+    name: "TableGroups",
     components: {
         DialogDeleteSubject,
-        DialogUser
+        DialogGroup
     },
     data() {
         return {
-            users: []
+            groups: []
         }
     },
     mounted() {
@@ -77,7 +75,7 @@ export default {
     },
     methods: {
         async $_load() {
-            this.users = await service.list()
+            this.groups = await service.list()
         },
         $_openAddDialog() {
             this.$refs.userDialog.show()

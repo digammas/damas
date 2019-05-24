@@ -7,18 +7,20 @@
                         <table-users />
                     </app-tab-item>
                     <app-tab-item title="Groups" id="tab-groups">
+                        <table-groups />
                     </app-tab-item>
                 </app-tab-container>
-
             </app-cell>
         </app-row>
     </app-page>
 </template>
 
 <script>
-import TableUsers from "./table-users";
+import TableUsers from './table-users'
+import TableGroups from './table-groups'
+
 export default {
     name: "PageUserManagement",
-    components: {TableUsers}
+    components: {TableGroups, TableUsers}
 }
 </script>
