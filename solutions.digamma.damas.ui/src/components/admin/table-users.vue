@@ -1,20 +1,13 @@
 <template>
     <div>
-        <app-table selectable shadow>
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in users" :key="item.login">
-                <td>{{item.login}}</td>
-                <td>{{item.firstName}}</td>
-                <td>{{item.lastName}}</td>
-                <td>
+        <app-table
+                :items="users"
+                selectable
+                shadow>
+            <app-table-column title="Username" field="login" />
+            <app-table-column title="First Name" field="firstName" />
+            <app-table-column title="Last Name" field="lastName" />
+            <template #actions="item">
                     <app-row>
                         <app-cell
                                 :span="4"
@@ -37,9 +30,7 @@
                             </app-button>
                         </app-cell>
                     </app-row>
-                </td>
-            </tr>
-            </tbody>
+            </template>
         </app-table>
         <app-row align="right" gutter>
             <app-button @click="$_openAddDialog" floating>

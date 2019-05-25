@@ -1,43 +1,39 @@
 <template>
     <div>
-        <app-table selectable shadow>
-            <thead>
-            <tr>
-                <th>Group name</th>
-                <th>Group alias</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in groups" :key="item.name">
-                <td>{{item.name}}</td>
-                <td>{{item.label}}</td>
-                <td>
-                    <app-row>
-                        <app-cell
-                                :span="4"
-                                hint="delete">
-                            <app-button
-                                    toolbar
-                                    flat
-                                    @click="$_openDeleteDialog(item)">
-                                <app-icon symbol="trash" solid size="small"/>
-                            </app-button>
-                        </app-cell>
-                        <app-cell
-                                :span="4"
-                                hint="edit">
-                            <app-button
-                                    toolbar
-                                    flat
-                                    @click="$_openEditDialog(item)">
-                                <app-icon symbol="pen" solid size="small"/>
-                            </app-button>
-                        </app-cell>
-                    </app-row>
-                </td>
-            </tr>
-            </tbody>
+        <app-table
+                :items="groups"
+                selectable
+                shadow>
+            <app-table-column
+                    title="Group name"
+                    field="name"/>
+            <app-table-column
+                    title="Group alias"
+                    field="label"/>
+            <template #actions="item">
+                <app-row>
+                    <app-cell
+                            :span="4"
+                            hint="delete">
+                        <app-button
+                                toolbar
+                                flat
+                                @click="$_openDeleteDialog(item)">
+                            <app-icon symbol="trash" solid size="small"/>
+                        </app-button>
+                    </app-cell>
+                    <app-cell
+                            :span="4"
+                            hint="edit">
+                        <app-button
+                                toolbar
+                                flat
+                                @click="$_openEditDialog(item)">
+                            <app-icon symbol="pen" solid size="small"/>
+                        </app-button>
+                    </app-cell>
+                </app-row>
+        </template>
         </app-table>
         <app-row align="right" gutter>
             <app-button @click="$_openAddDialog" floating>
@@ -58,10 +54,12 @@
 import service from '@/service/group'
 import DialogGroup from './dialog-group'
 import DialogDeleteSubject from './dialog-delete-subject'
+import AppTableColumn from '../widgets/app-table-column'
 
 export default {
     name: "TableGroups",
     components: {
+        AppTableColumn,
         DialogDeleteSubject,
         DialogGroup
     },
