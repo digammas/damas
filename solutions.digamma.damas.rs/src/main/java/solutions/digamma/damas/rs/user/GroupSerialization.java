@@ -17,6 +17,7 @@ public class GroupSerialization extends SubjectSerialization implements Group {
     protected GroupSerialization(Group clone) {
         super(clone);
         this.name = clone.getName();
+        this.label = clone.getLabel();
     }
 
     @Override
