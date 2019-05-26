@@ -1,7 +1,7 @@
 <template>
     <div v-if="file">
         <app-box shadow>
-            <path-breadcrumb :path="file && file.path"/>
+            <tag-breadcrumb :path="file && file.path"/>
             <app-spacer />
             <app-button
                     toolbar
@@ -46,7 +46,7 @@
 
 <script>
 import DialogRenameFile from './dialog-rename-file'
-import PathBreadcrumb from './tag-breadcrumb'
+import TagBreadcrumb from './tag-breadcrumb'
 import DialogDeleteFile from './dialog-delete-file'
 
 export default {
@@ -54,7 +54,7 @@ export default {
     components: {
         DialogDeleteFile,
         DialogRenameFile,
-        PathBreadcrumb
+        TagBreadcrumb
     },
     props: {
         file: Object
