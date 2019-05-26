@@ -1,5 +1,8 @@
 <template>
-    <dialog ref="dialog" class="mdl-dialog">
+    <dialog
+            ref="dialog"
+            class="mdl-dialog"
+            @click="$_onClick">
         <h6
                 v-if="title"
                 class="mdl-dialog__title">
@@ -26,6 +29,16 @@ export default {
         },
         hide() {
             this.$refs.dialog.close()
+        },
+        $_onClick(event) {
+            let rect = this.$refs.dialog.getBoundingClientRect();
+            if (
+                    event.clientY <= rect.top ||
+                    event.clientY > rect.top + rect.height ||
+                    event.clientX <= rect.left ||
+                    event.clientX > rect.left + rect.width) {
+                this.hide()
+            }
         }
     }
 }
