@@ -3,12 +3,15 @@
         <app-box shadow>
             <tag-breadcrumb :path="file && file.path"/>
             <app-spacer />
-            <app-button
-                    toolbar
-                    flat
-                    @click="goToParent">
-                <app-icon symbol="arrow-up" solid size="small"/>
-            </app-button>
+            <app-hint text="Parent Folder">
+                <app-button
+                        toolbar
+                        flat
+                        v-if="file && file.parentId"
+                        @click="goToParent">
+                    <app-icon symbol="arrow-up" solid size="small"/>
+                </app-button>
+            </app-hint>
             <app-more-list>
                 <slot name="options"></slot>
                 <a
