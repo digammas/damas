@@ -1,21 +1,20 @@
 <template>
-    <component class="mdl-cell" :class="classes" :is="tag">
-        <div :id="hintedId">
-            <slot></slot>
-        </div>
-        <div
-                ref="hint"
-                v-if="hint"
-                class="mdl-tooltip mdl-tooltip--large hint-box"
-                :for="hintedId">
-            {{hint}}
-        </div>
+    <component
+            class="mdl-cell"
+            :text="hint"
+            :outerTag="tag"
+            :class="classes"
+            :is="rootType">
+        <slot></slot>
     </component>
 </template>
 
 <script>
+import AppHint from './app-hint'
+
 export default {
     name: "AppCell",
+    components: {AppHint},
     props: {
         span: {
             type: Number,
@@ -56,17 +55,11 @@ export default {
                 [`mdl-cell--${this.mobileSpan}-col`]: this.mobileSpan
             }
         },
-        hintedId() {
-            return this.$utils.randomId("inner-cell-")
-        }
-    },
-    mounted() {
-        if (this.hint) {
-            window.componentHandler.upgradeElement(this.$refs.hint)
+        rootType() {
+            return this.hint ? 'AppHint' : this.tag
         }
     }
 }
-
 </script>
 
 <style scoped>
