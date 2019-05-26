@@ -1,7 +1,6 @@
 <template>
     <div
             class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield"
-            :class="classes"
             ref="textfield">
         <label
                 :for="id"
@@ -64,11 +63,6 @@ export default {
         value: String,
         action: String
     },
-    computed: {
-        classes() {
-            return {}
-        }
-    },
     mounted() {
         this.$_update()
         var textfield = this.$refs.textfield
@@ -82,9 +76,17 @@ export default {
     updated() {
         this.$_update()
     },
+    watch: {
+        value(value) {
+            if (value) {
+                this.$refs.textfield.classList.add('is-focused')
+            }
+        }
+    },
     methods: {
         setText(text) {
             this.text = text
+            this.$refs.textfield.classList.add('is-focused')
         },
         getText() {
             return this.$refs.input.value
