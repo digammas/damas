@@ -10,7 +10,7 @@
             <app-table-column
                     title="Group alias"
                     field="label"/>
-            <template #actions="item">
+            <template #actions="{ item }">
                 <app-row>
                     <app-cell
                             :span="4"

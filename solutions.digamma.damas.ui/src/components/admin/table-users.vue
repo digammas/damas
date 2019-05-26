@@ -7,7 +7,7 @@
             <app-table-column title="Username" field="login" />
             <app-table-column title="First Name" field="firstName" />
             <app-table-column title="Last Name" field="lastName" />
-            <template #actions="item">
+            <template #actions="{ item }">
                     <app-row>
                         <app-cell
                                 :span="4"
