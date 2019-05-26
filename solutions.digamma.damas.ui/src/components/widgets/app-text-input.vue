@@ -1,6 +1,6 @@
 <template>
     <div
-            class="mdl-textfield mdl-textfield--floating-label"
+            class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield"
             :class="classes"
             ref="textfield">
         <label
@@ -62,28 +62,25 @@ export default {
             default: false
         },
         value: String,
-        floating: Boolean,
         action: String
     },
     computed: {
         classes() {
-            return {
-                'is-dirty': !this.floating,
-                'mdl-js-textfield': this.floating
-            }
+            return {}
         }
     },
     mounted() {
-        if (this.floating) {
-            window.componentHandler.upgradeElement(this.$refs.textfield)
-        }
-    },
-    watch: {
-        floating(value) {
-            if (value) {
-                window.componentHandler.upgradeElement(this.$refs.textfield)
+        this.$_update()
+        var textfield = this.$refs.textfield
+        setTimeout(() => {
+            let autofill = textfield.querySelectorAll('input:-webkit-autofill')
+            if (autofill.length) {
+                textfield.classList.add('is-dirty')
             }
-        }
+        }, 500)
+    },
+    updated() {
+        this.$_update()
     },
     methods: {
         setText(text) {
@@ -91,6 +88,9 @@ export default {
         },
         getText() {
             return this.$refs.input.value
+        },
+        $_update() {
+            window.componentHandler.upgradeElement(this.$refs.textfield)
         }
     }
 }
