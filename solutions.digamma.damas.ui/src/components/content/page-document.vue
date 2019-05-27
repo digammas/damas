@@ -1,13 +1,11 @@
 <template>
     <app-page layout="standard">
         <main-content-file v-if="document" :file="document">
-            <template>
-                <app-row align="right" gutter>
-                    <app-button @click="download" floating>
-                        <app-icon symbol="download" solid />
-                    </app-button>
-                </app-row>
-            </template>
+            <app-row align="right" gutter>
+                <app-button @click="download" floating>
+                    <app-icon symbol="download" solid />
+                </app-button>
+            </app-row>
         </main-content-file>
     </app-page>
 </template>

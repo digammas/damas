@@ -1,42 +1,40 @@
 <template>
     <app-page layout="standard">
         <main-content-file v-if="folder" :file="folder">
-            <template>
-                <app-box shadow>
-                    <icon-file
-                            v-if="folder.parentId"
-                            key="has-parent"
-                            text="parent"
-                            theme="dark"
-                            symbol="arrow-alt-circle-up"
-                            :link="folder.parentId" />
-                    <icon-file
-                            v-for="subfolder in folder.content.folders"
-                            :key="subfolder.id"
-                            theme="dark"
-                            symbol="folder"
-                            :text="subfolder.name"
-                            :link="subfolder.id" />
-                    <app-cell :span="12" />
-                    <icon-file
-                            v-for="document in folder.content.documents"
-                            :key="document.id"
-                            theme="dark"
-                            symbol="file"
-                            :text="document.name"
-                            :link="{name: 'document', params: {id: document.id}}" />
-                </app-box>
-                <app-row align="right" gutter>
-                    <app-button @click="openAddContentDialog" floating>
-                        <app-icon symbol="plus" solid />
-                    </app-button>
-                </app-row>
-                <dialog-add-content
-                        ref="addContentDialog"
-                        :parentId="id"
-                        @change="retrieve"/>
-                <message-clipboard :destination="folder" @change="retrieve"/>
-            </template>
+            <app-box shadow>
+                <icon-file
+                        v-if="folder.parentId"
+                        key="has-parent"
+                        text="parent"
+                        theme="dark"
+                        symbol="arrow-alt-circle-up"
+                        :link="folder.parentId" />
+                <icon-file
+                        v-for="subfolder in folder.content.folders"
+                        :key="subfolder.id"
+                        theme="dark"
+                        symbol="folder"
+                        :text="subfolder.name"
+                        :link="subfolder.id" />
+                <app-cell :span="12" />
+                <icon-file
+                        v-for="document in folder.content.documents"
+                        :key="document.id"
+                        theme="dark"
+                        symbol="file"
+                        :text="document.name"
+                        :link="{name: 'document', params: {id: document.id}}" />
+            </app-box>
+            <app-row align="right" gutter>
+                <app-button @click="openAddContentDialog" floating>
+                    <app-icon symbol="plus" solid />
+                </app-button>
+            </app-row>
+            <dialog-add-content
+                    ref="addContentDialog"
+                    :parentId="id"
+                    @change="retrieve"/>
+            <message-clipboard :destination="folder" @change="retrieve"/>
         </main-content-file>
     </app-page>
 </template>
