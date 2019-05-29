@@ -1,6 +1,16 @@
 <template>
     <app-page layout="standard">
         <main-content-file v-if="document" :file="document">
+            <app-box shadow>
+                <app-cell :span="12">
+                    <app-text-input
+                        type="textarea"
+                        label="Add comment"
+                        :action="commentAction"
+                        :lines="2"
+                        @input="$_commentInput"/>
+                </app-cell>
+            </app-box>
             <app-row align="right" gutter>
                 <app-button @click="download" floating>
                     <app-icon symbol="download" solid />
@@ -13,16 +23,19 @@
 <script>
 import documentService from '@/service/document'
 import MainContentFile from './main-content-file'
+import AppTextInput from '../widgets/app-text-input'
 
 export default {
     name: 'PageDocument',
     data() {
         return {
             id: null,
-            document: null
+            document: null,
+            commentAction: null
         }
     },
     components: {
+        AppTextInput,
         MainContentFile
     },
     created() {
@@ -63,6 +76,9 @@ export default {
         openDeleteDialog(event) {
             this.$refs.deleteFileDialog.show()
             event.preventDefault()
+        },
+        $_commentInput(value) {
+            this.commentAction = value ? "paper-plane solid" : null
         }
     }
 }
