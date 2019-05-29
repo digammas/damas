@@ -1,28 +1,31 @@
 <template>
     <div
             class="mdl-textfield mdl-textfield--floating-label mdl-js-textfield"
+            :class="{'is-textarea': isTextArea}"
             ref="textfield">
         <label
                 :for="id"
                 class="mdl-textfield__label">
             {{label}}
         </label>
-        <input
+        <component
+                class="mdl-textfield__input"
+                ref="input"
+                v-bind="$attrs"
+                :is="inputElementTag"
                 :type="type"
+                :rows="rows"
                 :name="name || id"
                 :id="id"
                 :required="required"
                 :value="text || value"
-                @input="$emit('input', $event.target.value)"
-                class="mdl-textfield__input"
                 :class="{shrunk: action}"
-                ref="input"
-                v-bind="$attrs"/>
+                @input="$emit('input', $event.target.value)"/>
         <app-button
-                v-if="action"
                 toolbar
                 flat
                 class="action-button"
+                v-if="action"
                 @click="$emit('action', $refs.input.value)">
             <app-icon
                     :symbol="action"
@@ -54,14 +57,27 @@ export default {
         type: {
             type: String,
             default: "text",
-            validator: [].includes.bind(["text", "password"])
+            validator: [].includes.bind(['text', 'password', 'textarea'])
         },
         required: {
             type: Boolean,
             default: false
         },
+        lines: Number,
         value: String,
         action: String
+    },
+    computed: {
+        inputElementTag() {
+            return this.type === 'textarea' ? 'textarea' : 'input'
+        },
+        rows() {
+            return this.type === 'textarea' && (this.lines || 1)
+        },
+        isTextArea() {
+            console.log("isTextArea is " + (this.type === 'textarea'))
+            return this.type === 'textarea'
+        }
     },
     mounted() {
         this.$_update()
@@ -103,7 +119,12 @@ export default {
     display: inline-block;
 }
 
-input.shrunk {
+.mdl-textfield.is-textarea {
+    width: 100%;
+}
+
+input.shrunk,
+textarea.shrunk {
     box-sizing: border-box;
     width: calc(100% - 32px);
 }
