@@ -334,4 +334,70 @@ public class UserTest extends IntegrationTest {
                 .delete()
                 .getStatus() / 100 == 2;
     }
+
+    @Test
+    public void testListGroupByNameHit() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "clerks";
+        body.put("name", name);
+        answer = target
+                .path("groups")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        answer = target
+                .path("groups")
+                .queryParam("name", "cl*")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        BigDecimal one = new BigDecimal(1);
+        assert one.equals(answer.get("total")) : "Group list total mismatch";
+        assert one.equals(answer.get("size")) : "Group list size mismatch";
+        Map user = (Map) ((List) answer.get("objects")).get(0);
+        assert name.equals(user.get("name")) : "Group list result mismatch";
+        assert target
+                .path("groups")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
+
+    @Test
+    public void testListGroupByNameMiss() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "clerks";
+        body.put("name", name);
+        answer = target
+                .path("groups")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id = (String) answer.get("id");
+        answer = target
+                .path("groups")
+                .queryParam("name", "kl*")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+        BigDecimal zero = new BigDecimal(0);
+        assert zero.equals(answer.get("total")) : "Group list total mismatch";
+        assert zero.equals(answer.get("size")) : "Group list size mismatch";
+        assert target
+                .path("groups")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
 }
