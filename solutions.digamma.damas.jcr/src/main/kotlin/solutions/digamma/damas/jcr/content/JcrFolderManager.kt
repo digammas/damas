@@ -3,12 +3,13 @@ package solutions.digamma.damas.jcr.content
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.content.FolderManager
-import solutions.digamma.damas.entity.Page
+import solutions.digamma.damas.search.Page
 import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrPathFinder
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import solutions.digamma.damas.logging.Logged
+import solutions.digamma.damas.search.Filter
 import java.util.Collections
 import javax.inject.Singleton
 import javax.jcr.RepositoryException
@@ -55,7 +56,7 @@ internal class JcrFolderManager :
             session: Session,
             offset: Int,
             size: Int,
-            query: Any?): Page<Folder> = ResultPage(Collections.singletonList(
+            filter: Filter?): Page<Folder> = ResultPage(Collections.singletonList(
                 JcrFolder.of(session.getNode(JcrFile.ROOT_PATH))))
 
     @Throws(RepositoryException::class, WorkspaceException::class)

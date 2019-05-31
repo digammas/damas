@@ -1,8 +1,6 @@
-package solutions.digamma.damas.entity;
+package solutions.digamma.damas.search;
 
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.entity.Page;
-import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.common.WorkspaceException;
 
 /**
@@ -10,7 +8,7 @@ import solutions.digamma.damas.common.WorkspaceException;
  *
  * @author Ahmad Shahwan
  */
-public interface SearchEngine<T extends Entity> {
+public interface SearchEngine<T extends Entity, Q extends Filter> {
 
     /**
      * Find all entities.
@@ -26,8 +24,7 @@ public interface SearchEngine<T extends Entity> {
      * @param size   Maximum result size.
      * @return A page of entities.
      */
-    Page<T> find(int offset, int size)
-            throws WorkspaceException;
+    Page<T> find(int offset, int size) throws WorkspaceException;
 
     /**
      * Find entities satisfying a query starting from a given offset, and up to
@@ -38,6 +35,5 @@ public interface SearchEngine<T extends Entity> {
      * @param query  Search query. If null, no filtering is done.
      * @return A page of entities.
      */
-    Page<T> find(int offset, int size, Object query)
-            throws WorkspaceException;
+    Page<T> find(int offset, int size, Q query) throws WorkspaceException;
 }

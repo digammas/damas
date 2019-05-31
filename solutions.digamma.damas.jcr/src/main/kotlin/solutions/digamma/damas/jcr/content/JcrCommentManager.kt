@@ -3,10 +3,11 @@ package solutions.digamma.damas.jcr.content
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.CommentManager
-import solutions.digamma.damas.entity.Page
+import solutions.digamma.damas.search.Page
 import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
+import solutions.digamma.damas.search.Filter
 import java.util.Collections
 import javax.inject.Singleton
 import javax.jcr.RepositoryException
@@ -44,6 +45,6 @@ internal class JcrCommentManager :
             session: Session,
             offset: Int,
             size: Int,
-            query: Any?): Page<Comment> =
+            filter: Filter?): Page<Comment> =
         ResultPage(Collections.emptyList(), 0, 0)
 }

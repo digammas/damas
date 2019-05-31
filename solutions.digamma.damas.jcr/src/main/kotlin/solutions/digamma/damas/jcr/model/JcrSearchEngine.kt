@@ -2,12 +2,13 @@ package solutions.digamma.damas.jcr.model
 
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.entity.Entity
-import solutions.digamma.damas.entity.Page
-import solutions.digamma.damas.entity.SearchEngine
+import solutions.digamma.damas.search.Page
+import solutions.digamma.damas.search.SearchEngine
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.session.JcrSessionConsumer
 import solutions.digamma.damas.logging.Logged
+import solutions.digamma.damas.search.Filter
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -17,7 +18,7 @@ import javax.jcr.query.Query
  * @author Ahmad Shahwan
  */
 internal interface JcrSearchEngine<T : Entity>
-    : JcrSessionConsumer, SearchEngine<T> {
+    : JcrSessionConsumer, SearchEngine<T, Filter> {
 
     /**
      * The size convert returned result page when no size is specified.
@@ -39,9 +40,9 @@ internal interface JcrSearchEngine<T : Entity>
 
     @Logged
     @Throws(WorkspaceException::class)
-    override fun find(offset: Int, size: Int, query: Any?): Page<T> {
+    override fun find(offset: Int, size: Int, filter: Filter?): Page<T> {
         return Exceptions.check {
-                this.find(this.getSession(), offset, size, query)
+                this.find(this.getSession(), offset, size, filter)
         }
     }
 
@@ -52,7 +53,7 @@ internal interface JcrSearchEngine<T : Entity>
      * @param session
      * @param offset
      * @param size
-     * @param query
+     * @param filter
      * @return
      * @throws RepositoryException
      * @throws WorkspaceException
@@ -62,7 +63,7 @@ internal interface JcrSearchEngine<T : Entity>
             session: Session,
             offset: Int,
             size: Int,
-            query: Any?): Page<T>
+            filter: Filter?): Page<T>
 
     fun query(
             session: Session,

@@ -1,10 +1,11 @@
 package solutions.digamma.damas.jcr.user
 
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.entity.Page
+import solutions.digamma.damas.search.Page
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import solutions.digamma.damas.jcr.names.TypeNamespace
+import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.GroupManager
 import javax.inject.Singleton
@@ -38,7 +39,7 @@ internal class JcrGroupManager: JcrCrudManager<Group>(),
         retrieve(session, id).remove()
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun find(session: Session, offset: Int, size: Int, query: Any?):
+    override fun find(session: Session, offset: Int, size: Int, filter: Filter?):
             Page<Group> {
         val sql2 = """
            SELECT * FROM [${TypeNamespace.GROUP}] AS user

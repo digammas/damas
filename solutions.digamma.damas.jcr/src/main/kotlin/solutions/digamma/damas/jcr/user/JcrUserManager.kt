@@ -3,11 +3,12 @@ package solutions.digamma.damas.jcr.user
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.config.Configuration
 import solutions.digamma.damas.config.Fallback
-import solutions.digamma.damas.entity.Page
+import solutions.digamma.damas.search.Page
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import solutions.digamma.damas.jcr.names.TypeNamespace
+import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 import java.util.regex.Pattern
@@ -51,7 +52,7 @@ internal class JcrUserManager : JcrCrudManager<User>(),
             retrieve(session, id).remove()
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun find(session: Session, offset: Int, size: Int, query: Any?):
+    override fun find(session: Session, offset: Int, size: Int, filter: Filter?):
             Page<User> {
         val sql2 = """
            SELECT * FROM [${TypeNamespace.USER}] AS user

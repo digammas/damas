@@ -1,9 +1,11 @@
 package solutions.digamma.damas.rs.common;
 
+import java.time.ZonedDateTime;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.entity.Page;
-import solutions.digamma.damas.entity.SearchEngine;
+import solutions.digamma.damas.search.Filter;
+import solutions.digamma.damas.search.Page;
+import solutions.digamma.damas.search.SearchEngine;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -22,15 +24,44 @@ import java.util.List;
 abstract public class SearchEnabledCrudResource<E extends Entity, S extends E>
         extends CrudResource<E, S> {
 
-    abstract protected SearchEngine<E> getSearchEngine();
+    abstract protected SearchEngine<E, Filter> getSearchEngine();
+
+    @QueryParam("scope")
+    private String scopeId;
+    @QueryParam("rec")
+    private Boolean recursive;
+    @QueryParam("name")
+    private String namePattern;
+    @QueryParam("createdMax")
+    private ZonedDateTime createdBefore;
+    @QueryParam("createdMin")
+    private ZonedDateTime createdAfter;
+    @QueryParam("modifiedMax")
+    private ZonedDateTime lastModifiedBefore;
+    @QueryParam("modifiedMin")
+    private ZonedDateTime lastModifiedAfter;
+    @QueryParam("createdBy")
+    private String createdBy;
+    @QueryParam("modifiedBy")
+    private String lastModifiedBy;
 
     /**
      * Search query. Subclasses are expected to override this method.
      *
      * @return
      */
-    protected Object getQuery() {
-        return null;
+    protected Filter getQuery() {
+        Filter filter = new SearchFilter();
+        filter.setScopeId(this.scopeId);
+        filter.setRecursive(this.recursive);
+        filter.setNamePattern(this.namePattern);
+        filter.setCreatedBefore(this.createdBefore);
+        filter.setCreatedAfter(this.createdAfter);
+        filter.setLastModifiedBefore(this.lastModifiedBefore);
+        filter.setLastModifiedAfter(this.lastModifiedAfter);
+        filter.setCreatedBy(this.createdBy);
+        filter.setLastModifiedBy(this.lastModifiedBy);
+        return filter;
     }
 
     @GET

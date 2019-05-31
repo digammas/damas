@@ -1,7 +1,8 @@
 package solutions.digamma.damas.user;
 
 import solutions.digamma.damas.entity.CrudManager;
-import solutions.digamma.damas.entity.SearchEngine;
+import solutions.digamma.damas.search.Filter;
+import solutions.digamma.damas.search.SearchEngine;
 
 /**
  * Group management service.
@@ -9,5 +10,5 @@ import solutions.digamma.damas.entity.SearchEngine;
  * @author Ahmad Shahwan
  */
 public interface GroupManager
-        extends CrudManager<Group>, SearchEngine<Group> {
+        extends CrudManager<Group>, SearchEngine<Group, Filter> {
 }

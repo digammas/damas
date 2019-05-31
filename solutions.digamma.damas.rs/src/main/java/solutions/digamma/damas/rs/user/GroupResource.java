@@ -1,7 +1,8 @@
 package solutions.digamma.damas.rs.user;
 
 import solutions.digamma.damas.entity.CrudManager;
-import solutions.digamma.damas.entity.SearchEngine;
+import solutions.digamma.damas.search.Filter;
+import solutions.digamma.damas.search.SearchEngine;
 import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 import solutions.digamma.damas.user.Group;
 import solutions.digamma.damas.user.GroupManager;
@@ -21,7 +22,7 @@ public class GroupResource extends SearchEnabledCrudResource<Group, GroupSeriali
     }
 
     @Override
-    protected SearchEngine<Group> getSearchEngine() {
+    protected SearchEngine<Group, Filter> getSearchEngine() {
         return this.manager;
     }
 

@@ -1,6 +1,7 @@
-package solutions.digamma.damas.entity;
+package solutions.digamma.damas.search;
 
 import java.util.List;
+import solutions.digamma.damas.entity.Entity;
 
 /**
  * Page of objects, with an offset and a size.

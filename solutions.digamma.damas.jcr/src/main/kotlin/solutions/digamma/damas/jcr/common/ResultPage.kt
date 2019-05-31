@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.common
 
 import solutions.digamma.damas.entity.Entity
-import solutions.digamma.damas.entity.Page
+import solutions.digamma.damas.search.Page
 
 /**
  * Generic content page.

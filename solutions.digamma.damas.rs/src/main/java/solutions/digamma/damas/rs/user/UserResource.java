@@ -2,7 +2,8 @@ package solutions.digamma.damas.rs.user;
 
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.entity.CrudManager;
-import solutions.digamma.damas.entity.SearchEngine;
+import solutions.digamma.damas.search.Filter;
+import solutions.digamma.damas.search.SearchEngine;
 import solutions.digamma.damas.rs.common.Authenticated;
 import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 import solutions.digamma.damas.user.User;
@@ -23,7 +24,7 @@ public class UserResource extends SearchEnabledCrudResource<User, UserSerializat
     }
 
     @Override
-    protected SearchEngine<User> getSearchEngine() {
+    protected SearchEngine<User, Filter> getSearchEngine() {
         return this.manager;
     }
 
