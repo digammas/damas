@@ -8,6 +8,7 @@ import org.mockito.Mockito
 import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.Group
 
 class JcrGroupManagerTest: WeldTest() {
@@ -84,6 +85,28 @@ class JcrGroupManagerTest: WeldTest() {
         assert(page.objects.size == 1)
         val entity = page.objects.iterator().next()
         assert(group.name == entity.name)
+        this.manager.delete(id)
+    }
+
+    @Test
+    fun findByName() {
+        val group = Mockito.mock(Group::class.java)
+        Mockito.`when`(group.name).thenReturn("testers")
+        val id = this.manager.create(group).id
+        this.commit()
+        val filter = Mockito.mock(Filter::class.java)
+        Mockito.`when`(filter.namePattern).thenReturn("test*")
+        var page = this.manager.find(0, 30, filter)
+        assert(page.total == 1)
+        assert(page.size == 1)
+        assert(page.objects.size == 1)
+        val entity = page.objects.iterator().next()
+        assert(group.name == entity.name)
+        Mockito.`when`(filter.namePattern).thenReturn("toast*")
+        page = this.manager.find(0, 30, filter)
+        assert(page.total == 0)
+        assert(page.size == 0)
+        assert(page.objects.size == 0)
         this.manager.delete(id)
     }
 }

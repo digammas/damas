@@ -8,6 +8,7 @@ import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.GroupManager
+import java.lang.StringBuilder
 import javax.inject.Singleton
 import javax.jcr.Property
 import javax.jcr.RepositoryException
@@ -41,11 +42,30 @@ internal class JcrGroupManager: JcrCrudManager<Group>(),
     @Throws(WorkspaceException::class, RepositoryException::class)
     override fun find(session: Session, offset: Int, size: Int, filter: Filter?):
             Page<Group> {
-        val sql2 = """
-           SELECT * FROM [${TypeNamespace.GROUP}] AS user
-           WHERE ISDESCENDANTNODE(user, '${JcrSubject.ROOT_PATH}')
-           ORDER BY user.[${Property.JCR_CREATED}]
-        """
+        val sql2 = this.buildQuery(filter)
         return this.query(session, sql2, offset, size, JcrGroup.Companion::of)
+    }
+
+    private fun buildQuery(filter: Filter?): String {
+        val sb = StringBuilder()
+        sb.append("""
+           SELECT * FROM [${TypeNamespace.GROUP}] AS group
+           WHERE ISDESCENDANTNODE(group, '${JcrSubject.ROOT_PATH}')
+       """)
+        this.appendClauses(sb, filter)
+        sb.append("ORDER BY group.[${Property.JCR_CREATED}] ")
+        return sb.toString()
+    }
+
+    private fun appendClauses(sb: StringBuilder, filter: Filter?) {
+        if (filter == null) {
+            return
+        }
+        if (filter.namePattern != null) {
+            val pattern = filter.namePattern
+                    .replace("%", "%%")
+                    .replace('*', '%')
+            sb.append("AND group.[${Property.JCR_NAME}] LIKE '$pattern' ")
+        }
     }
 }
