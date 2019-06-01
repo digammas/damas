@@ -17,6 +17,18 @@ class GroupService {
         return (await http.get(`${BASE_URL}`, params)).data.objects
     }
 
+    async exists(id) {
+        try {
+            await http.get(`${BASE_URL}/${id}`)
+            return true
+        } catch (e) {
+            if (e.statusCode === 404) {
+                return false
+            }
+            throw e
+        }
+    }
+
     async create(group) {
         return (await http.post(`${BASE_URL}`, group)).data
     }
