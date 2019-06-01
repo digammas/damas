@@ -105,7 +105,8 @@ export default {
             this.hide()
         },
         async addToGroup(name) {
-            if ((await groupService.list()).map(g => g.name).includes(name)) {
+            let result = await groupService.list({ name })
+            if (result.length) {
                 this.user.memberships.push(name)
             } else {
                 this.$bus$emit('error', "Group name doesn't exist.")
