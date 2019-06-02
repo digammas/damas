@@ -8,10 +8,12 @@ import solutions.digamma.damas.jcr.common.ResultPage
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrPathFinder
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
+import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.logging.Logged
 import solutions.digamma.damas.search.Filter
 import java.util.Collections
 import javax.inject.Singleton
+import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -52,6 +54,7 @@ internal class JcrFolderManager :
         this.retrieve(session, id).remove()
 
     @Throws(RepositoryException::class, WorkspaceException::class)
+
     override fun find(
             session: Session,
             offset: Int,
@@ -61,4 +64,10 @@ internal class JcrFolderManager :
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun find(session: Session, path: String) =
         JcrFolder.of(session.getNode("${JcrFile.ROOT_PATH}$path"))
+
+    override fun getNodePrimaryType() = TypeNamespace.FOLDER
+
+    override fun getDefaultRootPath() = JcrFile.ROOT_PATH
+
+    override fun fromNode(node: Node) = JcrFolder.of(node)
 }

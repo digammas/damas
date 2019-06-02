@@ -3,19 +3,17 @@ package solutions.digamma.damas.jcr.user
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.config.Configuration
 import solutions.digamma.damas.config.Fallback
-import solutions.digamma.damas.search.Page
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.model.JcrCrudManager
 import solutions.digamma.damas.jcr.model.JcrSearchEngine
 import solutions.digamma.damas.jcr.names.TypeNamespace
-import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 import java.util.regex.Pattern
 import javax.annotation.PostConstruct
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.jcr.Property
+import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
 
@@ -51,17 +49,6 @@ internal class JcrUserManager : JcrCrudManager<User>(),
     override fun delete(session: Session, id: String) =
             retrieve(session, id).remove()
 
-    @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun find(session: Session, offset: Int, size: Int, filter: Filter?):
-            Page<User> {
-        val sql2 = """
-           SELECT * FROM [${TypeNamespace.USER}] AS user
-           WHERE ISDESCENDANTNODE(user, '${JcrSubject.ROOT_PATH}')
-           ORDER BY user.[${Property.JCR_CREATED}]
-        """
-        return this.query(session, sql2, offset, size, JcrUser.Companion::of)
-    }
-
     @Throws(WorkspaceException::class)
     override fun updatePassword(id: String, value: String) {
         pwRegex.matcher(value).matches() || throw InsecurePasswordException()
@@ -70,6 +57,12 @@ internal class JcrUserManager : JcrCrudManager<User>(),
             user.setPassword(value)
         }
     }
+
+    override fun getNodePrimaryType() = TypeNamespace.USER
+
+    override fun getDefaultRootPath() = JcrSubject.ROOT_PATH
+
+    override fun fromNode(node: Node) = JcrUser.of(node)
 
     companion object {
 
