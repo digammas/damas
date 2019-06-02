@@ -56,8 +56,7 @@ public class ContentTest {
         assert adminToken != null;
         try (Transaction transaction = transactionMgr.begin(adminToken)) {
             assert transaction != null;
-            Page<Folder> folderResult = this.folderMgr.find();
-            Folder rootFolder = folderResult.getObjects().get(0);
+            Folder rootFolder = this.folderMgr.find("/");
             final String testFileName = "test.txt";
             Document doc;
             doc = this.createDocument(

@@ -84,19 +84,11 @@ public class FolderResource
     }
 
     @GET
-    @Path("at/{path: .+}")
+    @Path("at/{path: .*}")
     @Authenticated
     public FolderSerialization find(@PathParam("path") String path)
             throws WorkspaceException {
-        return wrap(this.manager.find(path));
-    }
-
-    @GET
-    @Path("at")
-    @Authenticated
-    public FolderSerialization find()
-            throws WorkspaceException {
-        return wrap(this.manager.find("."));
+        return wrap(this.manager.find("/".concat(path)));
     }
 
     @Override

@@ -26,7 +26,7 @@ class JcrTransactionManagerTest : WeldTest() {
     fun beginAuthorised() {
         val token = this.login.login("admin", "admin")
         authenticator.begin(token).use {
-            val rootId = this.folderManager.find().objects.iterator().next().id
+            val rootId = this.folderManager.find("/").id
             val folder = folderManager.create(Mocks.folder(rootId, "test"))
             assert(rootId == folder.parentId) { "Folder ID mismatch" }
             folderManager.delete(folder.id)
@@ -36,7 +36,7 @@ class JcrTransactionManagerTest : WeldTest() {
     @Test
     fun beginUnauthorisedBefore() {
         try {
-            this.folderManager.find().objects.iterator().next().id
+            this.folderManager.find("/").id
             assert(false) { "Unauthorized operation before authentication" }
         } catch (e: AuthenticationException) {
             assert(true) { "Wrong exception for unauthorized operation" }
@@ -47,10 +47,10 @@ class JcrTransactionManagerTest : WeldTest() {
     fun beginUnauthorisedAfter() {
         val token = this.login.login("admin", "admin")
         authenticator.begin(token).use {
-            this.folderManager.find().objects.iterator().next().id
+            this.folderManager.find("/").id
         }
         try {
-            this.folderManager.find().objects.iterator().next().id
+            this.folderManager.find("/").id
             assert(false) { "Unauthorized operation after authentication" }
         } catch (e: AuthenticationException) {
             assert(true) { "Wrong exception for unauthorized operation" }

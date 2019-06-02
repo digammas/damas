@@ -22,7 +22,7 @@ class JcrFolderTest : WeldTest() {
     fun setUp() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
         this.login()
-        var parentId = manager.find().objects.iterator().next().id
+        var parentId = manager.find("/").id
         this.folder = manager.create(Mocks.folder(parentId, "test"))
         var parent = this.folder
         for (i in 0..9) {

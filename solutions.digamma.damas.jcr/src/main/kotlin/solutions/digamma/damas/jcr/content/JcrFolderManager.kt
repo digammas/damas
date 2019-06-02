@@ -56,10 +56,9 @@ internal class JcrFolderManager :
             session: Session,
             offset: Int,
             size: Int,
-            filter: Filter?): Page<Folder> = ResultPage(Collections.singletonList(
-                JcrFolder.of(session.getNode(JcrFile.ROOT_PATH))))
+            filter: Filter?): Page<Folder> = ResultPage(Collections.emptyList())
 
     @Throws(RepositoryException::class, WorkspaceException::class)
     override fun find(session: Session, path: String) =
-        JcrFolder.of(session.getNode(JcrFile.ROOT_PATH).getNode(path))
+        JcrFolder.of(session.getNode("${JcrFile.ROOT_PATH}$path"))
 }

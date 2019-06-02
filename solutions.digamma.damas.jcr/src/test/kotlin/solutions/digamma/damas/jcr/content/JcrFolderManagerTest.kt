@@ -34,7 +34,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun retrieve() {
         val name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         val folder = manager.retrieve(id)
         assert(name == folder.name) { "Folder name mismatch" }
@@ -46,7 +46,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun create() {
         val name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val folder = manager.create(Mocks.folder(rootId, name))
         assert(name == folder.name) { "Folder name mismatch" }
         assert(rootId == folder.parentId) { "Folder ID mismatch" }
@@ -57,7 +57,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun createWithWhiteSpace() {
         val name = "test folder"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val folder = manager.create(Mocks.folder(rootId, name))
         assert(name == folder.name) { "Folder name mismatch" }
         assert(rootId == folder.parentId) { "Folder ID mismatch" }
@@ -68,7 +68,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun updateName() {
         var name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         name = "new.txt"
         manager.update(id, Mocks.folder(null, name))
@@ -85,7 +85,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun updateNameWithWhiteSpace() {
         var name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         name = "new folder.txt"
         manager.update(id, Mocks.folder(null, name))
@@ -102,7 +102,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun updateParent() {
         val name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         val parentId = manager.create(Mocks.folder(rootId, "parent")).id
         manager.update(id, Mocks.folder(parentId, null))
@@ -120,7 +120,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun updateNameAndParent() {
         var name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         val parentId = manager.create(Mocks.folder(rootId, "parent")).id
         name = "new"
@@ -139,7 +139,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun copy() {
         val name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         val parentId = manager.create(Mocks.folder(rootId, "parent")).id
         this.commit()
@@ -156,7 +156,7 @@ class JcrFolderManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun delete() {
         val name = "test"
-        val rootId = this.manager.find().objects.iterator().next().id
+        val rootId = this.manager.find("/").id
         val id = manager.create(Mocks.folder(rootId, name)).id
         manager.delete(id)
         try {

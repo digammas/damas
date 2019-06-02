@@ -42,7 +42,7 @@ class JcrPermissionManagerTest: WeldTest() {
         this.userToken = this.login.login(this.username, password)
 
         val rootId = this.folderManager
-                .find().objects.iterator().next().id
+                .find("/").id
         this.folderId = folderManager.create(
                 Mocks.folder(rootId, "folder")).id
         this.subfolderId = folderManager.create(

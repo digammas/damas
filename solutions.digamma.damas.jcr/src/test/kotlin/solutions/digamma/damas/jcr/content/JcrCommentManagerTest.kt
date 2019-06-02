@@ -29,8 +29,7 @@ class JcrCommentManagerTest : WeldTest() {
         val fm = WeldTest.inject(JcrFolderManager::class.java)
         val dm = WeldTest.inject(DocumentManager::class.java)
         this.login();
-        var parentId = fm
-                .find().objects.iterator().next().id
+        var parentId = fm.find("/").id
         this.folder = fm.create(Mocks.folder(parentId, "test"))
         parentId = this.folder!!.id
         this.document = dm.create(Mocks.document(parentId, "file.tst"))
