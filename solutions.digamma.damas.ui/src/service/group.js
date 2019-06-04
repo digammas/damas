@@ -8,7 +8,7 @@ class GroupService {
         return (await http.get(`${BASE_URL}/${id}`)).data
     }
 
-    async list(filter, offset, size, ) {
+    async list(filter, offset, size) {
         let params = {
             ...filter,
             size,

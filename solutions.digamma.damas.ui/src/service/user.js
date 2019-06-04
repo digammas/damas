@@ -24,8 +24,13 @@ class UserService {
         return (await http.get(`${BASE_URL}/${username}`)).data
     }
 
-    async list(offset) {
-        return (await http.get(`${BASE_URL}`, { offset })).data.objects
+    async list(filter, offset, size) {
+        let params = {
+            ...filter,
+            size,
+            offset
+        }
+        return (await http.get(`${BASE_URL}`, params)).data.objects
     }
 
     async create(user) {
