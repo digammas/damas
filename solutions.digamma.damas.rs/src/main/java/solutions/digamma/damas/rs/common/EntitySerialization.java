@@ -15,6 +15,18 @@ public abstract class EntitySerialization
     protected String modifiedBy;
     protected ZonedDateTime modificationDate;
 
+    protected EntitySerialization() {
+    }
+
+    protected <T extends Entity & Created & Modifiable> EntitySerialization(
+            T other) {
+        this.id = other.getId();
+        this.createdBy = other.getCreatedBy();
+        this.creationDate = other.getCreationDate();
+        this.modifiedBy = other.getModifiedBy();
+        this.modificationDate = other.getModificationDate();
+    }
+
     @Override
     public String getId() {
         return this.id;

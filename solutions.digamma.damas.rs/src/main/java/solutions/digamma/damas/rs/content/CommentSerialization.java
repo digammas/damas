@@ -30,6 +30,7 @@ public class CommentSerialization
      * @param pattern   A pattern to follow.
      */
     private CommentSerialization(Comment pattern) {
+        super(pattern);
         this.text = pattern.getText();
         this.rank = pattern.getRank();
         this.receiverId = pattern.getReceiverId();
@@ -49,6 +50,10 @@ public class CommentSerialization
     @Override
     public String getReceiverId() {
         return this.receiverId;
+    }
+
+    public void setReceiverId(String value) {
+        this.receiverId = value;
     }
 
     @Override

@@ -32,7 +32,7 @@ abstract public class FileSerialization
      * @param full      Whether to copy with full details.
      */
     protected FileSerialization(File pattern, boolean full) {
-        this.id = pattern.getId();
+        super(pattern);
         this.name = pattern.getName();
         this.parentId = pattern.getParentId();
         if (full) {
