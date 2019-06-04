@@ -579,4 +579,53 @@ public class ContentTest extends IntegrationTest {
                 .delete()
                 .getStatus() / 100 == 2;
     }
+
+    @Test
+    public void testCreateComment() {
+        Map answer;
+        Map<String, Object> body = new HashMap<>();
+        String name = "test_document.txt";
+        String text = "Hello comment";
+        body.put("parentId", this.rootId);
+        body.put("name", name);
+        // create receiver document
+        answer = target
+                .path("documents")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        String id;
+        String fileId = (String) answer.get("id");
+        assert fileId != null;
+        // create comment
+        body.clear();
+        body.put("receiverId", fileId);
+        body.put("text", text);
+        answer = target
+                .path("comments")
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .post(entity(body))
+                .readEntity(Map.class);
+        id = (String) answer.get("id");
+        // retrieve same comment
+        answer = target
+                .path("comments")
+                .path(id)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .get()
+                .readEntity(Map.class);
+
+        assert text.equals(answer.get("text"));
+        // delete document (and comment)
+        assert target
+                .path("documents")
+                .path(fileId)
+                .request(MEDIA_TYPE)
+                .header(AUTH_HEADER, this.getAuthHeaderValue())
+                .delete()
+                .getStatus() / 100 == 2;
+    }
 }
