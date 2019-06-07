@@ -6,9 +6,16 @@
                     <app-text-input
                         type="textarea"
                         label="Add comment"
-                        :action="commentAction"
+                        :action="commentAction && 'paper-plane solid'"
                         :lines="2"
-                        @input="$_commentInput"/>
+                        @input="$_commentInput"
+                        @action="$_commentAction" />
+                </app-cell>
+                <app-cell
+                        v-for="(comment, index) in comments"
+                        :key="index"
+                        :span="12">
+                    {{comment.text}}
                 </app-cell>
             </app-box>
             <app-row align="right" gutter>
@@ -22,6 +29,7 @@
 
 <script>
 import documentService from '@/service/document'
+import commentService from '@/service/comment'
 import MainContentFile from './main-content-file'
 import AppTextInput from '../widgets/app-text-input'
 
@@ -31,6 +39,7 @@ export default {
         return {
             id: null,
             document: null,
+            comments: [],
             commentAction: null
         }
     },
@@ -55,6 +64,7 @@ export default {
         },
         async retrieve() {
             this.document = await documentService.retrieve(this.id, true)
+            this.comments = await commentService.listForFile(this.id)
         },
         async download(event) {
             event.preventDefault()
@@ -78,7 +88,13 @@ export default {
             event.preventDefault()
         },
         $_commentInput(value) {
-            this.commentAction = value ? "paper-plane solid" : null
+            this.commentAction = !!value
+        },
+        $_commentAction(value) {
+            commentService.create({
+                receiverId: this.id,
+                text: value
+            })
         }
     }
 }
