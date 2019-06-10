@@ -54,18 +54,6 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
         }
     }
 
-    @PreDestroy
-    public void tearDown() {
-        try {
-            Files.walk(Paths.get("repository"))
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
-        } catch (IOException e) {
-            System.err.println("IO Exception while cleaning up.");
-        }
-    }
-
     /**
      * Returns a JCR repository.
      *
