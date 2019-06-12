@@ -1,5 +1,1 @@
-<beans xmlns="http://java.sun.com/xml/ns/javaee">
-    <decorators>
-        <class>solutions.digamma.damas.jcr.providers.TestRepositoryFactory</class>
-    </decorators>
-</beans>
+<beans xmlns="http://java.sun.com/xml/ns/javaee"></beans>
