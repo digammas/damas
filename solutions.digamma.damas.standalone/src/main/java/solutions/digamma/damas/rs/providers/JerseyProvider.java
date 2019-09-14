@@ -1,5 +1,6 @@
 package solutions.digamma.damas.rs.providers;
 
+import javax.enterprise.inject.Instance;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -31,7 +32,7 @@ public class JerseyProvider {
     private String path;
 
     @Inject
-    private Application application;
+    private Instance<Application> applications;
 
     @Inject
     private Logbook logger;
@@ -40,18 +41,24 @@ public class JerseyProvider {
 
     @PostConstruct
     void init() {
-        ApplicationPath applicationPath = this.application
-                .getClass()
-                .getAnnotation(ApplicationPath.class);
-        if (applicationPath == null) {
-            this.logger.sever("No Web application with a context path found.");
+        Application application = null;
+        ApplicationPath annotation = null;
+        for (Application a: this.applications) {
+            annotation = a.getClass().getAnnotation(ApplicationPath.class);
+            if (annotation != null) {
+                application = a;
+                break;
+            }
+        }
+        if (annotation == null) {
+            this.logger.sever("No Web applications with a context path found.");
             return;
         }
-        String context = applicationPath.value();
+        String context = annotation.value();
         URI url = URI.create(String.format(
                 "http://localhost:%d/%s/%s/", this.port, this.path, context));
         this.server = GrizzlyHttpServerFactory.createHttpServer(
-                url, ResourceConfig.forApplication(this.application), false);
+                url, ResourceConfig.forApplication(application), false);
         logger.info("Starting HTTP server.");
         try {
             this.server.start();
