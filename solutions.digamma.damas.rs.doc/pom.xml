@@ -16,7 +16,7 @@
     </description>
 
     <properties>
-        <enunciate.version>2.11.1</enunciate.version>
+        <enunciate.version>2.12.0</enunciate.version>
         <!-- Enuciate only compiles with java 8 -->
         <java.version>8</java.version>
     </properties>
