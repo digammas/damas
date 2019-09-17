@@ -1,21 +1,19 @@
 package solutions.digamma.damas.rs.providers;
 
-import javax.enterprise.inject.Instance;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
-import solutions.digamma.damas.config.Configuration;
-import solutions.digamma.damas.config.Fallback;
-import solutions.digamma.damas.logging.Logbook;
-
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import java.io.IOException;
-import java.net.URI;
+import javax.ws.rs.ext.RuntimeDelegate;
+import org.glassfish.grizzly.http.server.HttpHandler;
+import org.glassfish.grizzly.http.server.HttpServer;
+import solutions.digamma.damas.config.Configuration;
+import solutions.digamma.damas.config.Fallback;
+import solutions.digamma.damas.logging.Logbook;
 
 /**
  * Jersey JAX-RS implementation provider, with Grizzly HTTP server.
@@ -28,9 +26,6 @@ public class JerseyProvider {
     @Inject @Configuration("http.port") @Fallback("8080")
     private Integer port;
 
-    @Inject @Configuration("http.path") @Fallback("dms")
-    private String path;
-
     @Inject
     private Instance<Application> applications;
 
@@ -41,24 +36,15 @@ public class JerseyProvider {
 
     @PostConstruct
     void init() {
-        Application application = null;
-        ApplicationPath annotation = null;
-        for (Application a: this.applications) {
-            annotation = a.getClass().getAnnotation(ApplicationPath.class);
-            if (annotation != null) {
-                application = a;
-                break;
-            }
-        }
-        if (annotation == null) {
+        boolean found = this.applications
+                .stream()
+                .map(this::register)
+                .reduce(Boolean::logicalOr)
+                .orElse(false);
+        if (!found) {
             this.logger.sever("No Web applications with a context path found.");
             return;
         }
-        String context = annotation.value();
-        URI url = URI.create(String.format(
-                "http://localhost:%d/%s/%s/", this.port, this.path, context));
-        this.server = GrizzlyHttpServerFactory.createHttpServer(
-                url, ResourceConfig.forApplication(application), false);
         logger.info("Starting HTTP server.");
         try {
             this.server.start();
@@ -67,6 +53,23 @@ public class JerseyProvider {
                     e, "Couldn't start HTTP server on port %d.", this.port);
         }
         logger.info("HTTP server started on port %d.", this.port);
+    }
+
+    boolean register(Application application) {
+        ApplicationPath annotation = application
+                .getClass()
+                .getAnnotation(ApplicationPath.class);
+        if (annotation == null) {
+            return false;
+        }
+        HttpHandler restHandler = RuntimeDelegate.getInstance()
+                .createEndpoint(application, HttpHandler.class);
+        this.server = HttpServer.createSimpleServer(null, this.port);
+        String path = annotation.value();
+        String mapping = path.startsWith("/") ? path : "/".concat(path);
+        this.server.getServerConfiguration()
+                .addHttpHandler(restHandler, mapping);
+        return true;
     }
 
     @PreDestroy

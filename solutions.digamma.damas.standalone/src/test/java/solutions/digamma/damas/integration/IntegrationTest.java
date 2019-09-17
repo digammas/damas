@@ -34,9 +34,6 @@ public abstract class IntegrationTest {
     @Configuration("http.port") @Fallback("8080")
     private Integer port;
 
-    @Inject @Configuration("http.path") @Fallback("dms")
-    private String path;
-
     @Inject
     private JerseyProvider webapp;
 
@@ -51,7 +48,7 @@ public abstract class IntegrationTest {
     @PostConstruct
     public void init() {
         URI url = URI.create(String.format(
-                "http://localhost:%d/%s/rest/", this.port, this.path));
+                "http://localhost:%d/rest/", this.port));
         this.target = ClientBuilder.newClient().target(url);
         this.authenticate();
         this.getRootId();
