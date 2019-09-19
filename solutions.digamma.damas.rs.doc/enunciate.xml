@@ -9,6 +9,7 @@
 
     <modules>
         <jackson collapse-type-hierarchy="true" dateFormat="string"/>
+        <swagger basePath="/rest" />
     </modules>
 
 </enunciate>
