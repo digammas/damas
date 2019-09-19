@@ -17,6 +17,7 @@
         <lib.dir>libs/</lib.dir>
         <lib.path>${project.build.directory}/${lib.dir}</lib.path>
         <entry.class>solutions.digamma.damas.cdi.providers.WeldProvider</entry.class>
+        <exec.mainClass>${entry.class}</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -44,6 +45,14 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.rs.doc</artifactId>
+            <scope>runtime</scope>
+            <version>${damas.verson}</version>
+            <classifier>site</classifier>
         </dependency>
 
         <!-- Runtime dependencies -->

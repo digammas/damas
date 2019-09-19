@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ext.RuntimeDelegate;
+import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import solutions.digamma.damas.config.Configuration;
@@ -45,6 +46,9 @@ public class JerseyProvider {
             this.logger.sever("No Web applications with a context path found.");
             return;
         }
+        CLStaticHttpHandler docHandler = new CLStaticHttpHandler(
+                this.getClass().getClassLoader(), "apidocs/");
+        this.server.getServerConfiguration().addHttpHandler(docHandler, "/docs");
         logger.info("Starting HTTP server.");
         try {
             this.server.start();
