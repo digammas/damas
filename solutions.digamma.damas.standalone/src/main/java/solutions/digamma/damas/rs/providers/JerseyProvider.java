@@ -1,6 +1,9 @@
 package solutions.digamma.damas.rs.providers;
 
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.inject.Instance;
@@ -9,9 +12,6 @@ import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ext.RuntimeDelegate;
-import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
-import org.glassfish.grizzly.http.server.HttpHandler;
-import org.glassfish.grizzly.http.server.HttpServer;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
 import solutions.digamma.damas.logging.Logbook;
@@ -37,6 +37,13 @@ public class JerseyProvider {
 
     @PostConstruct
     void init() {
+        try {
+            this.server =
+                    HttpServer.create(new InetSocketAddress(this.port), 0);
+        } catch (IOException e) {
+            this.logger.sever(e, "Cannot run server on port %d.", this.port);
+            return;
+        }
         boolean found = this.applications
                 .stream()
                 .map(this::register)
@@ -46,20 +53,12 @@ public class JerseyProvider {
             this.logger.sever("No Web applications with a context path found.");
             return;
         }
-        CLStaticHttpHandler docHandler = new CLStaticHttpHandler(
-                this.getClass().getClassLoader(), "apidocs/");
-        this.server.getServerConfiguration().addHttpHandler(docHandler, "/docs");
         logger.info("Starting HTTP server.");
-        try {
-            this.server.start();
-        } catch (IOException e) {
-            this.logger.sever(
-                    e, "Couldn't start HTTP server on port %d.", this.port);
-        }
+        this.server.start();
         logger.info("HTTP server started on port %d.", this.port);
     }
 
-    boolean register(Application application) {
+    private boolean register(Application application) {
         ApplicationPath annotation = application
                 .getClass()
                 .getAnnotation(ApplicationPath.class);
@@ -68,11 +67,9 @@ public class JerseyProvider {
         }
         HttpHandler restHandler = RuntimeDelegate.getInstance()
                 .createEndpoint(application, HttpHandler.class);
-        this.server = HttpServer.createSimpleServer(null, this.port);
         String path = annotation.value();
         String mapping = path.startsWith("/") ? path : "/".concat(path);
-        this.server.getServerConfiguration()
-                .addHttpHandler(restHandler, mapping);
+        this.server.createContext(mapping, restHandler);
         return true;
     }
 
@@ -80,7 +77,7 @@ public class JerseyProvider {
     void dispose() {
         if (this.server != null) {
             logger.info("Shutting down HTTP server.");
-            this.server.shutdown();
+            this.server.stop(0);
         }
     }
 }
