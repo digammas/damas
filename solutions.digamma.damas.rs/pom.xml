@@ -63,13 +63,6 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-            <version>${jersey.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Enable CDI with Weld SE -->
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
@@ -105,7 +98,7 @@
 
         <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-            <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+            <artifactId>jersey-test-framework-provider-jdk-http</artifactId>
             <version>${jersey.version}</version>
             <scope>test</scope>
         </dependency>
