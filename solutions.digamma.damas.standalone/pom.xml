@@ -16,7 +16,7 @@
         <weld.version>3.0.5.Final</weld.version>
         <lib.dir>libs/</lib.dir>
         <lib.path>${project.build.directory}/${lib.dir}</lib.path>
-        <entry.class>solutions.digamma.damas.cdi.providers.WeldProvider</entry.class>
+        <entry.class>solutions.digamma.damas.standalone.Launcher</entry.class>
         <exec.mainClass>${entry.class}</exec.mainClass>
     </properties>
 

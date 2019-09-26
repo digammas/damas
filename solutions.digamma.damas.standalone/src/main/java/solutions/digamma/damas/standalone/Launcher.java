@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs.providers;
+package solutions.digamma.damas.standalone;
 
 import java.io.IOException;
 import javax.annotation.PostConstruct;
@@ -12,19 +12,22 @@ import javax.ws.rs.ext.RuntimeDelegate;
 import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
 import solutions.digamma.damas.logging.Logbook;
 
 /**
- * Jersey JAX-RS implementation provider, with Grizzly HTTP server.
+ * Application launcher.
  *
  * @author Ahmad Shahwan
  */
 @Singleton
-public class JerseyProvider {
+public class Launcher {
 
-    @Inject @Configuration("http.port") @Fallback("8080")
+    @Inject
+    @Configuration("http.port") @Fallback("8080")
     private Integer port;
 
     @Inject
@@ -36,7 +39,7 @@ public class JerseyProvider {
     private HttpServer server;
 
     @PostConstruct
-    void init() {
+    public void init() {
         boolean found = this.applications
                 .stream()
                 .map(this::register)
@@ -59,7 +62,7 @@ public class JerseyProvider {
         logger.info("HTTP server started on port %d.", this.port);
     }
 
-    boolean register(Application application) {
+    private boolean register(Application application) {
         ApplicationPath annotation = application
                 .getClass()
                 .getAnnotation(ApplicationPath.class);
@@ -77,10 +80,23 @@ public class JerseyProvider {
     }
 
     @PreDestroy
-    void dispose() {
+    public void dispose() {
         if (this.server != null) {
             logger.info("Shutting down HTTP server.");
             this.server.shutdown();
         }
+    }
+
+    private void run() {
+        try (WeldContainer weld = new Weld().initialize()) {
+            weld.select(this.getClass()).get();
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public static void main(String[] argv) {
+        new Launcher().run();
     }
 }

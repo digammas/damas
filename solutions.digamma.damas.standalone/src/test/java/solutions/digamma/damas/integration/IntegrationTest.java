@@ -1,9 +1,9 @@
 package solutions.digamma.damas.integration;
 
-import solutions.digamma.damas.config.Configuration;
-import solutions.digamma.damas.config.Fallback;
-import solutions.digamma.damas.rs.providers.JerseyProvider;
-
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -11,10 +11,9 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import solutions.digamma.damas.config.Configuration;
+import solutions.digamma.damas.config.Fallback;
+import solutions.digamma.damas.standalone.Launcher;
 
 public abstract class IntegrationTest {
 
@@ -35,7 +34,7 @@ public abstract class IntegrationTest {
     private Integer port;
 
     @Inject
-    private JerseyProvider webapp;
+    private Launcher webapp;
 
     @Inject
     private Logger logger;
