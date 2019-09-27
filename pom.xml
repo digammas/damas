@@ -23,6 +23,7 @@
         <module>solutions.digamma.damas.rs.doc</module>
         <module>solutions.digamma.damas.jcr.provider</module>
         <module>solutions.digamma.damas.web</module>
+        <module>solutions.digamma.damas.test</module>
     </modules>
 
     <dependencyManagement>
@@ -82,6 +83,12 @@
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.jcr.provider</artifactId>
                 <version>${damas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.test</artifactId>
+                <version>${damas.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- Test only dependencies -->

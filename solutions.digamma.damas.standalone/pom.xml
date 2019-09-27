@@ -95,8 +95,8 @@
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.test</artifactId>
         </dependency>
 
         <dependency>
