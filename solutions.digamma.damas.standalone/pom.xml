@@ -5,7 +5,7 @@
     <parent>
         <artifactId>damas-project</artifactId>
         <groupId>solutions.digamma</groupId>
-        <version>${damas.verson}</version>
+        <version>${damas.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -51,7 +51,7 @@
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs.doc</artifactId>
             <scope>runtime</scope>
-            <version>${damas.verson}</version>
+            <version>${damas.version}</version>
             <classifier>site</classifier>
         </dependency>
 

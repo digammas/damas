@@ -7,10 +7,10 @@
     <groupId>solutions.digamma</groupId>
     <artifactId>damas-project</artifactId>
     <packaging>pom</packaging>
-    <version>${damas.verson}</version>
+    <version>${damas.version}</version>
 
     <properties>
-        <damas.verson>1.0.0.Alpha</damas.verson>
+        <damas.version>1.0.0.Alpha</damas.version>
         <java.version>11</java.version>
     </properties>
 
@@ -51,37 +51,37 @@
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.api</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.commons</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.utils</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.main</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.rs</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.jcr</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.jcr.provider</artifactId>
-                <version>${damas.verson}</version>
+                <version>${damas.version}</version>
             </dependency>
 
             <!-- Test only dependencies -->

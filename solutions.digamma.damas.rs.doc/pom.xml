@@ -6,7 +6,7 @@
     <parent>
         <artifactId>damas-project</artifactId>
         <groupId>solutions.digamma</groupId>
-        <version>${damas.verson}</version>
+        <version>${damas.version}</version>
     </parent>
 
     <artifactId>damas.rs.doc</artifactId>
