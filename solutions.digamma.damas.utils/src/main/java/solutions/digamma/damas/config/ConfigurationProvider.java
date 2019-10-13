@@ -1,9 +1,10 @@
 package solutions.digamma.damas.config;
 
+import java.util.Map;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.UnsatisfiedResolutionException;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
-import java.util.Map;
 
 /**
  * Configuration provider.
@@ -21,31 +22,8 @@ public class ConfigurationProvider {
     @Produces
     @Configuration("")
     public String getString(InjectionPoint ip) {
-        String key = getKey(ip);
-        String value = this.manager.getString(key);
-        if (value == null) {
-            throw new RuntimeException(String.format(
-                    "Missing required configuration %s.", key));
-        }
-        return value;
-    }
-
-    @Produces
-    @Configuration("")
-    @Optional
-    public String getOptionalString(InjectionPoint ip) {
-        return this.manager.getString(getKey(ip));
-    }
-
-    @Produces
-    @Configuration("")
-    @Fallback("")
-    public String getStringOrFallback(InjectionPoint ip) {
         String value = this.manager.getString(getKey(ip));
-        if (value != null) {
-            return value;
-        }
-        return getFallback(ip);
+        return value != null ? value : getFallback(ip);
     }
 
     @Produces
@@ -53,51 +31,35 @@ public class ConfigurationProvider {
     public Integer getInteger(InjectionPoint ip) {
         String key = getKey(ip);
         Integer value = this.manager.getInteger(key);
-        if (value == null) {
-            throw new RuntimeException(String.format(
-                    "Missing required configuration %s.", key));
-        }
-        return value;
-    }
-
-    @Produces
-    @Configuration("")
-    @Optional
-    public Integer getOptionalInteger(InjectionPoint ip) {
-        return this.manager.getInteger(getKey(ip));
-    }
-
-    @Produces
-    @Configuration("")
-    @Fallback("")
-    public Integer getIntegerOrFallback(InjectionPoint ip) {
-        String key = getKey(ip);
-        Integer value = this.manager.getInteger(key);
-        String def = null;
         if (value != null) {
             return value;
         }
+        String fallback = getFallback(ip);
         try {
-            def = getFallback(ip);
-            return Integer.parseInt(def);
+            return Integer.parseInt(fallback);
         } catch (NumberFormatException e) {
-            throw new RuntimeException(String.format(
-                    "Illegal default %s for configuration %s.", def, key), e);
+            String message =
+                "Illegal default %s for configuration %s, integer expected.";
+            message = String.format(message, fallback, key);
+            throw new UnsatisfiedResolutionException(message, e);
         }
     }
 
     @Produces
     @Configuration("")
     public Map<String, Object> getConfigurations(InjectionPoint ip) {
-        String postfix = getKey(ip);
-        return this.manager.getConfigurations(postfix);
+        String key = getKey(ip);
+        return this.manager.getConfigurations(key);
     }
 
     private static String getFallback(InjectionPoint ip) {
-        return ip
-                .getAnnotated()
-                .getAnnotation(Fallback.class)
-                .value();
+        Fallback fallback = ip.getAnnotated()
+                .getAnnotation(Fallback.class);
+        if (fallback == null && !isOptional(ip)) {
+            throw new UnsatisfiedResolutionException(
+                    String.format("Unsatisfied configuration %s.", getKey(ip)));
+        }
+        return fallback != null ? fallback.value() : null;
     }
 
     private static String getKey(InjectionPoint ip) {
@@ -105,5 +67,12 @@ public class ConfigurationProvider {
                 .getAnnotated()
                 .getAnnotation(Configuration.class)
                 .value();
+    }
+
+    private static boolean isOptional(InjectionPoint ip) {
+        return ip
+                .getAnnotated()
+                .getAnnotation(Configuration.class)
+                .optional();
     }
 }

@@ -1,25 +1,20 @@
 package solutions.digamma.damas.jcr.providers;
 
-import solutions.digamma.damas.config.Configuration;
-import solutions.digamma.damas.logging.Logbook;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Map;
+import java.util.ServiceLoader;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.ServiceLoader;
+import solutions.digamma.damas.logging.Logbook;
 
 /**
  * ModeShape JCR repository provider.
@@ -29,11 +24,7 @@ import java.util.ServiceLoader;
 @Singleton
 public class ModeShapeRepositoryFactory implements RepositoryFactory {
 
-    private static final String POSTFIX = "org.modeshape.";
     private static final String JCR_URL = "org.modeshape.jcr.URL";
-
-    @Inject @Configuration(POSTFIX)
-    private Map<String, Object> parameters;
 
     @Inject
     private Logbook logger;
