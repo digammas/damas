@@ -35,11 +35,11 @@ public class Logbook extends Logger {
         this.info(() -> String.format(format, args));
     }
 
-    public void sever(String format, Object... args) {
+    public void severe(String format, Object... args) {
         this.severe(() -> String.format(format, args));
     }
 
-    public void sever(Exception e, String format, Object... args) {
+    public void severe(Exception e, String format, Object... args) {
         this.log(Level.SEVERE, e, () -> String.format(format, args));
     }
 

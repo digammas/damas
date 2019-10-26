@@ -1,12 +1,12 @@
 package solutions.digamma.damas.logging;
 
+import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.util.logging.Level;
 
 /**
  * @author Ahmad Shahwan
@@ -26,87 +26,77 @@ public class LoggedInterceptor {
 
     /**
      * Intercept and log a method invocation.
-     *
-     * @param context
-     * @return
-     * @throws Exception
      */
     @AroundInvoke
     public Object invoke(InvocationContext context) throws Exception {
-        String name = String.format("%s::%s",
-                context.getClass().getName(),
-                context.getMethod().getName());
-        try {
-            this.log.info(() -> String.format(
-                    "Calling %s.", name));
-            Object object = context.proceed();
-            this.log.info(() -> String.format(
-                    "Method %s returned successfully.", name));
-            return object;
-        } catch (RuntimeException e) {
-            throw sever(name, e);
-        } catch (Exception e) {
-            throw info(name, e);
-        }
+        return this.proceed(context, this::readMethodName,
+                "Calling %s.", "Method %s returned successfully.");
     }
 
     /**
      * Intercept and log bean initialization.
-     *
-     * @param context
-     * @return
-     * @throws Exception
      */
     @PostConstruct
     public Object initialize(InvocationContext context) throws Exception {
-        String name = context.getMethod().getName();
-        try {
-            this.log.info(() -> String.format(
-                    "Initializing bean of type %s.", name));
-            Object object = context.proceed();
-            this.log.info(() -> String.format(
-                    "Bean of type %s initialized successfully.", name));
-            return object;
-        } catch (RuntimeException e) {
-            throw sever(name, e);
-        } catch (Exception e) {
-            throw info(name, e);
-        }
+        return this.proceed(context, this::readTypeName,
+                "Initializing bean of type %s.",
+                "Bean of type %s initialized successfully.");
     }
 
     /**
      * Intercept and log bean disposal.
-     *
-     * @param context
-     * @return
-     * @throws Exception
      */
     @PreDestroy
     public Object dispose(InvocationContext context) throws Exception {
-        String name = context.getMethod().getName();
+        return this.proceed(context, this::readTypeName,
+                "Disposing bean of type %s.",
+                "Bean of type %s disposed successfully.");
+    }
+
+    /**
+     * Log invocation and proceed.
+     *
+     * @param context   invocation context
+     * @param readName  function to read name from context
+     * @param before    pattern used to generate log message before invocation
+     * @param after     pattern used to generate log message after invocation
+     * @return          object returned by invocation
+     * @throws Exception    exception thrown by invocation
+     */
+    private Object proceed(
+            InvocationContext context,
+            Function<InvocationContext, String> readName,
+            String before,
+            String after)
+            throws Exception {
+        String name = readName.apply(context);
+        this.log.info(before, name);
+        Object object = this.proceed(context);
+        this.log.info(after, name);
+        return object;
+    }
+
+    private Object proceed(InvocationContext context)
+            throws Exception {
+        String name = this.readMethodName(context);
         try {
-            this.log.info(() -> String.format(
-                    "Disposing bean of type %s.", name));
-            Object object = context.proceed();
-            this.log.info(() -> String.format(
-                    "Bean of type %s disposed successfully.", name));
-            return object;
+            return context.proceed();
         } catch (RuntimeException e) {
-            throw sever(name, e);
+            this.log.severe(e, "@%s threw unchecked exception.", name);
+            throw e;
         } catch (Exception e) {
-            throw info(name, e);
+            this.log.info("@%s threw checked exception.", name);
+            throw e;
         }
     }
 
-    private Exception sever(String name, Exception e) {
-        this.log.log(Level.SEVERE, e, () -> String.format(
-                "Unchecked exception @%s.", name));
-        return e;
+    private String readMethodName(InvocationContext context) {
+        return context.getClass().getName()
+                .concat("::")
+                .concat(context.getMethod().getName());
     }
 
-    private Exception info(String name, Exception e) {
-        this.log.info(() -> String.format(
-                "Checked exception: \"%s\" @%s.", e.getMessage(), name));
-        return e;
+    private String readTypeName(InvocationContext context) {
+        return context.getClass().getName();
     }
 }

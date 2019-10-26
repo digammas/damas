@@ -46,7 +46,7 @@ public class Launcher {
                 .reduce(Boolean::logicalOr)
                 .orElse(false);
         if (!found) {
-            this.logger.sever("No Web applications with a context path found.");
+            this.logger.severe("No Web applications with a context path found.");
             return;
         }
         CLStaticHttpHandler docHandler = new CLStaticHttpHandler(
@@ -56,7 +56,7 @@ public class Launcher {
         try {
             this.server.start();
         } catch (IOException e) {
-            this.logger.sever(
+            this.logger.severe(
                     e, "Couldn't start HTTP server on port %d.", this.port);
         }
         logger.info("HTTP server started on port %d.", this.port);
