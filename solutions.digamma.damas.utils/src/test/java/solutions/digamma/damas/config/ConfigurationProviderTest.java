@@ -1,6 +1,5 @@
 package solutions.digamma.damas.config;
 
-import java.lang.annotation.Annotation;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.UnsatisfiedResolutionException;
 import javax.inject.Inject;
@@ -42,22 +41,7 @@ public class ConfigurationProviderTest {
     @Test
     public void getUnsatisfiedString() {
         try {
-            strings.select(String.class, new Configuration() {
-                @Override
-                public Class<? extends Annotation> annotationType() {
-                    return Configuration.class;
-                }
-
-                @Override
-                public String value() {
-                    return "missing";
-                }
-
-                @Override
-                public boolean optional() {
-                    return false;
-                }
-            }).get();
+            strings.select(String.class, new ConfigurationLiteral("missing")).get();
             assert false : "Excepting exception";
         } catch (UnsatisfiedResolutionException ignore) {
             assert true : "Excepting UnsatisfiedResolutionException";
