@@ -1,6 +1,6 @@
 package solutions.digamma.damas.logging;
 
-import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,18 +17,20 @@ public class Logbook extends Logger {
      * @param name Logger name.
      */
     public Logbook(String name) {
-        super(name, null);
-        this.init();
+        this(name, null);
     }
 
     /**
-     * Wrapper constructor.
+     * Constructor with name and collection of handlers.
      *
-     * @param original original logger.
+     * @param name      Logger name.
+     * @param handlers  Iterable of log handlers.
      */
-    public Logbook(Logger original) {
-        super(original.getName(), original.getResourceBundleName());
-        this.init();
+    Logbook(String name, Iterable<Handler> handlers) {
+        super(name, null);
+        if (handlers != null) {
+            handlers.forEach(this::addHandler);
+        }
     }
 
     public void info(String format, Object... args) {
@@ -41,9 +43,5 @@ public class Logbook extends Logger {
 
     public void severe(Exception e, String format, Object... args) {
         this.log(Level.SEVERE, e, () -> String.format(format, args));
-    }
-
-    protected void init() {
-        this.addHandler(new ConsoleHandler());
     }
 }

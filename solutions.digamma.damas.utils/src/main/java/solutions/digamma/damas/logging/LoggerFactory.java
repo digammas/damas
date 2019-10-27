@@ -1,7 +1,10 @@
 package solutions.digamma.damas.logging;
 
+import java.util.logging.Handler;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -12,14 +15,18 @@ import javax.inject.Singleton;
 @Singleton
 public class LoggerFactory {
 
+    @Inject
+    private Instance<Handler> handlers;
+
     /**
      * Get logger for the underling injection point.
      *
-     * @param ip
-     * @return
+     * @param ip    Injection point.
+     * @return      Logbook instance.
      */
     @Produces
     public Logbook getLogger(InjectionPoint ip) {
-        return new Logbook(ip.getMember().getDeclaringClass().getName());
+        String name = ip.getMember().getDeclaringClass().getName();
+        return new Logbook(name, this.handlers);
     }
 }
