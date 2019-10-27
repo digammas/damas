@@ -36,7 +36,7 @@ abstract class LogInterceptor {
 
     private Object proceed(InvocationContext context)
             throws Exception {
-        String name = this.readMethodName(context);
+        String name = this.readName(context);
         try {
             return context.proceed();
         } catch (RuntimeException e) {
@@ -46,12 +46,6 @@ abstract class LogInterceptor {
             this.log.info("@%s threw checked exception.", name);
             throw e;
         }
-    }
-
-    String readMethodName(InvocationContext context) {
-        return context.getClass().getName()
-                .concat("::")
-                .concat(context.getMethod().getName());
     }
 
     abstract protected String readName(InvocationContext context);

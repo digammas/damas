@@ -2,6 +2,7 @@ package solutions.digamma.damas.logging;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Priority;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -12,6 +13,7 @@ import javax.interceptor.InvocationContext;
  */
 @Logged.Lifecycle
 @Interceptor
+@Priority(Interceptor.Priority.APPLICATION)
 public class LifecycleInterceptor extends LogInterceptor {
 
     /**
@@ -42,6 +44,6 @@ public class LifecycleInterceptor extends LogInterceptor {
 
     @Override
     protected String readName(InvocationContext context) {
-        return context.getClass().getName();
+        return context.getTarget().getClass().getName();
     }
 }

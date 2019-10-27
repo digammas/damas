@@ -18,7 +18,7 @@ import javax.jcr.RepositoryException
 import javax.jcr.Session
 
 @Singleton
-internal class JcrUserManager : JcrCrudManager<User>(),
+internal open class JcrUserManager : JcrCrudManager<User>(),
         JcrSearchEngine<User>,
         UserManager {
 

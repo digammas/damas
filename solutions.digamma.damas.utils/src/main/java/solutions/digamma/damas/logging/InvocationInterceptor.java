@@ -1,5 +1,7 @@
 package solutions.digamma.damas.logging;
 
+import java.lang.reflect.Method;
+import javax.annotation.Priority;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -11,6 +13,7 @@ import javax.interceptor.InvocationContext;
  */
 @Logged
 @Interceptor
+@Priority(Interceptor.Priority.APPLICATION)
 public class InvocationInterceptor extends LogInterceptor {
 
     /**
@@ -30,6 +33,9 @@ public class InvocationInterceptor extends LogInterceptor {
 
     @Override
     protected String readName(InvocationContext context) {
-        return this.readMethodName(context);
+        Method method = context.getMethod();
+        return method.getDeclaringClass().getName()
+                .concat("::")
+                .concat(method.getName());
     }
 }

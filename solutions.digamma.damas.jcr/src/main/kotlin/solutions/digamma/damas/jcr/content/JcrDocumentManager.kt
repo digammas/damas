@@ -18,7 +18,7 @@ import javax.jcr.Session
  * @author Ahmad Shahwan
  */
 @Singleton
-internal class JcrDocumentManager :
+internal open class JcrDocumentManager :
         JcrCrudManager<Document>(), JcrPathFinder<Document>, DocumentManager {
 
     @Logged

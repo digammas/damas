@@ -1,6 +1,1 @@
-<beans xmlns="http://java.sun.com/xml/ns/javaee">
-    <interceptors>
-        <class>solutions.digamma.damas.logging.InvocationInterceptor</class>
-        <class>solutions.digamma.damas.logging.LifecycleInterceptor</class>
-    </interceptors>
-</beans>
+<beans xmlns="http://java.sun.com/xml/ns/javaee"></beans>

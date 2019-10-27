@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class JcrTransactionManager : TransactionManager {
+internal open class JcrTransactionManager : TransactionManager {
 
     @Inject
     private lateinit var bookkeepr: SessionBookkeeper

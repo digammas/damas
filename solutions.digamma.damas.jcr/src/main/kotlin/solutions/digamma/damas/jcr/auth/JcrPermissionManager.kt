@@ -8,7 +8,6 @@ import solutions.digamma.damas.jcr.content.JcrFile
 import solutions.digamma.damas.jcr.content.JcrFolder
 import solutions.digamma.damas.jcr.model.JcrManager
 import solutions.digamma.damas.logging.Logged
-import solutions.digamma.damas.login.Token
 import javax.inject.Singleton
 import javax.jcr.Session
 
@@ -18,7 +17,7 @@ import javax.jcr.Session
  * @author Ahmad Shahwan
  */
 @Singleton
-internal class JcrPermissionManager: JcrManager(), PermissionManager {
+internal open class JcrPermissionManager: JcrManager(), PermissionManager {
 
     @Logged
     @Throws(WorkspaceException::class)

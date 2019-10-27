@@ -17,7 +17,7 @@ import javax.jcr.Session
  * @author Ahmad Shahwan
  */
 @Singleton
-internal class JcrCommentManager :
+internal open class JcrCommentManager :
         JcrCrudManager<Comment>(), JcrSearchEngine<Comment>, CommentManager {
 
     @Throws(RepositoryException::class, WorkspaceException::class)

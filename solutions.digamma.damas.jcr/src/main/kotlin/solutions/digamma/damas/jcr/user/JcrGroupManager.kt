@@ -16,7 +16,7 @@ import javax.jcr.Session
  *
  */
 @Singleton
-internal class JcrGroupManager: JcrCrudManager<Group>(),
+internal open class JcrGroupManager: JcrCrudManager<Group>(),
         JcrSearchEngine<Group>,
         GroupManager {
 
