@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-export const BASE_URL = "http://localhost:8080/dms/rest/"
+export const BASE_URL = "http://localhost:8080/rest/"
 
 class HttpClient {
 
