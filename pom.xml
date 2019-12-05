@@ -19,6 +19,7 @@
         <module>solutions.digamma.damas.jcr</module>
         <module>solutions.digamma.damas.utils</module>
         <module>solutions.digamma.damas.standalone</module>
+        <module>solutions.digamma.damas.standalone.image</module>
         <module>solutions.digamma.damas.rs</module>
         <module>solutions.digamma.damas.rs.doc</module>
         <module>solutions.digamma.damas.jcr.provider</module>
@@ -82,6 +83,11 @@
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.jcr.provider</artifactId>
+                <version>${damas.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.standalone</artifactId>
                 <version>${damas.version}</version>
             </dependency>
             <dependency>

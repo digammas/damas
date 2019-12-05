@@ -101,29 +101,4 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Build docker image plugin -->
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>1.6.1</version>
-                <configuration>
-                    <to>
-                        <image>damascus</image>
-                    </to>
-                    <from>
-                        <image>gcr.io/distroless/java:11</image>
-                    </from>
-                    <container>
-                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-                        <mainClass>${entry.class}</mainClass>
-                        <extraClasspath>/app/resources/META-INF/</extraClasspath>
-                    </container>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
