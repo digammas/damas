@@ -19,7 +19,6 @@
         <module>solutions.digamma.damas.jcr</module>
         <module>solutions.digamma.damas.utils</module>
         <module>solutions.digamma.damas.standalone</module>
-        <module>solutions.digamma.damas.standalone.image</module>
         <module>solutions.digamma.damas.rs</module>
         <module>solutions.digamma.damas.rs.doc</module>
         <module>solutions.digamma.damas.jcr.provider</module>
