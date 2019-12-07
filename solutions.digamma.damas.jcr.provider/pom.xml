@@ -13,11 +13,10 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Import the ModeShape BOM for embedded usage -->
             <dependency>
-                <groupId>org.modeshape.bom</groupId>
-                <artifactId>modeshape-bom-embedded</artifactId>
-                <version>5.1.0.Final</version>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.bom</artifactId>
+                <version>${damas.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -60,6 +59,4 @@
             <artifactId>modeshape-jcr</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>

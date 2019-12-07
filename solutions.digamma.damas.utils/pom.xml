@@ -11,8 +11,19 @@
 
     <artifactId>damas.utils</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.bom</artifactId>
+                <version>${damas.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -23,12 +34,9 @@
         </dependency>
 
         <!-- Test dependencies -->
-        <!-- https://mvnrepository.com/artifact/org.jboss.weld.se/weld-se-shaded -->
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.test</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>

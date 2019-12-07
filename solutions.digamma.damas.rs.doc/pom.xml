@@ -16,17 +16,48 @@
     </description>
 
     <properties>
-        <enunciate.version>2.12.0</enunciate.version>
         <!-- Enuciate only compiles with java 8 -->
         <java.version>8</java.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>solutions.digamma</groupId>
+                <artifactId>damas.bom</artifactId>
+                <version>${damas.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.rs</artifactId>
+        </dependency>
+
+        <!-- Automatic generation of REST API docs -->
+        <dependency>
+            <groupId>com.webcohesion.enunciate</groupId>
+            <artifactId>enunciate-rt-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>com.webcohesion.enunciate</groupId>
                 <artifactId>enunciate-maven-plugin</artifactId>
-                <version>${enunciate.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -48,29 +79,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.rs</artifactId>
-        </dependency>
-
-        <!-- Automatic generation of REST API docs -->
-        <dependency>
-            <groupId>com.webcohesion.enunciate</groupId>
-            <artifactId>enunciate-rt-util</artifactId>
-            <version>${enunciate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.10.1</version>
-        </dependency>
-    </dependencies>
-
-
 </project>
