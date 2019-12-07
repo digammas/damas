@@ -5,7 +5,7 @@
     <parent>
         <artifactId>damas-project</artifactId>
         <groupId>solutions.digamma</groupId>
-        <version>${damas.version}</version>
+        <version>1.0.0.SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,7 +22,7 @@
             <dependency>
                 <groupId>solutions.digamma</groupId>
                 <artifactId>damas.bom</artifactId>
-                <version>${damas.version}</version>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -49,12 +49,13 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.utils</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs.doc</artifactId>
             <scope>runtime</scope>
-            <version>${damas.version}</version>
+            <version>${project.version}</version>
             <classifier>site</classifier>
         </dependency>
 
@@ -62,16 +63,19 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr.provider</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- Allow injection into Jersey's resources -->
@@ -96,6 +100,8 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>damas-project</artifactId>
         <groupId>solutions.digamma</groupId>
-        <version>${damas.version}</version>
+        <version>1.0.0.SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,16 +20,19 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr.provider</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr</artifactId>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -38,6 +41,4 @@
     <build>
         <finalName>${archive.name}</finalName>
     </build>
-
-
 </project>
