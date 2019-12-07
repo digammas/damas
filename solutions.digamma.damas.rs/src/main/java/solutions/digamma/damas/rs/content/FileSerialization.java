@@ -80,13 +80,13 @@ abstract public class FileSerialization
         return this.metadata;
     }
 
-    @Override
-    public void setMetadata(Metadata metadata) {
-        this.metadata = MetadataSerialization.from(metadata);
-    }
-
     public void setMetadata(MetadataSerialization metadata) {
         this.metadata = metadata;
+    }
+
+    @Override
+    public void updateMetadata(Metadata metadata) {
+        this.metadata = MetadataSerialization.from(metadata);
     }
 
     @Override

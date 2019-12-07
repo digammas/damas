@@ -74,7 +74,7 @@ public interface File extends Entity, Created, Modifiable {
      *
      * @param metadata
      */
-    void setMetadata(Metadata metadata);
+    void updateMetadata(Metadata metadata);
 
     /**
      * Parent path.

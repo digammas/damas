@@ -71,7 +71,7 @@ protected constructor(node: Node) : JcrBaseEntity(node),
 
     override fun getMetadata(): Metadata? = null
 
-    override fun setMetadata(metadata: Metadata) {}
+    override fun updateMetadata(metadata: Metadata) {}
 
     @Throws(WorkspaceException::class)
     private fun move(path: String) {
@@ -105,7 +105,7 @@ protected constructor(node: Node) : JcrBaseEntity(node),
     fun update(other: File) {
         other.name?.let { this.name = it }
         other.parentId?.let { this.setParentId(it) }
-        other.metadata?.let { this.setMetadata(it) }
+        other.metadata?.let { this.updateMetadata(it) }
     }
 
     /**
