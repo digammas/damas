@@ -77,6 +77,9 @@ public class DefaultConfigurationManager implements ConfigurationManager {
 
     @Override
     public Integer getInteger(String key) {
+        if (!this.properties.contains(key)) {
+            return null;
+        }
         try {
             return Integer.parseInt(this.properties.getProperty(key));
         } catch (NumberFormatException e) {
