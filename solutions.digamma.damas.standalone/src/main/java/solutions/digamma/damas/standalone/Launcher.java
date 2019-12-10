@@ -46,12 +46,14 @@ public class Launcher {
                 .reduce(Boolean::logicalOr)
                 .orElse(false);
         if (!found) {
-            this.logger.severe("No Web applications with a context path found.");
+            this.logger.severe(
+                    "No Web applications with a context path found.");
             return;
         }
         CLStaticHttpHandler docHandler = new CLStaticHttpHandler(
                 this.getClass().getClassLoader(), "apidocs/");
-        this.server.getServerConfiguration().addHttpHandler(docHandler, "/docs");
+        this.server.getServerConfiguration()
+                .addHttpHandler(docHandler, "/docs");
         logger.info("Starting HTTP server.");
         try {
             this.server.start();
