@@ -1,6 +1,12 @@
 package solutions.digamma.damas.config;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.UnsatisfiedResolutionException;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -22,25 +28,34 @@ public class ConfigurationProvider {
     @Produces
     @Configuration("")
     public String getString(InjectionPoint ip) {
-        String value = this.manager.getString(getKey(ip));
-        return value != null ? value : getFallback(ip);
+        return this.getString(getKeys(ip)).orElseGet(() -> getFallback(ip));
+    }
+
+    public Optional<String> getString(String[] keys) {
+        return Arrays.stream(keys)
+                .map(this.manager::getString)
+                .filter(Objects::nonNull)
+                .findFirst();
     }
 
     @Produces
     @Configuration("")
     public Integer getInteger(InjectionPoint ip) {
-        String key = getKey(ip);
-        Integer value = this.manager.getInteger(key);
-        if (value != null) {
-            return value;
-        }
+        return Arrays.stream(getKeys(ip))
+                .map(this.manager::getInteger)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseGet(() -> this.getIntegerFallback(ip));
+    }
+
+    private Integer getIntegerFallback(InjectionPoint ip) {
         String fallback = getFallback(ip);
         try {
             return Integer.parseInt(fallback);
         } catch (NumberFormatException e) {
             String message =
-                "Illegal default %s for configuration %s, integer expected.";
-            message = String.format(message, fallback, key);
+                    "Illegal default %s for configuration, integer expected.";
+            message = String.format(message, fallback);
             throw new UnsatisfiedResolutionException(message, e);
         }
     }
@@ -48,8 +63,11 @@ public class ConfigurationProvider {
     @Produces
     @Configuration("")
     public Map<String, Object> getConfigurations(InjectionPoint ip) {
-        String key = getKey(ip);
-        return this.manager.getConfigurations(key);
+        return Arrays.stream(getKeys(ip))
+            .map(this.manager::getConfigurations)
+            .map(Map::entrySet)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
     }
 
     private static String getFallback(InjectionPoint ip) {
@@ -57,12 +75,12 @@ public class ConfigurationProvider {
                 .getAnnotation(Fallback.class);
         if (fallback == null && !isOptional(ip)) {
             throw new UnsatisfiedResolutionException(
-                    String.format("Unsatisfied configuration %s.", getKey(ip)));
+                    String.format("Unsatisfied configuration %s.", getKeys(ip)));
         }
         return fallback != null ? fallback.value() : null;
     }
 
-    private static String getKey(InjectionPoint ip) {
+    private static String[] getKeys(InjectionPoint ip) {
         return ip
                 .getAnnotated()
                 .getAnnotation(Configuration.class)

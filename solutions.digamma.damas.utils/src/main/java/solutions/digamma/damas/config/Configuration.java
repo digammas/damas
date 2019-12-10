@@ -22,7 +22,7 @@ public @interface Configuration {
      *
      * @return
      */
-    @Nonbinding String value();
+    @Nonbinding String[] value();
 
     @Nonbinding boolean optional() default false;
 }

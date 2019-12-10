@@ -6,24 +6,24 @@ public class ConfigurationLiteral
         extends AnnotationLiteral<Configuration>
     implements Configuration {
 
-    private String value;
+    private String[] value;
     private boolean optional;
 
     public ConfigurationLiteral() {
-        this(null, false);
+        this(false);
     }
 
-    public ConfigurationLiteral(String value) {
-        this(value, false);
+    public ConfigurationLiteral(String... value) {
+        this(false, value);
     }
 
-    public ConfigurationLiteral(String value, boolean optional) {
+    public ConfigurationLiteral(boolean optional, String... value) {
         this.value = value;
         this.optional = optional;
     }
 
     @Override
-    public String value() {
+    public String[] value() {
         return this.value;
     }
 
