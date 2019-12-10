@@ -64,6 +64,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
             this.logger.info(() -> String.format(
                     "No configuration file found at %s.", confFile.getPath()));
         }
+        this.properties.putAll(System.getenv());
         this.properties.putAll(System.getProperties());
         this.properties.put(Configurations.HOME, homeDir.getAbsolutePath());
         this.logger.info("System properties added to configurations.");
@@ -97,7 +98,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     /**
      * Obtain home directory.
      *
-     * @return
+     * @return home directory file
      */
     private File getHomeDir() {
         String homePath = System.getProperty(HOME_DIR);
