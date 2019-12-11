@@ -27,7 +27,7 @@ import solutions.digamma.damas.logging.Logbook;
 public class Launcher {
 
     @Inject
-    @Configuration("http.port") @Fallback("8080")
+    @Configuration({"http.port", "HTTP_PORT"}) @Fallback("8080")
     private Integer port;
 
     @Inject
