@@ -75,7 +75,7 @@ public class ConfigurationProvider {
                 .getAnnotation(Fallback.class);
         if (fallback == null && !isOptional(ip)) {
             throw new UnsatisfiedResolutionException(
-                    String.format("Unsatisfied configuration %s.", getKeys(ip)));
+                String.format("Unsatisfied configuration %s.", getKeys(ip)));
         }
         return fallback != null ? fallback.value() : null;
     }
