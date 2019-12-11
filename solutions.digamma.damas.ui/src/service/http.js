@@ -1,7 +1,8 @@
 import axios from 'axios'
 import store from '@/store'
 
-export const BASE_URL = "http://localhost:8080/rest/"
+export const PORT = 8080
+export const BASE_PATH = "rest/"
 
 class HttpClient {
 
@@ -9,7 +10,7 @@ class HttpClient {
         return http({
             method: "GET",
             url: path,
-            baseURL: BASE_URL,
+            baseURL: baseUrl(),
             params,
             responseType,
             headers: headers()
@@ -20,7 +21,7 @@ class HttpClient {
         return http({
             method: "post",
             url: path,
-            baseURL: BASE_URL,
+            baseURL: baseUrl(),
             responseType: 'json',
             headers: headers(),
             data: data
@@ -31,7 +32,7 @@ class HttpClient {
         return http({
             method: "put",
             url: path,
-            baseURL: BASE_URL,
+            baseURL: baseUrl(),
             responseType: 'json',
             headers: headers(),
             data: data
@@ -42,7 +43,7 @@ class HttpClient {
         return http({
             method: "delete",
             url: path,
-            baseURL: BASE_URL,
+            baseURL: baseUrl(),
             responseType: 'json',
             headers: headers()
         })
@@ -76,6 +77,10 @@ function headers() {
         headers["Authorization"] = `bearer ${token}`
     }
     return headers
+}
+
+function baseUrl() {
+    return `${window.location.protocol}//${window.location.hostname}:${PORT}/${BASE_PATH}`
 }
 
 class HttpError extends Error {
