@@ -1,8 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-export const PORT = 8080
-export const BASE_PATH = "rest/"
+export const BASE_PATH = "/rest/"
 
 class HttpClient {
 
@@ -80,7 +79,7 @@ function headers() {
 }
 
 function baseUrl() {
-    return `${window.location.protocol}//${window.location.hostname}:${PORT}/${BASE_PATH}`
+    return BASE_PATH
 }
 
 class HttpError extends Error {

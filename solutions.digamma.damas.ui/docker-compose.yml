@@ -2,13 +2,11 @@ version: '3'
 services:
   damas:
     image: digamma/damas:1.0.0.SNAPSHOT
-    ports:
-    - "8080:8080"
     volumes:
       - "./damas:/repository"
   damasui:
     build: .
     ports:
-    - "81:80"
+    - "82:80"
     depends_on:
       - damas
