@@ -165,7 +165,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Order matters, jar plug in binds to the same phase as docker plugin, it must come first -->
+            <!-- Order matters, jar plugin binds to the same phase as docker plugin, the former must come first -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -184,6 +184,18 @@
                             <goal>build</goal>
                             <goal>push</goal>
                         </goals>
+                        <configuration>
+                            <tag>${project.version}</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>docker-tag</id>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <tag>latest</tag>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
