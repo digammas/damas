@@ -10,11 +10,11 @@ const defaults = {
 export default {
     namespaced: true,
 
-    state: Object.assign({}, defaults),
+    state: { ...defaults },
 
     mutations: {
         [UPDATE] (state, data) {
-            Object.assign(state, defaults, data)
+            Object.assign(state, data)
         },
         [CLEAR] (state) {
             Object.assign(state, defaults)
