@@ -26,6 +26,7 @@
                 <app-tag
                         v-for="group in user.memberships"
                         action="times solid"
+                        :key="group.id"
                         @action="removeFromGroup(group)">
                     {{group}}
                 </app-tag>
@@ -112,7 +113,7 @@ export default {
             }
         },
         removeFromGroup(name) {
-            [name, ...this.user.memberships] = this.user.memberships
+            this.user.memberships = this.user.memberships.filter(item => item !== name)
         }
     }
 }
