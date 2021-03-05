@@ -18,9 +18,7 @@ export default {
     props: {
         id: {
             type: String,
-            default() {
-                return this.$utils.randomId("more-list-")
-            }
+            default() { return `more-list-${this._uid}` },
         },
         symbol: String,
         solid: Boolean,

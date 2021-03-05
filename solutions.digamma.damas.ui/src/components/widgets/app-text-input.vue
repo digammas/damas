@@ -46,9 +46,7 @@ export default {
     props: {
         id: {
             type: String,
-            default() {
-                this.$utils.randomId("text-input-")
-            }
+            default() { return `text-input-${this._uid}` },
         },
         name: {
             type: String

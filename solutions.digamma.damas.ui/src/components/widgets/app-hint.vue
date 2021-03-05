@@ -27,9 +27,7 @@ export default {
         text: String
     },
     computed: {
-        contentId() {
-            return this.$utils.randomId("hint-content-")
-        }
+        contentId() { return `hint-content-${this._uid}` },
     },
     mounted() {
         window.componentHandler.upgradeElement(this.$refs.hint)

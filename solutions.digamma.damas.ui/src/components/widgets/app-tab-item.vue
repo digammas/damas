@@ -15,9 +15,7 @@ export default {
     props: {
         id: {
             type: String,
-            default() {
-                this.$utils.randomId("tab-item-")
-            }
+            default() { return `tab-item-${this._uid}` },
         },
         title: {
             type: String,

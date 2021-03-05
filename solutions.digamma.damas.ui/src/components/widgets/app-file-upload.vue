@@ -26,15 +26,13 @@ export default {
     props: {
         id: {
             type: String,
-            default() {
-                this.$utils.randomId("file-upload-")
-            }
+            default() { return `file-upload-${this._uid}` },
         },
         label: String
     },
     data() {
         return {
-            textFieldId: this.$utils.randomId("text-field-"),
+            textFieldId: `text-field-${this._uid}`,
             fileSize: null,
             file: null
         }
