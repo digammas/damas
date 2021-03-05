@@ -17,7 +17,9 @@ export default {
                 component,
             );
         }
-        this.$parent.$emit('update:layout', component);
+        if (this.$parent.layout !== component) {
+            this.$parent.$emit('update:layout', component);
+        }
     },
     render(h) {
         return this.$slots.default ? this.$slots.default[0] : h();
