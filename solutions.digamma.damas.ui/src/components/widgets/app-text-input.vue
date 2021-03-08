@@ -17,7 +17,6 @@
                 :rows="rows"
                 :name="name || id"
                 :id="id"
-                :required="required"
                 :value="text || value"
                 :class="{shrunk: action}"
                 @input="$emit('input', $event.target.value)"/>
@@ -54,7 +53,7 @@ export default {
         label: String,
         type: {
             type: String,
-            default: "text",
+            default: 'text',
             validator: [].includes.bind(['text', 'password', 'textarea'])
         },
         required: {
@@ -79,6 +78,7 @@ export default {
     },
     mounted() {
         this.$_update()
+        this.$refs.input.required = this.required
         var textfield = this.$refs.textfield
         setTimeout(() => {
             let autofill = textfield.querySelectorAll('input:-webkit-autofill')
