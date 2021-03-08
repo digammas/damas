@@ -4,7 +4,7 @@
             <tag-breadcrumb :path="file && file.path"/>
             <app-spacer />
             <app-hint
-                    v-if="file && file.parentId"
+                    v-if="$_hasParent()"
                     text="Parent Folder">
                 <app-button
                         toolbar
@@ -13,7 +13,8 @@
                     <app-icon symbol="arrow-up" solid size="small"/>
                 </app-button>
             </app-hint>
-            <app-more-list>
+            <app-more-list
+                    v-if="$_hasParent()">
                 <slot name="options"></slot>
                 <a
                         href
@@ -65,7 +66,7 @@ export default {
     },
     methods: {
         goToParent() {
-            this.file && this.file.parentId && this.$router.push({name: 'content', params: {id: this.file.parentId}})
+            this.$_hasParent() && this.$router.push({name: 'content', params: {id: this.file.parentId}})
         },
         openRenameDialog(event) {
             this.$refs.renameFileDialog.show()
@@ -77,6 +78,9 @@ export default {
         },
         onNameChanged(file) {
             this.file.name = file.name
+        },
+        $_hasParent() {
+            return this.file && this.file.parentId
         },
         $_copyFile(event) {
             if (!this.file) return
