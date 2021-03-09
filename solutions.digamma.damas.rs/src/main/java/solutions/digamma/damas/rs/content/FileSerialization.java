@@ -1,5 +1,6 @@
 package solutions.digamma.damas.rs.content;
 
+import java.util.List;
 import solutions.digamma.damas.content.File;
 import solutions.digamma.damas.content.Folder;
 import solutions.digamma.damas.content.Metadata;
@@ -17,6 +18,7 @@ abstract public class FileSerialization
     private String name;
     private String parentId;
     private String path;
+    private List<String> pathIds;
     private MetadataSerialization metadata;
 
     /**
@@ -37,6 +39,7 @@ abstract public class FileSerialization
         this.parentId = pattern.getParentId();
         if (full) {
             this.path = pattern.getPath();
+            this.pathIds = pattern.getPathIds();
             this.createdBy = pattern.getCreatedBy();
             this.creationDate = pattern.getCreationDate();
             this.modifiedBy = pattern.getModifiedBy();
@@ -94,4 +97,8 @@ abstract public class FileSerialization
         return this.path;
     }
 
+    @Override
+    public List<String> getPathIds() {
+        return this.pathIds;
+    }
 }

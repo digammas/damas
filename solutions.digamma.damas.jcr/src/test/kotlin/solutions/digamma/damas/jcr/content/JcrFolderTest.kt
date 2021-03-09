@@ -15,13 +15,15 @@ import solutions.digamma.damas.jcr.WeldTest
 class JcrFolderTest : WeldTest() {
 
     private var folder: Folder? = null
+    private var root: Folder? = null
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
         this.login()
-        val parentId = manager.find("/").id
+        this.root = manager.find("/")
+        val parentId = this.root!!.id
         this.folder = manager.create(Mocks.folder(parentId, "test"))
         var parent = this.folder
         repeat(10) {
@@ -67,5 +69,23 @@ class JcrFolderTest : WeldTest() {
         assert(folders.size != 0)
         val subfolder = folders.iterator().next()
         assert(subfolder.name == "test_${0}")
+    }
+
+    @Test
+    fun pathIds() {
+        var expanded = this.folder
+        val pathIds = this.folder!!.pathIds.toMutableList()
+        expanded!!.expandContent()
+        repeat(10) {
+            expanded = expanded!!.content.folders.iterator().next()
+            pathIds.add(expanded!!.id)
+        }
+        assert(expanded!!.pathIds.equals(pathIds))
+    }
+
+    @Test
+    fun pathIdsOnRoot() {
+        assert(this.root!!.pathIds.size == 1)
+        assert(this.root!!.pathIds[0].equals(this.root!!.id))
     }
 }

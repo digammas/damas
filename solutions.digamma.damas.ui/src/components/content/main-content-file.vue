@@ -1,7 +1,9 @@
 <template>
     <div v-if="file">
         <app-box shadow>
-            <tag-breadcrumb :path="file && file.path"/>
+            <tag-breadcrumb
+                    :path="file && file.path"
+                    @navigate="onNavigate"/>
             <app-spacer />
             <app-hint
                     v-if="$_hasParent()"
@@ -78,6 +80,10 @@ export default {
         },
         onNameChanged(file) {
             this.file.name = file.name
+        },
+        onNavigate(index) {
+            const id = this.file.pathIds[index + 1]
+            id !== this.file.id && this.$router.push({ name: 'content', params: { id } })
         },
         $_hasParent() {
             return this.file && this.file.parentId

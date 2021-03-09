@@ -1,5 +1,6 @@
 package solutions.digamma.damas.content;
 
+import java.util.List;
 import solutions.digamma.damas.entity.Created;
 import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.entity.Modifiable;
@@ -77,7 +78,7 @@ public interface File extends Entity, Created, Modifiable {
     void updateMetadata(Metadata metadata);
 
     /**
-     * Parent path.
+     * Node's path.
      * A path is composed of node names, starting from the root node represented
      * as an empty string, down to the current node. Names are separated by
      * forward slashes.
@@ -85,4 +86,13 @@ public interface File extends Entity, Created, Modifiable {
      * @return
      */
     String getPath();
+
+    /**
+     * Node's ancestors identifiers.
+     *
+     * Identifiers are ordered as per nodes appearance in path.
+     *
+     * @return
+     */
+    List<String> getPathIds();
 }

@@ -69,6 +69,12 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         this.relativizePath(this.node.path)
     }
 
+    override fun getPathIds(): List<String> {
+        return IntRange(1, this.node.depth)
+                .map { this.node.getAncestor(it) }
+                .map { if (it is Node) it.identifier else "" }
+    }
+
     override fun getMetadata(): Metadata? = null
 
     override fun updateMetadata(metadata: Metadata) {}
