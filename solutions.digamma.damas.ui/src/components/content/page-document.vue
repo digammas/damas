@@ -6,7 +6,7 @@
                     <app-text-input
                         type="textarea"
                         label="Add comment"
-                        :action="commentAction && 'paper-plane solid'"
+                        :action="commentActionEnabled ? 'paper-plane solid' : ''"
                         :lines="2"
                         @input="$_commentInput"
                         @action="$_commentAction" />
@@ -40,7 +40,7 @@ export default {
             id: null,
             document: null,
             comments: [],
-            commentAction: null
+            commentActionEnabled: null
         }
     },
     components: {
@@ -88,7 +88,7 @@ export default {
             event.preventDefault()
         },
         $_commentInput(value) {
-            this.commentAction = !!value
+            this.commentActionEnabled = !!value
         },
         $_commentAction(value) {
             commentService.create({
