@@ -129,4 +129,8 @@ textarea.shrunk {
 .action-button {
     right: 0;
 }
+
+.mdl-textfield__input {
+    font-size: 1rem;
+}
 </style>
