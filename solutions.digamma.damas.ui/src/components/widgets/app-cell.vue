@@ -1,7 +1,7 @@
 <template>
     <component
             class="mdl-cell"
-            :text="hint"
+            :text="hintText"
             :outerTag="tag"
             :class="classes"
             :is="rootType">
@@ -15,6 +15,11 @@ import AppHint from './app-hint'
 export default {
     name: "AppCell",
     components: {AppHint},
+    data() {
+        return {
+            dynamicHint: null
+        }
+    },
     props: {
         span: {
             type: Number,
@@ -56,7 +61,15 @@ export default {
             }
         },
         rootType() {
-            return this.hint ? 'AppHint' : this.tag
+            return this.hintText ? 'AppHint' : this.tag
+        },
+        hintText() {
+            return this.hint || this.dynamicHint
+        }
+    },
+    methods: {
+        setHint(value) {
+            this.dynamicHint = value
         }
     }
 }

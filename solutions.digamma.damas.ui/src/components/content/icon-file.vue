@@ -38,7 +38,7 @@ export default {
     mounted() {
         /* Set hint only if text is truncated */
         if (this.$refs.anchor.$el.offsetWidth < this.$refs.anchor.$el.scrollWidth) {
-            this.$refs.cell.hint = this.text
+            this.$refs.cell.setHint(this.text)
         }
     }
 }
