@@ -3,7 +3,6 @@ package solutions.digamma.damas.jcr.content
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
@@ -22,13 +21,11 @@ class JcrFolderTest : WeldTest() {
     fun setUp() {
         val manager = WeldTest.inject(JcrFolderManager::class.java)
         this.login()
-        var parentId = manager.find("/").id
+        val parentId = manager.find("/").id
         this.folder = manager.create(Mocks.folder(parentId, "test"))
         var parent = this.folder
-        for (i in 0..9) {
-            parentId = parent!!.id
-            val name = "test_$i"
-            parent = manager.create(Mocks.folder(parentId, name))
+        repeat(10) {
+            parent = manager.create(Mocks.folder(parent!!.id, "test_$it"))
         }
     }
 
@@ -45,7 +42,7 @@ class JcrFolderTest : WeldTest() {
     fun expandContent() {
         var expanded = this.folder
         expanded!!.expandContent()
-        for (i in 0..9) {
+        repeat(10) {
             expanded = expanded!!.content.folders.iterator().next()
         }
     }
@@ -56,7 +53,7 @@ class JcrFolderTest : WeldTest() {
         var expanded = this.folder
         val depth = 5
         expanded!!.expandContent(depth)
-        for (i in 0 until depth) {
+        repeat(depth) {
             expanded = expanded!!.content.folders.iterator().next()
         }
         assert(expanded!!.content == null)
