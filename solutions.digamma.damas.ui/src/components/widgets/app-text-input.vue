@@ -72,7 +72,6 @@ export default {
             return this.type === 'textarea' && (this.lines || 1)
         },
         isTextArea() {
-            console.log("isTextArea is " + (this.type === 'textarea'))
             return this.type === 'textarea'
         }
     },
