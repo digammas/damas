@@ -6,6 +6,7 @@
                     <app-text-input
                         type="textarea"
                         label="Add comment"
+                        ref="input"
                         :action="commentActionEnabled ? 'paper-plane solid' : ''"
                         :lines="2"
                         @input="$_commentInput"
@@ -90,11 +91,13 @@ export default {
         $_commentInput(value) {
             this.commentActionEnabled = !!value
         },
-        $_commentAction(value) {
-            commentService.create({
+        async $_commentAction(value) {
+            await commentService.create({
                 receiverId: this.id,
                 text: value
             })
+            this.comments = await commentService.listForFile(this.id)
+            this.$refs.input.setText("")
         }
     }
 }
