@@ -17,7 +17,7 @@
                 :rows="rows"
                 :name="name || id"
                 :id="id"
-                :value="text || value"
+                :value="value"
                 :class="{shrunk: action}"
                 @input="$emit('input', $event.target.value)"/>
         <app-button
@@ -37,11 +37,6 @@
 export default {
     name: "AppTextInput",
     inheritAttrs: false,
-    data() {
-        return {
-            text: null
-        }
-    },
     props: {
         id: {
             type: String,
@@ -98,7 +93,7 @@ export default {
     },
     methods: {
         setText(text) {
-            this.text = text
+            this.$refs.input.value = text
             this.$refs.textfield.classList.add('is-focused')
         },
         getText() {
