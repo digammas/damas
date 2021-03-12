@@ -7,7 +7,6 @@ import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.WorkspaceException.Origin.INTERNAL
-import solutions.digamma.damas.jcr.session.JcrTransaction
 import javax.jcr.ItemExistsException
 import javax.jcr.ItemNotFoundException
 import javax.jcr.LoginException
@@ -47,7 +46,7 @@ internal object Exceptions {
      * Wraps a callable and convert any thrown exception to a checked exception.
      *
      * If the callable throws a [RepositoryException] exception it is converted
-     * into their [WorkspaceException] counterparts.
+     * into its [WorkspaceException] counterparts.
      *
      * @param op a callable that potentially throws a [RepositoryException]
      * @return returned object by the callable, if any
@@ -56,10 +55,8 @@ internal object Exceptions {
     internal fun <T> check(op: () -> T) = try {
         op()
     } catch (e: RepositoryException) {
-        rollback()
         throw convert(e)
     } catch (e: RuntimeException) {
-        rollback()
         val cause = e.cause
         throw when (cause) {
             is RepositoryException -> convert(cause)
@@ -91,11 +88,5 @@ internal object Exceptions {
         throw IllegalStateException(convert(e))
     } catch (e: Exception) {
         throw IllegalStateException(e);
-    }
-
-    private fun rollback() {
-        try {
-            JcrTransaction.get().rollback()
-        } catch(_: NotFoundException) {}
     }
 }

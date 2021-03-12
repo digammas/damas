@@ -28,10 +28,18 @@ public class AuthenticationInterceptor {
             return context.proceed();
         }
         BaseResource resource = (BaseResource) context.getTarget();
+        /* Code should be compilable with Java 8 for Enunciate compatibility */
+        Transaction shadowTransaction = null;
         try (Transaction transaction = begin(resource.getToken())) {
+            shadowTransaction = transaction;
             Object returned = context.proceed();
             transaction.commit();
             return returned;
+        } catch (Throwable e) {
+            if (shadowTransaction !=  null) {
+                shadowTransaction.rollback();
+            }
+            throw e;
         }
     }
 }
