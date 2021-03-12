@@ -10,6 +10,11 @@ import solutions.digamma.damas.rs.common.SearchEnabledCrudResource;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+/**
+ * Comment management REST endpoint.
+ *
+ * @label Comment
+ */
 @Path("comments")
 public class CommentResource
         extends SearchEnabledCrudResource<Comment, CommentSerialization> {

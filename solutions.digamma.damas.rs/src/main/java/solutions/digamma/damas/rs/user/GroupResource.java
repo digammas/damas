@@ -10,6 +10,11 @@ import solutions.digamma.damas.user.GroupManager;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+/**
+ * Group management REST endpoint.
+ *
+ * @label Group
+ */
 @Path("groups")
 public class GroupResource extends SearchEnabledCrudResource<Group, GroupSerialization> {
 

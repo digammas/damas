@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * Authentication REST endpoint.
  *
- * @author Ahmad Shahwan
  * @label Authentication
+ * @author Ahmad Shahwan
  */
 @Path("login")
 public class AuthResource extends BaseResource {

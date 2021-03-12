@@ -12,6 +12,11 @@ import solutions.digamma.damas.user.UserManager;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 
+/**
+ * User management REST endpoint.
+ *
+ * @label User
+ */
 @Path("users")
 public class UserResource extends SearchEnabledCrudResource<User, UserSerialization> {
 
