@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.0.0-M.4.xsd">
+           xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.13.0.xsd">
 
     <api-classes>
         <include pattern="solutions.digamma.damas.rs.**" />
