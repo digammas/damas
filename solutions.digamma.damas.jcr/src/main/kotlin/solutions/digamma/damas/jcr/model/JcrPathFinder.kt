@@ -8,34 +8,36 @@ import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.session.JcrSessionConsumer
 import java.nio.file.Paths
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 /**
+ * An interface that provide path finding functionality.
+ *
  * @author Ahmad Shahwan
  */
 internal interface JcrPathFinder<T : Entity> : JcrSessionConsumer, PathFinder<T> {
 
+    /**
+     * This method converts a thrown exception into a [WorkspaceException].
+     * It also normalizes the path to a JCR compatible one.
+     */
     @Throws(WorkspaceException::class)
-    override fun find(path: String): T {
-        return Exceptions.check {
-            var p = Paths.get(path).normalize().toString()
-            if (p.startsWith("../")) {
-                throw MisuseException("Invalid relative path.")
-            }
-            p = if (p == "") "." else p
-            this.find(this.getSession(), p)
+    override fun find(path: String): T = Exceptions.check {
+        var p = Paths.get(path).normalize().toString()
+        if (p.startsWith("../")) {
+            throw MisuseException("Invalid relative path.")
         }
+        if (p == "") p = "."
+        this.doFind(p)
     }
 
     /**
      * Perform path look-up.
      *
-     * @param session
      * @param path
      * @return
      * @throws RepositoryException
      * @throws WorkspaceException
      */
     @Throws(RepositoryException::class, WorkspaceException::class)
-    fun find(session: Session, path: String): T
+    fun doFind(path: String): T
 }

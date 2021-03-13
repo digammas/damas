@@ -11,14 +11,12 @@ import javax.jcr.Session
 internal interface JcrSessionConsumer {
 
     /**
-     * Obtain a session wrapper that contains a valid session. Returned session
-     * need not be open.
+     * Obtain a valid session from current transaction.
      *
-     * @param token     Access token.
-     * @return          A valid, non-null session wrapper.
+     * @return          A valid, non-null JCR session.
      * @throws AuthenticationException  When no session is found for the given
      * token.
      */
-    @Throws(AuthenticationException::class)
-    fun getSession(): Session
+    @get:Throws(AuthenticationException::class)
+    val session: Session
 }

@@ -9,7 +9,6 @@ import solutions.digamma.damas.jcr.names.TypeNamespace
 import javax.inject.Singleton
 import javax.jcr.Node
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 /**
  * JCR-based comment manager implementation.
@@ -21,22 +20,23 @@ internal open class JcrCommentManager :
         JcrCrudManager<Comment>(), JcrSearchEngine<Comment>, CommentManager {
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun retrieve(session: Session, id: String) =
-        JcrComment.of(session.getNodeByIdentifier(id))
+    override fun doRetrieve(id: String) =
+        JcrComment.of(this.session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun create(session: Session, pattern: Comment) =
-        JcrComment.from(session, pattern.receiverId).also { it.update(pattern) }
+    override fun doCreate(pattern: Comment): JcrComment {
+        return JcrComment.from(this.session, pattern.receiverId).also {
+            it.update(pattern)
+        }
+    }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun update(
-            session: Session, id: String,
-            pattern: Comment) =
-        this.retrieve(session, id).also { it.update(pattern) }
+    override fun doUpdate(id: String, pattern: Comment) =
+        this.doRetrieve(id).also { it.update(pattern) }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun delete(session: Session, id: String) =
-        this.retrieve(session, id).remove()
+    override fun doDelete(id: String) =
+        this.doRetrieve(id).remove()
 
     override fun getNodePrimaryType() = TypeNamespace.COMMENT
 

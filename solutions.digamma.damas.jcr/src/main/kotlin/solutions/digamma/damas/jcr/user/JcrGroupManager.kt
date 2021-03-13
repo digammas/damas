@@ -9,7 +9,6 @@ import solutions.digamma.damas.user.GroupManager
 import javax.inject.Singleton
 import javax.jcr.Node
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 /**
  * JCR implementation of group manager.
@@ -21,20 +20,20 @@ internal open class JcrGroupManager: JcrCrudManager<Group>(),
         GroupManager {
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun create(session: Session, pattern: Group) =
-        JcrGroup.from(session, pattern.name).also { it.update(pattern) }
+    override fun doCreate(pattern: Group) =
+        JcrGroup.from(this.session, pattern.name).also { it.update(pattern) }
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun update(session: Session, id: String, pattern: Group) =
-        retrieve(session, id).also { it.update(pattern) }
+    override fun doUpdate(id: String, pattern: Group) =
+        doRetrieve(id).also { it.update(pattern) }
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun retrieve(session: Session, id: String) =
-        JcrGroup.of(session.getNode("${JcrSubject.ROOT_PATH}/$id"))
+    override fun doRetrieve(id: String) =
+        JcrGroup.of(this.session.getNode("${JcrSubject.ROOT_PATH}/$id"))
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun delete(session: Session, id: String) =
-        retrieve(session, id).remove()
+    override fun doDelete(id: String) =
+        doRetrieve(id).remove()
 
     override fun getNodePrimaryType() = TypeNamespace.GROUP
 

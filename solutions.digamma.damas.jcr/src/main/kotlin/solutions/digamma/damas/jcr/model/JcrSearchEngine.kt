@@ -43,15 +43,13 @@ internal interface JcrSearchEngine<T : Entity>
     @Throws(WorkspaceException::class)
     override fun find(offset: Int, size: Int, filter: Filter?): Page<T> {
         return Exceptions.check {
-                this.find(this.getSession(), offset, size, filter)
+                this.doFind(offset, size, filter)
         }
     }
-
 
     /**
      * Perform search.
      *
-     * @param session
      * @param offset
      * @param size
      * @param filter
@@ -60,13 +58,12 @@ internal interface JcrSearchEngine<T : Entity>
      * @throws WorkspaceException
      */
     @Throws(RepositoryException::class, WorkspaceException::class)
-    fun find(
-            session: Session,
+    fun doFind(
             offset: Int,
             size: Int,
             filter: Filter?): Page<T> {
         val sqlQuery = this.buildQuery(filter)
-        return this.query(session, sqlQuery, offset, size, this::fromNode)
+        return this.query(this.session, sqlQuery, offset, size, this::fromNode)
     }
 
     fun getNodePrimaryType(): String

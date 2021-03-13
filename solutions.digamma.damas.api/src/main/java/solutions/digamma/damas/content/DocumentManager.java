@@ -2,7 +2,6 @@ package solutions.digamma.damas.content;
 
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.login.Token;
 
 import java.io.InputStream;
 
@@ -17,8 +16,8 @@ public interface DocumentManager
     /**
      * Create document with initial content.
      *
-     * @param entity
-     * @param stream
+     * @param entity    document to be created
+     * @param stream    document content
      * @return
      * @throws WorkspaceException
      */
@@ -39,8 +38,8 @@ public interface DocumentManager
     /**
      * Read document's content.
      *
-     * @param id
-     * @return
+     * @param id    document's ID
+     * @return      document's content
      */
     DocumentPayload download(String id)
             throws WorkspaceException;
@@ -48,8 +47,8 @@ public interface DocumentManager
     /**
      * Write a stream to a document, replacing existing content.
      *
-     * @param id
-     * @param stream
+     * @param id        document's ID
+     * @param stream    document's new content
      */
     void upload(String id, InputStream stream) throws WorkspaceException;
 }

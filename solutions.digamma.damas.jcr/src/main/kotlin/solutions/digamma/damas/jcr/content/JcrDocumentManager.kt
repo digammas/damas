@@ -10,7 +10,6 @@ import solutions.digamma.damas.logging.Logged
 import java.io.InputStream
 import javax.inject.Singleton
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 /**
  * JCR implementation convert folder manager.
@@ -25,14 +24,14 @@ internal open class JcrDocumentManager :
     @Throws(WorkspaceException::class)
     override fun create(entity: Document, stream: InputStream) =
             Exceptions.check {
-        this.create(this.getSession(), entity).also { it.updateContent(stream) }
+        this.doCreate(entity).also { it.updateContent(stream) }
     }
 
     @Logged
     @Throws(WorkspaceException::class)
     override fun download(id: String) =
             Exceptions.check {
-        val document = this.retrieve(getSession(), id)
+        val document = this.doRetrieve(id)
         document.content
     }
 
@@ -40,35 +39,37 @@ internal open class JcrDocumentManager :
     @Throws(WorkspaceException::class)
     override fun upload(id: String, stream: InputStream) =
             Exceptions.check {
-        this.retrieve(this.getSession(), id).updateContent(stream)
+        this.doRetrieve(id).updateContent(stream)
     }
 
     @Logged
     @Throws(WorkspaceException::class)
     override fun copy(sourceId: String, destinationId: String): Document {
-        return this.retrieve(getSession(), sourceId).duplicate(destinationId)
+        return this.doRetrieve(sourceId).duplicate(destinationId)
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun retrieve(session: Session, id: String) =
-            JcrDocument.of(session.getNodeByIdentifier(id))
+    override fun doRetrieve(id: String) =
+            JcrDocument.of(this.session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun create(session: Session, pattern: Document): JcrDocument {
-        return JcrDocument.from(session, pattern.parentId, pattern.name).also {
+    override fun doCreate(pattern: Document): JcrDocument {
+        return JcrDocument
+                .from(this.session, pattern.parentId, pattern.name)
+                .also {
             it.mimeType = pattern.mimeType
         }
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun update(session: Session, id: String, pattern: Document) =
-        this.retrieve(session, id).also { it.update(pattern) }
+    override fun doUpdate(id: String, pattern: Document) =
+        this.doRetrieve(id).also { it.update(pattern) }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun delete(session: Session, id: String) =
-        this.retrieve(session, id).remove()
+    override fun doDelete(id: String) =
+        this.doRetrieve(id).remove()
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun find(session: Session, path: String) =
-        JcrDocument.of(session.getNode(JcrFile.ROOT_PATH).getNode(path))
+    override fun doFind(path: String) =
+        JcrDocument.of(this.session.getNode(JcrFile.ROOT_PATH).getNode(path))
 }

@@ -15,7 +15,6 @@ import java.util.Collections
 import javax.inject.Singleton
 import javax.jcr.Node
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 /**
  * JCR implementation convert folder manager.
@@ -32,38 +31,35 @@ internal open class JcrFolderManager :
     @Logged
     @Throws(WorkspaceException::class)
     override fun copy(sourceId: String, destinationId: String): Folder {
-        return this.retrieve(getSession(), sourceId).duplicate(destinationId)
+        return this.doRetrieve(sourceId).duplicate(destinationId)
     }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun retrieve(session: Session, id: String) =
-        JcrFolder.of(session.getNodeByIdentifier(id))
+    override fun doRetrieve(id: String) =
+        JcrFolder.of(this.session.getNodeByIdentifier(id))
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun create(
-            session: Session,
-            pattern: Folder) =
-        JcrFolder.from(session, pattern.parentId, pattern.name)
+    override fun doCreate(pattern: Folder) =
+        JcrFolder.from(this.session, pattern.parentId, pattern.name)
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun update(session: Session, id: String, pattern: Folder) =
-        this.retrieve(session, id).also { it.update(pattern) }
+    override fun doUpdate(id: String, pattern: Folder) =
+        this.doRetrieve(id).also { it.update(pattern) }
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun delete(session: Session, id: String) =
-        this.retrieve(session, id).remove()
+    override fun doDelete(id: String) =
+        this.doRetrieve(id).remove()
 
     @Throws(RepositoryException::class, WorkspaceException::class)
 
-    override fun find(
-            session: Session,
+    override fun doFind(
             offset: Int,
             size: Int,
             filter: Filter?): Page<Folder> = ResultPage(Collections.emptyList())
 
     @Throws(RepositoryException::class, WorkspaceException::class)
-    override fun find(session: Session, path: String) =
-        JcrFolder.of(session.getNode("${JcrFile.ROOT_PATH}$path"))
+    override fun doFind(path: String) =
+        JcrFolder.of(this.session.getNode("${JcrFile.ROOT_PATH}$path"))
 
     override fun getNodePrimaryType() = TypeNamespace.FOLDER
 

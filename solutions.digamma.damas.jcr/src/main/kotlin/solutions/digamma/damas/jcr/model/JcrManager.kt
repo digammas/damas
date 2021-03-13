@@ -19,9 +19,10 @@ internal abstract class JcrManager : JcrSessionConsumer {
     @Inject
     protected lateinit var logger: Logger
 
+    override val session
     @Logged
     @Throws(AuthenticationException::class)
-    override fun getSession() = try {
+    get() = try {
         JcrTransaction.get().getSession()
     } catch (e: NotFoundException) {
         throw AuthenticationException(e)

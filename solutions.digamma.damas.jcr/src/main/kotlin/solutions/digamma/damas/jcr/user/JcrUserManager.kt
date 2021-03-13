@@ -15,7 +15,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import javax.jcr.Node
 import javax.jcr.RepositoryException
-import javax.jcr.Session
 
 @Singleton
 internal open class JcrUserManager : JcrCrudManager<User>(),
@@ -34,26 +33,29 @@ internal open class JcrUserManager : JcrCrudManager<User>(),
     }
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun create(session: Session, pattern: User) =
-            JcrUser.from(session, pattern.login).also { it.update(pattern) }
+    override fun doCreate(pattern: User): JcrUser {
+        return JcrUser.from(this.session, pattern.login).also {
+            it.update(pattern)
+        }
+    }
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun update(session: Session, id: String, pattern: User) =
-        retrieve(session, id).also { it.update(pattern) }
+    override fun doUpdate(id: String, pattern: User) =
+        doRetrieve(id).also { it.update(pattern) }
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun retrieve(session: Session, id: String) =
-            JcrUser.of(session.getNode("${JcrSubject.ROOT_PATH}/$id"))
+    override fun doRetrieve(id: String) =
+            JcrUser.of(this.session.getNode("${JcrSubject.ROOT_PATH}/$id"))
 
     @Throws(WorkspaceException::class, RepositoryException::class)
-    override fun delete(session: Session, id: String) =
-            retrieve(session, id).remove()
+    override fun doDelete(id: String) =
+            doRetrieve(id).remove()
 
     @Throws(WorkspaceException::class)
     override fun updatePassword(id: String, value: String) {
         pwRegex.matcher(value).matches() || throw InsecurePasswordException()
         Exceptions.check {
-            val user = this.retrieve(this.getSession(), id)
+            val user = this.doRetrieve(id)
             user.setPassword(value)
         }
     }

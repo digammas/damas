@@ -22,8 +22,8 @@ constructor(@Transient override val node: Node) : Entity, JcrEntity {
     }
 
     val session: Session
-        @Throws(RepositoryException::class)
-        get() = this.node.session
+    @Throws(RepositoryException::class)
+    get() = this.node.session
 
     /**
      * Delete entity, and its back node.
