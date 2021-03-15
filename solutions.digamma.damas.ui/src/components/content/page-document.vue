@@ -65,7 +65,7 @@ export default {
         },
         async retrieve() {
             this.document = await documentService.retrieve(this.id, true)
-            this.comments = await commentService.listForFile(this.id)
+            await this.retrieveComments()
         },
         async download(event) {
             event.preventDefault()
@@ -79,6 +79,9 @@ export default {
                 link.download = name
                 link.click()
             }
+        },
+        async retrieveComments() {
+          this.comments = await commentService.listForFile(this.id)
         },
         openRenameDialog(event) {
             this.$refs.renameFileDialog.show()
@@ -96,7 +99,7 @@ export default {
                 receiverId: this.id,
                 text: value
             })
-            this.comments = await commentService.listForFile(this.id)
+            await this.retrieveComments()
             this.$refs.input.setText("")
         }
     }

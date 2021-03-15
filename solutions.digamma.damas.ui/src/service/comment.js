@@ -17,8 +17,8 @@ class commentService {
         return (await http.get(`${BASE_URL}`, params)).data.objects
     }
 
-    async listForFile(parentId, offset, size) {
-        let list = await this.list({ parentId }, offset, size)
+    async listForFile(scope, offset, size) {
+        let list = await this.list({ scope, rec: false }, offset, size)
         return list.sort((x, y) => x.creationdDate < y.creationDate ? 1 : -1)
     }
 
