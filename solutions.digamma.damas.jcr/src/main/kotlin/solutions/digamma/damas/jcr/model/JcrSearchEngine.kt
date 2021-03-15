@@ -91,7 +91,7 @@ internal interface JcrSearchEngine<T : Entity>
             sb.append(this.buildNameClause(filter.namePattern))
         }
         if (filter.scopeId != null) {
-            sb.append(this.buildScopeClause(filter.scopeId))
+            sb.append(this.buildScopeClause(filter))
         }
     }
 
@@ -102,8 +102,12 @@ internal interface JcrSearchEngine<T : Entity>
         return "AND node.[${Property.JCR_NAME}] LIKE '$pattern' "
     }
 
-    fun buildScopeClause(parentId: String): String {
-        return "AND ISDESCENDANTNODE(node, '$parentId') "
+    fun buildScopeClause(filter: Filter): String {
+        val predicate =
+                if (filter.isRecursive) "ISDESCENDANTNODE"
+                else "ISCHILDNODE"
+        val path = this.session.getNodeByIdentifier(filter.scopeId).path
+        return "AND $predicate (node, '$path') "
     }
 
     fun query(

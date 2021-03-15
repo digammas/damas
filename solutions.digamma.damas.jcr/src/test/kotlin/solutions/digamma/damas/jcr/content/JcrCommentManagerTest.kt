@@ -21,6 +21,7 @@ class JcrCommentManagerTest : WeldTest() {
     private val manager = WeldTest.inject(JcrCommentManager::class.java)
     private var folder: Folder? = null
     private var document: Document? = null
+    private var secondary: Document? = null
 
     @Before
     @Throws(Exception::class)
@@ -32,6 +33,7 @@ class JcrCommentManagerTest : WeldTest() {
         this.folder = fm.create(Mocks.folder(parentId, "test"))
         parentId = this.folder!!.id
         this.document = dm.create(Mocks.document(parentId, "file.tst"))
+        this.secondary = dm.create(Mocks.document(parentId, "file2.tst"))
     }
 
     @After
@@ -40,6 +42,7 @@ class JcrCommentManagerTest : WeldTest() {
         val fm = WeldTest.inject(JcrFolderManager::class.java)
         val dm = WeldTest.inject(DocumentManager::class.java)
         dm.delete(this.document!!.id)
+        dm.delete(this.secondary!!.id)
         fm.delete(this.folder!!.id)
         this.logout()
     }
@@ -122,5 +125,40 @@ class JcrCommentManagerTest : WeldTest() {
     @Test
     @Throws(Exception::class)
     fun find() {
+        val text1 = "Hello"
+        val text2 = "Hi"
+        val c1 = manager.create(Mocks.comment(this.document!!.id, text1, 1L))
+        manager.create(Mocks.comment(this.secondary!!.id, text2, 1L))
+        this.commit()
+        val page = manager.find(0, 10, Mocks.filter(this.document?.id!!, true))
+        assert(page.size == 1)
+        assert(page.objects.any { c -> c.id == c1.id })
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun findRecursive() {
+        val text1 = "Hello"
+        val text2 = "Hi"
+        val c1 = manager.create(Mocks.comment(this.document!!.id, text1, 1L))
+        val c2 = manager.create(Mocks.comment(c1.id, text2, 1L))
+        this.commit()
+        val page = manager.find(0, 10, Mocks.filter(this.document?.id!!, true))
+        assert(page.size == 2)
+        assert(page.objects.any { c -> c.id == c1.id })
+        assert(page.objects.any { c -> c.id == c2.id })
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun findNonRecursive() {
+        val text1 = "Hello"
+        val text2 = "Hi"
+        val c1 = manager.create(Mocks.comment(this.document!!.id, text1, 1L))
+        manager.create(Mocks.comment(c1.id, text2, 1L))
+        this.commit()
+        val page = manager.find(0, 10, Mocks.filter(this.document?.id!!, false))
+        assert(page.size == 1)
+        assert(page.objects.any { c -> c.id == c1.id })
     }
 }

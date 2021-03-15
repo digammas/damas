@@ -6,6 +6,7 @@ import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.content.Comment
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.Folder
+import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.User
 
@@ -34,6 +35,13 @@ object Mocks {
         Mockito.`when`(comment.text).thenReturn(text)
         Mockito.`when`(comment.rank).thenReturn(rank)
         return comment
+    }
+
+    fun filter(scopeId: String, recursive: Boolean): Filter {
+        val filter = Mockito.mock(Filter::class.java)
+        Mockito.`when`(filter.scopeId).thenReturn(scopeId)
+        Mockito.`when`(filter.isRecursive).thenReturn(recursive)
+        return filter
     }
 
     fun user(login: String, groups: List<String>): User =
