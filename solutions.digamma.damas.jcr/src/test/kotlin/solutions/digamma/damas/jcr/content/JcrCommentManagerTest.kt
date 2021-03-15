@@ -5,7 +5,6 @@ import org.junit.Before
 import org.junit.Test
 import solutions.digamma.damas.common.CompatibilityException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.Folder
@@ -68,6 +67,20 @@ class JcrCommentManagerTest : WeldTest() {
         manager.delete(comment.id)
     }
 
+    @Test
+    @Throws(Exception::class)
+    fun createDeep() {
+        val text = "Hello Comment"
+        val c1 = manager.create(Mocks.comment(this.document!!.id, text, 1L))
+        val c2 = manager.create(Mocks.comment(c1.id, text, 1L))
+        this.commit()
+        val comment1 = manager.retrieve(c1.id)
+        val comment2 = manager.retrieve(c2.id)
+        assert(comment1.comments.any { it.id == c2.id })
+        assert(comment2.receiverId == c1.id)
+        manager.delete(comment1.id)
+    }
+
     @Test(expected = CompatibilityException::class)
     @Throws(Exception::class)
     fun createWithError() {
@@ -80,7 +93,8 @@ class JcrCommentManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun update() {
         var text = "Hello Comment"
-        val id = manager.create(Mocks.comment(this.document!!.id, text, 1L)
+        val id = manager.create(
+                Mocks.comment(this.document!!.id, text, 1L)
         ).id
         text = "Salut commentaire"
         manager.update(id, Mocks.comment(this.document!!.id, text, 0L))
@@ -94,7 +108,8 @@ class JcrCommentManagerTest : WeldTest() {
     @Throws(Exception::class)
     fun delete() {
         val text = "Hello Comment"
-        val id = manager.create(Mocks.comment(this.document!!.id, text, 1L)
+        val id = manager.create(
+                Mocks.comment(this.document!!.id, text, 1L)
         ).id
         this.commit()
         manager.delete(id)

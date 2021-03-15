@@ -1,11 +1,13 @@
 <dms='http://digamma.solutions/damas/1.0'>
 
-[dms:Comment] > mix:created, mix:lastModified, mix:referenceable
+[dms:CommentBase] > mix:created, mix:lastModified, mix:referenceable
     - jcr:content (string) = "" mandatory
     - dms:rank (long) = 0 mandatory
 
 [dms:CommentReceiver] mixin orderable
-    + * (dms:Comment)
+    + * (dms:CommentBase)
+
+[dms:Comment] > dms:CommentBase, dms:CommentReceiver
 
 [dms:File] mixin
 
