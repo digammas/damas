@@ -56,13 +56,19 @@ protected constructor(node: Node) : JcrBaseEntity(node),
         this.setParentId(value.id)
     }
 
-    override fun getParentId(): String? = Exceptions.uncheck {
-        if (ROOT_PATH == this.node.path) null else this.node.parent.identifier
+    override fun getParentId(): String = Exceptions.uncheck {
+        if (ROOT_PATH == this.node.path) {
+            File.NO_PARENT_ID
+        } else {
+            this.node.parent.identifier
+        }
     }
 
     override fun setParentId(value: String) = Exceptions.uncheck {
-        val path = this.session.getNodeByIdentifier(value).path
-        this.move("$path/${this.node.name}")
+        if (this.parentId != value) {
+            val path = this.session.getNodeByIdentifier(value).path
+            this.move("$path/${this.node.name}")
+        }
     }
 
     override fun getPath(): String = Exceptions.uncheck {
