@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.sys
 
+import solutions.digamma.damas.jaas.JaasConfiguration
 import solutions.digamma.damas.jaas.Realm
 import java.util.Collections
 import javax.inject.Singleton
@@ -23,7 +24,8 @@ class SystemJaasConfiguration : Configuration() {
 
     override fun getAppConfigurationEntry(name: String):
             Array<AppConfigurationEntry> {
-        return if (name == REALM) this.entries else emptyArray()
+        return if (name in arrayOf(REALM, JaasConfiguration.REALM))
+            this.entries else emptyArray()
     }
 
     companion object {

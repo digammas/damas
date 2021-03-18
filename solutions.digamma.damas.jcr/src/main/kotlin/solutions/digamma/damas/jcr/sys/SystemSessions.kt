@@ -29,13 +29,13 @@ constructor(private val repository: Repository) {
      * @throws RepositoryException
      */
     val superuser: Session
-        @Throws(RepositoryException::class)
-        get() {
-            if (this.superuserSession?.isLive != true) {
-                this.superuserSession = this.repository.login(SUPERUSER)
-            }
-            return this.superuserSession!!
+    @Throws(RepositoryException::class)
+    get() {
+        if (this.superuserSession?.isLive != true) {
+            this.superuserSession = this.repository.login(SUPERUSER)
         }
+        return this.superuserSession!!
+    }
 
     /**
      * Retrieve a valid readonly session.

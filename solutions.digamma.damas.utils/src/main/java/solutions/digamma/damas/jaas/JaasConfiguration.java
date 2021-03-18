@@ -1,5 +1,8 @@
 package solutions.digamma.damas.jaas;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
@@ -14,24 +17,27 @@ import java.util.Map;
 /**
  * JAAS configuration wrapper that allows adding new reams, or policies, without
  * affecting existing ones.
- * <br/>
+ *
  * An instance of this class installs itself as the default, runtime-wide, JAAS
  * configuration, after keeping a reference to the previously installed one.
- * <br/>
+ *
  * For each demand, that boils down to a call to {@code
- * getAppConfigurationEntry()}, a bean of this type checks on all {@link
- * Configuration} bean implementations qualified with {@link Realm}. If values
- * of the {@link Realm} qualification contains the policy name, configuration is
- * then delegated to that {@link Realm}-qualified bean. If no such bean is found
- * the demand is delegated to the previously installed configuration.
+ * getAppConfigurationEntry()}, a bean of this type checks on all{@link
+ * Configuration} bean implementations qualified with {@link Realm}.
+ * Configuration is then delegated to {@link Realm}-qualified beans whose
+ * qualification values contains the policy name, adding up configurations.
+ * If no such bean is found the demand is delegated to the previously installed
+ * configuration.
  *
  * @author Ahmad Shahwan
  */
 @Singleton
-public class JassConfiguration extends Configuration {
+public class JaasConfiguration extends Configuration {
+
+    public static final String REALM = "damas";
 
     private final Configuration delegate;
-    private Map<String, Configuration> configs;
+    private Map<String, List<Configuration>> configs;
 
     /**
      * Public constructor.
@@ -40,7 +46,7 @@ public class JassConfiguration extends Configuration {
      * This must happen at construction, and not at CDI post-construction, to
      * allow JAAS-aware bean to create login contexts with expected realms.
      */
-    public JassConfiguration() {
+    public JaasConfiguration() {
         this.delegate = Configuration.getConfiguration();
         Configuration.setConfiguration(this);
     }
@@ -56,9 +62,14 @@ public class JassConfiguration extends Configuration {
 
     @Override
     public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-        Configuration config = this.configs.get(name);
-        return (config != null ? config : delegate)
-                .getAppConfigurationEntry(name);
+        List<Configuration> registered = this.configs.get(name);
+        if (registered == null || registered.isEmpty()) {
+            return delegate.getAppConfigurationEntry(name);
+        }
+        return registered.stream()
+                .map(c -> c.getAppConfigurationEntry(name))
+                .flatMap(Arrays::stream)
+                .toArray(AppConfigurationEntry[]::new);
     }
 
     /**
@@ -74,7 +85,12 @@ public class JassConfiguration extends Configuration {
             Realm realm = config.getClass().getAnnotation(Realm.class);
             if (realm != null) {
                 for (String value : realm.value()) {
-                    this.configs.put(value, config);
+                    List<Configuration> list = this.configs.get(value);
+                    if (list == null) {
+                        list = new ArrayList<>(1);
+                    }
+                    list.add(config);
+                    this.configs.put(value, list);
                 }
             }
         }

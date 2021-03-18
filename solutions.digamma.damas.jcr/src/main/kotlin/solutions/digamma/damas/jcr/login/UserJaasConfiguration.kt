@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.login
 
+import solutions.digamma.damas.jaas.JaasConfiguration
 import solutions.digamma.damas.jaas.Realm
 import java.util.Collections
 import javax.inject.Singleton
@@ -15,7 +16,7 @@ import javax.security.auth.login.Configuration
  * authenticating non-system users created by the user management module.
  */
 @Singleton
-@Realm(UserJaasConfiguration.REALM)
+@Realm(UserJaasConfiguration.REALM, JaasConfiguration.REALM)
 internal class UserJaasConfiguration : Configuration() {
 
     private val entries = Array(1) {
@@ -27,7 +28,8 @@ internal class UserJaasConfiguration : Configuration() {
 
     override fun getAppConfigurationEntry(name: String):
             Array<AppConfigurationEntry> {
-        return if (name == REALM) this.entries else emptyArray()
+        return if (name in arrayOf(REALM, JaasConfiguration.REALM))
+            this.entries else emptyArray()
     }
 
     companion object {
