@@ -27,7 +27,7 @@ public abstract class AbstractLoginModule implements LoginModule {
     private Subject subject;
     private boolean success;
 
-    private Map sharedState;
+    private Map<?, ?> sharedState;
     private CallbackHandler callbackHandler;
 
     private static final String USERNAME = "javax.security.login.login.name";
