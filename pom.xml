@@ -16,7 +16,7 @@
     <modules>
         <module>solutions.digamma.damas.api</module>
         <module>solutions.digamma.damas.jcr</module>
-        <module>solutions.digamma.damas.utils</module>
+        <module>solutions.digamma.damas.commons</module>
         <module>solutions.digamma.damas.standalone</module>
         <module>solutions.digamma.damas.rs</module>
         <module>solutions.digamma.damas.rs.doc</module>

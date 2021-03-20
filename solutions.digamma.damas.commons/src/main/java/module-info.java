@@ -1,7 +1,7 @@
 /**
  * @author Ahmad Shahwan
  */
-module solutions.digamma.damas.utils {
+module solutions.digamma.damas.commons {
     requires java.logging;
     requires javax.inject;
     requires cdi.api;
