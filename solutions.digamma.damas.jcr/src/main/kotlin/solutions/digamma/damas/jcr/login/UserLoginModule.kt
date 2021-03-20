@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.login
 
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.jaas.AbstractLoginModule
+import solutions.digamma.damas.auth.AbstractLoginModule
 import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import solutions.digamma.damas.jcr.user.JcrSubject

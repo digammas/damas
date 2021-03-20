@@ -1,6 +1,6 @@
 package solutions.digamma.damas.jcr.sys
 
-import solutions.digamma.damas.jaas.AbstractLoginModule
+import solutions.digamma.damas.auth.AbstractLoginModule
 import java.util.Arrays
 import javax.security.auth.login.LoginException
 

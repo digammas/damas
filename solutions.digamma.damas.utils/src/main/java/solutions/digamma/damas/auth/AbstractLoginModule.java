@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jaas;
+package solutions.digamma.damas.auth;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;

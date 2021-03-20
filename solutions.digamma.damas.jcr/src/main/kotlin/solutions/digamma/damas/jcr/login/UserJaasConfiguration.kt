@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.login
 
-import solutions.digamma.damas.jaas.JaasConfiguration
-import solutions.digamma.damas.jaas.Realm
+import solutions.digamma.damas.auth.JaasConfiguration
+import solutions.digamma.damas.auth.Realm
 import java.util.Collections
 import javax.inject.Singleton
 import javax.security.auth.login.AppConfigurationEntry

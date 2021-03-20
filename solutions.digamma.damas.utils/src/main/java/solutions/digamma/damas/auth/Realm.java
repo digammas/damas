@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jaas;
+package solutions.digamma.damas.auth;
 
 import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;

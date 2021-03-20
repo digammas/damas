@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jaas;
+package solutions.digamma.damas.auth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
