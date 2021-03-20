@@ -32,5 +32,5 @@
       "policy" : "damas-user"
     }]
   },
-  "node-types" : ["repository/cdn/damas.cdn"]
+  "node-types" : ["repository/cnd/damas.cnd"]
 }

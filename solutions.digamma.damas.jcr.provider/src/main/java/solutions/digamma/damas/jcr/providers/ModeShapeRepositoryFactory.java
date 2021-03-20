@@ -32,16 +32,16 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
     @PostConstruct
     public void setUp() {
         try {
-            Files.createDirectories(Paths.get("repository/cdn/"));
+            Files.createDirectories(Paths.get("repository/cnd/"));
             extractResource(
                     "/repository/repository.json",
                     "repository/repository.json");
             extractResource(
-                    "/repository/cdn/damas.cdn",
-                    "repository/cdn/damas.cdn");
+                    "/repository/cnd/damas.cnd",
+                    "repository/cnd/damas.cnd");
         } catch (IOException e) {
             throw new IllegalStateException(
-                    "Unable to create CDN file for repository", e);
+                    "Unable to create CND file for repository", e);
         }
     }
 
