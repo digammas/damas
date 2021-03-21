@@ -3,10 +3,10 @@ package solutions.digamma.damas.jcr.sys
 import java.security.Principal
 
 /**
- * System principals. Those are principals that can run a JCR repository.
+ * System principals. Those are roles that run a JCR repository.
  *
- * Each of these principals gives its owner certain coarse grained permissions
- * that apply repository-wide. However, the user must also have relevant access
+ * Each of these principals gives its owners certain coarse grained permissions
+ * that apply repository-wide. However, the owner must also have relevant access
  * rights on the node at hand in order to be able to perform a certain action.
  * Those access rights are managed by the authorization module.
  */
@@ -36,7 +36,7 @@ enum class SystemRole(private val principal: String): Principal {
     /**
      * Admin role. Besides read-write access, this role gives its owner an
      * administrator access repository-wide. Admin access allow for special
-     * operations such as unlocking any lock without the lock token.
+     * operations such as unlocking any lock without having the lock token.
      *
      * This role is assigned only to the admin user. Note that by itself it is
      * not enough to permit superuser access. The user still need to have full

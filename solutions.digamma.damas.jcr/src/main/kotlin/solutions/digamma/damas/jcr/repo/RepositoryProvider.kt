@@ -33,15 +33,15 @@ internal class RepositoryProvider {
      * @throws RepositoryException When a repository error occurs.
      */
     val repository: Repository
-        @Singleton
-        @Produces
-        @Throws(RepositoryException::class)
-        get() {
-            this.logger.info("Acquiring JCR repository from factory.")
-            val params = HashMap<String, String>()
-            val repository = this.factory.getRepository(params)
-            this.logger.info("Invoking initializer on acquired JCR repository.")
-            this.initializer.initialize(repository)
-            return repository
-        }
+    @Singleton
+    @Produces
+    @Throws(RepositoryException::class)
+    get() {
+        this.logger.info("Acquiring JCR repository from factory.")
+        val params = HashMap<String, String>()
+        val repository = this.factory.getRepository(params)
+        this.logger.info("Invoking initializer on acquired JCR repository.")
+        this.initializer.initialize(repository)
+        return repository
+    }
 }

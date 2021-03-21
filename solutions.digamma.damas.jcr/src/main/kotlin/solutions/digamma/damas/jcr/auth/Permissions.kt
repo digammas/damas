@@ -3,9 +3,6 @@ package solutions.digamma.damas.jcr.auth
 import solutions.digamma.damas.auth.AccessRight
 import solutions.digamma.damas.common.UnsupportedActionException
 import solutions.digamma.damas.jcr.sys.SystemRole
-import java.security.Principal
-import java.util.Arrays
-import java.util.Collections
 import javax.jcr.Node
 import javax.jcr.RepositoryException
 import javax.jcr.Session
@@ -26,10 +23,10 @@ internal object Permissions {
      */
     @Throws(RepositoryException::class)
     internal fun getAppliedPolicy(node: Node): AccessControlList? {
-        node.session.accessControlManager.getPolicies(node.path).forEach {
-            if (it is AccessControlList) return it
-        }
-        return null
+        return node.session.accessControlManager.getPolicies(node.path)
+            .asSequence()
+            .filterIsInstance<AccessControlList>()
+            .firstOrNull()
     }
 
     /**
@@ -107,21 +104,20 @@ internal object Permissions {
             policy.removeAccessControlEntry(it)
         }
         val privileges = when (value) {
-            AccessRight.READ -> Arrays.asList(
+            AccessRight.READ -> arrayOf(
                     acm.privilegeFromName(Privilege.JCR_READ)
             )
-            AccessRight.WRITE -> Arrays.asList(
+            AccessRight.WRITE -> arrayOf(
                     acm.privilegeFromName(Privilege.JCR_READ),
                     acm.privilegeFromName(Privilege.JCR_WRITE)
             )
-            AccessRight.MAINTAIN -> Arrays.asList(
+            AccessRight.MAINTAIN -> arrayOf(
                     acm.privilegeFromName(Privilege.JCR_ALL)
             )
-            else -> Collections.emptyList()
-        }.toTypedArray()
-        if (!privileges.isEmpty()) {
-            val principal = Principal { subject }
-            policy.addAccessControlEntry(principal, privileges)
+            else -> emptyArray()
+        }
+        if (privileges.isNotEmpty()) {
+            policy.addAccessControlEntry({ subject }, privileges)
         }
         acm.setPolicy(node.path, policy)
     }
@@ -136,7 +132,7 @@ internal object Permissions {
      */
     internal fun selfGrant(node: Node, right: AccessRight) {
         val subject = node.session.userID
-        if (!SystemRole.values().map { it.name }.contains(subject)) {
+        if (!SystemRole.values().any { it.name == subject }) {
             writePrivileges(node, node.session.userID, right)
         }
     }
