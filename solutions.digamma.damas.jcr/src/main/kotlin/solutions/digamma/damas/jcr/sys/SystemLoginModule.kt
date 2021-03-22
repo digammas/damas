@@ -19,6 +19,7 @@ internal class SystemLoginModule : AbstractLoginModule() {
         if (SystemSessions.SU_USERNAME == this.login &&
                 Arrays.equals(SystemSessions.SU_PASSWORD, this.password)) {
             this.roles.add(SystemRole.SHADOW)
+            this.roles.add(SystemRole.ADMIN)
             this.roles.add(SystemRole.READWRITE)
             return true
         }

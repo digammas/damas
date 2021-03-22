@@ -1,12 +1,17 @@
 package solutions.digamma.damas.jcr.repo
 
 import solutions.digamma.damas.jcr.login.UserLoginModule
+import solutions.digamma.damas.jcr.repo.job.NamespaceDeclaration
+import solutions.digamma.damas.jcr.repo.job.NodeCreation
+import solutions.digamma.damas.jcr.repo.job.NodeTypeDeclaration
+import solutions.digamma.damas.jcr.repo.job.RepositoryJob
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.net.URI
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 import java.util.logging.Level
 import java.util.logging.Logger
+import javax.enterprise.inject.Instance
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.jcr.Node
@@ -33,10 +38,15 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
     private val lock = ReentrantLock()
     private val condition = lock.newCondition()
     private var isReady = false
-    private val jobs: MutableList<RepositoryJob> = ArrayList(1)
+
+    @Inject
+    private lateinit var jobs: Instance<RepositoryJob>
 
     @Inject
     private lateinit var logger: Logger
+
+    @Inject
+    private lateinit var nodeTypesInitializer: NodeTypesRegistrar
 
     /**
      * Prepare repository for use.
@@ -49,16 +59,17 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
          * injection at this point.
          */
         val system = SystemSessions(repository)
-        this.collectJobs()
-        this.logger.info { "${this.jobs.size} jobs collected" }
         var superuser: Session? = null
         try {
             superuser = system.superuser
-            for (job in this.jobs) {
-                for (node in job.creations) {
-                    this.createNode(node, superuser)
-                }
-            }
+            this.jobs.flatMap { it.namespaces }
+                .forEach { this.registerNamespace(it, superuser) }
+            this.jobs
+                .map { it.types }
+                .forEach { this.registerNodeTypes(it, superuser) }
+            this.jobs
+                .flatMap { it.nodes }
+                .forEach { this.createNode(it, superuser) }
         } catch (e: RepositoryException) {
             this.logger.log(
                     Level.SEVERE, "Repo job unable to connect as admin.", e)
@@ -85,13 +96,28 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
         }
     }
 
-    private fun collectJobs(): List<RepositoryJob> {
-        this.jobs.clear()
-        this.jobs.add(BuiltInJob)
-        return this.jobs
+    private fun registerNamespace(
+        namespace: NamespaceDeclaration,
+        session: Session) {
+        try {
+            val registry = session.workspace.namespaceRegistry
+            if (!registry.prefixes.contains(namespace.prefix)) {
+                registry.registerNamespace(namespace.prefix, namespace.url)
+                this.logger.info { "Namespace ${namespace.prefix} registered." }
+            }
+        } catch (e: RepositoryException) {
+            throw IllegalStateException(
+                "Unable to acquire namespace registry", e)
+        }
     }
 
-    private fun createNode(node: RepositoryJob.Node, session: Session) {
+    private fun registerNodeTypes(
+        types: List<NodeTypeDeclaration>,
+        session: Session) {
+        this.nodeTypesInitializer.registerNodeTypes(types, session)
+    }
+
+    private fun createNode(node: NodeCreation, session: Session) {
         try {
             val jcrRoot = session.rootNode
             val path = URI
@@ -103,8 +129,7 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
                 jcrNode = jcrRoot.getNode(path)
                 this.logger.info { "Node ${node.path} already exists." }
             } else {
-                jcrNode = jcrRoot.addNode(
-                    path, node.type)
+                jcrNode = jcrRoot.addNode(path, node.type)
                 this.logger.info { "Node ${jcrNode.path} added." }
             }
             for (mixin in node.mixins) {
@@ -112,10 +137,9 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
                     jcrNode.addMixin(mixin)
                 } catch (e: RepositoryException) {
                     this.logger.warning {
-                        "Repo job unable to add mixin $mixin."
+                        "Repo job unable to add mixin $mixin to ${node.path}."
                     }
                 }
-
             }
         } catch (e: RepositoryException) {
             this.logger.severe { "Repo job error adding node ${node.path}." }
