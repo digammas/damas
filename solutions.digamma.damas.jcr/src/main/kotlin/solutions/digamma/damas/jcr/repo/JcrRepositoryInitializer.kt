@@ -50,48 +50,13 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
          */
         val system = SystemSessions(repository)
         this.collectJobs()
-        this.logger.info { "%d jobs collected".format(this.jobs.size) }
+        this.logger.info { "${this.jobs.size} jobs collected" }
         var superuser: Session? = null
         try {
             superuser = system.superuser
             for (job in this.jobs) {
                 for (node in job.creations) {
-                    try {
-                        val jcrRoot = superuser.rootNode
-                        val path = URI
-                                .create(jcrRoot.path)
-                                .relativize(URI.create(node.path))
-                                .path
-                        val jcrNode: Node
-                        if (jcrRoot.hasNode(path)) {
-                            jcrNode = jcrRoot.getNode(path)
-                            this.logger.info {
-                                    "Node %s already exists.".format(node.path)
-                            }
-                        } else {
-                            jcrNode = jcrRoot.addNode(
-                                    path, node.type)
-                            this.logger.info {
-                                "Node %s added.".format(jcrNode.path)
-                            }
-                        }
-                        for (mixin in node.mixins) {
-                            try {
-                                jcrNode.addMixin(mixin)
-                            } catch (e: RepositoryException) {
-                                this.logger.warning {
-                                    "Repo job unable to add mixin %s."
-                                            .format(mixin)
-                                }
-                            }
-
-                        }
-                    } catch (e: RepositoryException) {
-                        this.logger.severe {
-                            "Repo job error adding node %s.".format(node.path)
-                        }
-                    }
-
+                    this.createNode(node, superuser)
                 }
             }
         } catch (e: RepositoryException) {
@@ -107,7 +72,6 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
                 this.logger.log(
                         Level.SEVERE, "Repo job unable to save session.", e)
             }
-
         }
         /* Set system session in user-login module. */
         UserLoginModule.system = system
@@ -121,10 +85,41 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
         }
     }
 
-    private fun collectJobs(): List<RepositoryJob>? {
+    private fun collectJobs(): List<RepositoryJob> {
         this.jobs.clear()
         this.jobs.add(BuiltInJob)
         return this.jobs
+    }
+
+    private fun createNode(node: RepositoryJob.Node, session: Session) {
+        try {
+            val jcrRoot = session.rootNode
+            val path = URI
+                .create(jcrRoot.path)
+                .relativize(URI.create(node.path))
+                .path
+            val jcrNode: Node
+            if (jcrRoot.hasNode(path)) {
+                jcrNode = jcrRoot.getNode(path)
+                this.logger.info { "Node ${node.path} already exists." }
+            } else {
+                jcrNode = jcrRoot.addNode(
+                    path, node.type)
+                this.logger.info { "Node ${jcrNode.path} added." }
+            }
+            for (mixin in node.mixins) {
+                try {
+                    jcrNode.addMixin(mixin)
+                } catch (e: RepositoryException) {
+                    this.logger.warning {
+                        "Repo job unable to add mixin $mixin."
+                    }
+                }
+
+            }
+        } catch (e: RepositoryException) {
+            this.logger.severe { "Repo job error adding node ${node.path}." }
+        }
     }
 
     @Throws(InterruptedException::class)
