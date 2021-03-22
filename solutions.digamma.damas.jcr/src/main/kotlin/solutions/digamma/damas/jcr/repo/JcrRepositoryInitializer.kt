@@ -1,7 +1,11 @@
 package solutions.digamma.damas.jcr.repo
 
+import solutions.digamma.damas.jcr.cnd.CndImporter
+import solutions.digamma.damas.jcr.cnd.ParseException
 import solutions.digamma.damas.jcr.login.UserLoginModule
 import solutions.digamma.damas.jcr.sys.SystemSessions
+import java.io.IOException
+import java.io.InputStreamReader
 import java.net.URI
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
@@ -38,6 +42,9 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
     @Inject
     private lateinit var logger: Logger
 
+    @Inject
+    private lateinit var importer: CndImporter
+
     /**
      * Prepare repository for use.
      *
@@ -54,6 +61,7 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
         var superuser: Session? = null
         try {
             superuser = system.superuser
+            this.importTypeDefinitions(superuser)
             for (job in this.jobs) {
                 for (node in job.creations) {
                     this.createNode(node, superuser)
@@ -119,6 +127,20 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
             }
         } catch (e: RepositoryException) {
             this.logger.severe { "Repo job error adding node ${node.path}." }
+        }
+    }
+
+    @Throws(
+        RepositoryException::class,
+        ParseException::class,
+        IOException::class,
+    )
+    private fun importTypeDefinitions(session: Session) {
+        this.logger.info("Importing type definitions and namespaces.")
+        InputStreamReader(
+            this.javaClass.getResourceAsStream("/repository/cnd/damas.cnd")
+        ).use { reader ->
+            this.importer.registerNodeTypes(reader, session)
         }
     }
 

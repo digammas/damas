@@ -31,6 +31,5 @@
       "classname" : "solutions.digamma.damas.jcr.providers.CustomSecurityProvider",
       "policy" : "damas-user"
     }]
-  },
-  "node-types" : ["repository/cnd/damas.cnd"]
+  }
 }
