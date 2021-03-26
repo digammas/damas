@@ -38,7 +38,7 @@ internal class RepositoryProvider {
     @Throws(RepositoryException::class)
     get() {
         this.logger.info("Acquiring JCR repository from factory.")
-        val params = HashMap<String, String>()
+        val params = emptyMap<String, String>()
         val repository = this.factory.getRepository(params)
         this.logger.info("Invoking initializer on acquired JCR repository.")
         this.initializer.initialize(repository)

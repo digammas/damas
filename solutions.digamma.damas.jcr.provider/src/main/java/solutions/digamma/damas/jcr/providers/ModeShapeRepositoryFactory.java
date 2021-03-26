@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 import javax.annotation.PostConstruct;
@@ -73,14 +74,16 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
      * @return
      */
     private Map<Object, Object> getParameters(Map<Object, Object> params) {
-        /* One mandatory parameter */
-        if (!params.containsKey(JCR_URL)) {
-            String url = new File(
-                    "repository", "repository.json").toURI().toString();
-            this.logger.info("JCR repository home URL is set to %s.", url);
-            params.put(JCR_URL, url);
+        if (params.containsKey(JCR_URL)) {
+            return params;
         }
-        return params;
+        /* Add the one mandatory parameter */
+        Map<Object, Object> paramsWithUrl = new HashMap<>(params);
+        String url = new File(
+                "repository", "repository.json").toURI().toString();
+        this.logger.info("JCR repository home URL is set to %s.", url);
+        paramsWithUrl.put(JCR_URL, url);
+        return paramsWithUrl;
     }
 
     private void extractResource(String resourcePath, String distPath)
