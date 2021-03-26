@@ -11,4 +11,15 @@ public interface Configurations {
      * Home directory fully-qualified path.
      */
     String HOME = "home";
+
+    /**
+     * True string value.
+     */
+    String TRUE = "true";
+
+    /**
+     * False string value.
+     */
+    String FALSE = "false";
+
 }

@@ -47,7 +47,7 @@ public class DefaultConfigurationManager implements ConfigurationManager {
     @PostConstruct
     public void init() {
         this.logger.info("Initializing configuration service.");
-        File homeDir = getHomeDir();
+        File homeDir = this.getHomeDir();
         File confFile = new File(homeDir, CONF_FILE_NAME);
         this.properties = new Properties();
         if (confFile.isFile()) {
@@ -77,14 +77,18 @@ public class DefaultConfigurationManager implements ConfigurationManager {
 
     @Override
     public Integer getInteger(String key) {
-        if (!this.properties.contains(key)) {
-            return null;
-        }
+        String prop = this.properties.getProperty(key);
         try {
-            return Integer.parseInt(this.properties.getProperty(key));
+            return prop == null ? null : Integer.parseInt(prop);
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    @Override
+    public Boolean getBoolean(String key) {
+        String prop = this.properties.getProperty(key);
+        return prop == null ? null : Boolean.parseBoolean(prop);
     }
 
     @Override

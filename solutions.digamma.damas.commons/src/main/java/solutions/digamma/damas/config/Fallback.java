@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 public @interface Fallback {
 
     /**
-     * Configuration key.
+     * Configuration default.
      *
      * @return
      */

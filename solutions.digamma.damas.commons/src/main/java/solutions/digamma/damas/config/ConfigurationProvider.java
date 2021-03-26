@@ -51,13 +51,28 @@ public class ConfigurationProvider {
     private Integer getIntegerFallback(InjectionPoint ip) {
         String fallback = getFallback(ip);
         try {
-            return Integer.parseInt(fallback);
+            return fallback == null ? null : Integer.parseInt(fallback);
         } catch (NumberFormatException e) {
             String message =
                     "Illegal default %s for configuration, integer expected.";
             message = String.format(message, fallback);
             throw new UnsatisfiedResolutionException(message, e);
         }
+    }
+
+    @Produces
+    @Configuration("")
+    public Boolean getBoolean(InjectionPoint ip) {
+        return Arrays.stream(getKeys(ip))
+                .map(this.manager::getBoolean)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseGet(() -> this.getBooleanFallback(ip));
+    }
+
+    private Boolean getBooleanFallback(InjectionPoint ip) {
+        String fallback = getFallback(ip);
+        return fallback == null ? null : Boolean.parseBoolean(fallback);
     }
 
     @Produces
@@ -74,8 +89,7 @@ public class ConfigurationProvider {
         Fallback fallback = ip.getAnnotated()
                 .getAnnotation(Fallback.class);
         if (fallback == null && !isOptional(ip)) {
-            throw new UnsatisfiedResolutionException(
-                String.format("Unsatisfied configuration %s.", getKeys(ip)));
+            throw new UnsatisfiedConfigurationException(ip);
         }
         return fallback != null ? fallback.value() : null;
     }
@@ -92,5 +106,19 @@ public class ConfigurationProvider {
                 .getAnnotated()
                 .getAnnotation(Configuration.class)
                 .optional();
+    }
+
+    static class UnsatisfiedConfigurationException extends
+            UnsatisfiedResolutionException {
+
+        UnsatisfiedConfigurationException(InjectionPoint ip) {
+            super(String.format(
+                    "Unsatisfied configuration %s.", getLocation(ip)));
+        }
+
+        private static String getLocation(InjectionPoint ip) {
+            String[] keys = getKeys(ip);
+            return keys.length == 1 ? keys[0] : Arrays.toString(keys);
+        }
     }
 }
