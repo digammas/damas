@@ -1,5 +1,8 @@
 package solutions.digamma.damas.jcr.repo
 
+import solutions.digamma.damas.config.Configuration
+import solutions.digamma.damas.config.Configurations
+import solutions.digamma.damas.config.Fallback
 import solutions.digamma.damas.jcr.login.UserLoginModule
 import solutions.digamma.damas.jcr.repo.job.NamespaceDeclaration
 import solutions.digamma.damas.jcr.repo.job.NodeCreation
@@ -48,12 +51,41 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
     @Inject
     private lateinit var nodeTypesInitializer: NodeTypesRegistrar
 
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_ALL_CONF_KEY)
+    @Fallback(Configurations.FALSE)
+    var skipAllInit: Boolean = false
+
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_NS_CONF_KEY)
+    @Fallback(Configurations.FALSE)
+    var skipNamespaceInit: Boolean = false
+
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_NT_CONF_KEY)
+    @Fallback(Configurations.FALSE)
+    var skipNodeTypeInit: Boolean = false
+
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_CREATE_CONF_KEY)
+    @Fallback(Configurations.FALSE)
+    var skipCreationInit: Boolean = false
+
     /**
      * Prepare repository for use.
      *
      * @param repository The repository to initialize.
      */
     override fun initialize(repository: Repository) {
+        if (this.skipAllInit || (
+                    this.skipNamespaceInit &&
+                    this.skipNodeTypeInit &&
+                    this.skipCreationInit)
+        ) {
+            this.logger.info(
+                "Initializing JCR repository skipped as per configurations.")
+            return
+        }
         this.logger.info("Initializing JCR repository.")
         /* Use constructor, since SystemSessions is not available for
          * injection at this point.
@@ -62,14 +94,29 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
         var superuser: Session? = null
         try {
             superuser = system.superuser
-            this.jobs.flatMap { it.namespaces }
-                .forEach { this.registerNamespace(it, superuser) }
-            this.jobs
-                .map { it.types }
-                .forEach { this.registerNodeTypes(it, superuser) }
-            this.jobs
-                .flatMap { it.nodes }
-                .forEach { this.createNode(it, superuser) }
+            if (!this.skipNamespaceInit) {
+                this.logger.info("Initializing repository namespaces.")
+                this.jobs.flatMap { it.namespaces }
+                    .forEach { this.registerNamespace(it, superuser) }
+            } else {
+                this.logger.info("Repository namespaces init skipped.")
+            }
+            if (!this.skipNodeTypeInit) {
+                this.logger.info("Initializing repository node types.")
+                this.jobs
+                    .map { it.types }
+                    .forEach { this.registerNodeTypes(it, superuser) }
+            } else {
+                this.logger.info("Repository node type init skipped.")
+            }
+            if (!this.skipCreationInit) {
+                this.logger.info("Initializing repository nodes.")
+                this.jobs
+                    .flatMap { it.nodes }
+                    .forEach { this.createNode(it, superuser) }
+            } else {
+                this.logger.info("Repository nodes init skipped.")
+            }
         } catch (e: RepositoryException) {
             this.logger.log(
                     Level.SEVERE, "Repo job unable to connect as admin.", e)

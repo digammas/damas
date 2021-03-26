@@ -27,6 +27,18 @@ class CompactNodeTypeDefinitionReader {
     }
 
     @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_ALL_CONF_KEY, optional = true)
+    var skipAllInit: Boolean? = null
+
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_NS_CONF_KEY, optional = true)
+    var skipNamespaceInit: Boolean? = null
+
+    @Inject
+    @Configuration(RepositoryJob.SKIP_INIT_NT_CONF_KEY, optional = true)
+    var skipNodeTypeInit: Boolean? = null
+
+    @Inject
     lateinit var logger: Logbook
 
     @Inject
@@ -64,10 +76,20 @@ class CompactNodeTypeDefinitionReader {
      */
     @Produces
     fun produceJob(): RepositoryJob {
-        val theJob = this.job ?: this.parse()
-        this.job = theJob
-        return theJob
+        return (this.job ?: this.parseIfNeeded()).also { this.job = it }
     }
+
+    @Throws(ParseException::class)
+    private fun parseIfNeeded(): RepositoryJob {
+        return if (this.shouldSkip()) this.emptyJob() else parse()
+    }
+
+    private fun shouldSkip(): Boolean {
+        return this.skipAllInit == true ||
+            (this.skipNamespaceInit == true && this.skipNodeTypeInit == true)
+    }
+
+    private fun emptyJob() = object : RepositoryJob {}
 
     /**
      * Parse definitions.
@@ -196,7 +218,7 @@ class CompactNodeTypeDefinitionReader {
                     ntd.nodes.add(nd)
                 } catch (e: RepositoryException) {
                     lexer.fail(
-                        "Error building node definition for ${ntd!!.name}", e)
+                        "Error building node definition for ${ntd.name}", e)
                 }
             }
         }

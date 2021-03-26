@@ -6,10 +6,15 @@ import solutions.digamma.damas.jcr.repo.cnd.CompactNodeTypeDefinitionReader
 
 class CompactNodeTypeDefinitionReaderTest  : WeldTest() {
 
-    private var importer = WeldTest.inject(CompactNodeTypeDefinitionReader::class.java)
+    private var importer = WeldTest
+        .inject(CompactNodeTypeDefinitionReader::class.java)
 
     @Test
     fun registerNodeTypes() {
-        this.importer.produceJob()
+        with (this.importer.produceJob()) {
+            assert(namespaces.isNotEmpty()) { "Expecting namesapces" }
+            assert(types.isNotEmpty()) { "Expecting types" }
+            assert(nodes.isEmpty()) { "Unexpected creation" }
+        }
     }
 }
