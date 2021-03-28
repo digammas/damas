@@ -44,7 +44,7 @@ class CompactNodeTypeDefinitionReader {
     @Inject
     @Configuration(CND_PATH_CONF_KEY)
     @Fallback(DEFAULT_CND_PATH)
-    lateinit var cndPath: String
+    var cndPath: String = DEFAULT_CND_PATH
 
     private var job: RepositoryJob? = null
 
