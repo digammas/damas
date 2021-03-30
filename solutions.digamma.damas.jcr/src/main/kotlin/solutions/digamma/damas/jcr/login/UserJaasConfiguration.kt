@@ -11,12 +11,12 @@ import javax.security.auth.login.Configuration
 /**
  * JAAS configuration for user authentication.
  *
- * Unlike `solutions.digamma.damas.jcr.sys.SystemJaasConfiguration` that
+ * Unlike [solutions.digamma.damas.jcr.sys.SystemJaasConfiguration] that
  * authenticate system users, this configuration is responsible of
  * authenticating non-system users created by the user management module.
  */
 @Singleton
-@Realm(UserJaasConfiguration.REALM, JaasConfiguration.REALM)
+@Realm(UserJaasConfiguration.REALM, JaasConfiguration.APPLICATION_REALM)
 internal class UserJaasConfiguration : Configuration() {
 
     private val entries = Array(1) {
@@ -28,7 +28,7 @@ internal class UserJaasConfiguration : Configuration() {
 
     override fun getAppConfigurationEntry(name: String):
             Array<AppConfigurationEntry> {
-        return if (name in arrayOf(REALM, JaasConfiguration.REALM))
+        return if (name in arrayOf(REALM, JaasConfiguration.APPLICATION_REALM))
             this.entries else emptyArray()
     }
 

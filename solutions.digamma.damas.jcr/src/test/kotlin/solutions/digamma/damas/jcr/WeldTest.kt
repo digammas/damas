@@ -38,7 +38,7 @@ open class WeldTest {
     }
 
     protected fun logout() {
-        this.login.logout(this.token)
+        this.token?.let { this.login.logout(it) }
         this.transaction?.close()
     }
 

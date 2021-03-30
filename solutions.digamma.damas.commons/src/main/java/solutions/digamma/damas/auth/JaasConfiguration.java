@@ -2,11 +2,14 @@ package solutions.digamma.damas.auth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.Prioritized;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.security.auth.login.AppConfigurationEntry;
@@ -34,10 +37,13 @@ import java.util.Map;
 @Singleton
 public class JaasConfiguration extends Configuration {
 
-    public static final String REALM = "damas";
+    /**
+     * Suggested application realm.
+     */
+    public static final String APPLICATION_REALM = "damas";
 
     private final Configuration delegate;
-    private Map<String, List<Configuration>> configs;
+    private final Map<String, List<Configuration>> configs = new HashMap<>();
 
     /**
      * Public constructor.
@@ -80,19 +86,34 @@ public class JaasConfiguration extends Configuration {
      */
     @Inject
     public void setInstances(@Realm("") Instance<Configuration> instances) {
-        this.configs = new HashMap<>();
-        for (Configuration config : instances) {
-            Realm realm = config.getClass().getAnnotation(Realm.class);
-            if (realm != null) {
-                for (String value : realm.value()) {
-                    List<Configuration> list = this.configs.get(value);
-                    if (list == null) {
-                        list = new ArrayList<>(1);
-                    }
-                    list.add(config);
-                    this.configs.put(value, list);
-                }
-            }
+        instances.stream()
+                .sorted(Comparator.comparingInt(this::getPriority))
+                .forEachOrdered(this::accept);
+    }
+
+    private void accept(Configuration config) {
+        Realm realm = config.getClass().getAnnotation(Realm.class);
+        if (realm == null) {
+            return;
         }
+        for (String value : realm.value()) {
+            List<Configuration> list = this.configs.get(value);
+            if (list == null) {
+                list = new ArrayList<>(1);
+            }
+            list.add(config);
+            this.configs.put(value, list);
+        }
+    }
+
+    private int getPriority(Configuration config) {
+        Priority priority = config.getClass().getAnnotation(Priority.class);
+        if (priority != null) {
+            return priority.value();
+        }
+        if (config instanceof Prioritized) {
+            return ((Prioritized) config).getPriority();
+        }
+        return Integer.MAX_VALUE;
     }
 }
