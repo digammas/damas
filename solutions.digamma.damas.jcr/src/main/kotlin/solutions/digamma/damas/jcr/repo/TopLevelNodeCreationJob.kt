@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.repo
 
+import solutions.digamma.damas.auth.JaasConfiguration
 import solutions.digamma.damas.jcr.content.JcrFile
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.jcr.repo.job.NodeCreation
@@ -29,8 +30,8 @@ internal object TopLevelNodeCreationJob : RepositoryJob {
             path = ".",
             type = NodeType.NT_BASE,
             accessRights = mapOf(
-                (SystemRole.READWRITE as Principal).name
-                        to listOf(Privilege.JCR_ALL)),
+                JaasConfiguration.SYS_SHADOW to listOf(Privilege.JCR_ALL),
+            ),
         ),
         NodeCreation(
             path = JcrFile.ROOT_PATH,

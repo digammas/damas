@@ -42,6 +42,13 @@ public class JaasConfiguration extends Configuration {
      */
     public static final String APPLICATION_REALM = "damas";
 
+    /**
+     * System shadow role.
+     *
+     * Holder of this role is identified as system user.
+     */
+    public static final String SYS_SHADOW = "dms:system";
+
     private final Configuration delegate;
     private final Map<String, List<Configuration>> configs = new HashMap<>();
 

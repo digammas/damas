@@ -1,13 +1,13 @@
 package solutions.digamma.damas.jcr.auth
 
 import solutions.digamma.damas.auth.AccessRight
+import solutions.digamma.damas.auth.JaasConfiguration
 import solutions.digamma.damas.auth.Permission
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.File
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.content.JcrFile
 import solutions.digamma.damas.jcr.login.UserLoginModule
-import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.sys.SystemSessions
 import java.util.Arrays
 import javax.jcr.Node
@@ -78,7 +78,7 @@ private constructor(
             SystemSessions.RO_USERNAME,
             SystemSessions.SU_USERNAME,
             UserLoginModule.ADMIN_USERNAME,
-            SystemRole.SHADOW.name,
+            JaasConfiguration.SYS_SHADOW,
             this.node.session.userID
     )
 

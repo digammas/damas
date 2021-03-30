@@ -1,5 +1,6 @@
 package solutions.digamma.damas.jcr.sys
 
+import solutions.digamma.damas.auth.JaasConfiguration
 import java.security.Principal
 
 /**
@@ -10,7 +11,7 @@ import java.security.Principal
  * rights on the node at hand in order to be able to perform a certain action.
  * Those access rights are managed by the authorization module.
  */
-enum class SystemRole(private val principal: String): Principal {
+enum class SystemRole(val principalName: String): Principal {
 
     /**
      * Read-only role. This role gives its owner a read access repository-wide.
@@ -57,7 +58,7 @@ enum class SystemRole(private val principal: String): Principal {
      * either [READONLY] or [READWRITE] system users can accomplish their tasks
      * of reading or reading/writing content respectively.
      */
-    SHADOW("dms:shadow");
+    SHADOW(JaasConfiguration.SYS_SHADOW);
 
-    override fun getName(): String = this.principal
+    override fun getName(): String = this.principalName
 }
