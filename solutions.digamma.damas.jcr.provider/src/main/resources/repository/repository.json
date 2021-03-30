@@ -2,13 +2,13 @@
   "storage": {
     "persistence": {
       "type": "file",
-      "path": "repository/storage"
+      "path": "${repository.home}/storage"
     }
   },
   "indexProviders": {
     "lucene": {
       "classname": "lucene",
-      "directory": "repository/index"
+      "directory": "${repository.home}/index"
     }
   },
   "indexes": {

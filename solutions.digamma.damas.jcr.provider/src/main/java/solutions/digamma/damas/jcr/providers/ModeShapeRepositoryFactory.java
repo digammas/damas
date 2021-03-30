@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.providers;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -15,6 +14,8 @@ import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
+import solutions.digamma.damas.config.Configuration;
+import solutions.digamma.damas.config.Fallback;
 import solutions.digamma.damas.logging.Logbook;
 
 /**
@@ -27,19 +28,33 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
 
     private static final String JCR_URL = "org.modeshape.jcr.URL";
 
+    private static final String JSON_RESOURCE = "/repository/repository.json";
+
+    @Inject
+    @Configuration("repository.home")
+    @Fallback("storage")
+    private String repositoryHome;
+
     @Inject
     private Logbook logger;
+
+    private String jsonFile;
 
     @PostConstruct
     public void setUp() {
         try {
-            Files.createDirectories(Paths.get("repository/cnd/"));
-            extractResource(
-                    "/repository/repository.json",
-                    "repository/repository.json");
-            extractResource(
-                    "/repository/cnd/damas.cnd",
-                    "repository/cnd/damas.cnd");
+            Files.createDirectories(Paths.get(this.repositoryHome));
+            this.logger.info("Repository home at %s", this.repositoryHome);
+            this.jsonFile = Paths.get(this.repositoryHome, "repository.json")
+                    .toString();
+            try (InputStream stream = getClass()
+                    .getResourceAsStream(JSON_RESOURCE)) {
+                Files.copy(
+                        stream,
+                        Paths.get(jsonFile),
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+            System.setProperty("repository.home", this.repositoryHome);
         } catch (IOException e) {
             throw new IllegalStateException(
                     "Unable to create CND file for repository", e);
@@ -73,27 +88,11 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
      *
      * @return
      */
-    private Map<Object, Object> getParameters(Map<Object, Object> params) {
-        if (params.containsKey(JCR_URL)) {
-            return params;
-        }
+    private Map<Object, Object> getParameters(Map<?, ?> params) {
         /* Add the one mandatory parameter */
         Map<Object, Object> paramsWithUrl = new HashMap<>(params);
-        String url = new File(
-                "repository", "repository.json").toURI().toString();
-        this.logger.info("JCR repository home URL is set to %s.", url);
-        paramsWithUrl.put(JCR_URL, url);
+        this.logger.info("JCR repository setting is at %s.", this.jsonFile);
+        paramsWithUrl.put(JCR_URL, this.jsonFile);
         return paramsWithUrl;
-    }
-
-    private void extractResource(String resourcePath, String distPath)
-            throws IOException {
-        try (InputStream stream = getClass()
-                .getResourceAsStream(resourcePath)) {
-            Files.copy(
-                    stream,
-                    Paths.get(distPath),
-                    StandardCopyOption.REPLACE_EXISTING);
-        }
     }
 }
