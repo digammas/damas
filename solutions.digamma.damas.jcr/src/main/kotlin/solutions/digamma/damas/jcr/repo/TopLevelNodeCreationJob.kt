@@ -4,8 +4,12 @@ import solutions.digamma.damas.jcr.content.JcrFile
 import solutions.digamma.damas.jcr.names.TypeNamespace
 import solutions.digamma.damas.jcr.repo.job.NodeCreation
 import solutions.digamma.damas.jcr.repo.job.RepositoryJob
+import solutions.digamma.damas.jcr.sys.SystemRole
 import solutions.digamma.damas.jcr.user.JcrSubject
+import java.security.Principal
 import javax.inject.Singleton
+import javax.jcr.nodetype.NodeType
+import javax.jcr.security.Privilege
 
 /**
  * Built-in repository job.
@@ -21,7 +25,17 @@ internal object TopLevelNodeCreationJob : RepositoryJob {
      * @return
      */
     override val nodes: List<NodeCreation> = listOf(
-        NodeCreation(JcrFile.ROOT_PATH, TypeNamespace.FOLDER),
+        NodeCreation(
+            path = ".",
+            type = NodeType.NT_BASE,
+            accessRights = mapOf(
+                (SystemRole.READWRITE as Principal).name
+                        to listOf(Privilege.JCR_ALL)),
+        ),
+        NodeCreation(
+            path = JcrFile.ROOT_PATH,
+            type = TypeNamespace.FOLDER,
+        ),
         NodeCreation(JcrSubject.ROOT_PATH, TypeNamespace.DIRECTORY)
     )
 }

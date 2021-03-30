@@ -7,4 +7,5 @@ class NodeCreation(
     val path: String,
     val type: String,
     val mixins: List<String> = emptyList(),
+    val accessRights: Map<String, List<String>> = emptyMap()
 )

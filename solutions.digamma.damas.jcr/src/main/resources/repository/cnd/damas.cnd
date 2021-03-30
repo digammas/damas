@@ -13,12 +13,16 @@
 [dms:File] mixin
 
 [dms:Document] > nt:file, dms:CommentReceiver, dms:File
-    + jcr:content (nt:resource) mandatory
 
 [dms:Folder] > nt:folder, dms:File
 
+[dms:GroupBase]
+    mixin
+    - dms:alias (string) mandatory
+    - dms:label (string)
+
 [dms:Subject] > mix:created, mix:lastModified, mix:referenceable
-    - dms:groups (reference) * < 'dms:Group'
+    - dms:groups (reference) * < 'dms:GroupBase', 'dms:Subject'
     - dms:enabled (boolean) = true mandatory
 
 [dms:User] > dms:Subject
@@ -27,9 +31,7 @@
     - dms:name (string)
     - dms:surname (string)
 
-[dms:Group] > dms:Subject
-    - dms:alias (string) mandatory
-    - dms:label (string)
+[dms:Group] > dms:Subject, dms:GroupBase
 
 [dms:Directory] > nt:base
     + * (dms:Subject)

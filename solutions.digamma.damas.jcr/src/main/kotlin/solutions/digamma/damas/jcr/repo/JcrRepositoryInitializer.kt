@@ -21,6 +21,7 @@ import javax.jcr.Node
 import javax.jcr.Repository
 import javax.jcr.RepositoryException
 import javax.jcr.Session
+import javax.jcr.security.AccessControlList
 
 /**
  * Repository initializer.
@@ -187,6 +188,26 @@ internal class JcrRepositoryInitializer : RepositoryInitializer {
                         "Repo job unable to add mixin $mixin to ${node.path}."
                     }
                 }
+            }
+            for ((subject, rights) in node.accessRights) {
+                val policy = try {
+                    session.accessControlManager
+                        .getPolicies(jcrNode.path)
+                        .asSequence()
+                        .filterIsInstance<AccessControlList>()
+                        .first()
+                } catch (e: NoSuchElementException) {
+                    continue
+                }
+                val acm = jcrNode.session.accessControlManager
+                policy.accessControlEntries
+                    .filter { it.principal.name == subject }
+                    .forEach { policy.removeAccessControlEntry(it) }
+                val privileges = rights
+                    .map { acm.privilegeFromName(it) }
+                    .toTypedArray()
+                policy.addAccessControlEntry({ subject }, privileges)
+                acm.setPolicy(jcrNode.path, policy)
             }
         } catch (e: RepositoryException) {
             this.logger.severe { "Repo job error adding node ${node.path}." }

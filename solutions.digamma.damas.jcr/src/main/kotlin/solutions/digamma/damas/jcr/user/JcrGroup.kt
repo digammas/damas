@@ -1,6 +1,5 @@
 package solutions.digamma.damas.jcr.user
 
-import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.jcr.common.Exceptions
 import solutions.digamma.damas.jcr.names.ItemNamespace
@@ -53,6 +52,7 @@ private constructor(node: Node) : JcrSubject(node), Group {
             val node = session.getNode(JcrSubject.ROOT_PATH)
                     .addNode(name, TypeNamespace.GROUP)
                     .also { it.setProperty(ItemNamespace.ALIAS, name) }
+                    .also { it.setProperty(ItemNamespace.ENABLED, true) }
             try {
                 of(node)
             } catch(e: ItemExistsException) {

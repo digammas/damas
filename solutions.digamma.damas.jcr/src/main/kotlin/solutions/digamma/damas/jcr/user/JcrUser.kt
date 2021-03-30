@@ -159,7 +159,8 @@ private constructor(node: Node) : JcrSubject(node), User {
         fun from(session: Session, login: String): JcrUser = Exceptions.check {
             val root = session.getNode(JcrSubject.ROOT_PATH)
             try {
-                of(root.addNode(login, TypeNamespace.USER))
+                of(root.addNode(login, TypeNamespace.USER)
+                    .also { it.setProperty(ItemNamespace.ENABLED, true) })
             } catch(e: ItemExistsException) {
                 throw SubjectExistsException(login, e)
             }
