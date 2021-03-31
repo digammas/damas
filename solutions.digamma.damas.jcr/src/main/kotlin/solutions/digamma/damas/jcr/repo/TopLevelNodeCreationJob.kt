@@ -30,7 +30,7 @@ internal object TopLevelNodeCreationJob : RepositoryJob {
             path = ".",
             type = NodeType.NT_BASE,
             accessRights = mapOf(
-                JaasConfiguration.SYS_SHADOW to listOf(Privilege.JCR_ALL),
+                SystemRole.READWRITE.principalName to listOf(Privilege.JCR_ALL),
             ),
         ),
         NodeCreation(
