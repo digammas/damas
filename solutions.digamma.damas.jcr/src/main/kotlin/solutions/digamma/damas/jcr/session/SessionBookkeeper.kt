@@ -38,11 +38,11 @@ internal class SessionBookkeeper {
     fun register(token: SecureToken, session: TransactionalSession) {
         synchronized(this.sessions) {
             if (this.sessions.containsKey(token.secret)) {
-                this.logger.warning("Token $token already exists.")
+                this.logger.warning { "Token ${token.secret} already exists." }
                 throw TokenAlreadyExistsException()
             }
             this.sessions[token.secret] = session
-            this.logger.info { "Token %s successfully stored.".format(token) }
+            this.logger.info { "Token ${token.secret} stored." }
         }
     }
 
@@ -57,15 +57,11 @@ internal class SessionBookkeeper {
     fun unregister(token: Token) {
         synchronized(this.sessions) {
             if (!this.sessions.containsKey(token.secret)) {
-                this.logger.warning {
-                    "Token %s did not exist.".format(token)
-                }
+                this.logger.warning { "Token ${token.secret} did not exist." }
                 throw NoSessionForTokenException()
             }
             this.sessions.remove(token.secret)
-            this.logger.info {
-                "Token %s successfully forgotten.".format(token)
-            }
+            this.logger.info { "Token ${token.secret} forgotten." }
         }
     }
 
@@ -85,7 +81,7 @@ internal class SessionBookkeeper {
         }
         val session = this.sessions[token.secret]
         if (session == null) {
-            this.logger.info { "Token not found %s.".format(token) }
+            this.logger.info { "Token not found ${token.secret}." }
             throw NoSessionForTokenException()
         }
         return session
