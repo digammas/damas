@@ -63,7 +63,7 @@ internal interface JcrSearchEngine<T : Entity>
             size: Int,
             filter: Filter?): Page<T> {
         val sqlQuery = this.buildQuery(filter)
-        return this.query(this.session, sqlQuery, offset, size, this::fromNode)
+        return this.query(this.session, sqlQuery, offset, size)
     }
 
     fun getNodePrimaryType(): String
@@ -114,20 +114,20 @@ internal interface JcrSearchEngine<T : Entity>
             session: Session,
             sql2: String,
             offset: Int,
-            size: Int,
-            of: (node: Node) -> T): Page<T> {
+            size: Int): Page<T> {
         val result = session
                 .workspace
                 .queryManager
                 .createQuery(sql2, Query.JCR_SQL2)
                 .execute()
                 .nodes
-        result.skip(offset.toLong())
-        var count = 0
-        val list: MutableList<T> = ArrayList(size)
-        while (result.hasNext() && count++ < size) {
-            list.add(of(result.nextNode()))
-        }
+        val list = result
+            .asSequence()
+            .filterIsInstance<Node>()
+            .drop(offset)
+            .take(size)
+            .map(::fromNode)
+            .toList()
         return ResultPage(list, result.size.toInt())
     }
 
