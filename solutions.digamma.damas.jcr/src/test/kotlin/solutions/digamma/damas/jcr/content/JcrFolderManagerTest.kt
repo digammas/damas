@@ -3,11 +3,11 @@ package solutions.digamma.damas.jcr.content
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.login.Token
-import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.search.Filter
 
 /**
  * Test folder manager.
@@ -170,5 +170,27 @@ class JcrFolderManagerTest : WeldTest() {
     @Test
     @Throws(Exception::class)
     fun find() {
+    }
+
+    @Test
+    fun findByName() {
+        val name = "test"
+        val rootId = this.manager.find("/").id
+        val id = manager.create(Mocks.folder(rootId, name)).id
+        this.commit()
+        val filter = Mockito.mock(Filter::class.java)
+        Mockito.`when`(filter.namePattern).thenReturn("te*")
+        var page = this.manager.find(0, 30, filter)
+        assert(page.total == 1)
+        assert(page.size == 1)
+        assert(page.objects.size == 1)
+        val entity = page.objects.iterator().next()
+        assert(name == entity.name)
+        Mockito.`when`(filter.namePattern).thenReturn("toast*")
+        page = this.manager.find(0, 30, filter)
+        assert(page.total == 0)
+        assert(page.size == 0)
+        assert(page.objects.size == 0)
+        this.manager.delete(id)
     }
 }
