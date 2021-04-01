@@ -23,9 +23,7 @@ class WeldRule : ExternalResource() {
     }
 
     override fun after() {
-        if (this.container != null) {
-            this.container!!.close()
-        }
+        this.container?.close()
     }
 
     /**
