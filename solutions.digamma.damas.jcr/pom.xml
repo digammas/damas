@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.jcr.provider</artifactId>
+            <artifactId>damas.jcr.jackrabbit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
