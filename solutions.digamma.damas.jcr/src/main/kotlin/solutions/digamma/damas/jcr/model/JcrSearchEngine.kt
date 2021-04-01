@@ -97,9 +97,11 @@ internal interface JcrSearchEngine<T : Entity>
 
     fun buildNameClause(namePattern: String): String {
         val pattern = namePattern
+                .replace("'", "''")
                 .replace("%", "%%")
                 .replace('*', '%')
-        return "AND node.[${Property.JCR_NAME}] LIKE '$pattern' "
+                .toLowerCase()
+        return "AND LOWER(NAME()) LIKE '$pattern' "
     }
 
     fun buildScopeClause(filter: Filter): String {
