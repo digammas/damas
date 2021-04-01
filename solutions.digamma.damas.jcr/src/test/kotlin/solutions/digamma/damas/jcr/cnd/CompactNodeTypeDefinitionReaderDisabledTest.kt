@@ -7,12 +7,6 @@ import solutions.digamma.damas.logging.Logbook
 
 class CompactNodeTypeDefinitionReaderDisabledTest {
 
-    companion object {
-        init {
-            System.setProperty("damas.init.skipAll", "true")
-        }
-    }
-
     private var importer = CompactNodeTypeDefinitionReader()
 
     @Before
