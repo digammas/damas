@@ -36,8 +36,8 @@ abstract class TestRepositoryFactory: RepositoryFactory {
         this.log.info("Deleting files at ${this.repositoryHome}.")
         Files.walk(Paths.get(this.repositoryHome))
             .sorted(Comparator.reverseOrder())
-            .map(Path::toFile)
-            .forEach(File::delete)
+            .map { it.toFile() }
+            .forEach { it.delete() }
             this.log.info("Repository home purged.")
     }
 }
