@@ -119,8 +119,8 @@ class NodeTypesRegistrar {
         res.isAutoCreated = def.autocreated
         res.isProtected = def.protected
         res.isMultiple = def.multiple
-        res.isFullTextSearchable = def.searchable
-        res.isQueryOrderable = def.queryOrder
+        def.searchable?.let { res.isFullTextSearchable = it }
+        def.queryOrder?.let { res.isQueryOrderable = it }
         def.queryOperators?.let {
             res.availableQueryOperators = it.toTypedArray()
         }

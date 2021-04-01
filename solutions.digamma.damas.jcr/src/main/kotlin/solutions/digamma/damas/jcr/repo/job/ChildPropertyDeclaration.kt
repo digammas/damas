@@ -11,8 +11,8 @@ class ChildPropertyDeclaration(
     var autocreated: Boolean = false,
     var protected: Boolean = false,
     var multiple: Boolean = false,
-    var searchable: Boolean = true,
-    var queryOrder: Boolean = true,
+    var searchable: Boolean? = null,
+    var queryOrder: Boolean? = null,
     var queryOperators: MutableList<String>? = null,
     var version: Int = 1,
 ) {
