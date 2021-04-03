@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.jcr.provider</artifactId>
+            <artifactId>damas.jcr.modeshape</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
