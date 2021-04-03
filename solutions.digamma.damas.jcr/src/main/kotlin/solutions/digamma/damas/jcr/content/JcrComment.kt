@@ -76,7 +76,7 @@ private constructor(node: Node) :
                 throw CompatibilityException("Parent cannot receive comments.")
             }
             val node = parent.addNode(name, TypeNamespace.COMMENT)
-            JcrComment.of(node)
+            JcrComment.of(node).also { it.rank = 0 }
         }
     }
 }
