@@ -40,14 +40,13 @@ public class Launcher {
 
     @PostConstruct
     public void init() {
+        /* Only one application is expected to be found */
         boolean found = this.applications
                 .stream()
-                .map(this::register)
-                .reduce(Boolean::logicalOr)
-                .orElse(false);
+                .sequential()
+                .anyMatch(this::register);
         if (!found) {
-            this.logger.severe(
-                    "No Web applications with a context path found.");
+            this.logger.severe("No Web applications with context path found.");
             return;
         }
         CLStaticHttpHandler docHandler = new CLStaticHttpHandler(
