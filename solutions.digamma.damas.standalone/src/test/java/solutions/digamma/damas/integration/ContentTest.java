@@ -50,7 +50,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testRenameFolder() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -100,7 +100,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testMoveFolder() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -158,7 +158,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testRetrieveFolderByPath() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name1 = "test_folder";
         String name2 = "test_subfolder";
@@ -206,7 +206,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testRetrieveFoldersAtDepth() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name1 = "test_folder";
         String name2 = "test_subfolder";
@@ -236,7 +236,7 @@ public class ContentTest extends IntegrationTest {
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .get()
                 .readEntity(Map.class);
-        Object id3 = ((Map) ((List) ((Map) answer
+        Object id3 = ((Map<?, ?>) ((List<?>) ((Map<?, ?>) answer
                 .get("content"))
                 .get("folders"))
                 .get(0))
@@ -253,7 +253,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testRenameDocument() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_document.txt";
         body.put("parentId", this.rootId);
@@ -305,7 +305,7 @@ public class ContentTest extends IntegrationTest {
     public void uploadDocument() {
         String id = null;
         try {
-            Map answer;
+            Map<?, ?> answer;
             Map<String, Object> body = new HashMap<>();
             String name = "test_doc.txt";
             body.put("parentId", this.rootId);
@@ -344,7 +344,7 @@ public class ContentTest extends IntegrationTest {
     public void downloadDocument() {
         String id = null;
         try {
-            Map answer;
+            Map<?, ?> answer;
             Map<String, Object> body = new HashMap<>();
             String name = "test_doc.txt";
             body.put("parentId", this.rootId);
@@ -394,7 +394,7 @@ public class ContentTest extends IntegrationTest {
     public void testUpdateDocument() {
         String id = null;
         try {
-            Map answer;
+            Map<?, ?> answer;
             Map<String, Object> body = new HashMap<>();
             String mtTextPlain = "text/plain";
             String mtTextHtml = "text/html";
@@ -447,7 +447,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testCopyFolder() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -515,7 +515,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testCopyDocument() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_folder";
         body.put("parentId", this.rootId);
@@ -582,7 +582,7 @@ public class ContentTest extends IntegrationTest {
 
     @Test
     public void testCreateComment() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "test_document.txt";
         String text = "Hello comment";

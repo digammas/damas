@@ -63,7 +63,7 @@ public abstract class IntegrationTest {
             Map<String, Object> login = new HashMap<>(2);
             login.put("username", USERNAME);
             login.put("password", PASSWORD);
-            Map auth = target
+            Map<?, ?> auth = target
                     .path("login")
                     .request(MEDIA_TYPE)
                     .post(entity(login))
@@ -75,7 +75,7 @@ public abstract class IntegrationTest {
     }
 
     private String getRootId() {
-        Map answer = target
+        Map<?, ?> answer = target
                 .path("folders/at/")
                 .request(MEDIA_TYPE)
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
@@ -98,11 +98,11 @@ public abstract class IntegrationTest {
         assert status / 100 == 2;
     }
 
-    protected <T> Entity entity(T object) {
+    protected <T> Entity<T> entity(T object) {
         return Entity.entity(object, MEDIA_TYPE);
     }
 
-    protected <T> Entity entity(T object, MediaType mediaType) {
+    protected <T> Entity<T> entity(T object, MediaType mediaType) {
         return Entity.entity(object, mediaType);
     }
 }
