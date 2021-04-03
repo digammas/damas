@@ -4,13 +4,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.user.User
 import solutions.digamma.damas.user.UserManager
 
-class JcrLoginManagerTest : WeldTest() {
+class JcrLoginManagerTest : RepositoryTest() {
 
-    private val userManager = WeldTest.inject(UserManager::class.java)
+    private val userManager = inject(UserManager::class.java)
     private lateinit var username: String
     private val password = "P@55w0rd"
     private lateinit var manager: JcrLoginManager

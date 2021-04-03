@@ -11,19 +11,13 @@ import org.junit.rules.ExternalResource;
  */
 public class ContainerRule extends ExternalResource {
 
-    private final WeldContainer container;
-
-    /**
-     * Constructor.
-     */
-    public ContainerRule() {
-        /* Initialization is done here so that container can be used by runner.
-         */
-        this.container = new Weld().initialize();
-    }
+    private WeldContainer container;
 
     @Override
     protected void before() {
+        /* Initialization is done here so that container can be used by runner.
+         */
+        this.container = new Weld().initialize();
     }
 
     @Override

@@ -6,11 +6,11 @@ import org.junit.Test
 import solutions.digamma.damas.common.AuthenticationException
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 
-class JcrTransactionManagerTest : WeldTest() {
+class JcrTransactionManagerTest : RepositoryTest() {
 
-    private var folderManager = WeldTest.inject(FolderManager::class.java)
+    private var folderManager = inject(FolderManager::class.java)
 
     @Before
     @Throws(Exception::class)

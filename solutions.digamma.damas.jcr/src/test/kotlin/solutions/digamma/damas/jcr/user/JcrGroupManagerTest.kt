@@ -6,13 +6,13 @@ import org.junit.Test
 import org.junit.Before
 import org.mockito.Mockito
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.search.Filter
 import solutions.digamma.damas.user.Group
 
-class JcrGroupManagerTest: WeldTest() {
+class JcrGroupManagerTest: RepositoryTest() {
 
-    private val manager = WeldTest.inject(JcrGroupManager::class.java)
+    private val manager = inject(JcrGroupManager::class.java)
 
     @Before
     fun setUp() {

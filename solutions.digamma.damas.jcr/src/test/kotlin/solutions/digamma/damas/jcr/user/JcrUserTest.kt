@@ -5,13 +5,12 @@ import org.junit.Test
 
 import org.junit.Before
 import org.mockito.Mockito
-import solutions.digamma.damas.login.Token
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.user.User
 
-class JcrUserTest: WeldTest() {
+class JcrUserTest: RepositoryTest() {
 
-    private val manager = WeldTest.inject(JcrUserManager::class.java)
+    private val manager = inject(JcrUserManager::class.java)
     private lateinit var user: JcrUser
 
     @Before

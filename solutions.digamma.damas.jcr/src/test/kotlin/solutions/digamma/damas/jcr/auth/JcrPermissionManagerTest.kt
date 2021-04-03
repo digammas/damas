@@ -8,19 +8,19 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.login.Token
 import solutions.digamma.damas.user.GroupManager
 import solutions.digamma.damas.user.UserManager
 import java.util.Arrays
 
-class JcrPermissionManagerTest: WeldTest() {
+class JcrPermissionManagerTest: RepositoryTest() {
 
-    private val userManager = WeldTest.inject(UserManager::class.java)
-    private val groupManager = WeldTest.inject(GroupManager::class.java)
-    private val folderManager = WeldTest.inject(FolderManager::class.java)
-    private val documentManager = WeldTest.inject(DocumentManager::class.java)
-    private val manager = WeldTest.inject(JcrPermissionManager::class.java)
+    private val userManager = inject(UserManager::class.java)
+    private val groupManager = inject(GroupManager::class.java)
+    private val folderManager = inject(FolderManager::class.java)
+    private val documentManager = inject(DocumentManager::class.java)
+    private val manager = inject(JcrPermissionManager::class.java)
     private lateinit var username: String
     private lateinit var userToken: Token
     private lateinit var folderId: String

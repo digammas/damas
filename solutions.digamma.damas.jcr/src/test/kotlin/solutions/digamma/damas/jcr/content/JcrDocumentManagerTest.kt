@@ -6,7 +6,7 @@ import org.junit.Test
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
@@ -19,10 +19,10 @@ import java.util.stream.Collectors
  *
  * Created by Ahmad on 9/2/17.
  */
-class JcrDocumentManagerTest : WeldTest() {
+class JcrDocumentManagerTest : RepositoryTest() {
 
-    private var manager = WeldTest.inject(JcrDocumentManager::class.java)
-    private var folderManager = WeldTest.inject(FolderManager::class.java)
+    private var manager = inject(JcrDocumentManager::class.java)
+    private var folderManager = inject(FolderManager::class.java)
 
     @Before
     @Throws(Exception::class)

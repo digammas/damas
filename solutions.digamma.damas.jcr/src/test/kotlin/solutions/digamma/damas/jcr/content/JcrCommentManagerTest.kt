@@ -9,16 +9,16 @@ import solutions.digamma.damas.content.Document
 import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 
 /**
  * Comment manager test suite.
  *
  * Created by Ahmad on 10/8/17.
  */
-class JcrCommentManagerTest : WeldTest() {
+class JcrCommentManagerTest : RepositoryTest() {
 
-    private val manager = WeldTest.inject(JcrCommentManager::class.java)
+    private val manager = inject(JcrCommentManager::class.java)
     private var folder: Folder? = null
     private var document: Document? = null
     private var secondary: Document? = null
@@ -26,8 +26,8 @@ class JcrCommentManagerTest : WeldTest() {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        val fm = WeldTest.inject(JcrFolderManager::class.java)
-        val dm = WeldTest.inject(DocumentManager::class.java)
+        val fm = inject(JcrFolderManager::class.java)
+        val dm = inject(DocumentManager::class.java)
         this.login();
         var parentId = fm.find("/").id
         this.folder = fm.create(Mocks.folder(parentId, "test"))
@@ -39,8 +39,8 @@ class JcrCommentManagerTest : WeldTest() {
     @After
     @Throws(Exception::class)
     fun tearDown() {
-        val fm = WeldTest.inject(JcrFolderManager::class.java)
-        val dm = WeldTest.inject(DocumentManager::class.java)
+        val fm = inject(JcrFolderManager::class.java)
+        val dm = inject(DocumentManager::class.java)
         dm.delete(this.document!!.id)
         dm.delete(this.secondary!!.id)
         fm.delete(this.folder!!.id)

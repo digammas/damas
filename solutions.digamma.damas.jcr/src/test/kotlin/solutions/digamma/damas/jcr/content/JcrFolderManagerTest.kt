@@ -6,7 +6,7 @@ import org.junit.Test
 import org.mockito.Mockito
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.search.Filter
 
 /**
@@ -14,9 +14,9 @@ import solutions.digamma.damas.search.Filter
  *
  * Created by Ahmad on 9/3/17.
  */
-class JcrFolderManagerTest : WeldTest() {
+class JcrFolderManagerTest : RepositoryTest() {
 
-    private var manager = WeldTest.inject(JcrFolderManager::class.java)
+    private var manager = inject(JcrFolderManager::class.java)
 
     @Before
     @Throws(Exception::class)

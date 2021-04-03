@@ -6,15 +6,15 @@ import org.junit.Test
 import org.mockito.Mockito
 import solutions.digamma.damas.common.InvalidArgumentException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 import solutions.digamma.damas.user.Group
 import solutions.digamma.damas.user.GroupManager
 import solutions.digamma.damas.user.User
 import java.util.Arrays
 
-class JcrUserManagerTest: WeldTest() {
+class JcrUserManagerTest: RepositoryTest() {
 
-    private val manager = WeldTest.inject(JcrUserManager::class.java)
+    private val manager = inject(JcrUserManager::class.java)
 
     @Before
     fun setUp() {
@@ -59,7 +59,7 @@ class JcrUserManagerTest: WeldTest() {
     @Test
     fun updateGroups() {
         /* Set up groups */
-        val gm = WeldTest.inject(GroupManager::class.java)
+        val gm = inject(GroupManager::class.java)
         val group = Mockito.mock(Group::class.java)
         val testers = "testers"
         val devops = "devops"

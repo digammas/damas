@@ -5,14 +5,14 @@ import org.junit.Before
 import org.junit.Test
 import solutions.digamma.damas.content.Folder
 import solutions.digamma.damas.jcr.Mocks
-import solutions.digamma.damas.jcr.WeldTest
+import solutions.digamma.damas.jcr.RepositoryTest
 
 /**
  * Test folder object.
  *
  * Created by Ahmad on 9/3/17.
  */
-class JcrFolderTest : WeldTest() {
+class JcrFolderTest : RepositoryTest() {
 
     private var folder: Folder? = null
     private var root: Folder? = null
@@ -20,7 +20,7 @@ class JcrFolderTest : WeldTest() {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        val manager = WeldTest.inject(JcrFolderManager::class.java)
+        val manager = inject(JcrFolderManager::class.java)
         this.login()
         this.root = manager.find("/")
         val parentId = this.root!!.id
@@ -34,7 +34,7 @@ class JcrFolderTest : WeldTest() {
     @After
     @Throws(Exception::class)
     fun tearDown() {
-        val manager = WeldTest.inject(JcrFolderManager::class.java)
+        val manager = inject(JcrFolderManager::class.java)
         manager.delete(this.folder!!.id)
         this.logout()
     }
