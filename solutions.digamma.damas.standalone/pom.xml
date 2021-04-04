@@ -31,14 +31,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-jdk-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
         </dependency>
@@ -51,18 +43,23 @@
             <artifactId>damas.commons</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.rs.doc</artifactId>
-            <scope>runtime</scope>
-            <version>${project.version}</version>
-            <classifier>site</classifier>
-        </dependency>
 
         <!-- Runtime dependencies -->
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.rs</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.rs.jersey</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.rs.doc</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -76,23 +73,6 @@
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr.jackrabbit</artifactId>
             <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Allow injection into Jersey's resources -->
-        <dependency>
-            <groupId>org.glassfish.jersey.ext.cdi</groupId>
-            <artifactId>jersey-weld2-se</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Allow JSON serialization with JSONB -->
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-binding</artifactId>
             <scope>runtime</scope>
         </dependency>
 
@@ -116,6 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies-libs</id>
