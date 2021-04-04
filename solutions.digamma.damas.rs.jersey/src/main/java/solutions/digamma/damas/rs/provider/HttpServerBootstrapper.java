@@ -4,6 +4,8 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -50,41 +52,57 @@ public class HttpServerBootstrapper {
 
     @PostConstruct
     public void init() {
-        /* Only one application is expected to be found */
-        boolean found = this.applications
-                .stream()
-                .sequential()
-                .anyMatch(this::register);
-        if (!found) {
+        Map<String, HttpHandler> handlers;
+        try {
+            /* Collect applications that have path annotation as a path-handler
+             * pairs.
+             */
+            handlers = this.applications
+                    .stream()
+                    .sequential()
+                    .filter(this::accept)
+                    .collect(Collectors.toMap(this::mapping, this::handler));
+        } catch (IllegalStateException e) {
+            this.logger.severe("More than one application share same path.");
+            return;
+        }
+        if (handlers.isEmpty()) {
             this.logger.severe("No Web applications with context path found.");
             return;
         }
-        logger.info("Starting HTTP server.");
+        logger.info("%d HTTP application(s) collected.", handlers.size());
+        try {
+            this.server = HttpServer.create();
+            this.server.bind(new InetSocketAddress(this.port), 0);
+        } catch (IOException e) {
+            this.logger.severe(e,
+                    "Error while binding http server on port %d.", this.port);
+        }
+        /* Add collected handlers to server
+         */
+        handlers.forEach(this.server::createContext);
         this.server.start();
         logger.info("HTTP server started on port %d.", this.port);
     }
 
-    private boolean register(Application application) {
+    private boolean accept(Application application) {
+        return null != application
+                .getClass()
+                .getAnnotation(ApplicationPath.class);
+    }
+
+    private String mapping(Application application) {
         ApplicationPath annotation = application
                 .getClass()
                 .getAnnotation(ApplicationPath.class);
-        if (annotation == null) {
-            return false;
-        }
-        HttpHandler restHandler = RuntimeDelegate.getInstance()
-                .createEndpoint(application, HttpHandler.class);
-        try {
-            this.server = HttpServer
-                    .create(new InetSocketAddress(this.port), 0);
-        } catch (IOException e) {
-            this.logger.severe(e,
-                    "Error while creating http server on port %d.", this.port);
-            return false;
-        }
         String path = annotation.value();
-        String mapping = path.startsWith("/") ? path : "/".concat(path);
-        this.server.createContext(mapping, restHandler);
-        return true;
+        return path.startsWith("/") ? path : "/".concat(path);
+    }
+
+    private HttpHandler handler(Application application) {
+        return RuntimeDelegate
+                .getInstance()
+                .createEndpoint(application, HttpHandler.class);
     }
 
     @PreDestroy
