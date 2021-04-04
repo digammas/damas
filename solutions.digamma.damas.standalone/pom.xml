@@ -74,7 +74,7 @@
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.jcr.modeshape</artifactId>
+            <artifactId>damas.jcr.jackrabbit</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
