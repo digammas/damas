@@ -23,7 +23,8 @@ public abstract class IntegrationTest {
     protected final static String AUTH_HEADER = "Authorization";
     protected final static String AUTH_SCHEME = "bearer";
 
-    protected final static MediaType MEDIA_TYPE = MediaType.APPLICATION_JSON_TYPE;
+    protected final static MediaType MEDIA_TYPE =
+            MediaType.APPLICATION_JSON_TYPE;
 
     protected String token;
     protected String rootId;

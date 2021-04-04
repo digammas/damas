@@ -60,7 +60,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testCreateWithPassword() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String login = "jsmith";
         String password = "P@a55w0rd";
@@ -76,7 +76,7 @@ public class UserTest extends IntegrationTest {
         body.clear();
         body.put("username", login);
         body.put("password", password);
-        Map auth = target
+        Map<?, ?> auth = target
                 .path("login")
                 .request(MEDIA_TYPE)
                 .post(entity(body))
@@ -94,7 +94,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testUpdatePassword() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String login = "jsmith";
         String password = "P@a55w0rd";
@@ -119,7 +119,7 @@ public class UserTest extends IntegrationTest {
         body.clear();
         body.put("username", login);
         body.put("password", password);
-        Map auth = target
+        Map<?, ?> auth = target
                 .path("login")
                 .request(MEDIA_TYPE)
                 .post(entity(body))
@@ -137,7 +137,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testCreateRetrieveDeleteGroup() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "clerks";
         body.put("name", name);
@@ -170,7 +170,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testAddUserToGroup() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body;
         body = new HashMap<>();
         String clerks = "clerks";
@@ -271,7 +271,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testListUser() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String login = "jsmith";
         body.put("login", login);
@@ -291,7 +291,7 @@ public class UserTest extends IntegrationTest {
         BigDecimal one = new BigDecimal(1);
         assert one.equals(answer.get("total")) : "User list total mismatch";
         assert one.equals(answer.get("size")) : "User list size mismatch";
-        Map user = (Map) ((List) answer.get("objects")).get(0);
+        Map<?, ?> user = (Map<?, ?>) ((List<?>) answer.get("objects")).get(0);
         assert login.equals(user.get("login")) : "User list result mismatch";
         assert target
                 .path("users")
@@ -304,7 +304,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testListGroup() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "clerks";
         body.put("name", name);
@@ -324,7 +324,7 @@ public class UserTest extends IntegrationTest {
         BigDecimal one = new BigDecimal(1);
         assert one.equals(answer.get("total")) : "Group list total mismatch";
         assert one.equals(answer.get("size")) : "Group list size mismatch";
-        Map user = (Map) ((List) answer.get("objects")).get(0);
+        Map<?, ?> user = (Map<?, ?>) ((List<?>) answer.get("objects")).get(0);
         assert name.equals(user.get("name")) : "Group list result mismatch";
         assert target
                 .path("groups")
@@ -337,7 +337,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testListGroupByNameHit() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "clerks";
         body.put("name", name);
@@ -358,7 +358,7 @@ public class UserTest extends IntegrationTest {
         BigDecimal one = new BigDecimal(1);
         assert one.equals(answer.get("total")) : "Group list total mismatch";
         assert one.equals(answer.get("size")) : "Group list size mismatch";
-        Map user = (Map) ((List) answer.get("objects")).get(0);
+        Map<?, ?> user = (Map<?, ?>) ((List<?>) answer.get("objects")).get(0);
         assert name.equals(user.get("name")) : "Group list result mismatch";
         assert target
                 .path("groups")
@@ -371,7 +371,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testListGroupByNameMiss() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String name = "clerks";
         body.put("name", name);

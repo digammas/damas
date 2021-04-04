@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
-import solutions.digamma.damas.search.Page;
 import solutions.digamma.damas.session.Transaction;
 import solutions.digamma.damas.session.TransactionManager;
 import solutions.digamma.damas.login.LoginManager;
