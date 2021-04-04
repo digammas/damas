@@ -12,6 +12,8 @@ import javax.decorator.Delegate;
 import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 import javax.jcr.RepositoryFactory;
+import solutions.digamma.damas.config.Configuration;
+import solutions.digamma.damas.config.Fallback;
 
 /**
  * Repository factory decorator that drops repository upon shutdown.
@@ -24,9 +26,14 @@ abstract class TestRepositoryFactory implements RepositoryFactory {
     @Inject
     private RepositoryFactory ignore;
 
+    @Inject
+    @Configuration("repository.home")
+    @Fallback("storage")
+    private String repositoryHome;
+
     @PreDestroy
     public void cleanUp() throws IOException {
-        Files.walk(Paths.get("repository"))
+        Files.walk(Paths.get(this.repositoryHome))
                 .map(Path::toFile)
                 .forEach(File::deleteOnExit);
     }

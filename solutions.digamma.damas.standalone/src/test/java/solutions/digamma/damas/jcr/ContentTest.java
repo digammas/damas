@@ -1,4 +1,4 @@
-package solutions.digamma.damas.jcr.providers;
+package solutions.digamma.damas.jcr;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
