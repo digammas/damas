@@ -15,6 +15,7 @@
         <entry.class>solutions.digamma.damas.standalone.Launcher</entry.class>
         <libs.dir>jars/libs</libs.dir>
         <bins.dir>jars/bins</bins.dir>
+        <exec.mainClass>${entry.class}</exec.mainClass>
     </properties>
 
     <dependencyManagement>
