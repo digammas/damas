@@ -46,7 +46,6 @@
             <artifactId>damas.rs.doc</artifactId>
             <scope>runtime</scope>
             <version>${project.version}</version>
-            <classifier>site</classifier>
         </dependency>
 
         <!-- Runtime dependencies -->
