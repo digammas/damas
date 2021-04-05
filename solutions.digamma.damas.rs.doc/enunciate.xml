@@ -5,11 +5,17 @@
     <api-classes>
         <include pattern="solutions.digamma.damas.rs.**" />
         <include pattern="solutions.digamma.damas.api.**" />
+        <exclude pattern="solutions.digamma.damas.rs.doc"/>
     </api-classes>
 
-    <modules>
-        <jackson collapse-type-hierarchy="true" dateFormat="string"/>
-        <swagger basePath="/rest" />
+    <modules disabledByDefault="true">
+        <!-- provider modules -->
+        <jaxb disabled="false" />
+        <jackson collapse-type-hierarchy="true" dateFormat="string" disabled="false"/>
+        <jaxrs disabled="false" />
+        <!-- non-provider modules -->
+        <docs disabled="false" />
+        <swagger basePath="/rest" disabled="false" />
     </modules>
 
 </enunciate>
