@@ -3,7 +3,6 @@ package solutions.digamma.damas.integration;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -13,7 +12,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
-import solutions.digamma.damas.standalone.Launcher;
 
 public abstract class IntegrationTest {
 
@@ -33,12 +31,6 @@ public abstract class IntegrationTest {
     @Inject
     @Configuration("http.port") @Fallback("8080")
     private Integer port;
-
-    @Inject
-    private Launcher webapp;
-
-    @Inject
-    private Logger logger;
 
     protected String getAuthHeaderValue() {
         assert this.token != null;
