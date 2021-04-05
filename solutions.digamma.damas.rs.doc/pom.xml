@@ -73,14 +73,24 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.9.1</version>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>package-site</id>
+                        <id>copy-resources-docs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>copy-resources</goal>
                         </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/target/site/apidocs</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.outputDirectory}/apidocs</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
