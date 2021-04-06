@@ -41,12 +41,6 @@
             <artifactId>damas.commons</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.rs.doc</artifactId>
-            <scope>runtime</scope>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- Runtime dependencies -->
         <!-- Allow injection into Jersey's resources -->
