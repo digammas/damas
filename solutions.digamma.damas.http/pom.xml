@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>damas.http.se</artifactId>
-    <description>HTTP functionality provided by JDK embedded HTTP server.</description>
+    <artifactId>damas.http</artifactId>
+    <description>Abstract HTTP functionality provider.</description>
 
     <dependencyManagement>
         <dependencies>
@@ -36,11 +36,6 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.commons</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>solutions.digamma</groupId>
-            <artifactId>damas.http</artifactId>
             <version>${project.version}</version>
         </dependency>
 

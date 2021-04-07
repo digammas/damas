@@ -20,6 +20,7 @@
         <module>solutions.digamma.damas.standalone</module>
         <module>solutions.digamma.damas.rs</module>
         <module>solutions.digamma.damas.rs.doc</module>
+        <module>solutions.digamma.damas.http</module>
         <module>solutions.digamma.damas.http.se</module>
         <module>solutions.digamma.damas.http.grizzly</module>
         <module>solutions.digamma.damas.jcr.modeshape</module>

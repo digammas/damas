@@ -1,9 +1,6 @@
 package solutions.digamma.damas.rs.provider;
 
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -13,7 +10,6 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ext.RuntimeDelegate;
@@ -26,12 +22,11 @@ import solutions.digamma.damas.logging.Logbook;
  *
  * @author Ahmad Shahwan
  */
-@Singleton
-public class HttpServerBootstrapper {
+public abstract class HttpServerBootstrapper<T> {
 
     @Inject
     @Configuration({"http.port", "HTTP_PORT"}) @Fallback("8080")
-    private Integer port;
+    protected Integer port;
 
     @Inject
     private Instance<Application> applications;
@@ -39,7 +34,11 @@ public class HttpServerBootstrapper {
     @Inject
     private Logbook logger;
 
-    private HttpServer server;
+    protected Class<T> handlerClass;
+
+    protected HttpServerBootstrapper(Class<T> klass) {
+        this.handlerClass = klass;
+    }
 
     /**
      * Allow eager initialization.
@@ -52,7 +51,7 @@ public class HttpServerBootstrapper {
 
     @PostConstruct
     public void init() {
-        Map<String, HttpHandler> handlers;
+        Map<String, T> handlers;
         try {
             /* Collect applications that have path annotation as a path-handler
              * pairs.
@@ -72,16 +71,20 @@ public class HttpServerBootstrapper {
         }
         logger.info("%d HTTP application(s) collected.", handlers.size());
         try {
-            this.server = HttpServer.create();
-            this.server.bind(new InetSocketAddress(this.port), 0);
+            this.prepareServer();
         } catch (IOException e) {
             this.logger.severe(e,
                     "Error while binding http server on port %d.", this.port);
         }
         /* Add collected handlers to server
          */
-        handlers.forEach(this.server::createContext);
-        this.server.start();
+        handlers.forEach(this::register);
+        try {
+            this.startServer();
+        } catch (IOException e) {
+            this.logger.severe(
+                    e, "Couldn't start HTTP server on port %d.", this.port);
+        }
         logger.info("HTTP server started on port %d.", this.port);
     }
 
@@ -99,17 +102,23 @@ public class HttpServerBootstrapper {
         return path.startsWith("/") ? path : "/".concat(path);
     }
 
-    private HttpHandler handler(Application application) {
+    private T handler(Application application) {
         return RuntimeDelegate
                 .getInstance()
-                .createEndpoint(application, HttpHandler.class);
+                .createEndpoint(application, this.handlerClass);
     }
 
     @PreDestroy
     public void dispose() {
-        if (this.server != null) {
-            logger.info("Shutting down HTTP server.");
-            this.server.stop(0);
-        }
+        logger.info("Shutting down HTTP server.");
+        this.stopServer();
     }
+
+    protected abstract void register(String mapping, T handler);
+
+    protected abstract void prepareServer() throws IOException;
+
+    protected abstract void startServer() throws IOException;
+
+    protected abstract void stopServer();
 }
