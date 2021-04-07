@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>damas.rs.jersey</artifactId>
+    <artifactId>damas.http.se</artifactId>
+    <description>HTTP functionality provided embedded HTTP server, couped with Jersey.</description>
 
     <dependencyManagement>
         <dependencies>

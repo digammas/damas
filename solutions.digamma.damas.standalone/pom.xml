@@ -54,7 +54,7 @@
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.rs.jersey</artifactId>
+            <artifactId>damas.http.se</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
