@@ -10,6 +10,8 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ext.RuntimeDelegate;
@@ -32,6 +34,9 @@ public abstract class HttpServerBootstrapper<T> {
     private Instance<Application> applications;
 
     @Inject
+    private Instance<HttpServlet> httpServlets;
+
+    @Inject
     private Logbook logger;
 
     protected Class<T> handlerClass;
@@ -52,6 +57,7 @@ public abstract class HttpServerBootstrapper<T> {
     @PostConstruct
     public void init() {
         Map<String, T> handlers;
+        Map<String, HttpServlet> servlets;
         try {
             /* Collect applications that have path annotation as a path-handler
              * pairs.
@@ -65,13 +71,22 @@ public abstract class HttpServerBootstrapper<T> {
             this.logger.severe("More than one application share same path.");
             return;
         }
-        if (handlers.isEmpty()) {
-            this.logger.severe("No Web applications with context path found.");
-            return;
-        }
         logger.info("%d HTTP application(s) collected.", handlers.size());
         try {
-            this.prepareServer();
+            /* Collect servlets that have path annotation.
+             */
+            servlets = this.httpServlets
+                    .stream()
+                    .sequential()
+                    .filter(this::accept)
+                    .collect(Collectors.toMap(this::mapping, x -> x));
+        } catch (IllegalStateException e) {
+            this.logger.severe("More than one servlet share same path.");
+            return;
+        }
+        logger.info("%d HTTP servlet(s) collected.", servlets.size());
+        try {
+            this.bindServer();
         } catch (IOException e) {
             this.logger.severe(e,
                     "Error while binding http server on port %d.", this.port);
@@ -79,6 +94,8 @@ public abstract class HttpServerBootstrapper<T> {
         /* Add collected handlers to server
          */
         handlers.forEach(this::register);
+        servlets.forEach(this::register);
+        this.deployServer();
         try {
             this.startServer();
         } catch (IOException e) {
@@ -108,15 +125,34 @@ public abstract class HttpServerBootstrapper<T> {
                 .createEndpoint(application, this.handlerClass);
     }
 
+    protected abstract void register(String mapping, T handler);
+
+    private boolean accept(HttpServlet servlet) {
+        WebServlet annotation = servlet
+                .getClass()
+                .getAnnotation(WebServlet.class);
+        return annotation != null && annotation.value().length != 0;
+    }
+
+    private String mapping(HttpServlet servlet) {
+        WebServlet annotation = servlet
+                .getClass()
+                .getAnnotation(WebServlet.class);
+        String path = annotation.value()[0];
+        return path.startsWith("/") ? path : "/".concat(path);
+    }
+
+    protected abstract void register(String mapping, HttpServlet servlet);
+
     @PreDestroy
     public void dispose() {
         logger.info("Shutting down HTTP server.");
         this.stopServer();
     }
 
-    protected abstract void register(String mapping, T handler);
+    protected abstract void bindServer() throws IOException;
 
-    protected abstract void prepareServer() throws IOException;
+    protected abstract void deployServer();
 
     protected abstract void startServer() throws IOException;
 

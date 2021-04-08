@@ -2,8 +2,10 @@ package solutions.digamma.damas.rs.provider;
 
 import java.io.IOException;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServlet;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.servlet.WebappContext;
 
 /**
  * HTTP Server bootstrapper.
@@ -15,6 +17,7 @@ public class GrizzlyServerBootstrapper
         extends HttpServerBootstrapper<HttpHandler> {
 
     private HttpServer server;
+    private WebappContext context = new WebappContext("Servlet Context");
 
     public GrizzlyServerBootstrapper() {
         super(HttpHandler.class);
@@ -27,8 +30,19 @@ public class GrizzlyServerBootstrapper
     }
 
     @Override
-    protected void prepareServer() {
+    protected void register(String mapping, HttpServlet servlet) {
+        String name = mapping.replace("/", "_");
+        this.context.addServlet(name, servlet).addMapping(mapping);
+    }
+
+    @Override
+    protected void bindServer() {
         this.server = HttpServer.createSimpleServer(null, this.port);
+    }
+
+    @Override
+    protected void deployServer() {
+        this.context.deploy(this.server);
     }
 
     @Override

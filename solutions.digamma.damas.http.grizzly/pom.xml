@@ -12,6 +12,10 @@
     <artifactId>damas.http.grizzly</artifactId>
     <description>HTTP functionality provided by Grizzly HTTP Server.</description>
 
+    <properties>
+        <grizzly.version>2.4.4</grizzly.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -40,6 +44,16 @@
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-http-server</artifactId>
+            <version>${grizzly.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-http-servlet</artifactId>
+            <version>${grizzly.version}</version>
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>

@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import javax.inject.Singleton;
+import javax.servlet.http.HttpServlet;
 
 /**
  * HTTP Server bootstrapper.
@@ -27,9 +28,21 @@ public class EmbeddedHttpServerBootstrapper
     }
 
     @Override
-    protected void prepareServer() throws IOException {
+    protected void register(String mapping, HttpServlet servlet) {
+        /* Servlet is not supported
+         * Do nothing.
+         */
+    }
+
+    @Override
+    protected void bindServer() throws IOException {
         this.server = HttpServer.create();
         this.server.bind(new InetSocketAddress(this.port), 0);
+    }
+
+    @Override
+    protected void deployServer() {
+        /* Nothing to do */
     }
 
     @Override
