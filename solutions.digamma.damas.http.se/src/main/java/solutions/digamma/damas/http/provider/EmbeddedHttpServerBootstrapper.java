@@ -7,6 +7,7 @@ import java.net.InetSocketAddress;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServlet;
 import solutions.digamma.damas.http.HttpServerBootstrapper;
+import solutions.digamma.damas.servlet.ServletHttpHandler;
 
 /**
  * HTTP Server bootstrapper.
@@ -30,9 +31,8 @@ public class EmbeddedHttpServerBootstrapper
 
     @Override
     protected void register(String mapping, HttpServlet servlet) {
-        /* Servlet is not supported
-         * Do nothing.
-         */
+        HttpHandler handler = new ServletHttpHandler(servlet);
+        this.server.createContext(mapping, handler);
     }
 
     @Override
