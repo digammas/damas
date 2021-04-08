@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs.provider;
+package solutions.digamma.damas.http.provider;
 
 import java.io.IOException;
 import javax.inject.Singleton;
@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.WebappContext;
+import solutions.digamma.damas.http.HttpServerBootstrapper;
 
 /**
  * HTTP Server bootstrapper.

@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs.provider;
+package solutions.digamma.damas.http;
 
 import java.io.IOException;
 import java.util.Map;

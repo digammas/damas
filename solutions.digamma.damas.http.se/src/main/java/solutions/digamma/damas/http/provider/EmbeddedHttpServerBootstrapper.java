@@ -1,4 +1,4 @@
-package solutions.digamma.damas.rs.provider;
+package solutions.digamma.damas.http.provider;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServlet;
+import solutions.digamma.damas.http.HttpServerBootstrapper;
 
 /**
  * HTTP Server bootstrapper.
