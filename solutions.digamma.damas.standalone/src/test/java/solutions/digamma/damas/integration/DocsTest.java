@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import solutions.digamma.damas.cdi.ContainerRunner;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
+import solutions.digamma.damas.standalone.Launcher;
 
 @RunWith(ContainerRunner.class)
 public class DocsTest {
@@ -22,6 +23,12 @@ public class DocsTest {
     @Inject
     @Configuration("http.port") @Fallback("8080")
     private Integer port;
+
+    /**
+     * Kick start.
+     */
+    @Inject
+    private Launcher launcher;
 
     @PostConstruct
     public void init() {

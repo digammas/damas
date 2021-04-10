@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
+import solutions.digamma.damas.http.HttpServerBootstrapper;
 import solutions.digamma.damas.logging.Logbook;
 
 /**
@@ -18,6 +19,12 @@ public class Launcher {
 
     @Inject
     private Logbook logger;
+
+    /**
+     * Concurrency injection.
+     */
+    @Inject
+    private HttpServerBootstrapper<?> httpServerBootstrapper;
 
     @PostConstruct
     private void init() {

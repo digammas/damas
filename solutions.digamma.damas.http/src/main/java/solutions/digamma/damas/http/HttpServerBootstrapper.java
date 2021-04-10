@@ -5,9 +5,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -43,15 +40,6 @@ public abstract class HttpServerBootstrapper<T> {
 
     protected HttpServerBootstrapper(Class<T> klass) {
         this.handlerClass = klass;
-    }
-
-    /**
-     * Allow eager initialization.
-     *
-     * @param event         application initialization event
-     */
-    public void onAppInitialization(
-            @Observes @Initialized(ApplicationScoped.class) Object event) {
     }
 
     @PostConstruct

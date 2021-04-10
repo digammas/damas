@@ -12,6 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
+import solutions.digamma.damas.standalone.Launcher;
 
 public abstract class IntegrationTest {
 
@@ -31,6 +32,12 @@ public abstract class IntegrationTest {
     @Inject
     @Configuration("http.port") @Fallback("8080")
     private Integer port;
+
+    /**
+     * Kick start.
+     */
+    @Inject
+    private Launcher launcher;
 
     protected String getAuthHeaderValue() {
         assert this.token != null;
