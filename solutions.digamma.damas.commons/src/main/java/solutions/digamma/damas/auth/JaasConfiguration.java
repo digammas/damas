@@ -3,19 +3,17 @@ package solutions.digamma.damas.auth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.Prioritized;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.Configuration;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * JAAS configuration wrapper that allows adding new reams, or policies, without
@@ -52,6 +50,10 @@ public class JaasConfiguration extends Configuration {
     private final Configuration delegate;
     private final Map<String, List<Configuration>> configs = new HashMap<>();
 
+    @Inject
+    @Realm("")
+    private Instance<Configuration> instances;
+
     /**
      * Public constructor.
      *
@@ -65,12 +67,13 @@ public class JaasConfiguration extends Configuration {
     }
 
     /**
-     * Allow eager initialization of bean.
+     * Constructor that takes the configuration instances in parameters.
      *
-     * @param event         application initialization event
+     * @param instances     injected instances of configuration beans
      */
-    public void onAppInitialization(
-            @Observes @Initialized(ApplicationScoped.class) Object event) {
+    public JaasConfiguration(Instance<Configuration> instances) {
+        this();
+        this.instances = instances;
     }
 
     @Override
@@ -88,12 +91,11 @@ public class JaasConfiguration extends Configuration {
     /**
      * Bind to all beans of type {@link Configuration} qualified with
      * {@link Realm}.
-     *
-     * @param instances     instances of configuration beans
      */
-    @Inject
-    public void setInstances(@Realm("") Instance<Configuration> instances) {
-        instances.stream()
+    @PostConstruct
+    public void init() {
+        this.instances.stream()
+                .sequential()
                 .sorted(Comparator.comparingInt(this::getPriority))
                 .forEachOrdered(this::accept);
     }

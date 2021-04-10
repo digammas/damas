@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.RepositoryFactory;
+import solutions.digamma.damas.auth.JaasConfiguration;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
 import solutions.digamma.damas.logging.Logbook;
@@ -37,6 +38,13 @@ public class ModeShapeRepositoryFactory implements RepositoryFactory {
 
     @Inject
     private Logbook logger;
+
+    /**
+     * Concurrency dependency. This is to make sure that JAAS is correctly
+     * configured before starting the repository.
+     */
+    @Inject
+    private JaasConfiguration jaasConfiguration;
 
     private String jsonFile;
 

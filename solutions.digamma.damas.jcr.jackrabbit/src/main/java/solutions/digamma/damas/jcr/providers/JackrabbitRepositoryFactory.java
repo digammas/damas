@@ -18,6 +18,7 @@ import org.apache.jackrabbit.core.RepositoryContext;
 import org.apache.jackrabbit.core.RepositoryImpl;
 import org.apache.jackrabbit.core.config.ConfigurationException;
 import org.apache.jackrabbit.core.config.RepositoryConfig;
+import solutions.digamma.damas.auth.JaasConfiguration;
 import solutions.digamma.damas.config.Configuration;
 import solutions.digamma.damas.config.Fallback;
 import solutions.digamma.damas.logging.Logbook;
@@ -39,6 +40,13 @@ public class JackrabbitRepositoryFactory implements RepositoryFactory {
     @Configuration("repository.home")
     @Fallback("storage")
     private String repositoryHome;
+
+    /**
+     * Concurrency dependency. This is to make sure that JAAS is correctly
+     * configured before starting the repository.
+     */
+    @Inject
+    private JaasConfiguration jaasConfiguration;
 
     /**
      * Repository context instance.

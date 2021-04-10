@@ -23,7 +23,7 @@ internal open class UserLoginModule : AbstractLoginModule() {
 
     @Throws(LoginException::class)
     override fun doLogin(): Boolean {
-        /* If system sessions not yes set, bypass this login module. */
+        /* If system sessions not yes ready set, bypass this login module. */
         val sys = UserLoginModule.system ?: return false
         this.login ?: throw CredentialNotFoundException("Missing login")
         this.password ?: throw CredentialNotFoundException("Missing password")
