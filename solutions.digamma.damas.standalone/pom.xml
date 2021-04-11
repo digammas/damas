@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>solutions.digamma</groupId>
-            <artifactId>damas.http.se</artifactId>
+            <artifactId>damas.http.grizzly</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -78,6 +78,12 @@
         <dependency>
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.jcr.jackrabbit</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.dav.jackrabbit</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>

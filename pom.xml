@@ -25,6 +25,7 @@
         <module>solutions.digamma.damas.http.grizzly</module>
         <module>solutions.digamma.damas.jcr.modeshape</module>
         <module>solutions.digamma.damas.jcr.jackrabbit</module>
+        <module>solutions.digamma.damas.dav.jackrabbit</module>
         <module>solutions.digamma.damas.web</module>
         <module>solutions.digamma.damas.test</module>
         <module>solutions.digamma.damas.bom</module>

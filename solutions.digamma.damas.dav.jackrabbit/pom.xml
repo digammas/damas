@@ -9,8 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>damas.jcr.jackrabbit</artifactId>
-    <description>DMS engine implementation using Jackrabbit.</description>
+    <artifactId>damas.dav.jackrabbit</artifactId>
+    <description>WebDAV implementation using Jackrabbit.</description>
+
+    <properties>
+        <jackrabbit.version>2.21.5</jackrabbit.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -27,15 +31,14 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.jackrabbit</groupId>
-            <artifactId>jackrabbit-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.12.1.1</version>
-            <scope>runtime</scope>
+            <artifactId>jackrabbit-jcr-server</artifactId>
+            <version>${jackrabbit.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.jcr</groupId>
             <artifactId>jcr</artifactId>
@@ -50,6 +53,32 @@
             <groupId>solutions.digamma</groupId>
             <artifactId>damas.commons</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.http.grizzly</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.jcr</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>solutions.digamma</groupId>
+            <artifactId>damas.jcr.jackrabbit</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
