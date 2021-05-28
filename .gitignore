@@ -29,3 +29,6 @@ target/
 
 # Maven flattened POM files
 .flattened-pom.xml
+
+# data directory
+storage/
