@@ -5,7 +5,7 @@ class AuthService {
 
     async authenticate(username, password) {
         try {
-            let response = await http.post("/login", {username, password})
+            let response = await http.post("/auth", {username, password})
             let token = response.data.secret
             await store.dispatch("auth/update", {username, token})
             return token

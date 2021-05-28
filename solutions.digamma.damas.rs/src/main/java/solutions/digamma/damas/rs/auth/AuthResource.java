@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  * @label Authentication
  * @author Ahmad Shahwan
  */
-@Path("login")
+@Path("auth")
 public class AuthResource extends BaseResource {
 
     @Inject

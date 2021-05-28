@@ -31,7 +31,7 @@ public class ContentTest extends IntegrationTest {
         login.put("username", "villain");
         login.put("password", "bad");
         int status = target
-                .path("login")
+                .path("auth")
                 .request(MEDIA_TYPE)
                 .post(entity(login))
                 .getStatus();

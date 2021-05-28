@@ -77,7 +77,7 @@ public class UserTest extends IntegrationTest {
         body.put("username", login);
         body.put("password", password);
         Map<?, ?> auth = target
-                .path("login")
+                .path("auth")
                 .request(MEDIA_TYPE)
                 .post(entity(body))
                 .readEntity(HashMap.class);
@@ -120,7 +120,7 @@ public class UserTest extends IntegrationTest {
         body.put("username", login);
         body.put("password", password);
         Map<?, ?> auth = target
-                .path("login")
+                .path("auth")
                 .request(MEDIA_TYPE)
                 .post(entity(body))
                 .readEntity(HashMap.class);

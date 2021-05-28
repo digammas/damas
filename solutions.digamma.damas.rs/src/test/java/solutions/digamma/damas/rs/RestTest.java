@@ -77,7 +77,7 @@ public class RestTest extends JerseyTest {
     @Test
     public void testAuth() {
         Credentials cred = new Credentials("admin", "admin");
-        Token auth = target("login").request().post(
+        Token auth = target("auth").request().post(
                 Entity.entity(cred, this.ct),
                 AuthenticationToken.class);
         String token = auth.getSecret();

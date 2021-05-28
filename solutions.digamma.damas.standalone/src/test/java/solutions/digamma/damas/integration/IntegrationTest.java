@@ -64,7 +64,7 @@ public abstract class IntegrationTest {
             login.put("username", USERNAME);
             login.put("password", PASSWORD);
             Map<?, ?> auth = target
-                    .path("login")
+                    .path("auth")
                     .request(MEDIA_TYPE)
                     .post(entity(login))
                     .readEntity(HashMap.class);
@@ -90,7 +90,7 @@ public abstract class IntegrationTest {
             return;
         }
         int status = target
-                .path("login")
+                .path("auth")
                 .request()
                 .header(AUTH_HEADER, this.getAuthHeaderValue())
                 .delete()
