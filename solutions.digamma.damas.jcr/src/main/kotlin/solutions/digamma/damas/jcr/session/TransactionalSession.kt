@@ -31,17 +31,11 @@ internal constructor(private val session: Session) {
      * @throws WorkspaceException When thread is interrupted.
      */
     @Throws(WorkspaceException::class)
-    fun acquire(): TransactionalSession {
-        return try {
-            if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) {
-                this
-            } else {
-                throw SessionInUseException()
-            }
-        } catch (e: InterruptedException) {
-            throw WorkspaceException(e)
-        }
-
+    fun acquire(): TransactionalSession = try {
+        if (this.lock.tryLock(TIMEOUT, TimeUnit.SECONDS)) this
+        else throw SessionInUseException()
+    } catch (e: InterruptedException) {
+        throw WorkspaceException(e)
     }
 
     @Synchronized fun release() {
@@ -79,12 +73,8 @@ internal constructor(private val session: Session) {
 
     @Throws(WorkspaceException::class)
     private fun checkUsability() {
-        if (!this.lock.isLocked) {
-            throw SessionNotOpenException()
-        }
-        if (!this.lock.isHeldByCurrentThread) {
-            throw SessionOpenAndInUseException()
-        }
+        this.lock.isLocked || throw SessionNotOpenException()
+        this.lock.isHeldByCurrentThread || throw SessionOpenAndInUseException()
     }
 
     companion object {
