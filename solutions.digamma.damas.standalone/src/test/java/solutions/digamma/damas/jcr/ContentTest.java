@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.common.NotFoundException;
-import solutions.digamma.damas.session.Transaction;
-import solutions.digamma.damas.session.TransactionManager;
+import solutions.digamma.damas.session.Connection;
+import solutions.digamma.damas.session.ConnectionManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.cdi.ContainerRunner;
@@ -29,7 +29,7 @@ public class ContentTest {
     private LoginManager loginMgr;
 
     @Inject
-    private TransactionManager transactionMgr;
+    private ConnectionManager transactionMgr;
 
     @Inject
     private DocumentManager documentMgr;
@@ -53,8 +53,8 @@ public class ContentTest {
     public void testContent() throws WorkspaceException {
         Token adminToken = loginMgr.login("admin", "admin");
         assert adminToken != null;
-        try (Transaction transaction = transactionMgr.begin(adminToken)) {
-            assert transaction != null;
+        try (Connection connection = transactionMgr.connect(adminToken)) {
+            assert connection != null;
             Folder rootFolder = this.folderMgr.find("/");
             final String testFileName = "test.txt";
             Document doc;

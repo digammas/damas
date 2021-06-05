@@ -2,11 +2,11 @@ package solutions.digamma.damas.jcr.session
 
 import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
-import solutions.digamma.damas.session.Transaction
+import solutions.digamma.damas.session.Connection
 import java.util.EmptyStackException
 import java.util.Stack
 
-internal class JcrTransaction : Transaction {
+internal class JcrConnection : Connection {
 
     val session: TransactionalSession
     var closed = false
@@ -15,7 +15,7 @@ internal class JcrTransaction : Transaction {
     constructor(session: TransactionalSession) {
         this.session = session
         this.session.acquire()
-        JcrTransaction.SESSION.get().push(this.session)
+        JcrConnection.SESSION.get().push(this.session)
     }
 
     @Throws(WorkspaceException::class)
@@ -35,7 +35,7 @@ internal class JcrTransaction : Transaction {
                 throw AlreadyClosedException()
             }
             this.closed = true
-            JcrTransaction.SESSION.get().pop()
+            JcrConnection.SESSION.get().pop()
             this.session.commit()
             this.session.release()
         }
