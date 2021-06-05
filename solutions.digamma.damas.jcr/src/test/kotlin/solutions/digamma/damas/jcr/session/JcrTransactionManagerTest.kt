@@ -25,7 +25,7 @@ class JcrTransactionManagerTest : RepositoryTest() {
     @Test
     fun beginAuthorised() {
         val token = this.login.login("admin", "admin")
-        authenticator.begin(token).use {
+        authenticator.connect(token).use {
             val rootId = this.folderManager.find("/").id
             val folder = folderManager.create(Mocks.folder(rootId, "test"))
             assert(rootId == folder.parentId) { "Folder ID mismatch" }
@@ -46,7 +46,7 @@ class JcrTransactionManagerTest : RepositoryTest() {
     @Test
     fun beginUnauthorisedAfter() {
         val token = this.login.login("admin", "admin")
-        authenticator.begin(token).use {
+        authenticator.connect(token).use {
             this.folderManager.find("/").id
         }
         try {

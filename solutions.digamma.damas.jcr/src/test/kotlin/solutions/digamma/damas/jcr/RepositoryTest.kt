@@ -5,8 +5,8 @@ import org.junit.Before
 import solutions.digamma.damas.cdi.ContainerTest
 import solutions.digamma.damas.login.LoginManager
 import solutions.digamma.damas.login.Token
-import solutions.digamma.damas.session.Transaction
-import solutions.digamma.damas.session.TransactionManager
+import solutions.digamma.damas.session.Connection
+import solutions.digamma.damas.session.ConnectionManager
 
 /**
  * @author Ahmad Shahwan
@@ -14,17 +14,17 @@ import solutions.digamma.damas.session.TransactionManager
 open class RepositoryTest : ContainerTest() {
 
     protected lateinit var login: LoginManager
-    protected lateinit var authenticator: TransactionManager
+    protected lateinit var authenticator: ConnectionManager
 
     private var token: Token? = null
-    private var transaction: Transaction? = null
+    private var connection: Connection? = null
 
 
     @Before
     @Throws(Exception::class)
     fun setUpWeld() {
         this.login = inject(LoginManager::class.java)
-        this.authenticator = inject(TransactionManager::class.java)
+        this.authenticator = inject(ConnectionManager::class.java)
     }
 
     @After
@@ -34,15 +34,15 @@ open class RepositoryTest : ContainerTest() {
 
     protected fun login() {
         this.token = this.login.login("admin", "admin")
-        this.transaction = authenticator.begin(this.token)
+        this.connection = authenticator.connect(this.token)
     }
 
     protected fun logout() {
         this.token?.let { this.login.logout(it) }
-        this.transaction?.close()
+        this.connection?.close()
     }
 
     protected fun commit() {
-        this.transaction?.commit()
+        this.connection?.commit()
     }
 }

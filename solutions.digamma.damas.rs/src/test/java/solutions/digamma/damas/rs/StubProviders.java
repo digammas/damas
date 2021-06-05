@@ -7,8 +7,8 @@ import solutions.digamma.damas.content.DocumentManager;
 import solutions.digamma.damas.content.FolderManager;
 import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.Entity;
-import solutions.digamma.damas.session.Transaction;
-import solutions.digamma.damas.session.TransactionManager;
+import solutions.digamma.damas.session.Connection;
+import solutions.digamma.damas.session.ConnectionManager;
 import solutions.digamma.damas.login.LoginManager;
 import solutions.digamma.damas.login.Token;
 import solutions.digamma.damas.rs.content.CommentSerialization;
@@ -67,13 +67,13 @@ public class StubProviders {
     }
 
     @Produces @Singleton
-    public TransactionManager getAuthenticationManager()
+    public ConnectionManager getAuthenticationManager()
             throws WorkspaceException {
         this.log.info("Acquiring mock authentication manager.");
-        TransactionManager manager = Mockito.mock(TransactionManager.class);
-        Transaction transaction = Mockito.mock(Transaction.class);
-        Mockito.when(manager.begin(Mockito.any()))
-                .thenReturn(transaction);
+        ConnectionManager manager = Mockito.mock(ConnectionManager.class);
+        Connection connection = Mockito.mock(Connection.class);
+        Mockito.when(manager.connect(Mockito.any()))
+                .thenReturn(connection);
         return manager;
     }
 

@@ -2,7 +2,7 @@ package solutions.digamma.damas.jcr.model
 
 import solutions.digamma.damas.common.AuthenticationException
 import solutions.digamma.damas.common.NotFoundException
-import solutions.digamma.damas.jcr.session.JcrTransaction
+import solutions.digamma.damas.jcr.session.JcrConnection
 import solutions.digamma.damas.jcr.session.JcrSessionConsumer
 import solutions.digamma.damas.logging.Logged
 import java.util.logging.Logger
@@ -23,7 +23,7 @@ internal abstract class JcrManager : JcrSessionConsumer {
     @Logged
     @Throws(AuthenticationException::class)
     get() = try {
-        JcrTransaction.get().getSession()
+        JcrConnection.get().getSession()
     } catch (e: NotFoundException) {
         throw AuthenticationException(e)
     }

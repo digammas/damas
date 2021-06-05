@@ -1,8 +1,8 @@
 package solutions.digamma.damas.rs.common;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.session.Transaction;
-import solutions.digamma.damas.session.TransactionManager;
+import solutions.digamma.damas.session.Connection;
+import solutions.digamma.damas.session.ConnectionManager;
 import solutions.digamma.damas.login.Token;
 
 import javax.inject.Inject;
@@ -15,10 +15,10 @@ import javax.interceptor.InvocationContext;
 public class AuthenticationInterceptor {
 
     @Inject
-    private TransactionManager manager;
+    private ConnectionManager manager;
 
-    private Transaction begin(Token token) throws WorkspaceException {
-        return this.manager.begin(token);
+    private Connection begin(Token token) throws WorkspaceException {
+        return this.manager.connect(token);
     }
 
     @AroundInvoke
@@ -29,15 +29,15 @@ public class AuthenticationInterceptor {
         }
         BaseResource resource = (BaseResource) context.getTarget();
         /* Code should be compilable with Java 8 for Enunciate compatibility */
-        Transaction shadowTransaction = null;
-        try (Transaction transaction = begin(resource.getToken())) {
-            shadowTransaction = transaction;
+        Connection shadowConnection = null;
+        try (Connection connection = begin(resource.getToken())) {
+            shadowConnection = connection;
             Object returned = context.proceed();
-            transaction.commit();
+            connection.commit();
             return returned;
         } catch (Throwable e) {
-            if (shadowTransaction !=  null) {
-                shadowTransaction.rollback();
+            if (shadowConnection !=  null) {
+                shadowConnection.rollback();
             }
             throw e;
         }

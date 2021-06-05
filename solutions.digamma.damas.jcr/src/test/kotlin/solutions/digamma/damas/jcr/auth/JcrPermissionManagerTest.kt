@@ -175,7 +175,7 @@ class JcrPermissionManagerTest: RepositoryTest() {
     }
 
     private fun <R> use(token: Token, block: () -> R): R? {
-        this.authenticator.begin(token).use {
+        this.authenticator.connect(token).use {
             try {
                 return block()
             } catch (_: WorkspaceException) {
