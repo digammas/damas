@@ -6,14 +6,13 @@ import solutions.digamma.damas.session.Connection
 import java.util.EmptyStackException
 import java.util.Stack
 
-internal class JcrConnection : Connection {
-
+internal class JcrConnection @Throws(WorkspaceException::class) constructor(
     val session: TransactionalSession
+) : Connection {
+
     var closed = false
 
-    @Throws(WorkspaceException::class)
-    constructor(session: TransactionalSession) {
-        this.session = session
+    init {
         this.session.acquire()
         JcrConnection.SESSION.get().push(this.session)
     }
