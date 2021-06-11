@@ -24,7 +24,7 @@ public class UserTest extends IntegrationTest {
 
     @Test
     public void testCreateRetrieveDeleteUser() {
-        Map answer;
+        Map<?, ?> answer;
         Map<String, Object> body = new HashMap<>();
         String firstName = "Jonh";
         String lastName = "Smith";
