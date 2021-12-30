@@ -1,6 +1,6 @@
 package solutions.digamma.damas.rs.common;
 
-import solutions.digamma.damas.login.Token;
+import solutions.digamma.damas.session.Token;
 
 import javax.ws.rs.HeaderParam;
 

@@ -9,7 +9,7 @@ import solutions.digamma.damas.content.DocumentManager
 import solutions.digamma.damas.content.FolderManager
 import solutions.digamma.damas.jcr.Mocks
 import solutions.digamma.damas.jcr.RepositoryTest
-import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.session.Token
 import solutions.digamma.damas.user.GroupManager
 import solutions.digamma.damas.user.UserManager
 import java.util.Arrays

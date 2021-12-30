@@ -1,5 +1,6 @@
 package solutions.digamma.damas.rs;
 
+import java.util.Date;
 import org.mockito.Mockito;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.content.CommentManager;
@@ -9,14 +10,14 @@ import solutions.digamma.damas.entity.CrudManager;
 import solutions.digamma.damas.entity.Entity;
 import solutions.digamma.damas.session.Connection;
 import solutions.digamma.damas.session.ConnectionManager;
-import solutions.digamma.damas.login.LoginManager;
-import solutions.digamma.damas.login.Token;
+import solutions.digamma.damas.session.LoginManager;
 import solutions.digamma.damas.rs.content.CommentSerialization;
 import solutions.digamma.damas.rs.content.DocumentSerialization;
 import solutions.digamma.damas.rs.content.FolderSerialization;
 import solutions.digamma.damas.rs.content.MetadataSerialization;
 import solutions.digamma.damas.rs.user.GroupSerialization;
 import solutions.digamma.damas.rs.user.UserSerialization;
+import solutions.digamma.damas.session.UserToken;
 import solutions.digamma.damas.user.GroupManager;
 import solutions.digamma.damas.user.UserManager;
 
@@ -116,11 +117,26 @@ public class StubProviders {
         return manager;
     }
 
-    public static class MockToken implements Token {
+    public static class MockToken implements UserToken {
 
         @Override
         public String getSecret() {
             return TOKEN;
+        }
+
+        @Override
+        public String getUserLogin() {
+            return null;
+        }
+
+        @Override
+        public Date getCreationDate() {
+            return null;
+        }
+
+        @Override
+        public Date getExpirationDate() {
+            return null;
         }
     }
 }

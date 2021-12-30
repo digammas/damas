@@ -1,7 +1,7 @@
 package solutions.digamma.damas.jcr.session
 
 import solutions.digamma.damas.common.CompatibilityException
-import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.session.Token
 import solutions.digamma.damas.common.ConflictException
 import solutions.digamma.damas.common.NotFoundException
 
@@ -75,10 +75,7 @@ internal class SessionBookkeeper {
      * @throws NotFoundException
      */
     @Throws(NotFoundException::class)
-    fun lookup(token: Token?): TransactionalSession {
-        if (token == null) {
-            throw TokenIsNullException()
-        }
+    fun lookup(token: Token): TransactionalSession {
         val session = this.sessions[token.secret]
         if (session == null) {
             this.logger.info { "Token not found ${token.secret}." }
@@ -88,10 +85,7 @@ internal class SessionBookkeeper {
     }
 }
 
-class IncompatibleTokenException :
-        CompatibilityException("Incompatible token.")
 class TokenAlreadyExistsException :
         ConflictException("Token already exists.")
 class NoSessionForTokenException :
         NotFoundException("No session for the given token.")
-class TokenIsNullException : NotFoundException("Token is null.")

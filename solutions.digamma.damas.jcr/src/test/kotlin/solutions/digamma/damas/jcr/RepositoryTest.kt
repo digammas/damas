@@ -3,8 +3,8 @@ package solutions.digamma.damas.jcr
 import org.junit.After
 import org.junit.Before
 import solutions.digamma.damas.cdi.ContainerTest
-import solutions.digamma.damas.login.LoginManager
-import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.session.LoginManager
+import solutions.digamma.damas.session.Token
 import solutions.digamma.damas.session.Connection
 import solutions.digamma.damas.session.ConnectionManager
 

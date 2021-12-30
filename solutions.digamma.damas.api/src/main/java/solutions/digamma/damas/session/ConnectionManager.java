@@ -1,7 +1,6 @@
 package solutions.digamma.damas.session;
 
 import solutions.digamma.damas.common.WorkspaceException;
-import solutions.digamma.damas.login.Token;
 
 /**
  * Connection manager.

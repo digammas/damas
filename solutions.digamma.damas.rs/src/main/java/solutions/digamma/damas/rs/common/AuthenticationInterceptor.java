@@ -3,7 +3,7 @@ package solutions.digamma.damas.rs.common;
 import solutions.digamma.damas.common.WorkspaceException;
 import solutions.digamma.damas.session.Connection;
 import solutions.digamma.damas.session.ConnectionManager;
-import solutions.digamma.damas.login.Token;
+import solutions.digamma.damas.session.Token;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
@@ -37,7 +37,11 @@ public class AuthenticationInterceptor {
             return returned;
         } catch (Throwable e) {
             if (shadowConnection !=  null) {
-                shadowConnection.rollback();
+                try {
+                    shadowConnection.rollback();
+                } catch (Exception ignore) {
+                    /* Exception when session not yet open, ignore it */
+                }
             }
             throw e;
         }

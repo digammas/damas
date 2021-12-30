@@ -39,6 +39,13 @@ class JcrLoginManagerTest : RepositoryTest() {
     }
 
     @Test
+    fun testIdentify() {
+        val token = this.manager.login(this.username, this.password)
+        val session = this.manager.identify(token)
+        assert(session.userLogin == this.username)
+    }
+
+    @Test
     fun testLogout() {
         val token = this.manager.login(this.username, this.password)
         this.manager.logout(token)

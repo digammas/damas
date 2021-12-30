@@ -4,6 +4,8 @@ import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.common.InternalStateException
 import solutions.digamma.damas.common.ResourceBusyException
 import solutions.digamma.damas.jcr.common.Exceptions
+import solutions.digamma.damas.session.UserSession
+import java.util.Date
 
 import javax.jcr.Session
 import java.util.concurrent.TimeUnit
@@ -15,9 +17,13 @@ import java.util.concurrent.locks.ReentrantLock
  * @param session JCR session.
  * @author Ahmad Shahwan
  */
-internal class TransactionalSession
-internal constructor(private val session: Session) {
+internal class TransactionalSession(
+    @Transient
+    private val session: Session,
+    private val login: String = session.userID,
+) : UserSession {
 
+    private val creation: Date = Date()
     private val lock = ReentrantLock()
 
     /**
@@ -76,6 +82,12 @@ internal constructor(private val session: Session) {
         this.lock.isLocked || throw SessionNotOpenException()
         this.lock.isHeldByCurrentThread || throw SessionOpenAndInUseException()
     }
+
+    override fun getUserLogin(): String = this.login
+
+    override fun getCreationDate(): Date = this.creation
+
+    override fun getExpirationDate(): Date = Date(Long.MAX_VALUE)
 
     companion object {
 

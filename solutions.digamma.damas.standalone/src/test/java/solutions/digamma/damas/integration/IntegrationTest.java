@@ -40,8 +40,12 @@ public abstract class IntegrationTest {
     private Launcher launcher;
 
     protected String getAuthHeaderValue() {
-        assert this.token != null;
-        return String.format("%s %s", AUTH_SCHEME, this.token);
+        return this.getAuthHeaderValue(this.token);
+    }
+
+    protected String getAuthHeaderValue(String token) {
+        assert token != null;
+        return String.format("%s %s", AUTH_SCHEME, token);
     }
 
     @PostConstruct

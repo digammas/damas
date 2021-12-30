@@ -10,6 +10,7 @@ import solutions.digamma.damas.jcr.user.JcrUser
 import java.security.Principal
 import java.util.Arrays
 import javax.jcr.PathNotFoundException
+import javax.jcr.SimpleCredentials
 import javax.security.auth.login.AccountLockedException
 import javax.security.auth.login.AccountNotFoundException
 import javax.security.auth.login.CredentialNotFoundException
@@ -46,6 +47,7 @@ internal open class UserLoginModule : AbstractLoginModule() {
                     throw FailedLoginException("Invalid password")
             this.roles.addAll(user.memberships.map { Principal { it } })
             this.roles.add(SystemRole.READWRITE)
+            this.credentials.add(SimpleCredentials(this.login, CharArray(0)))
             return true
         } catch (e: WorkspaceException) {
             throw LoginException("Authentication error")
