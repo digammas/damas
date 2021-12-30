@@ -1,7 +1,7 @@
-package solutions.digamma.damas.login;
+package solutions.digamma.damas.session;
 
 /**
- * User session token.
+ * User token holding session secret.
  *
  * @author Ahmad Shahwan
  */

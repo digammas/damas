@@ -1,5 +1,7 @@
 package solutions.digamma.damas.auth;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
@@ -24,6 +26,7 @@ public abstract class AbstractLoginModule implements LoginModule {
     protected String login;
     protected char[] password;
     protected List<Principal> roles;
+    protected Set<Object> credentials;
     private Subject subject;
     private boolean success;
 
@@ -44,6 +47,7 @@ public abstract class AbstractLoginModule implements LoginModule {
         this.sharedState = sharedState;
         this.extractCredentials();
         this.roles = new ArrayList<>();
+        this.credentials = new HashSet<>();
     }
 
     @Override
@@ -59,6 +63,7 @@ public abstract class AbstractLoginModule implements LoginModule {
         Principal principal = () -> this.login;
         this.subject.getPrincipals().add(principal);
         this.subject.getPrincipals().addAll(this.roles);
+        this.subject.getPublicCredentials().addAll(this.credentials);
         return true;
     }
 

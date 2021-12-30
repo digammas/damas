@@ -5,7 +5,7 @@ import solutions.digamma.damas.common.NotFoundException
 import solutions.digamma.damas.common.WorkspaceException
 import solutions.digamma.damas.session.Connection
 import solutions.digamma.damas.session.ConnectionManager
-import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.session.Token
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,7 +16,7 @@ internal open class JcrConnectionManager : ConnectionManager {
     private lateinit var bookkeepr: SessionBookkeeper
 
     @Throws(WorkspaceException::class)
-    override fun connect(token: Token?): Connection {
+    override fun connect(token: Token): Connection {
         try {
             return JcrConnection(this.bookkeepr.lookup(token))
         } catch (e: NotFoundException) {

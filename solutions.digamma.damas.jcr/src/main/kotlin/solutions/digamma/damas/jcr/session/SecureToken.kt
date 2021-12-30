@@ -1,24 +1,29 @@
 package solutions.digamma.damas.jcr.session
 
-import solutions.digamma.damas.login.Token
+import solutions.digamma.damas.session.UserToken
 
 import java.math.BigInteger
 import java.security.SecureRandom
+import java.util.Date
 
 /**
  * Statistically secure token.
  *
  * @author Ahmad Shahwan
  */
-internal class SecureToken : Token {
+internal class SecureToken(
+    private val login: String,
+) : UserToken {
 
     private val token: String
+    private val creation: Date
 
     /**
      * Constructor.
      */
     init {
         this.token = SecureToken.nextToken()
+        this.creation = Date()
     }
 
     override fun getSecret() = this.token
@@ -30,7 +35,9 @@ internal class SecureToken : Token {
      * @return equality
      */
     override fun equals(other: Any?): Boolean =
-        other is Token && this.secret == other.secret
+        other is UserToken &&
+                this.secret == other.secret &&
+                this.userLogin == other.userLogin
 
     override fun hashCode(): Int {
         return this.secret.hashCode()
@@ -44,4 +51,10 @@ internal class SecureToken : Token {
             return BigInteger(132, RANDOM).toString(64)
         }
     }
+
+    override fun getUserLogin() = this.login
+
+    override fun getCreationDate() = this.creation
+
+    override fun getExpirationDate() = Date(Long.MAX_VALUE)
 }
